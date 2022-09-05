@@ -1,0 +1,18 @@
+alphabet_in:
+- DONE
+- NO_MAJORITY
+default_start_state: ObservationRound
+final_states:
+- FinishedDataCollectionRound
+label: packages.balancer.skills.fear_and_greed_oracle_abci.rounds.FearAndGreedOracleAbciApp
+start_states:
+- ObservationRound
+states:
+- ObservationRound
+- EstimationRound
+- FinishedDataCollectionRound
+transition_func:
+    (ObservationRound, DONE): EstimationRound
+    (ObservationRound, NO_MAJORITY): ObservationRound
+    (EstimationRound, DONE): FinishedDataCollectionRound
+    (EstimationRound, NO_MAJORITY): ObservationRound
