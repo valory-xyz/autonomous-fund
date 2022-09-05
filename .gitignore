@@ -1,3 +1,4 @@
+.idea
 .mypy_cache
 .DS_Store
 .pytest_cache
