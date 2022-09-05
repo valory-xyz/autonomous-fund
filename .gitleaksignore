@@ -1,0 +1,14 @@
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/connections/abci/connection.yaml:generic-api-key:18
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/connections/abci/connection.yaml:generic-api-key:29
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/connections/p2p_libp2p_client/connection.yaml:generic-api-key:24
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/connections/p2p_libp2p_client/connection.yaml:generic-api-key:26
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/connections/p2p_libp2p_client/connection.yaml:generic-api-key:34
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/connections/p2p_libp2p_client/connection.yaml:generic-api-key:41
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/protocols/contract_api/protocol.yaml:generic-api-key:12
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/protocols/contract_api/protocol.yaml:generic-api-key:13
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/protocols/ledger_api/protocol.yaml:generic-api-key:14
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/protocols/ledger_api/protocol.yaml:generic-api-key:15
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/registration_abci/skill.yaml:generic-api-key:75
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/reset_pause_abci/skill.yaml:generic-api-key:64
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/safe_deployment_abci/skill.yaml:generic-api-key:72
+e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/transaction_settlement_abci/skill.yaml:generic-api-key:77
