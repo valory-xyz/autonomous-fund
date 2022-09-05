@@ -1,0 +1,20 @@
+name: gnosis_safe
+author: valory
+version: 0.1.0
+type: contract
+description: Gnosis Safe (GnosisSafeL2) contract
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint:
+  README.md: bafybeig26vrs7tcobu4cgk3fpqhvlzjwmb4nqsc7u66n4yhd2dh2rt7ff4
+  __init__.py: bafybeidg4jffl5hqsdlobyecgngaqsipjaf5ugoxkcsvepyq4qpbpmqfmm
+  build/GnosisSafe_V1_3_0.json: bafybeifxc4pnyus43qfrvxrqunlmkzvwfr5chyjesyobbk5m4smb2hkd4y
+  contract.py: bafybeifg32jyxzqmxzrchsp6fsatw4tpnffe4duylfnwfcq5v72s2ewh4m
+fingerprint_ignore_patterns: []
+contracts:
+- valory/gnosis_safe_proxy_factory:0.1.0:bafybeiffdg3dpuynvbw7vusdiuuqkgl4gxok6ezlgv3senji2ybnl6m2iy
+class_name: GnosisSafeContract
+contract_interface_paths:
+  ethereum: build/GnosisSafe_V1_3_0.json
+dependencies:
+  py-eth-sig-utils: {}
