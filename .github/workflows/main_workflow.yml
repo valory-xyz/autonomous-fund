@@ -186,10 +186,8 @@ jobs:
           # pull node image needed for the integration tests
           docker pull node:16.7.0
           docker pull trufflesuite/ganache:beta
-          # build hardhat node in third_party/safe-contracts
-          cd third_party/safe-contracts &&\
-            sudo chown -R $(whoami) .husky &&\
-            yarn
+          # TODO: build autonomous-fund contracts here
+
       - name: Unit tests
         run: |
           tox -e py${{ matrix.python-version }} -- -m 'not e2e'
