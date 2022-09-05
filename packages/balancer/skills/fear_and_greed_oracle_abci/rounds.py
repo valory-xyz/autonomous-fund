@@ -22,7 +22,10 @@
 from enum import Enum
 from typing import List, Optional, Set, Tuple
 
-from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import ObservationRoundPayload, EstimationRoundPayload
+from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
+    EstimationRoundPayload,
+    ObservationRoundPayload,
+)
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
@@ -30,9 +33,9 @@ from packages.valory.skills.abstract_round_abci.base import (
     AppState,
     BaseSynchronizedData,
     BaseTxPayload,
+    CollectSameUntilThresholdRound,
     DegenerateRound,
     EventToTimeout,
-    TransactionType, CollectSameUntilThresholdRound
 )
 
 
@@ -55,7 +58,7 @@ class ObservationRound(AbstractRound):
     """A round that in which the data processing logic is done."""
 
     round_id: str = "observation_round"
-    allowed_tx_type: Optional[TransactionType] = ObservationRoundPayload
+    allowed_tx_type = ObservationRoundPayload.transaction_type
     payload_attribute: str = "observation_data"
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
@@ -75,7 +78,7 @@ class EstimationRound(CollectSameUntilThresholdRound):
     """A round that in which the data processing logic is done."""
 
     round_id: str = "estimation_round"
-    allowed_tx_type: Optional[TransactionType] = EstimationRoundPayload
+    allowed_tx_type = EstimationRoundPayload.transaction_type
     payload_attribute: str = "estimation_data"
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
@@ -102,7 +105,17 @@ class FearAndGreedOracleAbciApp(AbciApp[Event]):
 
     initial_round_cls: AppState = ObservationRound
     initial_states: Set[AppState] = {ObservationRound}
-    transition_function: AbciAppTransitionFunction = {ObservationRound: {Event.DONE: EstimationRound, Event.NO_MAJORITY: ObservationRound}, EstimationRound: {Event.DONE: FinishedDataCollectionRound, Event.NO_MAJORITY: ObservationRound}, FinishedDataCollectionRound: {}}
+    transition_function: AbciAppTransitionFunction = {
+        ObservationRound: {
+            Event.DONE: EstimationRound,
+            Event.NO_MAJORITY: ObservationRound,
+        },
+        EstimationRound: {
+            Event.DONE: FinishedDataCollectionRound,
+            Event.NO_MAJORITY: ObservationRound,
+        },
+        FinishedDataCollectionRound: {},
+    }
     final_states: Set[AppState] = {FinishedDataCollectionRound}
     event_to_timeout: EventToTimeout = {}
     cross_period_persisted_keys: List[str] = []

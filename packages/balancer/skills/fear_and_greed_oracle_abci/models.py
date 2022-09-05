@@ -21,12 +21,14 @@
 
 from typing import Any
 
+from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
+    FearAndGreedOracleAbciApp,
+)
 from packages.valory.skills.abstract_round_abci.models import BaseParams
 from packages.valory.skills.abstract_round_abci.models import Requests as BaseRequests
 from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
 )
-from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import FearAndGreedOracleAbciApp
 
 
 class SharedState(BaseSharedState):

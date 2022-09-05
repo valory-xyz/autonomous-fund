@@ -22,18 +22,17 @@
 from abc import abstractmethod
 from typing import Generator, Set, Type, cast
 
+from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
+from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
+    EstimationRound,
+    FearAndGreedOracleAbciApp,
+    ObservationRound,
+    SynchronizedData,
+)
 from packages.valory.skills.abstract_round_abci.base import AbstractRound
 from packages.valory.skills.abstract_round_abci.behaviours import (
     AbstractRoundBehaviour,
     BaseBehaviour,
-)
-
-from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
-from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
-    SynchronizedData,
-    FearAndGreedOracleAbciApp,
-    ObservationRound,
-    EstimationRound,
 )
 
 
@@ -80,4 +79,7 @@ class FearAndGreedOracleRoundBehaviour(AbstractRoundBehaviour):
 
     initial_behaviour_cls = ObservationBehaviour
     abci_app_cls = FearAndGreedOracleAbciApp  # type: ignore
-    behaviours: Set[Type[BaseBehaviour]] = {EstimationBehaviour, ObservationBehaviour}
+    behaviours: Set[Type[BaseBehaviour]] = {
+        EstimationBehaviour,  # type: ignore
+        ObservationBehaviour,  # type: ignore
+    }

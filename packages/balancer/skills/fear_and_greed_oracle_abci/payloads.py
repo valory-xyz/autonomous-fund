@@ -20,7 +20,7 @@
 """This module contains the transaction payloads for the fear and greed oracle app."""
 
 from enum import Enum
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
@@ -41,9 +41,7 @@ class ObservationRoundPayload(BaseTxPayload):
 
     transaction_type = TransactionType.OBSERVATION
 
-    def __init__(
-        self, sender: str, observation_data: str, **kwargs: Any
-    ) -> None:
+    def __init__(self, sender: str, observation_data: str, **kwargs: Any) -> None:
         """Initialize an 'observation' transaction payload.
 
         :param sender: the sender (Ethereum) address
@@ -69,9 +67,7 @@ class EstimationRoundPayload(BaseTxPayload):
 
     transaction_type = TransactionType.ESTIMATION
 
-    def __init__(
-        self, sender: str, estimation_data: str, **kwargs: Any
-    ) -> None:
+    def __init__(self, sender: str, estimation_data: str, **kwargs: Any) -> None:
         """Initialize an 'estimation' transaction payload.
 
         :param sender: the sender (Ethereum) address
