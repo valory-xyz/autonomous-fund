@@ -22,6 +22,7 @@
 from enum import Enum
 from typing import List, Optional, Set, Tuple
 
+from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import ObservationRoundPayload, EstimationRoundPayload
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
@@ -54,8 +55,8 @@ class ObservationRound(AbstractRound):
     """A round that in which the data processing logic is done."""
 
     round_id: str = "observation_round"
-    allowed_tx_type: Optional[TransactionType]
-    payload_attribute: str
+    allowed_tx_type: Optional[TransactionType] = ObservationRoundPayload
+    payload_attribute: str = "observation_data"
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
         """Process the end of the block."""
@@ -74,8 +75,8 @@ class EstimationRound(CollectSameUntilThresholdRound):
     """A round that in which the data processing logic is done."""
 
     round_id: str = "estimation_round"
-    allowed_tx_type: Optional[TransactionType]
-    payload_attribute: str
+    allowed_tx_type: Optional[TransactionType] = EstimationRoundPayload
+    payload_attribute: str = "estimation_data"
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
         """Process the end of the block."""
