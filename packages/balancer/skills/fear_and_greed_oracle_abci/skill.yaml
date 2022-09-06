@@ -7,13 +7,13 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeibbvllj3mw4xbmnpbhat6hngbmdijpbxe464ekrg5kkhzbyoa4exe
-  behaviours.py: bafybeibzivk34dqmgkzfnhjmmzj43gk5m5clpmv442mkwqk7qouezbroo4
+  behaviours.py: bafybeifaexlbsofbxnp476ygmwf5zpysg6masynuzoitfuxidkuenrlj2u
   fsm_specification.yaml: bafybeigfzb3u6ozjltj627b7o6wmowuwr5x5wlbgqgyylor2vkhntzrqga
   handlers.py: bafybeihkdkdow5jpbqoddddbgbutxb4azi3zr33434r7qwatisodj4r45m
-  models.py: bafybeieyfmwyz5jxknowacbrosdwymoozfctzshaytymlz4skurbyfwdrm
+  models.py: bafybeiagjmrntlz7tm3kbouqp5iyfmtnhddsajbij5czoobfxbmm2pqvee
   my_model.py: bafybeiaqfta55w3ygvyrk7g2wmb3xvlpmpvmq5wbsyqav3pwk46cgfp34u
   payloads.py: bafybeihhgcbnhxwbffhqfom4up5n4dfezxl6xrcf3mkaydcw2rp5twulaq
-  rounds.py: bafybeig2vu4uyeeqckhrkw7wl5r76bdvub3ewz4biigkedhkqeffn2mz4e
+  rounds.py: bafybeiafzfzc6n5mhnb4lzekge3qtezqnhnmwkgdlrsoyy57bwvg7wknpe
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
@@ -45,7 +45,24 @@ handlers:
     class_name: TendermintHandler
 models:
   params:
-    args: {}
+    args:
+      cleanup_history_depth: 1
+      cleanup_history_depth_current: null
+      consensus:
+        max_participants: 1
+      drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
+      fear_and_greed_endpoint: https://api.alternative.me/fng/?limit=1&format=json
+      keeper_timeout: 30.0
+      max_healthcheck: 120
+      on_chain_service_id: null
+      round_timeout_seconds: 30.0
+      service_id: fear_and_greed_oracle
+      service_registry_address: null
+      sleep_time: 1
+      tendermint_check_sleep_delay: 3
+      tendermint_com_url: http://localhost:8080
+      tendermint_max_retries: 5
+      tendermint_url: http://localhost:26657
     class_name: Params
   requests:
     args: {}

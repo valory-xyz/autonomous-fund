@@ -39,5 +39,13 @@ class SharedState(BaseSharedState):
         super().__init__(*args, abci_app_cls=FearAndGreedOracleAbciApp, **kwargs)
 
 
-Params = BaseParams
+class Params(BaseParams):
+    """Parameters."""
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """Initialize the parameters object."""
+        self.fear_and_greed_endpoint = self._ensure("fear_and_greed_endpoint", kwargs)
+        super().__init__(*args, **kwargs)
+
+
 Requests = BaseRequests
