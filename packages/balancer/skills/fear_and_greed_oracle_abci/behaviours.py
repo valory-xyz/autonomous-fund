@@ -128,8 +128,8 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
             index_updates = json.loads(response.body)["data"]
             response_body = [
                 {
-                    VALUE_KEY: int(index_update["value"]),
-                    TIMESTAMP_KEY: int(index_update["timestamp"]),
+                    VALUE_KEY: int(index_update[VALUE_KEY]),
+                    TIMESTAMP_KEY: int(index_update[TIMESTAMP_KEY]),
                 }
                 for index_update in index_updates
             ]
@@ -174,16 +174,10 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     def async_act(self) -> Generator:
         """Accumulate responses from the previous round, and come up with a single number (estimate) for the index."""
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
-            value_estimates, timestamp_estimates = self.get_estimate(
-                self.params.observation_aggregator_function
-            )
-            estimate_data = dict(
-                value_estimates=value_estimates, timestamp_estimates=timestamp_estimates
-            )
+            estimate_data = self.get_estimate()
             self.context.logger.info(
-                f"Estimated Fear and Greed Index values to be {value_estimates}, and timestamps {timestamp_estimates}",
+                f"Estimated Fear and Greed Index values to be {estimate_data}",
             )
-
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
             payload = EstimationRoundPayload(
                 self.context.agent_address,
@@ -194,9 +188,7 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
 
         self.set_done()
 
-    def get_estimate(
-        self, aggregator_method_name: str
-    ) -> Tuple[List[float], List[float]]:
+    def get_estimate(self) -> str:
         """
         Get the estimate, by applying the aggregate method across multiple points, for both the value and timestamp.
 
@@ -211,11 +203,11 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
         values = [aggregate([v_a1, v_b1]), aggregate([v_a2, v_b2])]
         timestamps = [aggregate([t_a1, t_b1]), aggregate([t_a2, t_b2])]
 
-        :param aggregator_method_name: the aggregation method to be used for estimation.
         :return: values, timestamp obtained as explained above.
         """
         aggregator_method = self._aggregator_methods.get(
-            aggregator_method_name, self._aggregator_methods["median"]
+            self.params.observation_aggregator_function,
+            self._aggregator_methods["median"],
         )
         timestamps, values = self._observations_per_point()
         aggregated_values, aggregated_timestamps = [], []
@@ -226,7 +218,11 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
             aggregated_values.append(aggregator_method(ith_values))
             aggregated_timestamps.append(aggregator_method(ith_timestamps))
 
-        return aggregated_values, aggregated_timestamps
+        estimate_data = dict(
+            value_estimates=aggregated_values, timestamp_estimates=aggregated_timestamps
+        )
+        serialized_data = json.dumps(estimate_data, sort_keys=True)
+        return serialized_data
 
     def _observations_per_point(self) -> Tuple[List, List]:
         """
