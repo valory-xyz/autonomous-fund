@@ -68,14 +68,14 @@ class SynchronizedData(BaseSynchronizedData):
         return cast(Dict, self.db.get_strict("most_voted_observation"))
 
     @property
-    def participant_to_estimate(self) -> Dict:
-        """Get the participant_to_estimate."""
-        return cast(Dict, self.db.get_strict("participant_to_estimate"))
+    def participant_to_estimates(self) -> Dict:
+        """Get the participant_to_estimates."""
+        return cast(Dict, self.db.get_strict("participant_to_estimates"))
 
     @property
-    def most_voted_estimate(self) -> float:
-        """Get the most_voted_estimate."""
-        return cast(float, self.db.get_strict("most_voted_estimate"))
+    def most_voted_estimates(self) -> float:
+        """Get the most_voted_estimates."""
+        return cast(float, self.db.get_strict("most_voted_estimates"))
 
 
 class ObservationRound(CollectSameUntilThresholdRound):
@@ -117,8 +117,8 @@ class EstimationRound(CollectSameUntilThresholdRound):
     done_event = Event.DONE
     none_event = Event.NO_ACTION
     no_majority_event = Event.NO_MAJORITY
-    collection_key = "participant_to_estimate"
-    selection_key = "most_voted_estimate"
+    collection_key = "participant_to_estimates"
+    selection_key = "most_voted_estimates"
 
 
 class OutlierDetectionRound(AbstractRound):

@@ -21,7 +21,7 @@
 import json
 import statistics
 from abc import abstractmethod
-from typing import Callable, Dict, Generator, Set, Type, cast
+from typing import Callable, Dict, Generator, List, Set, Tuple, Type, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
@@ -40,6 +40,10 @@ from packages.valory.skills.abstract_round_abci.behaviours import (
     AbstractRoundBehaviour,
     BaseBehaviour,
 )
+
+
+TIMESTAMP_KEY = "timestamp"
+VALUE_KEY = "value"
 
 
 class FearAndGreedOracleBaseBehaviour(BaseBehaviour):
@@ -120,12 +124,16 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
 
         try:
             # we parse the response bytes into a dict
-            # checkout https://api.alternative.me/fng/?limit=1&format=json for a response example
-            last_index_update = json.loads(response.body)["data"][0]
-            response_body = {
-                "value": last_index_update["value"],
-                "timestamp": last_index_update["timestamp"],
-            }
+            # checkout https://api.alternative.me/fng/?limit=2&format=json for a response example
+            index_updates = json.loads(response.body)["data"]
+            response_body = [
+                {
+                    VALUE_KEY: int(index_update["value"]),
+                    TIMESTAMP_KEY: int(index_update["timestamp"]),
+                }
+                for index_update in index_updates
+            ]
+
         except (ValueError, TypeError) as e:
             self.context.logger.error(
                 f"Could not parse response from Fear and Greed API, "
@@ -166,10 +174,14 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     def async_act(self) -> Generator:
         """Accumulate responses from the previous round, and come up with a single number (estimate) for the index."""
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
-            estimate = self.get_estimate(self.params.observation_aggregator_function)
-            estimate_data = dict(estimate=estimate)
+            value_estimates, timestamp_estimates = self.get_estimate(
+                self.params.observation_aggregator_function
+            )
+            estimate_data = dict(
+                value_estimates=value_estimates, timestamp_estimates=timestamp_estimates
+            )
             self.context.logger.info(
-                f"Estimated Fear and Greed Index to be {estimate}",
+                f"Estimated Fear and Greed Index values to be {value_estimates}, and timestamps {timestamp_estimates}",
             )
 
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
@@ -182,23 +194,77 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
 
         self.set_done()
 
-    def get_estimate(self, aggregator_method_name: str) -> float:
+    def get_estimate(
+        self, aggregator_method_name: str
+    ) -> Tuple[List[float], List[float]]:
         """
-        Get the estimate, by applying the aggregate method.
+        Get the estimate, by applying the aggregate method across multiple points, for both the value and timestamp.
 
-        :return: the calculated estimate
+        Example:
+        Given observations:
+            - agent A has observed [(t_a1, v_a1), (t_a2, v_a2)]
+            - agent B has observed [(t_b1, v_b1), (t_b2, v_b2)]
+        and an aggregate function aggregate(), this method aggregates the points per type.
+
+        So the observations above would be combined into:
+
+        values = [aggregate([v_a1, v_b1]), aggregate([v_a2, v_b2])]
+        timestamps = [aggregate([t_a1, t_b1]), aggregate([t_a2, t_b2])]
+
+        :param aggregator_method_name: the aggregation method to be used for estimation.
+        :return: values, timestamp obtained as explained above.
         """
-        required_key = "value"
-        observations = []
-        for observation in self.synchronized_data.participant_to_observations.values():
-            index_value = json.loads(observation.observation_data)
-            if required_key in index_value.keys():
-                value = int(index_value[required_key])
-                observations.append(value)
         aggregator_method = self._aggregator_methods.get(
             aggregator_method_name, self._aggregator_methods["median"]
         )
-        return aggregator_method(observations)
+        timestamps, values = self._observations_per_point()
+        aggregated_values, aggregated_timestamps = [], []
+        for i in range(self.params.fear_and_greed_num_points):
+            ith_values = values[i]
+            ith_timestamps = timestamps[i]
+
+            aggregated_values.append(aggregator_method(ith_values))
+            aggregated_timestamps.append(aggregator_method(ith_timestamps))
+
+        return aggregated_values, aggregated_timestamps
+
+    def _observations_per_point(self) -> Tuple[List, List]:
+        """
+        Formats the observation in arrays per observation point.
+
+        Example:
+        Given observations:
+            - agent A has observed [(t_a1, v_a1), (t_a2, v_a2)]
+            - agent B has observed [(t_b1, v_b1), (t_b2, v_b2)]
+
+        This method combines the points per type.
+        So the observations above would be combined into:
+        values = [[v_a1, v_b1], [v_a1, v_b1]]
+        timestamps = [[t_a1, t_b1], [t_a2, t_b2]]
+
+        :returns: values and timestamps as described above.
+        """
+        values: List[List] = [[] for _ in range(self.params.fear_and_greed_num_points)]
+        timestamps: List[List] = [
+            [] for _ in range(self.params.fear_and_greed_num_points)
+        ]
+        for observation in self.synchronized_data.participant_to_observations.values():
+            index_values = observation.observation_data
+            if len(index_values) != self.params.fear_and_greed_num_points:
+                self.context.logger.warning(
+                    f"Expected {self.params.fear_and_greed_num_points} points, found {len(index_values)}"
+                )
+                continue
+
+            i = 0
+            for index_value in index_values:
+                ith_values = values[i]
+                ith_timestamps = timestamps[i]
+
+                ith_values.append(index_value[VALUE_KEY])
+                ith_timestamps.append(index_value[TIMESTAMP_KEY])
+                i += 1
+        return timestamps, values
 
 
 class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
