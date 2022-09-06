@@ -33,7 +33,7 @@ from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
     SynchronizedData,
     FearAndGreedOracleAbciApp,
     ObservationRound,
-    EstimationRound,
+    EstimationRound, OutlierDetectionRound,
 )
 
 
@@ -74,10 +74,20 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     def async_act(self) -> Generator:
         """Do the act, supporting asynchronous execution."""
 
+class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
+    """Defines the logic used for outlier detection."""
+
+    state_id: str = "outlier_detection"
+    behaviour_id: str = "outlier_detection_behaviour"
+    matching_round: Type[AbstractRound] = OutlierDetectionRound
+
+    @abstractmethod
+    def async_act(self) -> Generator:
+        """Do the act, supporting asynchronous execution."""
 
 class FearAndGreedOracleRoundBehaviour(AbstractRoundBehaviour):
     """Class to define the behaviours this AbciApp has."""
 
     initial_behaviour_cls = ObservationBehaviour
     abci_app_cls = FearAndGreedOracleAbciApp  # type: ignore
-    behaviours: Set[Type[BaseBehaviour]] = {EstimationBehaviour, ObservationBehaviour}
+    behaviours: Set[Type[BaseBehaviour]] = {ObservationBehaviour, EstimationBehaviour, OutlierDetectionRound}
