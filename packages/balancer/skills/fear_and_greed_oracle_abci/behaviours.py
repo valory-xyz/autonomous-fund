@@ -20,7 +20,7 @@
 """This package contains round behaviours of FearAndGreedOracleAbciApp."""
 import json
 from abc import abstractmethod
-from typing import Dict, Generator, Set, Type, cast
+from typing import Generator, Set, Type, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
@@ -61,7 +61,6 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
     behaviour_id: str = "observation_behaviour"
     matching_round: Type[AbstractRound] = ObservationRound
 
-    @abstractmethod
     def async_act(self) -> Generator:
         """
         Get the data from the Fear and Greed API.
@@ -84,22 +83,27 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
         ).consensus():
             payload = ObservationRoundPayload(
                 self.context.agent_address,
-                json.dumps(api_response, sort_keys=True),
+                api_response,
             )
             yield from self.send_a2a_transaction(payload)
             yield from self.wait_until_round_end()
 
         self.set_done()
 
-    def get_data(self) -> Generator[None, None, Dict]:
+    def get_data(self) -> Generator[None, None, str]:
         """
         Get the data from the Fear and Greed API.
 
         This method can be overridden to get data from whatever source, or collection of sources you want.
         In case of changing the source of the data, make sure the logic in `EstimationBehaviour` is updated accordingly.
+        The ObservationRound is of type (subclass) of type CollectSameUntilThresholdRound. This round type expects the
+        payload to be the same. In case the payload is expected to be different for each agent, for example each
+        agent/peer has with their own datasource, then you should use CollectDifferentUntilAllRound.
+        See https://github.com/valory-xyz/open-autonomy/tree/v0.2.1.post1/packages/valory/skills/price_estimation_abci
+        for an example that works in the latter way.
 
         :yield: HttpMessage object
-        :return: return the data retrieved from the Fear and Greed API
+        :return: return the data retrieved from the Fear and Greed API, in case something goes wrong we return "{}".
         """
         response = yield from self.get_http_response(
             method="GET",
@@ -110,24 +114,32 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
                 f"Could not retrieve data from Fear and Greed API. "
                 f"Received status code {response.status_code}."
             )
-            return {}
+            return "{}"
 
         try:
+            # we parse the response bytes into a dict
             response_body = json.loads(response.body)
         except (ValueError, TypeError) as e:
             self.context.logger.error(
                 f"Could not parse response from Fear and Greed API, "
                 f"the following error was encountered {type(e).__name__}: {e}"
             )
-            return {}
+            return "{}"
         except Exception as e:  # pylint: disable=broad-except
             self.context.logger.error(
                 f"An unexpected error was encountered while parsing the Fear and Greed API response "
                 f"{type(e).__name__}: {e}"
             )
-            return {}
+            return "{}"
 
-        return response_body
+        # We dump the json into a string, notice the sort_keys=True
+        # we MUST ensure that they keys are ordered in the same way
+        # otherwise the payload MAY end up being different on different
+        # agents. This can happen in case the API responds with keys
+        # in different order, which can happen since there is no requirement
+        # against this.
+        deterministic_body = json.dumps(response_body, sort_keys=True)
+        return deterministic_body
 
 
 class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
