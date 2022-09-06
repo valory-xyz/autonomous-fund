@@ -38,8 +38,10 @@ from packages.valory.skills.abstract_round_abci.base import (
 class Event(Enum):
     """Defines the events for this abci."""
 
-    NO_MAJORITY = "no_majority"
+    ROUND_TIMEOUT = "round_timeout"
     DONE = "done"
+    NO_ACTION = "no_action"
+    NO_MAJORITY = "no_majority"
 
 
 class SynchronizedData(BaseSynchronizedData):
@@ -89,6 +91,23 @@ class EstimationRound(CollectSameUntilThresholdRound):
         """Process payload."""
         raise NotImplementedError
 
+class OutlierDetectionRound(AbstractRound):
+    """A round in which outlier detection is done."""
+    round_id: str
+    allowed_tx_type: Optional[TransactionType]
+    payload_attribute: str
+
+    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
+        """Process the end of the block."""
+        raise NotImplementedError
+
+    def check_payload(self, payload: BaseTxPayload) -> None:
+        """Check payload."""
+        raise NotImplementedError
+
+    def process_payload(self, payload: BaseTxPayload) -> None:
+        """Process payload."""
+        raise NotImplementedError
 
 class FinishedDataCollectionRound(DegenerateRound):
     """A degenerate round that acts as the terminal state of FearAndGreedOracleAbciApp."""
@@ -101,7 +120,7 @@ class FearAndGreedOracleAbciApp(AbciApp[Event]):
 
     initial_round_cls: AppState = ObservationRound
     initial_states: Set[AppState] = {ObservationRound}
-    transition_function: AbciAppTransitionFunction = {ObservationRound: {Event.DONE: EstimationRound, Event.NO_MAJORITY: ObservationRound}, EstimationRound: {Event.DONE: FinishedDataCollectionRound, Event.NO_MAJORITY: ObservationRound}, FinishedDataCollectionRound: {}}
+    transition_function: AbciAppTransitionFunction = {ObservationRound: {Event.DONE: EstimationRound, Event.ROUND_TIMEOUT: ObservationRound, Event.NO_MAJORITY: ObservationRound, Event.NO_ACTION: ObservationRound}, EstimationRound: {Event.DONE: OutlierDetectionRound, Event.NO_MAJORITY: ObservationRound, Event.ROUND_TIMEOUT: ObservationRound}, OutlierDetectionRound: {Event.DONE: FinishedDataCollectionRound, Event.NO_ACTION: ObservationRound}, FinishedDataCollectionRound: {}}
     final_states: Set[AppState] = {FinishedDataCollectionRound}
     event_to_timeout: EventToTimeout = {}
     cross_period_persisted_keys: List[str] = []

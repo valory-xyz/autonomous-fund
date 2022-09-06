@@ -1,6 +1,8 @@
 alphabet_in:
 - DONE
 - NO_MAJORITY
+- ROUND_TIMEOUT
+- NO_ACTION
 default_start_state: ObservationRound
 final_states:
 - FinishedDataCollectionRound
@@ -10,9 +12,15 @@ start_states:
 states:
 - ObservationRound
 - EstimationRound
+- OutlierDetection
 - FinishedDataCollectionRound
 transition_func:
     (ObservationRound, DONE): EstimationRound
+    (ObservationRound, ROUND_TIMEOUT): ObservationRound
     (ObservationRound, NO_MAJORITY): ObservationRound
-    (EstimationRound, DONE): FinishedDataCollectionRound
+    (ObservationRound, NO_ACTION): ObservationRound
+    (EstimationRound, DONE): OutlierDetection
     (EstimationRound, NO_MAJORITY): ObservationRound
+    (EstimationRound, ROUND_TIMEOUT): ObservationRound
+    (OutlierDetection, DONE): FinishedDataCollectionRound
+    (OutlierDetection, NO_ACTION): ObservationRound
