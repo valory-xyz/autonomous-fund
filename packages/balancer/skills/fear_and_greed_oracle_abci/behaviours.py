@@ -22,18 +22,18 @@
 from abc import abstractmethod
 from typing import Generator, Set, Type, cast
 
+from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
+from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
+    EstimationRound,
+    FearAndGreedOracleAbciApp,
+    ObservationRound,
+    OutlierDetectionRound,
+    SynchronizedData,
+)
 from packages.valory.skills.abstract_round_abci.base import AbstractRound
 from packages.valory.skills.abstract_round_abci.behaviours import (
     AbstractRoundBehaviour,
     BaseBehaviour,
-)
-
-from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
-from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
-    SynchronizedData,
-    FearAndGreedOracleAbciApp,
-    ObservationRound,
-    EstimationRound, OutlierDetectionRound,
 )
 
 
@@ -74,6 +74,7 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     def async_act(self) -> Generator:
         """Do the act, supporting asynchronous execution."""
 
+
 class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
     """Defines the logic used for outlier detection."""
 
@@ -85,9 +86,14 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
     def async_act(self) -> Generator:
         """Do the act, supporting asynchronous execution."""
 
+
 class FearAndGreedOracleRoundBehaviour(AbstractRoundBehaviour):
     """Class to define the behaviours this AbciApp has."""
 
     initial_behaviour_cls = ObservationBehaviour
     abci_app_cls = FearAndGreedOracleAbciApp  # type: ignore
-    behaviours: Set[Type[BaseBehaviour]] = {ObservationBehaviour, EstimationBehaviour, OutlierDetectionRound}
+    behaviours: Set[Type[BaseBehaviour]] = {
+        ObservationBehaviour,  # type: ignore
+        EstimationBehaviour,  # type: ignore
+        OutlierDetectionRound,  # type: ignore
+    }
