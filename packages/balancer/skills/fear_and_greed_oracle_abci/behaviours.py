@@ -19,11 +19,13 @@
 
 """This package contains round behaviours of FearAndGreedOracleAbciApp."""
 import json
+import statistics
 from abc import abstractmethod
-from typing import Generator, Set, Type, cast
+from typing import Callable, Dict, Generator, Set, Type, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
+    EstimationRoundPayload,
     ObservationRoundPayload,
 )
 from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
@@ -155,9 +157,48 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     behaviour_id: str = "estimation_behaviour"
     matching_round: Type[AbstractRound] = EstimationRound
 
-    @abstractmethod
+    _aggregator_methods: Dict[str, Callable] = {
+        "mean": statistics.mean,
+        "median": statistics.median,
+        "mode": statistics.mode,
+    }
+
     def async_act(self) -> Generator:
-        """Do the act, supporting asynchronous execution."""
+        """Accumulate responses from the previous round, and come up with a single number (estimate) for the index."""
+        with self.context.benchmark_tool.measure(self.behaviour_id).local():
+            estimate = self.get_estimate(self.params.observation_aggregator_function)
+            estimate_data = dict(estimate=estimate)
+            self.context.logger.info(
+                f"Estimated Fear and Greed Index to be {estimate}",
+            )
+
+        with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
+            payload = EstimationRoundPayload(
+                self.context.agent_address,
+                json.dumps(estimate_data, sort_keys=True),
+            )
+            yield from self.send_a2a_transaction(payload)
+            yield from self.wait_until_round_end()
+
+        self.set_done()
+
+    def get_estimate(self, aggregator_method_name: str) -> float:
+        """
+        Get the estimate, by applying the aggregate method.
+
+        :return: the calculated estimate
+        """
+        required_key = "value"
+        observations = []
+        for observation in self.synchronized_data.participant_to_observations.values():
+            index_value = json.loads(observation.observation_data)
+            if required_key in index_value.keys():
+                value = int(index_value[required_key])
+                observations.append(value)
+        aggregator_method = self._aggregator_methods.get(
+            aggregator_method_name, self._aggregator_methods["median"]
+        )
+        return aggregator_method(observations)
 
 
 class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):

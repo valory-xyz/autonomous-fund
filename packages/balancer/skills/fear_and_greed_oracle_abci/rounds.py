@@ -67,6 +67,16 @@ class SynchronizedData(BaseSynchronizedData):
         """Get the participant_to_observations."""
         return cast(Dict, self.db.get_strict("most_voted_observation"))
 
+    @property
+    def participant_to_estimate(self) -> Dict:
+        """Get the participant_to_estimate."""
+        return cast(Dict, self.db.get_strict("participant_to_estimate"))
+
+    @property
+    def most_voted_estimate(self) -> float:
+        """Get the most_voted_estimate."""
+        return cast(float, self.db.get_strict("most_voted_estimate"))
+
 
 class ObservationRound(CollectSameUntilThresholdRound):
     """A round in which agents collect observations"""
@@ -103,18 +113,12 @@ class EstimationRound(CollectSameUntilThresholdRound):
     round_id: str = "estimation_round"
     allowed_tx_type = EstimationRoundPayload.transaction_type
     payload_attribute: str = "estimation_data"
-
-    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
-        """Process the end of the block."""
-        raise NotImplementedError
-
-    def check_payload(self, payload: BaseTxPayload) -> None:
-        """Check payload."""
-        raise NotImplementedError
-
-    def process_payload(self, payload: BaseTxPayload) -> None:
-        """Process payload."""
-        raise NotImplementedError
+    synchronized_data_class = SynchronizedData
+    done_event = Event.DONE
+    none_event = Event.NO_ACTION
+    no_majority_event = Event.NO_MAJORITY
+    collection_key = "participant_to_estimate"
+    selection_key = "most_voted_estimate"
 
 
 class OutlierDetectionRound(AbstractRound):
