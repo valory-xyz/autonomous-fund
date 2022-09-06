@@ -63,7 +63,6 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
     behaviour_id: str = "observation_behaviour"
     matching_round: Type[AbstractRound] = ObservationRound
 
-    @abstractmethod
     def async_act(self) -> Generator:
         """
         Get the data from the Fear and Greed API.
@@ -158,7 +157,6 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     behaviour_id: str = "estimation_behaviour"
     matching_round: Type[AbstractRound] = EstimationRound
 
-    _aggregator_method: Callable
     _aggregator_methods: Dict[str, Callable] = {
         "mean": statistics.mean,
         "median": statistics.median,
@@ -168,8 +166,7 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     def async_act(self) -> Generator:
         """Accumulate responses from the previous round, and come up with a single number (estimate) for the index."""
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
-            self.set_aggregator_method(self.params.observation_aggregator_function)
-            estimate = self.get_estimate()
+            estimate = self.get_estimate(self.params.observation_aggregator_function)
             estimate_data = dict(estimate=estimate)
             self.context.logger.info(
                 f"Estimated Fear and Greed Index to be {estimate}",
@@ -185,13 +182,7 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
 
         self.set_done()
 
-    def set_aggregator_method(self, aggregator_method: str) -> None:
-        """Set aggregator method."""
-        self._aggregator_method = self._aggregator_methods.get(  # type: ignore
-            aggregator_method, statistics.median
-        )
-
-    def get_estimate(self) -> float:
+    def get_estimate(self, aggregator_method_name: str) -> float:
         """
         Get the estimate, by applying the aggregate method.
 
@@ -204,7 +195,10 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
             if required_key in index_value.keys():
                 value = int(index_value[required_key])
                 observations.append(value)
-        return self._aggregator_method(observations)
+        aggregator_method = self._aggregator_methods.get(
+            aggregator_method_name, self._aggregator_methods["median"]
+        )
+        return aggregator_method(observations)
 
 
 class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
