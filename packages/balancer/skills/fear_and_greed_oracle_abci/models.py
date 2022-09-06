@@ -45,7 +45,9 @@ class Params(BaseParams):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Initialize the parameters object."""
         self.fear_and_greed_endpoint = self._ensure("fear_and_greed_endpoint", kwargs)
+        self.observation_aggregator_function = self._ensure(
+            "observation_aggregator_function", kwargs
+        )
         super().__init__(*args, **kwargs)
-
 
 Requests = BaseRequests

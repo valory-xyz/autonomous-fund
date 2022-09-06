@@ -155,9 +155,38 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     behaviour_id: str = "estimation_behaviour"
     matching_round: Type[AbstractRound] = EstimationRound
 
-    @abstractmethod
     def async_act(self) -> Generator:
-        """Do the act, supporting asynchronous execution."""
+        """
+        Do the action.
+
+        Steps:
+        - Run the script to compute the estimate starting from the shared observations.
+        - Build an estimate transaction and send the transaction and wait for it to be mined.
+        - Wait until ABCI application transitions to the next round.
+        - Go to the next behaviour (set done event).
+        """
+
+        with self.context.benchmark_tool.measure(self.behaviour_id).local():
+
+            self.synchronized_data.set_aggregator_method(
+                self.params.observation_aggregator_function
+            )
+            self.context.logger.info(
+                "Got estimate of %s price in %s: %s, Using aggregator method: %s",
+                self.context.price_api.currency_id,
+                self.context.price_api.convert_id,
+                self.synchronized_data.estimate,
+                self.params.observation_aggregator_function,
+            )
+            payload = EstimationRoundPayload(
+                self.context.agent_address, self.synchronized_data.estimate
+            )
+
+        with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
+            yield from self.send_a2a_transaction(payload)
+            yield from self.wait_until_round_end()
+
+        self.set_done()
 
 
 class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
