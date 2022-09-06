@@ -18,11 +18,14 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of FearAndGreedOracleAbciApp."""
-
+import json
 from abc import abstractmethod
-from typing import Generator, Set, Type, cast
+from typing import Dict, Generator, Set, Type, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
+from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
+    ObservationRoundPayload,
+)
 from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
     EstimationRound,
     FearAndGreedOracleAbciApp,
@@ -60,7 +63,71 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
 
     @abstractmethod
     def async_act(self) -> Generator:
-        """Do the act, supporting asynchronous execution."""
+        """
+        Get the data from the Fear and Greed API.
+
+        After the data is received from the API,
+        it is shared with the other peers.
+        """
+        with self.context.benchmark_tool.measure(
+            self.behaviour_id,
+        ).local():
+            api_response = yield from self.get_data()
+            self.context.logger.info(
+                f"Received data from Fear and Greed API: {api_response}"
+            )
+
+        # at this point the agent has the data,
+        # and shares it with the other agents (peers)
+        with self.context.benchmark_tool.measure(
+            self.behaviour_id,
+        ).consensus():
+            payload = ObservationRoundPayload(
+                self.context.agent_address,
+                json.dumps(api_response, sort_keys=True),
+            )
+            yield from self.send_a2a_transaction(payload)
+            yield from self.wait_until_round_end()
+
+        self.set_done()
+
+    def get_data(self) -> Generator[None, None, Dict]:
+        """
+        Get the data from the Fear and Greed API.
+
+        This method can be overridden to get data from whatever source, or collection of sources you want.
+        In case of changing the source of the data, make sure the logic in `EstimationBehaviour` is updated accordingly.
+
+        :yield: HttpMessage object
+        :return: return the data retrieved from the Fear and Greed API
+        """
+        response = yield from self.get_http_response(
+            method="GET",
+            url=self.params.fear_and_greed_endpoint,
+        )
+        if response.status_code != 200:
+            self.context.logger.error(
+                f"Could not retrieve data from Fear and Greed API. "
+                f"Received status code {response.status_code}."
+            )
+            return {}
+
+        try:
+            response_body = json.loads(response.body)
+        except (ValueError, TypeError) as e:
+            self.context.logger.error(
+                f"Could not parse response from Fear and Greed API, "
+                f"the following error was encountered {type(e).__name__}: {e}"
+            )
+            return {}
+        except Exception as e:  # pylint: disable=broad-except
+            self.context.logger.error(
+                f"An unexpected error was encountered while parsing the Fear and Greed API response "
+                f"{type(e).__name__}: {e}"
+            )
+            return {}
+
+        return response_body
 
 
 class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):

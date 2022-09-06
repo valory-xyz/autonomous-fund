@@ -18,9 +18,10 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the rounds of FearAndGreedOracleAbciApp."""
-
+import json
 from enum import Enum
-from typing import List, Optional, Set, Tuple
+from types import MappingProxyType
+from typing import Dict, List, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
     EstimationRoundPayload,
@@ -56,25 +57,44 @@ class SynchronizedData(BaseSynchronizedData):
     This data is replicated by the tendermint application.
     """
 
+    @property
+    def participant_to_observations(self) -> Dict:
+        """Get the participant_to_observations."""
+        return cast(Dict, self.db.get_strict("participant_to_observations"))
 
-class ObservationRound(AbstractRound):
-    """A round that in which the data processing logic is done."""
+    @property
+    def most_voted_observation(self) -> Dict:
+        """Get the participant_to_observations."""
+        return cast(Dict, self.db.get_strict("most_voted_observation"))
 
-    round_id: str = "observation_round"
+
+class ObservationRound(CollectSameUntilThresholdRound):
+    """A round in which agents collect observations"""
+
+    round_id = "collect_observation"
     allowed_tx_type = ObservationRoundPayload.transaction_type
-    payload_attribute: str = "observation_data"
+    payload_attribute = "observation_data"
+    synchronized_data_class = SynchronizedData
 
-    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
+    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
         """Process the end of the block."""
-        raise NotImplementedError
+        if self.threshold_reached:
+            payload = json.loads(self.most_voted_payload)
+            if payload == {}:
+                return self.synchronized_data, Event.NO_ACTION
 
-    def check_payload(self, payload: BaseTxPayload) -> None:
-        """Check payload."""
-        raise NotImplementedError
+            state = self.synchronized_data.update(
+                synchronized_data_class=self.synchronized_data_class,
+                participant_to_observations=MappingProxyType(self.collection),
+                most_voted_observation=payload,
+            )
+            return state, Event.DONE
+        if not self.is_majority_possible(
+            self.collection, self.synchronized_data.nb_participants
+        ):
+            return self.synchronized_data, Event.NO_MAJORITY
 
-    def process_payload(self, payload: BaseTxPayload) -> None:
-        """Process payload."""
-        raise NotImplementedError
+        return None
 
 
 class EstimationRound(CollectSameUntilThresholdRound):
