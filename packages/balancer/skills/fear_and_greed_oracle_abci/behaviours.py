@@ -118,7 +118,12 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
 
         try:
             # we parse the response bytes into a dict
-            response_body = json.loads(response.body)
+            # checkout https://api.alternative.me/fng/?limit=1&format=json for a response example
+            last_index_update = json.loads(response.body)["data"][0]
+            response_body = {
+                "value": last_index_update["value"],
+                "timestamp": last_index_update["timestamp"],
+            }
         except (ValueError, TypeError) as e:
             self.context.logger.error(
                 f"Could not parse response from Fear and Greed API, "
@@ -137,7 +142,8 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
         # otherwise the payload MAY end up being different on different
         # agents. This can happen in case the API responds with keys
         # in different order, which can happen since there is no requirement
-        # against this.
+        # against this. Here we only have 2 keys, but we cannot guarantee
+        # the order without sort_keys=True.
         deterministic_body = json.dumps(response_body, sort_keys=True)
         return deterministic_body
 
