@@ -73,9 +73,9 @@ class SynchronizedData(BaseSynchronizedData):
         return cast(Dict, self.db.get_strict("participant_to_estimates"))
 
     @property
-    def most_voted_estimates(self) -> float:
+    def most_voted_estimates(self) -> str:
         """Get the most_voted_estimates."""
-        return cast(float, self.db.get_strict("most_voted_estimates"))
+        return cast(str, self.db.get_strict("most_voted_estimates"))
 
 
 class ObservationRound(CollectSameUntilThresholdRound):

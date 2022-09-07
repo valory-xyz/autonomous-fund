@@ -181,7 +181,7 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
             payload = EstimationRoundPayload(
                 self.context.agent_address,
-                json.dumps(estimate_data, sort_keys=True),
+                estimate_data,
             )
             yield from self.send_a2a_transaction(payload)
             yield from self.wait_until_round_end()
