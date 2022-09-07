@@ -126,6 +126,13 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
     allowed_tx_type = OutlierDetectionRoundPayload.transaction_type
     payload_attribute: str = "outlier_detection_data"
 
+    class OutlierStatus(Enum):
+        """Defines the possible status the outlier check may result in."""
+
+        OUTLIER_DETECTED = "outlier_detected"
+        OUTLIER_NOT_DETECTED = "outlier_not_detected"
+        INVALID_STATE = "invalid_state"
+
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
         """Process the end of the block."""
         if self.threshold_reached:
@@ -135,13 +142,13 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
                 # we don't take any action
                 return self.synchronized_data, Event.NO_ACTION
 
-            status = payload.get("status", False)
+            status = payload.get("status", self.OutlierStatus.INVALID_STATE)
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
                 participant_to_outlier_status=MappingProxyType(self.collection),
                 most_voted_outlier_status=payload,
             )
-            if status:
+            if status == self.OutlierStatus.OUTLIER_NOT_DETECTED:
                 return state, Event.DONE
 
             return state, Event.NO_ACTION

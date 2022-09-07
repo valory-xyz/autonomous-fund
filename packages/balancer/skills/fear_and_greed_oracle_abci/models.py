@@ -54,6 +54,9 @@ class Params(BaseParams):
         self.observation_aggregator_function = self._ensure(
             "observation_aggregator_function", kwargs
         )
+        self.min_index_value = self._ensure("min_index_value", kwargs)
+        self.max_index_value = self._ensure("max_index_value", kwargs)
+        self.max_index_change = self._ensure("max_index_change", kwargs)
         super().__init__(*args, **kwargs)
 
 
