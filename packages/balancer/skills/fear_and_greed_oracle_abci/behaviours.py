@@ -308,7 +308,7 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
                 f'The "fear_and_greed_num_points" param controls the number of observation points.'
             )
             return json.dumps(
-                dict(status=OutlierDetectionRound.OutlierStatus.INVALID_STATE),
+                dict(status=OutlierDetectionRound.OutlierStatus.INVALID_STATE.value),
                 sort_keys=True,
             )
 
@@ -317,9 +317,9 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
             most_voted_estimates
         ) and self._is_not_aggressive_change(most_voted_estimates)
         typed_status = (
-            OutlierDetectionRound.OutlierStatus.OUTLIER_NOT_DETECTED
+            OutlierDetectionRound.OutlierStatus.OUTLIER_NOT_DETECTED.value
             if status
-            else OutlierDetectionRound.OutlierStatus.OUTLIER_DETECTED
+            else OutlierDetectionRound.OutlierStatus.OUTLIER_DETECTED.value
         )
         serialized_response = json.dumps(
             json.dumps(dict(status=typed_status)), sort_keys=True

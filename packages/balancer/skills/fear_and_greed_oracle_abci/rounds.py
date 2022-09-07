@@ -142,13 +142,13 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
                 # we don't take any action
                 return self.synchronized_data, Event.NO_ACTION
 
-            status = payload.get("status", self.OutlierStatus.INVALID_STATE)
+            status = payload.get("status", self.OutlierStatus.INVALID_STATE.value)
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
                 participant_to_outlier_status=MappingProxyType(self.collection),
                 most_voted_outlier_status=payload,
             )
-            if status == self.OutlierStatus.OUTLIER_NOT_DETECTED:
+            if status == self.OutlierStatus.OUTLIER_NOT_DETECTED.value:
                 return state, Event.DONE
 
             return state, Event.NO_ACTION
