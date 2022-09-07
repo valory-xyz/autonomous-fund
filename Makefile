@@ -102,4 +102,4 @@ new_env: clean
 
 .PHONY: fix-abci-app-specs
 fix-abci-app-specs:
-	echo "not implemented!" && exit 1
+	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse abci generate-app-specs packages.balancer.skills.fear_and_greed_oracle_abci.rounds.FearAndGreedOracleAbciApp packages/balancer/skills/fear_and_greed_oracle_abci/fsm_specification.yaml || (echo "Failed to check elcollectooorr abci consistency" && exit 1)
