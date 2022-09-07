@@ -1,0 +1,78 @@
+name: fear_and_greed_oracle_abci
+author: balancer
+version: 0.1.0
+type: skill
+description: The scaffold skill is a scaffold for your own skill implementation.
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint:
+  __init__.py: bafybeibbvllj3mw4xbmnpbhat6hngbmdijpbxe464ekrg5kkhzbyoa4exe
+  behaviours.py: bafybeibxefklwxqvqtqbp2hjm6ewgbqac6aj5ugz6gkyygwlttt74hj7ty
+  fsm_specification.yaml: bafybeifahgntdpxoadcuwpukvlb4kbhaahsilk4eucetnewplr2krakq4y
+  handlers.py: bafybeihkdkdow5jpbqoddddbgbutxb4azi3zr33434r7qwatisodj4r45m
+  models.py: bafybeihorkcqwf4nssxmmo3vrph4vejrtdqrzmje5dcqrqt3hcsq6cvxsq
+  my_model.py: bafybeiaqfta55w3ygvyrk7g2wmb3xvlpmpvmq5wbsyqav3pwk46cgfp34u
+  payloads.py: bafybeihhgcbnhxwbffhqfom4up5n4dfezxl6xrcf3mkaydcw2rp5twulaq
+  rounds.py: bafybeih6wz3yvvg57qbbkkwh2rv7rc44tyuz2yi5ps4jo5aaeorzcriunq
+fingerprint_ignore_patterns: []
+connections: []
+contracts: []
+protocols: []
+skills:
+- valory/abstract_round_abci:0.1.0:bafybeiayewfb2ytovp7exhawqwbw63eerx4tw53ztey5r4ozbtcvsw3gua
+behaviours:
+  main:
+    args: {}
+    class_name: FearAndGreedOracleAbciApp
+handlers:
+  abci:
+    args: {}
+    class_name: ABCIRoundHandler
+  contract_api:
+    args: {}
+    class_name: ContractApiHandler
+  http:
+    args: {}
+    class_name: HttpHandler
+  ledger_api:
+    args: {}
+    class_name: LedgerApiHandler
+  signing:
+    args: {}
+    class_name: SigningHandler
+  tendermint:
+    args: {}
+    class_name: TendermintHandler
+models:
+  params:
+    args:
+      cleanup_history_depth: 1
+      cleanup_history_depth_current: null
+      consensus:
+        max_participants: 1
+      drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
+      fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
+      fear_and_greed_num_points: 2
+      keeper_timeout: 30.0
+      max_healthcheck: 120
+      max_index_change: 0.00040509259
+      max_index_value: 100
+      min_index_value: 0
+      on_chain_service_id: null
+      round_timeout_seconds: 30.0
+      service_id: fear_and_greed_oracle
+      service_registry_address: null
+      sleep_time: 1
+      tendermint_check_sleep_delay: 3
+      tendermint_com_url: http://localhost:8080
+      tendermint_max_retries: 5
+      tendermint_url: http://localhost:26657
+    class_name: Params
+  requests:
+    args: {}
+    class_name: Requests
+  state:
+    args: {}
+    class_name: SharedState
+dependencies: {}
+is_abstract: false
