@@ -1,8 +1,8 @@
 alphabet_in:
 - DONE
+- NO_ACTION
 - NO_MAJORITY
 - ROUND_TIMEOUT
-- NO_ACTION
 default_start_state: ObservationRound
 final_states:
 - FinishedDataCollectionRound
@@ -10,17 +10,19 @@ label: packages.balancer.skills.fear_and_greed_oracle_abci.rounds.FearAndGreedOr
 start_states:
 - ObservationRound
 states:
-- ObservationRound
 - EstimationRound
-- OutlierDetection
 - FinishedDataCollectionRound
+- ObservationRound
+- OutlierDetectionRound
 transition_func:
-    (ObservationRound, DONE): EstimationRound
-    (ObservationRound, ROUND_TIMEOUT): ObservationRound
-    (ObservationRound, NO_MAJORITY): ObservationRound
-    (ObservationRound, NO_ACTION): ObservationRound
-    (EstimationRound, DONE): OutlierDetection
+    (EstimationRound, DONE): OutlierDetectionRound
     (EstimationRound, NO_MAJORITY): ObservationRound
     (EstimationRound, ROUND_TIMEOUT): ObservationRound
-    (OutlierDetection, DONE): FinishedDataCollectionRound
-    (OutlierDetection, NO_ACTION): ObservationRound
+    (EstimationRound, NO_ACTION): ObservationRound
+    (ObservationRound, DONE): EstimationRound
+    (ObservationRound, NO_ACTION): ObservationRound
+    (ObservationRound, NO_MAJORITY): ObservationRound
+    (ObservationRound, ROUND_TIMEOUT): ObservationRound
+    (OutlierDetectionRound, DONE): FinishedDataCollectionRound
+    (OutlierDetectionRound, NO_ACTION): ObservationRound
+    (OutlierDetectionRound, NO_MAJORITY): ObservationRound
