@@ -144,7 +144,7 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
             if status:
                 return state, Event.DONE
 
-            return state, Event.NO_MAJORITY
+            return state, Event.NO_ACTION
         if not self.is_majority_possible(
             self.collection, self.synchronized_data.nb_participants
         ):
@@ -173,15 +173,19 @@ class FearAndGreedOracleAbciApp(AbciApp[Event]):
         },
         EstimationRound: {
             Event.DONE: OutlierDetectionRound,
+            Event.NO_ACTION: ObservationRound,
             Event.NO_MAJORITY: ObservationRound,
             Event.ROUND_TIMEOUT: ObservationRound,
         },
         OutlierDetectionRound: {
             Event.DONE: FinishedDataCollectionRound,
             Event.NO_ACTION: ObservationRound,
+            Event.NO_MAJORITY: ObservationRound,
         },
         FinishedDataCollectionRound: {},
     }
     final_states: Set[AppState] = {FinishedDataCollectionRound}
-    event_to_timeout: EventToTimeout = {}
+    event_to_timeout: EventToTimeout = {
+        Event.ROUND_TIMEOUT: 30.0,
+    }
     cross_period_persisted_keys: List[str] = []
