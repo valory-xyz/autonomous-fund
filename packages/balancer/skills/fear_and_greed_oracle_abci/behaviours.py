@@ -20,13 +20,13 @@
 """This package contains round behaviours of FearAndGreedOracleAbciApp."""
 import json
 import statistics
-from abc import abstractmethod
 from typing import Callable, Dict, Generator, List, Set, Tuple, Type, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
     EstimationRoundPayload,
     ObservationRoundPayload,
+    OutlierDetectionRoundPayload,
 )
 from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
     EstimationRound,
@@ -264,15 +264,95 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
 
 
 class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
-    """Defines the logic used for outlier detection."""
+    """Defines logic to safeguard against a fault API or sudden changes in the index value."""
 
     state_id: str = "outlier_detection"
     behaviour_id: str = "outlier_detection_behaviour"
     matching_round: Type[AbstractRound] = OutlierDetectionRound
 
-    @abstractmethod
+    MIN_ALLOWED_VALUE = 0
+    MAX_ALLOWED_VALUE = 100
+    MAX_CHANGE = 35 / 86400  # the maximum observed change, this happened on 2021/09/08.
+
     def async_act(self) -> Generator:
-        """Do the act, supporting asynchronous execution."""
+        """Implements the outlier detection algorithm, and shares results with the other peers (agents)."""
+        with self.context.benchmark_tool.measure(self.behaviour_id).local():
+            serialized_status = self.get_outlier_status()
+            self.context.logger.info(
+                f"Outlier detection status: {serialized_status}",
+            )
+        with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
+            payload = OutlierDetectionRoundPayload(
+                self.context.agent_address,
+                serialized_status,
+            )
+            yield from self.send_a2a_transaction(payload)
+            yield from self.wait_until_round_end()
+
+        self.set_done()
+
+    def get_outlier_status(self) -> str:
+        """
+        Applies the outlier detection algorithm to the data.
+
+        It works in two steps:
+            1. It checks whether the estimates are in the allowed range, 0-100.
+            2. It checks whether the change in the value of the index for the last
+               two points is less than the most aggressive change in two consecutive
+               points in the last year (2021/08 - 2022/08).
+
+        If both these conditions are met, we assume that the observed change is not an outlier.
+
+        :returns: JSON serialized dict with the outlier status.
+        """
+        if self.params.fear_and_greed_num_points < 2:
+            self.context.logger.error(
+                f"The outlier detection algorithm needs two points at least, "
+                f"you have provided {self.params.fear_and_greed_num_points}."
+                f'The "fear_and_greed_num_points" param controls the number of observation points.'
+            )
+            return json.dumps(dict(status=False), sort_keys=True)
+
+        most_voted_estimates = json.loads(self.synchronized_data.most_voted_estimates)
+        status = self._is_in_allowed_range(
+            most_voted_estimates
+        ) and self._is_not_aggressive_change(most_voted_estimates)
+        serialized_response = json.dumps(dict(status=status), sort_keys=True)
+        return serialized_response
+
+    def _is_in_allowed_range(self, most_voted_estimates: Dict) -> bool:
+        """Checks whether the last two observations are in the allowed range."""
+        values = most_voted_estimates["value_estimates"]
+        status = (
+            self.MIN_ALLOWED_VALUE >= values[0] <= self.MAX_ALLOWED_VALUE
+            and self.MIN_ALLOWED_VALUE >= values[1] <= self.MAX_ALLOWED_VALUE
+        )
+        if not status:
+            self.context.logger.warning(
+                f"The estimated values are outside of the allowed limits. "
+                f'min allowed value is "{self.MIN_ALLOWED_VALUE}", max allowed value is "{self.MAX_ALLOWED_VALUE}",'
+                f" the last two values are: {[values[0], values[1]]}."
+            )
+        return status
+
+    def _is_not_aggressive_change(self, most_voted_estimates: Dict) -> bool:
+        """Checks whether the change in the last two points is NOT aggressive."""
+        values = most_voted_estimates["value_estimates"]
+        timestamps = most_voted_estimates["timestamp_estimates"]
+
+        v1, v2 = values[0], values[1]
+        t1, t2 = timestamps[0], timestamps[1]
+        dv = abs(v1 - v2)
+        dt = abs(t1 - t2)
+        change = dv / dt
+
+        status = change <= self.MAX_CHANGE
+        if not status:
+            self.context.logger.warning(
+                f'The change is too aggressive. The max allowed change is "{self.MAX_CHANGE}", the current change is '
+                f'"{change}"'
+            )
+        return status
 
 
 class FearAndGreedOracleRoundBehaviour(AbstractRoundBehaviour):

@@ -31,10 +31,8 @@ from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
-    AbstractRound,
     AppState,
     BaseSynchronizedData,
-    BaseTxPayload,
     CollectSameUntilThresholdRound,
     DegenerateRound,
     EventToTimeout,
@@ -121,24 +119,38 @@ class EstimationRound(CollectSameUntilThresholdRound):
     selection_key = "most_voted_estimates"
 
 
-class OutlierDetectionRound(AbstractRound):
+class OutlierDetectionRound(CollectSameUntilThresholdRound):
     """A round in which outlier detection is done."""
 
     round_id: str = "outlier_detection_round"
     allowed_tx_type = OutlierDetectionRoundPayload.transaction_type
     payload_attribute: str = "outlier_detection_data"
 
-    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
+    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
         """Process the end of the block."""
-        raise NotImplementedError
+        if self.threshold_reached:
+            payload = json.loads(self.most_voted_payload)
+            if payload == {}:
+                # this should never happen, however if it does
+                # we don't take any action
+                return self.synchronized_data, Event.NO_ACTION
 
-    def check_payload(self, payload: BaseTxPayload) -> None:
-        """Check payload."""
-        raise NotImplementedError
+            status = payload.get("status", False)
+            state = self.synchronized_data.update(
+                synchronized_data_class=self.synchronized_data_class,
+                participant_to_outlier_status=MappingProxyType(self.collection),
+                most_voted_outlier_status=payload,
+            )
+            if status:
+                return state, Event.DONE
 
-    def process_payload(self, payload: BaseTxPayload) -> None:
-        """Process payload."""
-        raise NotImplementedError
+            return state, Event.NO_MAJORITY
+        if not self.is_majority_possible(
+            self.collection, self.synchronized_data.nb_participants
+        ):
+            return self.synchronized_data, Event.NO_MAJORITY
+
+        return None
 
 
 class FinishedDataCollectionRound(DegenerateRound):
