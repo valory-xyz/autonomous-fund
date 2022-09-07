@@ -270,10 +270,6 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
     behaviour_id: str = "outlier_detection_behaviour"
     matching_round: Type[AbstractRound] = OutlierDetectionRound
 
-    MIN_ALLOWED_VALUE = 0
-    MAX_ALLOWED_VALUE = 100
-    MAX_CHANGE = 35 / 86400  # the maximum observed change, this happened on 2021/09/08.
-
     def async_act(self) -> Generator:
         """Implements the outlier detection algorithm, and shares results with the other peers (agents)."""
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
@@ -311,27 +307,38 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
                 f"you have provided {self.params.fear_and_greed_num_points}."
                 f'The "fear_and_greed_num_points" param controls the number of observation points.'
             )
-            return json.dumps(dict(status=False), sort_keys=True)
+            return json.dumps(
+                dict(status=OutlierDetectionRound.OutlierStatus.INVALID_STATE.value),
+                sort_keys=True,
+            )
 
         most_voted_estimates = json.loads(self.synchronized_data.most_voted_estimates)
         status = self._is_in_allowed_range(
             most_voted_estimates
         ) and self._is_not_aggressive_change(most_voted_estimates)
-        serialized_response = json.dumps(dict(status=status), sort_keys=True)
+        typed_status = (
+            OutlierDetectionRound.OutlierStatus.OUTLIER_NOT_DETECTED.value
+            if status
+            else OutlierDetectionRound.OutlierStatus.OUTLIER_DETECTED.value
+        )
+        serialized_response = json.dumps(
+            json.dumps(dict(status=typed_status)), sort_keys=True
+        )
         return serialized_response
 
     def _is_in_allowed_range(self, most_voted_estimates: Dict) -> bool:
         """Checks whether the last two observations are in the allowed range."""
         values = most_voted_estimates["value_estimates"]
         status = (
-            self.MIN_ALLOWED_VALUE >= values[0] <= self.MAX_ALLOWED_VALUE
-            and self.MIN_ALLOWED_VALUE >= values[1] <= self.MAX_ALLOWED_VALUE
+            self.params.min_index_value >= values[0] <= self.params.max_index_value
+            and self.params.min_index_value >= values[1] <= self.params.max_index_value
         )
         if not status:
             self.context.logger.warning(
                 f"The estimated values are outside of the allowed limits. "
-                f'min allowed value is "{self.MIN_ALLOWED_VALUE}", max allowed value is "{self.MAX_ALLOWED_VALUE}",'
-                f" the last two values are: {[values[0], values[1]]}."
+                f'min allowed value is "{self.params.min_index_value}", '
+                f'max allowed value is "{self.params.max_index_value}", '
+                f"the last two values are: {[values[0], values[1]]}."
             )
         return status
 
@@ -346,11 +353,11 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
         dt = abs(t1 - t2)
         change = dv / dt
 
-        status = change <= self.MAX_CHANGE
+        status = change <= self.params.max_index_change
         if not status:
             self.context.logger.warning(
-                f'The change is too aggressive. The max allowed change is "{self.MAX_CHANGE}", the current change is '
-                f'"{change}"'
+                f'The change is too aggressive. The max allowed change is "{self.params.max_index_change}", '
+                f'the current change is "{change}".'
             )
         return status
 
