@@ -17,8 +17,9 @@
 #
 # ------------------------------------------------------------------------------
 import inspect
-from pathlib import Path
 import os
+from pathlib import Path
+
 
 CUR_PATH = os.path.dirname(inspect.getfile(inspect.currentframe()))  # type: ignore
 ROOT_DIR = Path(CUR_PATH, "..").resolve().absolute()
