@@ -370,5 +370,5 @@ class FearAndGreedOracleRoundBehaviour(AbstractRoundBehaviour):
     behaviours: Set[Type[BaseBehaviour]] = {
         ObservationBehaviour,  # type: ignore
         EstimationBehaviour,  # type: ignore
-        OutlierDetectionRound,  # type: ignore
+        OutlierDetectionBehaviour,  # type: ignore
     }
