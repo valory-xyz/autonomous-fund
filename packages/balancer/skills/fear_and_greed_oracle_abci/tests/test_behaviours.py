@@ -18,54 +18,61 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of FearAndGreedOracleAbciApp."""
-
+import json
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Hashable, Optional, Type
-from dataclasses import dataclass
 
 import pytest
 
-from packages.valory.skills.abstract_round_abci.base import AbciAppDB
-from packages.valory.skills.abstract_round_abci.behaviours import (
-    AbstractRoundBehaviour,
-    BaseBehaviour,
-    make_degenerate_behaviour,
-)
 from packages.balancer.skills.fear_and_greed_oracle_abci.behaviours import (
-    FearAndGreedOracleBaseBehaviour,
     EstimationBehaviour,
+    FearAndGreedOracleBaseBehaviour,
     ObservationBehaviour,
     OutlierDetectionBehaviour,
 )
-from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
-    SynchronizedData,
-    DegenerateRound,
-    Event,
-    FearAndGreedOracleAbciApp,
-    EstimationRound,
-    FinishedDataCollectionRound,
-    ObservationRound,
-    OutlierDetectionRound,
+from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
+    ObservationRoundPayload,
 )
-
-from tests.conftest import ROOT_DIR
+from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
+    Event,
+    FinishedDataCollectionRound,
+    SynchronizedData,
+)
+from packages.valory.skills.abstract_round_abci.base import AbciAppDB
+from packages.valory.skills.abstract_round_abci.behaviours import (
+    BaseBehaviour,
+    make_degenerate_behaviour,
+)
 from packages.valory.skills.abstract_round_abci.test_tools.base import (
     FSMBehaviourBaseCase,
 )
+
+from tests.conftest import ROOT_DIR
+
+
+DEFAULT_FEAR_AND_GREED_INDEX_BASE_URL = (
+    "https://api.alternative.me/fng/?format=json&limit="
+)
+DEFAULT_FEAR_AND_GREED_NUM_POINTS = 2
 
 
 @dataclass
 class BehaviourTestCase:
     """BehaviourTestCase"""
 
+    name: str
     initial_data: Dict[str, Hashable]
     event: Event
+    next_behaviour_class: Optional[Type[FearAndGreedOracleBaseBehaviour]] = None
 
 
 class BaseFearAndGreedOracleTest(FSMBehaviourBaseCase):
     """Base test case."""
 
-    path_to_skill = Path(ROOT_DIR, "packages", "balancer", "skills", "fear_and_greed_oracle_abci")
+    path_to_skill = Path(
+        ROOT_DIR, "packages", "balancer", "skills", "fear_and_greed_oracle_abci"
+    )
 
     behaviour: FearAndGreedOracleBaseBehaviour
     behaviour_class: Type[FearAndGreedOracleBaseBehaviour]
@@ -82,68 +89,231 @@ class BaseFearAndGreedOracleTest(FSMBehaviourBaseCase):
             self.behaviour_class.behaviour_id,
             SynchronizedData(AbciAppDB(setup_data=AbciAppDB.data_to_lists(data))),
         )
-        assert self.behaviour.behaviour_id == self.behaviour_class.behaviour_id
+        assert (
+            self.behaviour.current_behaviour.behaviour_id
+            == self.behaviour_class.behaviour_id
+        )
 
-    def complete(self, event: Event) -> None:
+    def complete(
+        self, event: Event, next_behaviour_class: Optional[Type[BaseBehaviour]] = None
+    ) -> None:
         """Complete test"""
+        if next_behaviour_class is None:
+            # use the class value as fallback
+            next_behaviour_class = self.next_behaviour_class
 
         self.behaviour.act_wrapper()
         self.mock_a2a_transaction()
         self._test_done_flag_set()
         self.end_round(done_event=event)
-        assert self.behaviour.behaviour_id == self.next_behaviour_class.behaviour_id
-
-
-class TestEstimationBehaviour(BaseFearAndGreedOracleTest):
-    """Tests EstimationBehaviour"""
-
-    # TODO: set next_behaviour_class
-    behaviour_class: Type[BaseBehaviour] = EstimationBehaviour
-    next_behaviour_class: Type[BaseBehaviour] = ...
-
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: BehaviourTestCase, **kwargs: Any) -> None:
-        """Run tests."""
-
-        self.fast_forward(test_case.initial_data)
-        # TODO: mock the necessary calls
-        # self.mock_ ...
-        self.complete(test_case.event)
+        assert (
+            self.behaviour.current_behaviour.behaviour_id
+            == next_behaviour_class.behaviour_id
+        )
 
 
 class TestObservationBehaviour(BaseFearAndGreedOracleTest):
     """Tests ObservationBehaviour"""
 
-    # TODO: set next_behaviour_class
     behaviour_class: Type[BaseBehaviour] = ObservationBehaviour
-    next_behaviour_class: Type[BaseBehaviour] = ...
+    next_behaviour_class: Type[BaseBehaviour] = EstimationBehaviour
 
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: BehaviourTestCase, **kwargs: Any) -> None:
+    @pytest.mark.parametrize(
+        "test_case, kwargs",
+        [
+            (
+                BehaviourTestCase(
+                    "PASS: the happy path",
+                    initial_data=dict(),
+                    event=Event.DONE,
+                ),
+                {
+                    "body": '{"name":"Fear and Greed Index","data":[{"value":"25","value_classification":"Extreme Fear","timestamp":"1662940800","time_until_update":"44102"},{"value":"26","value_classification":"Fear","timestamp":"1662854400"}],"metadata":{"error":null}}',
+                    "status_code": 200,
+                },
+            ),
+            (
+                BehaviourTestCase(
+                    "FAIL: the api is misbehaving",
+                    initial_data=dict(),
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=ObservationBehaviour,
+                ),
+                {
+                    "body": "",
+                    "status_code": 500,
+                },
+            ),
+            (
+                BehaviourTestCase(
+                    "FAIL: the api has changed its response format",
+                    initial_data=dict(),
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=ObservationBehaviour,
+                ),
+                {
+                    "body": '{"data":[{"value":"25","value_classification":"Extreme Fear","timestamp":"1662940800","time_until_update":"44102"},{"value":"26","value_classification":"Fear","timestamp":"1662854400"}],"metadata":{"error":null}}',
+                    "status_code": 200,
+                },
+            ),
+            (
+                BehaviourTestCase(
+                    "FAIL: the api sends invalid json",
+                    initial_data=dict(),
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=ObservationBehaviour,
+                ),
+                {
+                    "body": "bad_json",
+                    "status_code": 200,
+                },
+            ),
+        ],
+    )
+    def test_run(self, test_case: BehaviourTestCase, kwargs: Any) -> None:
         """Run tests."""
-
         self.fast_forward(test_case.initial_data)
-        # TODO: mock the necessary calls
-        # self.mock_ ...
-        self.complete(test_case.event)
+        self.behaviour.act_wrapper()
+        self.mock_http_request(
+            request_kwargs=dict(
+                method="GET",
+                headers="",
+                version="",
+                url=f"{DEFAULT_FEAR_AND_GREED_INDEX_BASE_URL}{DEFAULT_FEAR_AND_GREED_NUM_POINTS}",
+            ),
+            response_kwargs=dict(
+                version="",
+                status_code=kwargs.get("status_code"),
+                status_text="",
+                headers="",
+                body=kwargs.get("body").encode(),
+            ),
+        )
+        self.complete(test_case.event, test_case.next_behaviour_class)
+
+
+class TestEstimationBehaviour(BaseFearAndGreedOracleTest):
+    """Tests EstimationBehaviour"""
+
+    behaviour_class: Type[BaseBehaviour] = EstimationBehaviour
+    next_behaviour_class: Type[BaseBehaviour] = OutlierDetectionBehaviour
+
+    _observation = [
+        {
+            "value": 25,
+            "timestamp": 1662940800,
+        },
+        {"value": 26, "timestamp": 1662854400},
+    ]
+    _bad_observation = []
+
+    @pytest.mark.parametrize(
+        "test_case",
+        [
+            BehaviourTestCase(
+                "PASS: the happy path",
+                initial_data={
+                    "participant_to_observations": {
+                        "agent_a": ObservationRoundPayload(
+                            "agent_a", json.dumps(_observation)
+                        ),
+                        "agent_b": ObservationRoundPayload(
+                            "agent_b", json.dumps(_observation)
+                        ),
+                        "agent_c": ObservationRoundPayload(
+                            "agent_c", json.dumps(_observation)
+                        ),
+                        "agent_d": ObservationRoundPayload(
+                            "agent_d", json.dumps(_bad_observation)
+                        ),
+                    }
+                },
+                event=Event.DONE,
+                next_behaviour_class=OutlierDetectionBehaviour,
+            ),
+        ],
+    )
+    def test_run(self, test_case: BehaviourTestCase) -> None:
+        """Run tests."""
+        self.fast_forward(test_case.initial_data)
+        self.complete(test_case.event, test_case.next_behaviour_class)
 
 
 class TestOutlierDetectionBehaviour(BaseFearAndGreedOracleTest):
     """Tests OutlierDetectionBehaviour"""
 
-    # TODO: set next_behaviour_class
     behaviour_class: Type[BaseBehaviour] = OutlierDetectionBehaviour
-    next_behaviour_class: Type[BaseBehaviour] = ...
+    next_behaviour_class: Type[BaseBehaviour] = ObservationBehaviour
+    _normal_estimates = {
+        "value_estimates": [
+            25.0,
+            26.0,
+        ],
+        "timestamp_estimates": [
+            1662940800.0,
+            1662854400.0,
+        ],
+    }
+    _negative_estimates = {
+        "value_estimates": [
+            -25.0,  # estimate is negative
+            26.0,
+        ],
+        "timestamp_estimates": [
+            1662940800.0,
+            1662854400.0,
+        ],
+    }
+    _over_100_estimates = {
+        "value_estimates": [
+            5001,  # it's over 5000
+            26.0,
+        ],
+        "timestamp_estimates": [
+            1662940800.0,
+            1662854400.0,
+        ],
+    }
+    _aggressive_change = {
+        "value_estimates": [
+            5,
+            95,
+        ],
+        "timestamp_estimates": [
+            1662940800.0,
+            1662854400.0,
+        ],
+    }
 
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: BehaviourTestCase, **kwargs: Any) -> None:
+    @pytest.mark.parametrize(
+        "test_case",
+        [
+            BehaviourTestCase(
+                "no outlier detected",
+                initial_data=dict(most_voted_estimates=json.dumps(_normal_estimates)),
+                event=Event.DONE,
+                next_behaviour_class=make_degenerate_behaviour(
+                    FinishedDataCollectionRound.round_id
+                ),  # noqa
+            ),
+            BehaviourTestCase(
+                "negative estimate",
+                initial_data=dict(most_voted_estimates=json.dumps(_negative_estimates)),
+                event=Event.NO_ACTION,
+            ),
+            BehaviourTestCase(
+                "estimate over 100",
+                initial_data=dict(most_voted_estimates=json.dumps(_over_100_estimates)),
+                event=Event.NO_ACTION,
+            ),
+            BehaviourTestCase(
+                "aggressive change",
+                initial_data=dict(most_voted_estimates=json.dumps(_aggressive_change)),
+                event=Event.NO_ACTION,
+            ),
+        ],
+    )
+    def test_run(self, test_case: BehaviourTestCase) -> None:
         """Run tests."""
-
         self.fast_forward(test_case.initial_data)
-        # TODO: mock the necessary calls
-        # self.mock_ ...
-        self.complete(test_case.event)
-
+        self.complete(test_case.event, test_case.next_behaviour_class)
