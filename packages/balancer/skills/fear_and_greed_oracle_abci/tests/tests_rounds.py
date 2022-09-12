@@ -18,9 +18,10 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the tests for rounds of FearAndGreedOracleAbciApp."""
-
-from typing import Any, Dict, List, Callable, Hashable
+import json
 from dataclasses import dataclass, field
+from types import MappingProxyType
+from typing import List, Callable, Hashable, cast
 
 import pytest
 
@@ -29,19 +30,15 @@ from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import *
 from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
     Event,
     SynchronizedData,
-    EstimationRound,
     ObservationRound,
-    OutlierDetectionRound,
+    OutlierDetectionRound, EstimationRound,
 )
 from packages.valory.skills.abstract_round_abci.base import (
     BaseTxPayload,
 )
 from packages.valory.skills.abstract_round_abci.test_tools.rounds import (
     BaseRoundTestClass,
-    BaseOnlyKeeperSendsRoundTest,
-    BaseCollectDifferentUntilThresholdRoundTest,
-    BaseCollectSameUntilThresholdRoundTest,
- )
+)
 
 
 @dataclass
@@ -87,41 +84,318 @@ class BaseFearAndGreedOracleRoundTestClass(BaseRoundTestClass):
         )
 
 
-class TestEstimationRound(BaseFearAndGreedOracleRoundTestClass):
-    """Tests for EstimationRound."""
-
-    round_class = EstimationRound
-
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: RoundTestCase, **kwargs: Any) -> None:
-        """Run tests."""
-
-        self.run_test(test_case, **kwargs)
-
-
 class TestObservationRound(BaseFearAndGreedOracleRoundTestClass):
     """Tests for ObservationRound."""
 
     round_class = ObservationRound
 
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: RoundTestCase, **kwargs: Any) -> None:
+    def test_run(self) -> None:
+        """Tests the happy path for ObservationRound."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data, consensus_params=self.consensus_params
+        )
+
+        payload = dict(test_observation=123)
+        serialized_payload = json.dumps(payload, sort_keys=True)
+        first_payload, *payloads = [
+            ObservationRoundPayload(sender=participant, observation_data=serialized_payload)
+            for participant in self.participants
+        ]
+
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:
+            test_round.process_payload(payload)
+
+        expected_next_state = cast(
+            SynchronizedData,
+            self.synchronized_data.update(
+                participant_to_observations=MappingProxyType(test_round.collection),
+                most_voted_observation=payload,
+            ),
+        )
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        # check that the state is updated as expected
+        assert actual_next_state.most_voted_observation == expected_next_state.most_voted_observation
+
+        # make sure all the votes are as expected
+        assert all(
+            [
+                cast(Dict, actual_next_state.participant_to_observations)[participant]
+                == actual_vote
+                for (participant, actual_vote) in cast(
+                Dict, expected_next_state.participant_to_observations
+            ).items()
+            ]
+        )
+
+        assert event == Event.DONE
+
+    def test_err_payload(self):
+        """Test case for when a bad payload is sent."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data, consensus_params=self.consensus_params
+        )
+
+        payload = dict() # an empty dict is the error payload
+        serialized_payload = json.dumps(payload, sort_keys=True)
+        first_payload, *payloads = [
+            ObservationRoundPayload(sender=participant, observation_data=serialized_payload)
+            for participant in self.participants
+        ]
+
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        # Event DONE should be returned
+        for payload in payloads:
+            test_round.process_payload(payload)
+
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        with pytest.raises(ValueError):
+            actual_next_state.most_voted_observation # noqa
+
+        assert event == Event.NO_ACTION
+
+class TestEstimationRound(BaseFearAndGreedOracleRoundTestClass):
+    """Tests for EstimationRound."""
+
+    round_class = EstimationRound
+    def test_run(self) -> None:
         """Run tests."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data, consensus_params=self.consensus_params
+        )
 
-        self.run_test(test_case, **kwargs)
+        payload = dict(test_estimation=123)
+        serialized_payload = json.dumps(payload, sort_keys=True)
+        first_payload, *payloads = [
+            EstimationRoundPayload(sender=participant, estimation_data=serialized_payload)
+            for participant in self.participants
+        ]
 
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:
+            test_round.process_payload(payload)
+
+        expected_next_state = cast(
+            SynchronizedData,
+            self.synchronized_data.update(
+                participant_to_observations=MappingProxyType(test_round.collection),
+                most_voted_observation=payload,
+            ),
+        )
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        # check that the state is updated as expected
+        assert actual_next_state.most_voted_estimates == expected_next_state.most_voted_estimates
+
+        # make sure all the votes are as expected
+        assert all(
+            [
+                cast(Dict, actual_next_state.participant_to_estimates)[participant]
+                == actual_vote
+                for (participant, actual_vote) in cast(
+                Dict, expected_next_state.participant_to_estimates
+            ).items()
+            ]
+        )
+
+        assert event == Event.DONE
 
 class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
     """Tests for OutlierDetectionRound."""
 
     round_class = OutlierDetectionRound
 
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: RoundTestCase, **kwargs: Any) -> None:
-        """Run tests."""
+    def test_outlier_detected(self) -> None:
+        """Test case for when an outlier was detected."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data, consensus_params=self.consensus_params
+        )
 
-        self.run_test(test_case, **kwargs)
+        payload = dict(status=OutlierDetectionRound.OutlierStatus.OUTLIER_DETECTED.value)
+        serialized_payload = json.dumps(payload, sort_keys=True)
+        first_payload, *payloads = [
+            OutlierDetectionRoundPayload(sender=participant, outlier_detection_data=serialized_payload)
+            for participant in self.participants
+        ]
 
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:
+            test_round.process_payload(payload)
+
+        expected_next_state = cast(
+            SynchronizedData,
+            self.synchronized_data.update(
+                participant_to_outlier_status=MappingProxyType(test_round.collection),
+                most_voted_outlier_status=payload,
+            ),
+        )
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        # check that the state is updated as expected
+        assert actual_next_state.db.get_strict("most_voted_outlier_status") == \
+               expected_next_state.db.get_strict("most_voted_outlier_status")
+
+        # make sure all the votes are as expected
+        assert all(
+            [
+                cast(Dict, actual_next_state.db.get_strict("participant_to_outlier_status"))[participant]
+                == actual_vote
+                for (participant, actual_vote) in cast(
+                Dict, expected_next_state.db.get_strict("participant_to_outlier_status")
+            ).items()
+            ]
+        )
+
+        assert event == Event.NO_ACTION
+
+    def test_outlier_not_detected(self) -> None:
+        """Test case for when an outlier was not detected."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data, consensus_params=self.consensus_params
+        )
+
+        payload = dict(status=OutlierDetectionRound.OutlierStatus.OUTLIER_NOT_DETECTED.value)
+        serialized_payload = json.dumps(payload, sort_keys=True)
+        first_payload, *payloads = [
+            OutlierDetectionRoundPayload(sender=participant, outlier_detection_data=serialized_payload)
+            for participant in self.participants
+        ]
+
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:
+            test_round.process_payload(payload)
+
+        expected_next_state = cast(
+            SynchronizedData,
+            self.synchronized_data.update(
+                participant_to_outlier_status=MappingProxyType(test_round.collection),
+                most_voted_outlier_status=payload,
+            ),
+        )
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        # check that the state is updated as expected
+        assert actual_next_state.db.get_strict("most_voted_outlier_status") == \
+               expected_next_state.db.get_strict("most_voted_outlier_status")
+
+        # make sure all the votes are as expected
+        assert all(
+            [
+                cast(Dict, actual_next_state.db.get_strict("participant_to_outlier_status"))[participant]
+                == actual_vote
+                for (participant, actual_vote) in cast(
+                Dict, expected_next_state.db.get_strict("participant_to_outlier_status")
+            ).items()
+            ]
+        )
+
+        assert event == Event.DONE
+
+    def test_err_payload(self):
+        """Test case for when a bad payload is sent."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data, consensus_params=self.consensus_params
+        )
+
+        payload = dict() # empty dict used for bad payload
+        serialized_payload = json.dumps(payload, sort_keys=True)
+        first_payload, *payloads = [
+            OutlierDetectionRoundPayload(sender=participant, outlier_detection_data=serialized_payload)
+            for participant in self.participants
+        ]
+
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:
+            test_round.process_payload(payload)
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        with pytest.raises(ValueError):
+            actual_next_state.most_voted_observation # noqa
+
+        assert event == Event.NO_ACTION
