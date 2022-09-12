@@ -13,3 +13,8 @@ e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/reset_pause_abci
 e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/safe_deployment_abci/skill.yaml:generic-api-key:72
 e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/transaction_settlement_abci/skill.yaml:generic-api-key:77
 344064cf97a78e5ff4f3914d71db2c1848e6625f:packages/balancer/skills/fear_and_greed_oracle_abci/skill.yaml:generic-api-key:53
+fba2d8c0f6c143478db8b998f037f8d6f0954e81:packages/valory/connections/http_client/connection.yaml:generic-api-key:14
+fba2d8c0f6c143478db8b998f037f8d6f0954e81:packages/valory/connections/ledger/connection.yaml:generic-api-key:17
+fba2d8c0f6c143478db8b998f037f8d6f0954e81:packages/valory/protocols/contract_api/protocol.yaml:generic-api-key:19
+fba2d8c0f6c143478db8b998f037f8d6f0954e81:packages/valory/skills/abstract_round_abci/skill.yaml:generic-api-key:27
+fba2d8c0f6c143478db8b998f037f8d6f0954e81:packages/valory/protocols/ledger_api/protocol.yaml:generic-api-key:19
