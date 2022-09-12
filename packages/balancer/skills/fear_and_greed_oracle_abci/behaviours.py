@@ -140,7 +140,7 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
                 f"the following error was encountered {type(e).__name__}: {e}"
             )
             return "{}"
-        except Exception as e:  # pylint: disable=broad-except
+        except Exception as e:  # pragma: no cover; pylint: disable=broad-except
             self.context.logger.error(
                 f"An unexpected error was encountered while parsing the Fear and Greed API response "
                 f"{type(e).__name__}: {e}"
@@ -245,7 +245,7 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
             [] for _ in range(self.params.fear_and_greed_num_points)
         ]
         for observation in self.synchronized_data.participant_to_observations.values():
-            index_values = observation.observation_data
+            index_values = json.loads(observation.observation_data)
             if len(index_values) != self.params.fear_and_greed_num_points:
                 self.context.logger.warning(
                     f"Expected {self.params.fear_and_greed_num_points} points, found {len(index_values)}"
