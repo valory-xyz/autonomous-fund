@@ -301,7 +301,7 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
 
         :returns: JSON serialized dict with the outlier status.
         """
-        if self.params.fear_and_greed_num_points < 2:
+        if self.params.fear_and_greed_num_points < 2:  # pragma: no cover
             self.context.logger.error(
                 f"The outlier detection algorithm needs two points at least, "
                 f"you have provided {self.params.fear_and_greed_num_points}."
@@ -330,8 +330,8 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
         """Checks whether the last two observations are in the allowed range."""
         values = most_voted_estimates["value_estimates"]
         status = (
-            self.params.min_index_value >= values[0] <= self.params.max_index_value
-            and self.params.min_index_value >= values[1] <= self.params.max_index_value
+            self.params.min_index_value <= values[0] <= self.params.max_index_value
+            and self.params.min_index_value <= values[1] <= self.params.max_index_value
         )
         if not status:
             self.context.logger.warning(
