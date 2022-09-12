@@ -19,9 +19,8 @@
 
 """Test the handlers.py module of the FearAndGreedOracle."""
 
-import packages.balancer.skills.fear_and_greed_oracle_abci.handlers  # noqa
+import packages.balancer.skills.fear_and_greed_oracle_abci.handlers  # pylint: disable=unused-import # noqa: F401
 
 
 def test_import() -> None:
     """Test that the 'handlers.py' of the FearAndGreedOracle can be imported."""
-

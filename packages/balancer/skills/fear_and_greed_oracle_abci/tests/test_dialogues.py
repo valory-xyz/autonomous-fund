@@ -19,7 +19,7 @@
 
 """Test the dialogues.py module of the FearAndGreedOracle."""
 
-import packages.balancer.skills.fear_and_greed_oracle_abci.dialogues  # noqa
+import packages.balancer.skills.fear_and_greed_oracle_abci.dialogues  # pylint: disable=unused-import # noqa: F401
 
 
 def test_import() -> None:
