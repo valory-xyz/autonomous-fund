@@ -19,14 +19,15 @@
 
 """Test the models.py module of the FearAndGreedOracle."""
 
-from packages.valory.skills.abstract_round_abci.test_tools.base import DummyContext
 from packages.balancer.skills.fear_and_greed_oracle_abci.models import SharedState
+from packages.valory.skills.abstract_round_abci.test_tools.base import DummyContext
 
 
-class TestSharedState:
+class TestSharedState:  # pylint: disable=too-few-public-methods
     """Test SharedState of FearAndGreedOracle."""
 
-    def test_initialization(self) -> None:
+    def test_initialization(  # pylint: disable=no-self-use
+        self,
+    ) -> None:
         """Test initialization."""
         SharedState(name="", skill_context=DummyContext())
-
