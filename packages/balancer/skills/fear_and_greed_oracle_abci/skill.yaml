@@ -7,21 +7,21 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeibbvllj3mw4xbmnpbhat6hngbmdijpbxe464ekrg5kkhzbyoa4exe
-  behaviours.py: bafybeidiapb53nkf67uhn6qy7mnuy5bjoefge6obu3us44kwdx54gd36cu
+  behaviours.py: bafybeiarkmftt2ctcfn4llm5gejhg3vxyudvdu23yb2rzl6vqmivvf6lc4
   dialogues.py: bafybeih3x4egnkh7xwnlawqbu6fpqyqbaum7ivdhqm6r6557dyy2rhzneq
   fsm_specification.yaml: bafybeifahgntdpxoadcuwpukvlb4kbhaahsilk4eucetnewplr2krakq4y
   handlers.py: bafybeihkdkdow5jpbqoddddbgbutxb4azi3zr33434r7qwatisodj4r45m
-  models.py: bafybeieplewma7czlo6j24byofvtt6eyyublxee2uiokhqyy6twuyxw7be
+  models.py: bafybeih5ek4sj7z6h27qujfhc5m67qzxwa4syrfx2eg4hv43vj7i2mr56u
   my_model.py: bafybeiaqfta55w3ygvyrk7g2wmb3xvlpmpvmq5wbsyqav3pwk46cgfp34u
   payloads.py: bafybeihhgcbnhxwbffhqfom4up5n4dfezxl6xrcf3mkaydcw2rp5twulaq
   rounds.py: bafybeih6wz3yvvg57qbbkkwh2rv7rc44tyuz2yi5ps4jo5aaeorzcriunq
-  tests/__init__.py: bafybeib42wqezi4kgsi742sh4zcmtlmx5kez2wduunroxschy444b7r6ci
-  tests/test_behaviours.py: bafybeibt25w6bbkybpd5azx5qtoszpaga2hhpa3yhbkyedqnm6e6gwojzq
-  tests/test_dialogues.py: bafybeidxfqlz5ebayigskty7zemm5gyqkrjqvo2xx33j6e4lwthm7tvkbu
-  tests/test_handlers.py: bafybeiffv233muvc3oty3nbpwqgxj2r2t3mchc7erbkutmgk4yeicbioza
-  tests/test_models.py: bafybeid262bk6khngs3ydqufpxchvzr5erqvbft66vg766vkwli5hhszki
-  tests/test_payloads.py: bafybeigundxgocfojglk5w777vknaaetckll4p7olzuumaaucsz42c4yti
-  tests/tests_rounds.py: bafybeia6tsetvwfemtn7qatqg2ms4fscw75zvx5k4rxbis5r7nmf6i6b7q
+  tests/__init__.py: bafybeibox6bth5oqs3d2vpk3i5pxjbtqyiig764x74n6gh5valxouhk4ia
+  tests/test_behaviours.py: bafybeihmr7hmhhuczdusy5g6vlxvgs66ta4plfvoim7cctpxdnyiu2gkea
+  tests/test_dialogues.py: bafybeigodg2pya2k7qloexrryvfwnmwqbb7if2y7q5evk7slhzxf62byvy
+  tests/test_handlers.py: bafybeidjm4oko5gv4rzrfp2mztiwa6jagqqyz7wltttx43tv6lulthwz24
+  tests/test_models.py: bafybeibnxj2x4566qcucnyspqmru2awdwaicvmlotdsuw2zdifz2eectva
+  tests/test_payloads.py: bafybeicvdk3sjamivoqrnptvdwau3zz67cs3uy4txn5jensmlegsmavoau
+  tests/tests_rounds.py: bafybeibrkf6dij4d3zni4bv27scaunhphknrwugy4w3vf3udzxiefx7f64
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
