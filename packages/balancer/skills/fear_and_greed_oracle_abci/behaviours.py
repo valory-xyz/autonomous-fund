@@ -140,7 +140,7 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
                 f"the following error was encountered {type(e).__name__}: {e}"
             )
             return "{}"
-        except Exception as e:  # pragma: no cover; pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             self.context.logger.error(
                 f"An unexpected error was encountered while parsing the Fear and Greed API response "
                 f"{type(e).__name__}: {e}"
@@ -301,7 +301,7 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
 
         :returns: JSON serialized dict with the outlier status.
         """
-        if self.params.fear_and_greed_num_points < 2:  # pragma: no cover
+        if self.params.fear_and_greed_num_points < 2:
             self.context.logger.error(
                 f"The outlier detection algorithm needs two points at least, "
                 f"you have provided {self.params.fear_and_greed_num_points}."

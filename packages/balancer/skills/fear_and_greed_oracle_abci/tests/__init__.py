@@ -16,3 +16,5 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
+
+"""This module contains the tests for the Fear and Greed Oracle ABCI skill."""
