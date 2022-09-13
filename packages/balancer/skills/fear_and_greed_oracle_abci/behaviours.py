@@ -245,7 +245,7 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
             [] for _ in range(self.params.fear_and_greed_num_points)
         ]
         for observation in self.synchronized_data.participant_to_observations.values():
-            index_values = observation.observation_data
+            index_values = json.loads(observation.observation_data)
             if len(index_values) != self.params.fear_and_greed_num_points:
                 self.context.logger.warning(
                     f"Expected {self.params.fear_and_greed_num_points} points, found {len(index_values)}"
@@ -330,8 +330,8 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
         """Checks whether the last two observations are in the allowed range."""
         values = most_voted_estimates["value_estimates"]
         status = (
-            self.params.min_index_value >= values[0] <= self.params.max_index_value
-            and self.params.min_index_value >= values[1] <= self.params.max_index_value
+            self.params.min_index_value <= values[0] <= self.params.max_index_value
+            and self.params.min_index_value <= values[1] <= self.params.max_index_value
         )
         if not status:
             self.context.logger.warning(
@@ -370,5 +370,5 @@ class FearAndGreedOracleRoundBehaviour(AbstractRoundBehaviour):
     behaviours: Set[Type[BaseBehaviour]] = {
         ObservationBehaviour,  # type: ignore
         EstimationBehaviour,  # type: ignore
-        OutlierDetectionRound,  # type: ignore
+        OutlierDetectionBehaviour,  # type: ignore
     }

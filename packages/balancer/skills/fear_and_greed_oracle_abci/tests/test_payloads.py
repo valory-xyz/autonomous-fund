@@ -19,16 +19,16 @@
 
 """This package contains payload tests for the FearAndGreedOracleAbciApp."""
 
-from typing import Hashable, Type, Dict
 from dataclasses import dataclass
+from typing import Dict, Type
 
 import pytest
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
-    TransactionType,
     EstimationRoundPayload,
     ObservationRoundPayload,
     OutlierDetectionRoundPayload,
+    TransactionType,
 )
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
@@ -42,29 +42,34 @@ class PayloadTestCase:
     transaction_type: TransactionType
 
 
-@pytest.mark.parametrize("test_case", [
-    PayloadTestCase(
-        payload_cls=EstimationRoundPayload,
-        content=dict(estimation_data="test"),
-        transaction_type=TransactionType.ESTIMATION,
-    ),
-    PayloadTestCase(
-        payload_cls=ObservationRoundPayload,
-        content=dict(observation_data="test"),
-        transaction_type=TransactionType.OBSERVATION,
-    ),
-    PayloadTestCase(
-        payload_cls=OutlierDetectionRoundPayload,
-        content=dict(outlier_detection_data="test"),
-        transaction_type=TransactionType.OUTLIER_DETECTION,
-    ),
-])
+@pytest.mark.parametrize(
+    "test_case",
+    [
+        PayloadTestCase(
+            payload_cls=EstimationRoundPayload,
+            content=dict(estimation_data="test"),
+            transaction_type=TransactionType.ESTIMATION,
+        ),
+        PayloadTestCase(
+            payload_cls=ObservationRoundPayload,
+            content=dict(observation_data="test"),
+            transaction_type=TransactionType.OBSERVATION,
+        ),
+        PayloadTestCase(
+            payload_cls=OutlierDetectionRoundPayload,
+            content=dict(outlier_detection_data="test"),
+            transaction_type=TransactionType.OUTLIER_DETECTION,
+        ),
+    ],
+)
 def test_payloads(test_case: PayloadTestCase) -> None:
     """Tests for FearAndGreedOracleAbciApp payloads"""
 
-    payload = test_case.payload_cls(sender="sender", **test_case.content,)
+    payload = test_case.payload_cls(
+        sender="sender",
+        **test_case.content,
+    )
     assert payload.sender == "sender"
-    assert getattr(payload, "data") == test_case.content
+    assert getattr(payload, "data") == test_case.content  # type: ignore # noqa: B009
     assert payload.transaction_type == test_case.transaction_type
     assert payload.from_json(payload.json) == payload
-
