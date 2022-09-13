@@ -48,8 +48,6 @@ from packages.valory.skills.abstract_round_abci.test_tools.base import (
     FSMBehaviourBaseCase,
 )
 
-from tests.conftest import ROOT_DIR
-
 
 DEFAULT_FEAR_AND_GREED_INDEX_BASE_URL = (
     "https://api.alternative.me/fng/?format=json&limit="
@@ -70,9 +68,7 @@ class BehaviourTestCase:
 class BaseFearAndGreedOracleTest(FSMBehaviourBaseCase):
     """Base test case."""
 
-    path_to_skill = Path(
-        ROOT_DIR, "packages", "balancer", "skills", "fear_and_greed_oracle_abci"
-    )
+    path_to_skill = Path(__file__).parent.parent
 
     behaviour: FearAndGreedOracleBaseBehaviour  # type: ignore
     behaviour_class: Type[FearAndGreedOracleBaseBehaviour]
