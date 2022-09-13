@@ -25,6 +25,9 @@ from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
     FearAndGreedOracleAbciApp,
 )
 from packages.valory.skills.abstract_round_abci.models import BaseParams
+from packages.valory.skills.abstract_round_abci.models import (
+    BenchmarkTool as BaseBenchmarkTool,
+)
 from packages.valory.skills.abstract_round_abci.models import Requests as BaseRequests
 from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
@@ -61,3 +64,4 @@ class Params(BaseParams):
 
 
 Requests = BaseRequests
+BenchmarkTool = BaseBenchmarkTool
