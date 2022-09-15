@@ -69,6 +69,7 @@ generators:
 	tox -e abci-docstrings
 	tox -e fix-copyright
 	autonomy hash all
+	autonomy packages lock
 
 .PHONY: common-checks-1
 common-checks-1:

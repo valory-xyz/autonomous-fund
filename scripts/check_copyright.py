@@ -195,7 +195,9 @@ def fix_header(check_info: Dict) -> bool:
     copyright_string = ""
     is_update_needed = False
 
-    if check_info["error_code"] in (
+    if "error_code" not in check_info:
+        is_update_needed = False
+    elif check_info["error_code"] in (
         ErrorTypes.END_YEAR_WRONG,
         ErrorTypes.END_YEAR_MISSING,
     ):
@@ -309,18 +311,9 @@ def main() -> None:
     python_files = filter(
         lambda x: x not in exclude_files,
         itertools.chain(
-            Path("autonomy").glob("**/*.py"),
-            Path("aea_consensus_algorithm").glob("**/*.py"),
-            Path("benchmark").glob("**/*.py"),
-            Path("examples").glob("**/*.py"),
-            Path("tests").glob("**/*.py"),
-            Path("packages", "valory", "agents").glob("**/*.py"),
-            Path("packages", "valory", "connections").glob("**/*.py"),
-            Path("packages", "valory", "contracts").glob("**/*.py"),
-            Path("packages", "valory", "skills").glob("**/*.py"),
+            Path("packages", "balancer").glob("**/*.py"),
             Path("tests").glob("**/*.py"),
             Path("scripts").glob("**/*.py"),
-            Path("replay_scripts").glob("**/*.py"),
         ),
     )
 

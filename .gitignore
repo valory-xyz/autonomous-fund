@@ -12,3 +12,5 @@ generate_abciapp_spec.py
 abci_build/
 keys.json
 leak_report
+packages/valory
+packages/open_aea
