@@ -4,14 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-open-aea = "==1.18.0.post1"
-open-aea-ledger-ethereum = "==1.18.0"
-open-aea-ledger-cosmos = "==1.18.0"
-open-aea-cli-ipfs = "==1.18.0"
-open-aea-test-autonomy = "==0.2.2"
-tox = "==3.24.4"
+# we don't specify dependencies for the library here for intallation as per: https://pipenv-fork.readthedocs.io/en/latest/advanced.html#pipfile-vs-setuppy
+# aea/autonomy package dependencies are specified in their respective configuration yaml files and as dev dependencies below
 
 [dev-packages]
+# we fix exact versions as it's sufficient to have at least one set of compatible dependencies for development
 aiohttp = "==3.7.4.post0"
 asn1crypto = "==1.5.1"
 bandit = "==1.7.0"
@@ -45,17 +42,23 @@ pytz = "==2022.2.1"
 pylint = "==2.11.1"
 requests = "*"
 safety = "==1.10.3"
-tox = "==3.24.4"
 types-pyyaml = "==6.0.7"
 types-protobuf = "==3.19.20"
 types-requests = "==2.27.25"
 vulture = "==2.3"
+open-aea = "==1.19.0"
+open-aea-ledger-ethereum = "==1.19.0"
+open-aea-ledger-cosmos = "==1.19.0"
+open-aea-cli-ipfs = "==1.19.0"
+open-aea-test-autonomy = "==0.3.0"
+tox = "==3.24.4"
+typing-extensions = "*"
 
 [requires]
 python_version = "3.10"
 
 [packages.open-autonomy]
-version = "==0.2.2"
+version = "==0.3.0"
 extras = [ "all",]
 
 [dev-packages.mkdocs-mermaid-plugin]
