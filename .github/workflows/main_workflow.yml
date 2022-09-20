@@ -186,7 +186,7 @@ jobs:
           # pull node image needed for the integration tests
           docker pull node:16.7.0
           docker pull trufflesuite/ganache:beta
-          # TODO: build autonomous-fund contracts here
+          docker pull valory/autonomous-fund-contracts:latest
 
       - name: Unit tests
         run: |
@@ -242,7 +242,7 @@ jobs:
           # pull node image needed for the integration tests
           docker pull node:16.7.0
 
-          # TODO: build autonomous-fund contracts here
+          docker pull valory/autonomous-fund-contracts:latest
 
       - name: e2e tests
         run: |

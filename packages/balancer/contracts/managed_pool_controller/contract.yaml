@@ -1,0 +1,23 @@
+name: managed_pool_controller
+author: balancer
+version: 0.1.0
+type: contract
+description: The contract package for the balancer ManagedPoolController.
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint:
+  __init__.py: bafybeig5ixse5fitdo2z6wzq6cmviprb2kugaddn3y6p2jd3qet763ftfq
+  build/ManagedPoolController.json: bafybeidvvz2bwwq33xc6ece2cddqbnlhhvj7kk7gugtawaynrnj6o3fyla
+  contract.py: bafybeib26thtsdxhtj7uzwzndq7b35iealpsdoyw6nq53mxsjjc5mpyklu
+  tests/__init__.py: bafybeid3fa64f4rskt4tf6hfjxqzid2o5dopuh2f53aegclg6fj5ylso5i
+  tests/helpers/__init__.py: bafybeidelvz75o4asgtt5x3yxkhbc3irh2xa4bv2452m7g3ldagbma2ivq
+  tests/helpers/constants.py: bafybeiailsgona66kndd6lrnqpclwb2dczpkinqzrtzpqfmyql5nvpz6aq
+  tests/helpers/docker.py: bafybeicwmkkw3wwvxuz3rl3lb4tmiz75ykl4majfpahwhrnjdpjc2ebhci
+  tests/helpers/fixtures.py: bafybeibegwl6gxgvsalaht4y4daqfmgeqqqex55pjwrdp5if5ld7qfkrxa
+  tests/test_contract.py: bafybeib6xzkbwqnqbd7q4ivauokvqu547weeg5nlsdzm55rgt3xfckt45a
+fingerprint_ignore_patterns: []
+contracts: []
+class_name: ManagedPoolControllerContract
+contract_interface_paths:
+  ethereum: build/ManagedPoolController.json
+dependencies: {}

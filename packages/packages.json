@@ -16,6 +16,7 @@
     "contract/valory/gnosis_safe/0.1.0": "bafybeifbkitkori3pi2mtevm475xbnljfejpci7u7veziaptrj4hjbciju",
     "contract/valory/offchain_aggregator/0.1.0": "bafybeifjmazj5ger33po34easdzytqdgi4yaieqaa2vfs535sbgpdwnuf4",
     "skill/valory/abstract_round_abci/0.1.0": "bafybeigpz64qx22a4zzlcczmc5frhlecytrh5q3x77lwe3a5kee2qrcchm",
+    "contract/balancer/managed_pool_controller/0.1.0": "bafybeidyudcphlx5sdrvcxruqvmzzr2winqytec2y363brcbzqevihwrfi",
     "contract/valory/multisend/0.1.0": "bafybeig45676hbh4c3p3mujrrskxgxww4cxdyyginlg5rmmav6orv4gtya",
     "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeign3amn4jh7bttb22eql3uju6zyu45cvinfxquutzt2fztgf45cu4",
     "skill/valory/registration_abci/0.1.0": "bafybeiajvfkffbdmggj3it7e4r6733lylxhbnb2a6tx3tmlgpy2fpxkuze",
