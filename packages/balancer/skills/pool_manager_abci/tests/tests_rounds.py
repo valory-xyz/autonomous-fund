@@ -18,23 +18,20 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the tests for rounds of PoolManagerAbciApp."""
-import json
 from dataclasses import dataclass, field
 from types import MappingProxyType
-from typing import List, Callable, Type, cast
+from typing import Any, Callable, Dict, Hashable, List, cast
 
 import pytest
 
-from packages.balancer.skills.pool_manager_abci.payloads import *
+from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload
 from packages.balancer.skills.pool_manager_abci.rounds import (
     Event,
     SynchronizedData,
     DecisionMakingRound,
     UpdatePoolTxRound,
 )
-from packages.valory.skills.abstract_round_abci.base import (
-    BaseTxPayload,
-)
+from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 from packages.valory.skills.abstract_round_abci.test_tools.rounds import (
     BaseRoundTestClass,
 )
@@ -61,24 +58,26 @@ class BasePoolManagerRoundTestClass(BaseRoundTestClass):
     _synchronized_data_class = SynchronizedData
     _event_class = Event
 
-    def run_test(self, test_case: RoundTestCase, **kwargs) -> None:
+    def run_test(self, test_case: RoundTestCase, **kwargs: Any) -> None:
         """Run the test"""
 
-        self.synchronized_data.update(**test_case.initial_data)
+        self.synchronized_data.update(**test_case.initial_data)  # type: ignore
 
-        test_round = self.round_class(
+        test_round = self.round_class(  # type: ignore # pylint: disable=no-member
             synchronized_data=self.synchronized_data,
             consensus_params=self.consensus_params,
         )
 
         self._complete_run(
-            self._test_round(
+            self._test_round(  # type: ignore # pylint: disable=no-member
                 test_round=test_round,
                 round_payloads=test_case.payloads,
-                synchronized_data_update_fn=lambda sync_data, _: sync_data.update(**test_case.final_data),
+                synchronized_data_update_fn=lambda sync_data, _: sync_data.update(
+                    **test_case.final_data
+                ),
                 synchronized_data_attr_checks=test_case.synchronized_data_attr_checks,
                 exit_event=test_case.event,
-                **kwargs,  # varies per BaseRoundTestClass child
+                **kwargs,
             )
         )
 
@@ -109,9 +108,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         )
         payload_data = "0x-test-123"
         first_payload, *payloads = [
-            UpdatePoolTxPayload(
-                sender=participant, update_pool_tx=payload_data
-            )
+            UpdatePoolTxPayload(sender=participant, update_pool_tx=payload_data)
             for participant in self.participants
         ]
 
@@ -143,10 +140,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         actual_next_state = cast(SynchronizedData, state)
 
         # check that the state is updated as expected
-        assert (
-                actual_next_state.most_voted_tx
-                == expected_next_state.most_voted_tx
-        )
+        assert actual_next_state.most_voted_tx == expected_next_state.most_voted_tx
 
         # make sure all the votes are as expected
         assert all(
@@ -154,8 +148,8 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
                 cast(Dict, actual_next_state.participant_to_tx)[participant]
                 == actual_vote
                 for (participant, actual_vote) in cast(
-                Dict, expected_next_state.participant_to_tx
-            ).items()
+                    Dict, expected_next_state.participant_to_tx
+                ).items()
             ]
         )
 
@@ -170,9 +164,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
 
         payload_data = UpdatePoolTxRound.ERROR_PAYLOAD
         first_payload, *payloads = [
-            UpdatePoolTxPayload(
-                sender=participant, update_pool_tx=payload_data
-            )
+            UpdatePoolTxPayload(sender=participant, update_pool_tx=payload_data)
             for participant in self.participants
         ]
 
@@ -200,4 +192,3 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
             actual_next_state.most_voted_tx  # pylint: disable=pointless-statement
 
         assert event == Event.NO_ACTION
-

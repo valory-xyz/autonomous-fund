@@ -16,3 +16,4 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
+"""This module defines the tests for the `pool_manager_abci`."""

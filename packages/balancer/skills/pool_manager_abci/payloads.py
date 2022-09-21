@@ -68,4 +68,4 @@ class UpdatePoolTxPayload(BasePoolManagerPayload):
 
     def __init__(self, sender: str, update_pool_tx: str, **kwargs: Any) -> None:
         """Initialize an UpdatePoolTx transaction payload."""
-        super(UpdatePoolTxPayload, self).__init__(sender, update_pool_tx, **kwargs)
+        super().__init__(sender=sender, content=update_pool_tx, **kwargs)

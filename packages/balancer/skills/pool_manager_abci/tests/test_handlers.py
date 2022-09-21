@@ -16,6 +16,7 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
+# pylint: disable=unused-import
 
 """Test the handlers.py module of the PoolManager."""
 
@@ -24,4 +25,3 @@ import packages.balancer.skills.pool_manager_abci.handlers  # noqa
 
 def test_import() -> None:
     """Test that the 'handlers.py' of the PoolManager can be imported."""
-

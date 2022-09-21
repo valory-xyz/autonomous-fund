@@ -18,7 +18,6 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the rounds of PoolManagerAbciApp."""
-import json
 from enum import Enum
 from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, cast
@@ -124,7 +123,8 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
     payload_attribute: str = "update_pool_tx"
     synchronized_data_class = SynchronizedData
 
-    ERROR_PAYLOAD = '{}'
+    ERROR_PAYLOAD = "{}"
+
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
         """Process the end of the block."""
         if self.threshold_reached:

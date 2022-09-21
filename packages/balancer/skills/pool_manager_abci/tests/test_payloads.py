@@ -41,13 +41,16 @@ class PayloadTestCase:
     transaction_type: TransactionType
 
 
-@pytest.mark.parametrize("test_case", [
-    PayloadTestCase(
-        payload_cls=UpdatePoolTxPayload,
-        content="0xanydata",
-        transaction_type=TransactionType.UPDATE_POOL_TX
-    )
-])
+@pytest.mark.parametrize(
+    "test_case",
+    [
+        PayloadTestCase(
+            payload_cls=UpdatePoolTxPayload,
+            content="0xanydata",
+            transaction_type=TransactionType.UPDATE_POOL_TX,
+        )
+    ],
+)
 def test_payloads(test_case: PayloadTestCase) -> None:
     """Tests for PoolManagerAbciApp payloads"""
 
