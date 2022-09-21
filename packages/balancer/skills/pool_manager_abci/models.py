@@ -27,7 +27,9 @@ from packages.valory.skills.abstract_round_abci.models import Requests as BaseRe
 from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
 )
-
+from packages.valory.skills.abstract_round_abci.models import (
+    BenchmarkTool as BaseBenchmarkTool,
+)
 
 class SharedState(BaseSharedState):
     """Keep the current shared state of the skill."""
@@ -59,3 +61,4 @@ class Params(BaseParams):
 
 
 Requests = BaseRequests
+BenchmarkTool = BaseBenchmarkTool
