@@ -22,14 +22,18 @@ fingerprint:
   tests/tests_rounds.py: bafybeigjcwrbxvh74nhokkqx24jezr2vmybuw6glkrmwryqhgak76e7bym
 fingerprint_ignore_patterns: []
 connections: []
-contracts: []
-protocols: []
+contracts:
+  - balancer/managed_pool_controller:0.1.0
+  - valory/gnosis_safe:0.1.0
+protocols:
+  - valory/contract_api:0.1.0
 skills:
 - valory/abstract_round_abci:0.1.0:bafybeigpz64qx22a4zzlcczmc5frhlecytrh5q3x77lwe3a5kee2qrcchm
+- valory/transaction_settlement_abci:0.1.0
 behaviours:
   main:
     args: {}
-    class_name: PoolManagerAbciApp
+    class_name: PoolManagerRoundBehaviour
 handlers:
   abci:
     args: {}
@@ -50,8 +54,31 @@ handlers:
     args: {}
     class_name: TendermintHandler
 models:
+  abci_dialogues:
+    args: {}
+    class_name: AbciDialogues
+  benchmark_tool:
+    args:
+      log_dir: /logs
+    class_name: BenchmarkTool
+  contract_api_dialogues:
+    args: {}
+    class_name: ContractApiDialogues
+  http_dialogues:
+    args: {}
+    class_name: HttpDialogues
+  ledger_api_dialogues:
+    args: {}
+    class_name: LedgerApiDialogues
   params:
     args:
+      cleanup_history_depth: 1
+      cleanup_history_depth_current: null
+      consensus:
+        max_participants: 1
+      drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
+      keeper_timeout: 30.0
+      max_healthcheck: 120
       managed_pool_controller_address: "0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA"
       weight_update_timespan: 72000 # 20hrs in seconds
       weighted_pool_address: "0x28BF8d29cFA99aE9C3D876210453272f30e4D131"
@@ -60,10 +87,27 @@ models:
         0: [60, 30, 10]
         41: [33, 33, 34]
         60: [10, 30, 60]
+      observation_aggregator_function: median
+      observation_interval: 10
+      on_chain_service_id: null
+      reset_tendermint_after: 2
+      retry_attempts: 400
+      retry_timeout: 3
+      round_timeout_seconds: 30.0
+      service_id: pool_manager
+      service_registry_address: null
+      sleep_time: 1
+      tendermint_check_sleep_delay: 3
+      tendermint_com_url: http://localhost:8080
+      tendermint_max_retries: 5
+      tendermint_url: http://localhost:26657
     class_name: Params
   requests:
     args: {}
     class_name: Requests
+  signing_dialogues:
+    args: {}
+    class_name: SigningDialogues
   state:
     args: {}
     class_name: SharedState
