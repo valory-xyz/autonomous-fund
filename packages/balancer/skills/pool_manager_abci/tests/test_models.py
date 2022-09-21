@@ -20,7 +20,7 @@
 """Test the models.py module of the PoolManager."""
 
 from packages.valory.skills.abstract_round_abci.test_tools.base import DummyContext
-from balancer.skills.pool_manager_abci.models import SharedState
+from packages.balancer.skills.pool_manager_abci.models import SharedState
 
 
 class TestSharedState:
