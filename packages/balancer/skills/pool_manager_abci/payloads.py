@@ -21,7 +21,7 @@
 
 from abc import ABC
 from enum import Enum
-from typing import Any, Dict, Hashable, Optional
+from typing import Any, Dict, Hashable
 
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
@@ -29,7 +29,6 @@ from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 class TransactionType(Enum):
     """Enumeration of transaction types."""
 
-    # TODO: define transaction types: e.g. TX_HASH: "tx_hash"
     UPDATE_POOL_TX = "update_pool_tx"
 
     def __str__(self) -> str:
@@ -41,7 +40,7 @@ class BasePoolManagerPayload(BaseTxPayload, ABC):
     """Base payload for PoolManager."""
 
     def __init__(self, sender: str, content: Hashable, **kwargs: Any) -> None:
-        """Initialize a 'select_keeper' transaction payload."""
+        """Initialize a transaction payload."""
 
         super().__init__(sender, **kwargs)
         setattr(self, f"_{self.transaction_type}", content)
@@ -57,6 +56,5 @@ class BasePoolManagerPayload(BaseTxPayload, ABC):
 class UpdatePoolTxPayload(BasePoolManagerPayload):
     """Represent a transaction payload for the UpdatePoolTxRound."""
 
-    # TODO: specify the transaction type
     transaction_type = TransactionType.UPDATE_POOL_TX
 
