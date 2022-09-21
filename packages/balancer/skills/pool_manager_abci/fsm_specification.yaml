@@ -1,0 +1,17 @@
+alphabet_in:
+- DONE
+- NO_MAJORITY
+- ROUND_TIMEOUT
+default_start_state: UpdatePoolTxRound
+final_states:
+- FinishedTxPreparationRound
+label: packages.balancer.skills.pool_manager_abci.rounds.PoolManagerAbciApp
+start_states:
+- UpdatePoolTxRound
+states:
+- UpdatePoolTxRound
+- FinishedTxPreparationRound
+transition_func:
+    (UpdatePoolTxRound, DONE): FinishedTxPreparationRound
+    (UpdatePoolTxRound, ROUND_TIMEOUT): UpdatePoolTxRound
+    (UpdatePoolTxRound, NO_MAJORITY): UpdatePoolTxRound
