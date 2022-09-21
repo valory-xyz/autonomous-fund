@@ -183,7 +183,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         # which is the greatest lower bound of the available intervals
         # that the latest estimation surpasses
         for point in interval_lower_bounds:
-            if latest_value > point:
+            if latest_value >= point:
                 interval_to_use = max(interval_to_use, point)
 
         return self.params.pool_weights[interval_to_use]
