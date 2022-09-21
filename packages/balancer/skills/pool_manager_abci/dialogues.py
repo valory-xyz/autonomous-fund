@@ -74,7 +74,7 @@ LedgerApiDialogues = BaseLedgerApiDialogues
 
 
 ContractApiDialogue = BaseContractApiDialogue
-ContactApiDialogues = BaseContractApiDialogues
+ContractApiDialogues = BaseContractApiDialogues
 
 
 TendermintDialogue = BaseTendermintDialogue
