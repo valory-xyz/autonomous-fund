@@ -131,12 +131,10 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
             if self.most_voted_payload == self.ERROR_PAYLOAD:
                 return self.synchronized_data, Event.NO_ACTION
 
-            payload = json.loads(self.most_voted_payload)
-
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
                 participant_to_tx=MappingProxyType(self.collection),
-                most_voted_tx=payload,
+                most_voted_tx=self.most_voted_payload,
             )
             return state, Event.DONE
         if not self.is_majority_possible(
