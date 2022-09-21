@@ -18,15 +18,15 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the tests for rounds of PoolManagerAbciApp."""
-
-from typing import Any, Dict, List, Callable, Hashable
+import json
 from dataclasses import dataclass, field
+from types import MappingProxyType
+from typing import List, Callable, Type, cast
 
 import pytest
 
-# TODO: define and import specific payloads explicitly by name
-from balancer.skills.pool_manager_abci.payloads import *
-from balancer.skills.pool_manager_abci.rounds import (
+from packages.balancer.skills.pool_manager_abci.payloads import *
+from packages.balancer.skills.pool_manager_abci.rounds import (
     Event,
     SynchronizedData,
     DecisionMakingRound,
@@ -37,10 +37,7 @@ from packages.valory.skills.abstract_round_abci.base import (
 )
 from packages.valory.skills.abstract_round_abci.test_tools.rounds import (
     BaseRoundTestClass,
-    BaseOnlyKeeperSendsRoundTest,
-    BaseCollectDifferentUntilThresholdRoundTest,
-    BaseCollectSameUntilThresholdRoundTest,
- )
+)
 
 
 @dataclass
@@ -104,10 +101,103 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
 
     round_class = UpdatePoolTxRound
 
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: RoundTestCase, **kwargs: Any) -> None:
-        """Run tests."""
+    def test_run(self) -> None:
+        """Tests the happy path for ObservationRound."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data,
+            consensus_params=self.consensus_params,
+        )
+        payload_data = "0x-test-123"
+        first_payload, *payloads = [
+            UpdatePoolTxPayload(
+                sender=participant, update_pool_tx=payload_data
+            )
+            for participant in self.participants
+        ]
 
-        self.run_test(test_case, **kwargs)
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:  # type: ignore
+            test_round.process_payload(payload)  # type: ignore
+
+        expected_next_state = cast(
+            SynchronizedData,
+            self.synchronized_data.update(
+                participant_to_tx=MappingProxyType(test_round.collection),
+                most_voted_tx=payload_data,
+            ),
+        )
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        # check that the state is updated as expected
+        assert (
+                actual_next_state.most_voted_tx
+                == expected_next_state.most_voted_tx
+        )
+
+        # make sure all the votes are as expected
+        assert all(
+            [
+                cast(Dict, actual_next_state.participant_to_tx)[participant]
+                == actual_vote
+                for (participant, actual_vote) in cast(
+                Dict, expected_next_state.participant_to_tx
+            ).items()
+            ]
+        )
+
+        assert event == Event.DONE
+
+    def test_err_payload(self) -> None:
+        """Test case for when a bad payload is sent."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data,
+            consensus_params=self.consensus_params,
+        )
+
+        payload_data = UpdatePoolTxRound.ERROR_PAYLOAD
+        first_payload, *payloads = [
+            UpdatePoolTxPayload(
+                sender=participant, update_pool_tx=payload_data
+            )
+            for participant in self.participants
+        ]
+
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        # Event DONE should be returned
+        for payload in payloads:  # type: ignore
+            test_round.process_payload(payload)  # type: ignore
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        with pytest.raises(ValueError):
+            actual_next_state.most_voted_tx  # pylint: disable=pointless-statement
+
+        assert event == Event.NO_ACTION
 
