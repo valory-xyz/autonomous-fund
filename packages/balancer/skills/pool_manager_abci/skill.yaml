@@ -51,7 +51,13 @@ handlers:
     class_name: TendermintHandler
 models:
   params:
-    args: {}
+    args:
+      managed_pool_controller_address: "0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA"
+      weight_update_timespan: 72000 # 20hrs in seconds
+      pool_weights:
+        0: [60, 30, 10]
+        41: [33, 33, 34]
+        60: [10, 30, 60]
     class_name: Params
   requests:
     args: {}

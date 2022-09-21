@@ -19,14 +19,14 @@
 
 """This module contains the shared state for the abci skill of PoolManagerAbciApp."""
 
-from typing import Any
+from typing import Any, Dict, List
 
+from packages.balancer.skills.pool_manager_abci.rounds import PoolManagerAbciApp
 from packages.valory.skills.abstract_round_abci.models import BaseParams
 from packages.valory.skills.abstract_round_abci.models import Requests as BaseRequests
 from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
 )
-from packages.balancer.skills.pool_manager_abci.rounds import PoolManagerAbciApp
 
 
 class SharedState(BaseSharedState):
@@ -37,5 +37,19 @@ class SharedState(BaseSharedState):
         super().__init__(*args, abci_app_cls=PoolManagerAbciApp, **kwargs)
 
 
-Params = BaseParams
+class Params(BaseParams):
+    """Parameters."""
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """Initialize the parameters object."""
+        self.managed_pool_controller_address = self._ensure(
+            "managed_pool_controller_address", kwargs
+        )
+        self.pool_weights: Dict[int, List[int]] = self._ensure("pool_weights", kwargs)
+        self.weight_update_timespan: int = self._ensure(
+            "weight_update_timespan", kwargs
+        )
+        super().__init__(*args, **kwargs)
+
+
 Requests = BaseRequests
