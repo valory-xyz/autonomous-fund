@@ -18,23 +18,20 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the rounds of PoolManagerAbciApp."""
-
+import json
 from enum import Enum
-from typing import List, Optional, Set, Tuple
+from types import MappingProxyType
+from typing import Dict, List, Optional, Set, Tuple, cast
 
+from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
-    AbstractRound,
     AppState,
     BaseSynchronizedData,
+    CollectSameUntilThresholdRound,
     DegenerateRound,
     EventToTimeout,
-    TransactionType
-)
-
-from packages.balancer.skills.pool_manager_abci.payloads import (
-    UpdatePoolTxPayload,
 )
 
 
@@ -44,6 +41,7 @@ class Event(Enum):
     ROUND_TIMEOUT = "round_timeout"
     DONE = "done"
     NO_MAJORITY = "no_majority"
+    NO_ACTION = "no_action"
 
 
 class SynchronizedData(BaseSynchronizedData):
@@ -53,33 +51,62 @@ class SynchronizedData(BaseSynchronizedData):
     This data is replicated by the tendermint application.
     """
 
+    @property
+    def safe_contract_address(self) -> str:
+        """Get the safe contract address."""
+        return cast(str, self.db.get_strict("safe_contract_address"))
 
-class UpdatePoolTxRound(AbstractRound):
-    """UpdatePoolTxRound"""
+    @property
+    def participant_to_tx(self) -> Dict:
+        """Get the participant_to_tx."""
+        return cast(Dict, self.db.get_strict("participant_to_tx"))
 
-    # TODO: replace AbstractRound with one of CollectDifferentUntilAllRound, CollectSameUntilAllRound, CollectSameUntilThresholdRound, CollectDifferentUntilThresholdRound, OnlyKeeperSendsRound, VotingRound
-    # TODO: set the following class attributes
-    round_id: str = "update_pool_tx"
-    allowed_tx_type: Optional[TransactionType]
-    payload_attribute: str = UpdatePoolTxPayload.transaction_type
+    @property
+    def most_voted_tx(self) -> Dict:
+        """Get the most_voted_tx."""
+        return cast(Dict, self.db.get_strict("most_voted_tx"))
 
-    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
+    @property
+    def most_voted_estimates(self) -> Dict:
+        """Get the most_voted_tx."""
+        return cast(Dict, self.db.get_strict("most_voted_estimates"))
+
+
+class UpdatePoolTxRound(CollectSameUntilThresholdRound):
+    """This class defines the round in which the agents prepare a tx to update the pool."""
+
+    round_id = "update_pool_tx"
+    allowed_tx_type = UpdatePoolTxPayload.transaction_type
+    payload_attribute: str = "update_pool_tx"
+    synchronized_data_class = SynchronizedData
+
+    ERROR_PAYLOAD = '{}'
+    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
         """Process the end of the block."""
-        raise NotImplementedError
+        if self.threshold_reached:
+            if self.most_voted_payload == self.ERROR_PAYLOAD:
+                return self.synchronized_data, Event.NO_ACTION
 
-    def check_payload(self, payload: UpdatePoolTxPayload) -> None:
-        """Check payload."""
-        raise NotImplementedError
+            payload = json.loads(self.most_voted_payload)
 
-    def process_payload(self, payload: UpdatePoolTxPayload) -> None:
-        """Process payload."""
-        raise NotImplementedError
+            state = self.synchronized_data.update(
+                synchronized_data_class=self.synchronized_data_class,
+                participant_to_tx=MappingProxyType(self.collection),
+                most_voted_tx=payload,
+            )
+            return state, Event.DONE
+        if not self.is_majority_possible(
+            self.collection, self.synchronized_data.nb_participants
+        ):
+            return self.synchronized_data, Event.NO_MAJORITY
+
+        return None
 
 
 class FinishedTxPreparationRound(DegenerateRound):
     """FinishedTxPreparationRound"""
 
-    round_id: str = "finished_tx_preparation"
+    round_id = "finished_tx_preparation"
 
 
 class PoolManagerAbciApp(AbciApp[Event]):
@@ -87,7 +114,15 @@ class PoolManagerAbciApp(AbciApp[Event]):
 
     initial_round_cls: AppState = UpdatePoolTxRound
     initial_states: Set[AppState] = {UpdatePoolTxRound}
-    transition_function: AbciAppTransitionFunction = {UpdatePoolTxRound: {Event.DONE: FinishedTxPreparationRound, Event.ROUND_TIMEOUT: UpdatePoolTxRound, Event.NO_MAJORITY: UpdatePoolTxRound}, FinishedTxPreparationRound: {}}
+    transition_function: AbciAppTransitionFunction = {
+        UpdatePoolTxRound: {
+            Event.DONE: FinishedTxPreparationRound,
+            Event.ROUND_TIMEOUT: UpdatePoolTxRound,
+            Event.NO_MAJORITY: UpdatePoolTxRound,
+            Event.NO_ACTION: UpdatePoolTxRound,
+        },
+        FinishedTxPreparationRound: {},
+    }
     final_states: Set[AppState] = {FinishedTxPreparationRound}
     event_to_timeout: EventToTimeout = {}
     cross_period_persisted_keys: List[str] = []

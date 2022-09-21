@@ -2,6 +2,7 @@ alphabet_in:
 - DONE
 - NO_MAJORITY
 - ROUND_TIMEOUT
+- NO_ACTION
 default_start_state: UpdatePoolTxRound
 final_states:
 - FinishedTxPreparationRound
@@ -15,3 +16,4 @@ transition_func:
     (UpdatePoolTxRound, DONE): FinishedTxPreparationRound
     (UpdatePoolTxRound, ROUND_TIMEOUT): UpdatePoolTxRound
     (UpdatePoolTxRound, NO_MAJORITY): UpdatePoolTxRound
+    (UpdatePoolTxRound, NO_ACTION): UpdatePoolTxRound
