@@ -52,12 +52,8 @@ class Params(BaseParams):
         self.weight_update_timespan: int = self._ensure(
             "weight_update_timespan", kwargs
         )
-        self.weighted_pool_address: str = self._ensure(
-            "weighted_pool_address", kwargs
-        )
-        self.weight_tolerance: float = self._ensure(
-            "weight_tolerance", kwargs
-        )
+        self.weighted_pool_address: str = self._ensure("weighted_pool_address", kwargs)
+        self.weight_tolerance: float = self._ensure("weight_tolerance", kwargs)
         super().__init__(*args, **kwargs)
 
 

@@ -23,7 +23,10 @@ from enum import Enum
 from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, cast
 
-from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload, DecisionMakingPayload
+from packages.balancer.skills.pool_manager_abci.payloads import (
+    DecisionMakingPayload,
+    UpdatePoolTxPayload,
+)
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
@@ -81,6 +84,7 @@ class SynchronizedData(BaseSynchronizedData):
         """Get the most_voted_tx."""
         return cast(Dict, self.db.get_strict("most_voted_estimates"))
 
+
 class DecisionMakingRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents decide whether to update the weights or not."""
 
@@ -115,8 +119,6 @@ class DecisionMakingRound(CollectSameUntilThresholdRound):
         return None
 
 
-
-
 class UpdatePoolTxRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents prepare a tx to update the pool."""
 
@@ -146,10 +148,12 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
 
         return None
 
+
 class FinishedWithoutTxRound(DegenerateRound):
     """FinishedWithoutTxRound"""
 
     round_id = "finished_without_tx"
+
 
 class FinishedTxPreparationRound(DegenerateRound):
     """FinishedTxPreparationRound"""
@@ -162,7 +166,22 @@ class PoolManagerAbciApp(AbciApp[Event]):
 
     initial_round_cls: AppState = DecisionMakingRound
     initial_states: Set[AppState] = {DecisionMakingRound}
-    transition_function: AbciAppTransitionFunction = {DecisionMakingRound: {Event.DONE: UpdatePoolTxRound, Event.ROUND_TIMEOUT: DecisionMakingRound, Event.NO_MAJORITY: DecisionMakingRound, Event.NO_ACTION: FinishedWithoutTxRound}, UpdatePoolTxRound: {Event.DONE: FinishedTxPreparationRound, Event.ROUND_TIMEOUT: UpdatePoolTxRound, Event.NO_MAJORITY: UpdatePoolTxRound, Event.NO_ACTION: UpdatePoolTxRound}, FinishedWithoutTxRound: {}, FinishedTxPreparationRound: {}}
+    transition_function: AbciAppTransitionFunction = {
+        DecisionMakingRound: {
+            Event.DONE: UpdatePoolTxRound,
+            Event.ROUND_TIMEOUT: DecisionMakingRound,
+            Event.NO_MAJORITY: DecisionMakingRound,
+            Event.NO_ACTION: FinishedWithoutTxRound,
+        },
+        UpdatePoolTxRound: {
+            Event.DONE: FinishedTxPreparationRound,
+            Event.ROUND_TIMEOUT: UpdatePoolTxRound,
+            Event.NO_MAJORITY: UpdatePoolTxRound,
+            Event.NO_ACTION: UpdatePoolTxRound,
+        },
+        FinishedWithoutTxRound: {},
+        FinishedTxPreparationRound: {},
+    }
     final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
     event_to_timeout: EventToTimeout = {}
     cross_period_persisted_keys: List[str] = []

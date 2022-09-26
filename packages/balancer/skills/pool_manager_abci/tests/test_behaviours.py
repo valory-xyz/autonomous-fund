@@ -32,14 +32,15 @@ from packages.balancer.contracts.managed_pool_controller.contract import (
 )
 from packages.balancer.contracts.weighted_pool.contract import WeightedPoolContract
 from packages.balancer.skills.pool_manager_abci.behaviours import (
-    PoolManagerBaseBehaviour,
     DecisionMakingBehaviour,
+    PoolManagerBaseBehaviour,
     UpdatePoolTxBehaviour,
 )
 from packages.balancer.skills.pool_manager_abci.rounds import (
     Event,
     FinishedTxPreparationRound,
-    SynchronizedData, FinishedWithoutTxRound,
+    FinishedWithoutTxRound,
+    SynchronizedData,
 )
 from packages.valory.contracts.gnosis_safe.contract import GnosisSafeContract
 from packages.valory.protocols.contract_api import ContractApiMessage
@@ -52,6 +53,7 @@ from packages.valory.skills.abstract_round_abci.behaviours import (
 from packages.valory.skills.abstract_round_abci.test_tools.base import (
     FSMBehaviourBaseCase,
 )
+
 
 SAFE_CONTRACT_ADDRESS = "0x5564550A54EcD43bA8f7c666fff1C4762889A572"
 MANAGED_POOL_CONTROLLER_ADDRESS = "0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA"
@@ -89,12 +91,12 @@ class BasePoolManagerTest(FSMBehaviourBaseCase):
             SynchronizedData(AbciAppDB(setup_data=AbciAppDB.data_to_lists(data))),
         )
         assert (
-                self.behaviour.current_behaviour.behaviour_id  # type: ignore
-                == self.behaviour_class.behaviour_id
+            self.behaviour.current_behaviour.behaviour_id  # type: ignore
+            == self.behaviour_class.behaviour_id
         )
 
     def complete(
-            self, event: Event, next_behaviour_class: Optional[Type[BaseBehaviour]] = None
+        self, event: Event, next_behaviour_class: Optional[Type[BaseBehaviour]] = None
     ) -> None:
         """Complete test"""
         if next_behaviour_class is None:
@@ -106,8 +108,8 @@ class BasePoolManagerTest(FSMBehaviourBaseCase):
         self._test_done_flag_set()
         self.end_round(done_event=event)
         assert (
-                self.behaviour.current_behaviour.behaviour_id  # type: ignore
-                == next_behaviour_class.behaviour_id
+            self.behaviour.current_behaviour.behaviour_id  # type: ignore
+            == next_behaviour_class.behaviour_id
         )
 
 
@@ -134,10 +136,11 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
         f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
         f"received {ContractApiMessage.Performative.ERROR.value}."
     )
+
     def _mock_weighted_pool_contract_request(
-            self,
-            response_body: Dict,
-            response_performative: ContractApiMessage.Performative,
+        self,
+        response_body: Dict,
+        response_performative: ContractApiMessage.Performative,
     ) -> None:
         """Mock the WeightedPoolContract."""
         self.mock_contract_api_request(
@@ -159,34 +162,34 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
         "test_case, kwargs",
         [
             (
-                    BehaviourTestCase(
-                        name="weight update required",
-                        initial_data=dict(
-                            most_voted_estimates=_estimates,  # type: ignore
-                        ),
-                        event=Event.DONE,
+                BehaviourTestCase(
+                    name="weight update required",
+                    initial_data=dict(
+                        most_voted_estimates=_estimates,  # type: ignore
                     ),
-                    {
-                        "mock_response_data": dict(weights=_update_required_weights),
-                        "mock_response_performative": ContractApiMessage.Performative.STATE,
-                    },
+                    event=Event.DONE,
+                ),
+                {
+                    "mock_response_data": dict(weights=_update_required_weights),
+                    "mock_response_performative": ContractApiMessage.Performative.STATE,
+                },
             ),
             (
-                    BehaviourTestCase(
-                        name="weight update not required",
-                        initial_data=dict(
-                            most_voted_estimates=_estimates,  # type: ignore
-                        ),
-                        event=Event.NO_ACTION,
-                        next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                            FinishedWithoutTxRound.round_id
-                        ),  # noqa
+                BehaviourTestCase(
+                    name="weight update not required",
+                    initial_data=dict(
+                        most_voted_estimates=_estimates,  # type: ignore
                     ),
-                    {
-                        "mock_response_data": dict(weights=_update_not_required_weights),
-                        "mock_response_performative": ContractApiMessage.Performative.STATE,
-                    },
-            )
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=make_degenerate_behaviour(  # type: ignore
+                        FinishedWithoutTxRound.round_id
+                    ),  # noqa
+                ),
+                {
+                    "mock_response_data": dict(weights=_update_not_required_weights),
+                    "mock_response_performative": ContractApiMessage.Performative.STATE,
+                },
+            ),
         ],
     )
     def test_happy_path(self, test_case: BehaviourTestCase, kwargs: Any) -> None:
@@ -201,31 +204,30 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
 
         self.complete(test_case.event, test_case.next_behaviour_class)
 
-
     @pytest.mark.parametrize(
         "test_case, kwargs",
         [
             (
-                    BehaviourTestCase(
-                        name="contract error",
-                        initial_data=dict(
-                            most_voted_estimates=_estimates,  # type: ignore
-                        ),
-                        event=Event.NO_ACTION,
-                        next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                            FinishedWithoutTxRound.round_id
-                        ),
+                BehaviourTestCase(
+                    name="contract error",
+                    initial_data=dict(
+                        most_voted_estimates=_estimates,  # type: ignore
                     ),
-                    {
-                        "mock_response_data": dict(),
-                        "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
-                        "expected_error": _weighted_pool_error,
-                    },
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=make_degenerate_behaviour(  # type: ignore
+                        FinishedWithoutTxRound.round_id
+                    ),
+                ),
+                {
+                    "mock_response_data": dict(),
+                    "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
+                    "expected_error": _weighted_pool_error,
+                },
             )
         ],
     )
     def test_weighted_pool_contract_error(
-            self, test_case: BehaviourTestCase, kwargs: Any
+        self, test_case: BehaviourTestCase, kwargs: Any
     ) -> None:
         """Test Managed Pool Controller Error."""
 
@@ -264,9 +266,9 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
     )
 
     def _mock_pool_controller_contract_request(
-            self,
-            response_body: Dict,
-            response_performative: ContractApiMessage.Performative,
+        self,
+        response_body: Dict,
+        response_performative: ContractApiMessage.Performative,
     ) -> None:
         """Mock the ManagedPoolControllerContract."""
         self.mock_contract_api_request(
@@ -285,9 +287,9 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         )
 
     def _mock_safe_contract_request(
-            self,
-            response_body: Dict,
-            response_performative: ContractApiMessage.Performative,
+        self,
+        response_body: Dict,
+        response_performative: ContractApiMessage.Performative,
     ) -> None:
         """Mock the ManagedPoolControllerContract."""
         self.mock_contract_api_request(
@@ -309,24 +311,24 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         "test_case, kwargs",
         [
             (
-                    BehaviourTestCase(
-                        name="happy path",
-                        initial_data=dict(
-                            most_voted_weights=_weights,  # type: ignore
-                            safe_contract_address=SAFE_CONTRACT_ADDRESS,
-                        ),
-                        event=Event.DONE,
-                        next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                            FinishedTxPreparationRound.round_id
-                        ),  # noqa
+                BehaviourTestCase(
+                    name="happy path",
+                    initial_data=dict(
+                        most_voted_weights=_weights,  # type: ignore
+                        safe_contract_address=SAFE_CONTRACT_ADDRESS,
                     ),
-                    {
-                        "mock_response_data": dict(
-                            data="0x" + "0" * 64,
-                            tx_hash="0x" + "0" * 64,
-                        ),
-                        "mock_response_performative": ContractApiMessage.Performative.STATE,
-                    },
+                    event=Event.DONE,
+                    next_behaviour_class=make_degenerate_behaviour(  # type: ignore
+                        FinishedTxPreparationRound.round_id
+                    ),  # noqa
+                ),
+                {
+                    "mock_response_data": dict(
+                        data="0x" + "0" * 64,
+                        tx_hash="0x" + "0" * 64,
+                    ),
+                    "mock_response_performative": ContractApiMessage.Performative.STATE,
+                },
             )
         ],
     )
@@ -334,8 +336,8 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         """Test the happy path."""
 
         with mock.patch(
-                "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
-                return_value=datetime.now(),
+            "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
+            return_value=datetime.now(),
         ):
             self.fast_forward(test_case.initial_data)
             self.behaviour.act_wrapper()
@@ -355,31 +357,31 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         "test_case, kwargs",
         [
             (
-                    BehaviourTestCase(
-                        name="contract error",
-                        initial_data=dict(
-                            most_voted_weights=_weights,  # type: ignore
-                            safe_contract_address=SAFE_CONTRACT_ADDRESS,
-                        ),
-                        event=Event.NO_ACTION,
-                        next_behaviour_class=UpdatePoolTxBehaviour,
+                BehaviourTestCase(
+                    name="contract error",
+                    initial_data=dict(
+                        most_voted_weights=_weights,  # type: ignore
+                        safe_contract_address=SAFE_CONTRACT_ADDRESS,
                     ),
-                    {
-                        "mock_response_data": dict(),
-                        "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
-                        "expected_error": _pool_controller_error,
-                    },
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=UpdatePoolTxBehaviour,
+                ),
+                {
+                    "mock_response_data": dict(),
+                    "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
+                    "expected_error": _pool_controller_error,
+                },
             )
         ],
     )
     def test_managed_pool_controller_error(
-            self, test_case: BehaviourTestCase, kwargs: Any
+        self, test_case: BehaviourTestCase, kwargs: Any
     ) -> None:
         """Test Managed Pool Controller Error."""
 
         with mock.patch(
-                "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
-                return_value=datetime.now(),
+            "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
+            return_value=datetime.now(),
         ), mock.patch.object(self.behaviour.context.logger, "log") as mock_logger:
             self.fast_forward(test_case.initial_data)
             self.behaviour.act_wrapper()
@@ -400,34 +402,34 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         "test_case, kwargs",
         [
             (
-                    BehaviourTestCase(
-                        name="contract error",
-                        initial_data=dict(
-                            most_voted_weights=_weights,  # type: ignore
-                            safe_contract_address=SAFE_CONTRACT_ADDRESS,
-                        ),
-                        event=Event.NO_ACTION,
-                        next_behaviour_class=UpdatePoolTxBehaviour,
+                BehaviourTestCase(
+                    name="contract error",
+                    initial_data=dict(
+                        most_voted_weights=_weights,  # type: ignore
+                        safe_contract_address=SAFE_CONTRACT_ADDRESS,
                     ),
-                    {
-                        "mock_response_data": dict(
-                            data="0x" + "0" * 64,
-                        ),
-                        "mock_response_performative": ContractApiMessage.Performative.STATE,
-                        "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
-                        "expected_error": _safe_contract_error,
-                    },
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=UpdatePoolTxBehaviour,
+                ),
+                {
+                    "mock_response_data": dict(
+                        data="0x" + "0" * 64,
+                    ),
+                    "mock_response_performative": ContractApiMessage.Performative.STATE,
+                    "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
+                    "expected_error": _safe_contract_error,
+                },
             )
         ],
     )
     def test_safe_contract_error(
-            self, test_case: BehaviourTestCase, kwargs: Any
+        self, test_case: BehaviourTestCase, kwargs: Any
     ) -> None:
         """Test Safe Contract Error."""
 
         with mock.patch(
-                "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
-                return_value=datetime.now(),
+            "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
+            return_value=datetime.now(),
         ), mock.patch.object(self.behaviour.context.logger, "log") as mock_logger:
             self.fast_forward(test_case.initial_data)
             self.behaviour.act_wrapper()

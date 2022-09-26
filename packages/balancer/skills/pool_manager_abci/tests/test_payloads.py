@@ -19,15 +19,15 @@
 
 """This package contains payload tests for the PoolManagerAbciApp."""
 
-from typing import Hashable, Type
 from dataclasses import dataclass
+from typing import Hashable, Type
 
 import pytest
 
 from packages.balancer.skills.pool_manager_abci.payloads import (
-    TransactionType,
     BasePoolManagerPayload,
     DecisionMakingPayload,
+    TransactionType,
     UpdatePoolTxPayload,
 )
 
@@ -53,7 +53,7 @@ class PayloadTestCase:
             payload_cls=UpdatePoolTxPayload,
             content="0xanydata",
             transaction_type=TransactionType.UPDATE_POOL_TX,
-        )
+        ),
     ],
 )
 def test_payloads(test_case: PayloadTestCase) -> None:

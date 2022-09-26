@@ -63,6 +63,7 @@ class DecisionMakingPayload(BasePoolManagerPayload):
         """Initialize an DecisionMakingPayload transaction payload."""
         super().__init__(sender=sender, content=decision_making, **kwargs)
 
+
 class UpdatePoolTxPayload(BasePoolManagerPayload):
     """Represent a transaction payload for the UpdatePoolTxRound."""
 

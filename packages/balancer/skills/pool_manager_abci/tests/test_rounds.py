@@ -21,15 +21,18 @@
 import json
 from dataclasses import dataclass, field
 from types import MappingProxyType
-from typing import Any, Callable, Dict, Hashable, List, cast
+from typing import Callable, Dict, Hashable, List, cast
 
 import pytest
 
-from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload, DecisionMakingPayload
+from packages.balancer.skills.pool_manager_abci.payloads import (
+    DecisionMakingPayload,
+    UpdatePoolTxPayload,
+)
 from packages.balancer.skills.pool_manager_abci.rounds import (
+    DecisionMakingRound,
     Event,
     SynchronizedData,
-    DecisionMakingRound,
     UpdatePoolTxRound,
 )
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
@@ -52,12 +55,15 @@ class RoundTestCase:
 MAX_PARTICIPANTS: int = 4
 
 
-class BasePoolManagerRoundTestClass(BaseRoundTestClass):
+class BasePoolManagerRoundTestClass(
+    BaseRoundTestClass
+):  # pylint: disable=too-few-public-methods
     """Base test class for PoolManager rounds."""
 
     synchronized_data: SynchronizedData
     _synchronized_data_class = SynchronizedData
     _event_class = Event
+
 
 class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
     """Tests for DecisionMakingRound."""
@@ -105,7 +111,10 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
         actual_next_state = cast(SynchronizedData, state)
 
         # check that the state is updated as expected
-        assert actual_next_state.most_voted_weights == expected_next_state.most_voted_weights
+        assert (
+            actual_next_state.most_voted_weights
+            == expected_next_state.most_voted_weights
+        )
 
         # make sure all the votes are as expected
         assert all(
@@ -157,7 +166,6 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
             actual_next_state.most_voted_weights  # pylint: disable=pointless-statement
 
         assert event == Event.NO_ACTION
-
 
 
 class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
