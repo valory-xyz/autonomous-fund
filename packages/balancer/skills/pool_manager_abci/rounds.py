@@ -183,5 +183,7 @@ class PoolManagerAbciApp(AbciApp[Event]):
         FinishedTxPreparationRound: {},
     }
     final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
-    event_to_timeout: EventToTimeout = {}
+    event_to_timeout: EventToTimeout = {
+        Event.ROUND_TIMEOUT: 30.0,
+    }
     cross_period_persisted_keys: List[str] = []
