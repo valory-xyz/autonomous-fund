@@ -18,7 +18,7 @@
 # ------------------------------------------------------------------------------
 # pylint: disable=import-error
 
-"""The Managed Pool Controller fixtures."""
+"""The Autonomous Fund fixtures."""
 import logging
 from typing import Generator, List, Tuple
 
@@ -26,10 +26,10 @@ import docker
 import pytest
 from aea_test_autonomy.docker.base import launch_image
 
-from packages.balancer.contracts.managed_pool_controller.tests.helpers.constants import (
+from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     ACCOUNTS,
 )
-from packages.balancer.contracts.managed_pool_controller.tests.helpers.docker import (
+from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
     AutonomousFundNetworkDockerImage,
     DEFAULT_HARDHAT_ADDR,
     DEFAULT_HARDHAT_PORT,

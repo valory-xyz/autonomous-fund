@@ -17,4 +17,4 @@
 #
 # ------------------------------------------------------------------------------
 
-"""Test helpers for balancer/managed_pool_controller contract."""
+"""Tests package for balancer/autonomous_fund agent."""
