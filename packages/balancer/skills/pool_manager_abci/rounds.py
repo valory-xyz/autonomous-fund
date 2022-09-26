@@ -18,6 +18,7 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the rounds of PoolManagerAbciApp."""
+import json
 from enum import Enum
 from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, cast
@@ -86,6 +87,7 @@ class DecisionMakingRound(CollectSameUntilThresholdRound):
     round_id: str = "decision_making"
     allowed_tx_type = DecisionMakingPayload.transaction_type
     payload_attribute: str = "decision_making"
+    synchronized_data_class = SynchronizedData
 
     # used for cases when we don't need to update
     # in case we need to update the payload would contain

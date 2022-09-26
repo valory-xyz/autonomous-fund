@@ -18,13 +18,14 @@
 # ------------------------------------------------------------------------------
 
 """This package contains the tests for rounds of PoolManagerAbciApp."""
+import json
 from dataclasses import dataclass, field
 from types import MappingProxyType
 from typing import Any, Callable, Dict, Hashable, List, cast
 
 import pytest
 
-from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload
+from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload, DecisionMakingPayload
 from packages.balancer.skills.pool_manager_abci.rounds import (
     Event,
     SynchronizedData,
@@ -58,41 +59,105 @@ class BasePoolManagerRoundTestClass(BaseRoundTestClass):
     _synchronized_data_class = SynchronizedData
     _event_class = Event
 
-    def run_test(self, test_case: RoundTestCase, **kwargs: Any) -> None:
-        """Run the test"""
-
-        self.synchronized_data.update(**test_case.initial_data)  # type: ignore
-
-        test_round = self.round_class(  # type: ignore # pylint: disable=no-member
-            synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
-        )
-
-        self._complete_run(
-            self._test_round(  # type: ignore # pylint: disable=no-member
-                test_round=test_round,
-                round_payloads=test_case.payloads,
-                synchronized_data_update_fn=lambda sync_data, _: sync_data.update(
-                    **test_case.final_data
-                ),
-                synchronized_data_attr_checks=test_case.synchronized_data_attr_checks,
-                exit_event=test_case.event,
-                **kwargs,
-            )
-        )
-
-
 class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
     """Tests for DecisionMakingRound."""
 
     round_class = DecisionMakingRound
 
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case, kwargs", [])
-    def test_run(self, test_case: RoundTestCase, **kwargs: Any) -> None:
-        """Run tests."""
+    def test_run(self) -> None:
+        """Tests the happy path for DecisionMakingRound."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data,
+            consensus_params=self.consensus_params,
+        )
+        dummy_weights = [123, 123, 123]
+        payload_data = json.dumps(dict(weights=dummy_weights))
+        first_payload, *payloads = [
+            DecisionMakingPayload(participant, payload_data)
+            for participant in self.participants
+        ]
 
-        self.run_test(test_case, **kwargs)
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:  # type: ignore
+            test_round.process_payload(payload)  # type: ignore
+
+        expected_next_state = cast(
+            SynchronizedData,
+            self.synchronized_data.update(
+                participant_to_decision=MappingProxyType(test_round.collection),
+                most_voted_weights=dummy_weights,
+            ),
+        )
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        # check that the state is updated as expected
+        assert actual_next_state.most_voted_weights == expected_next_state.most_voted_weights
+
+        # make sure all the votes are as expected
+        assert all(
+            [
+                cast(Dict, actual_next_state.participant_to_decision)[participant]
+                == actual_vote
+                for (participant, actual_vote) in cast(
+                    Dict, expected_next_state.participant_to_decision
+                ).items()
+            ]
+        )
+
+        assert event == Event.DONE
+
+    def test_err_payload(self) -> None:
+        """Test case for when a bad payload is sent."""
+        test_round = self.round_class(
+            synchronized_data=self.synchronized_data,
+            consensus_params=self.consensus_params,
+        )
+
+        payload_data = DecisionMakingRound.NO_UPDATE_PAYLOAD
+        first_payload, *payloads = [
+            DecisionMakingPayload(participant, payload_data)
+            for participant in self.participants
+        ]
+
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        # Event DONE should be returned
+        for payload in payloads:  # type: ignore
+            test_round.process_payload(payload)  # type: ignore
+
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
+
+        with pytest.raises(ValueError):
+            actual_next_state.most_voted_weights  # pylint: disable=pointless-statement
+
+        assert event == Event.NO_ACTION
+
 
 
 class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
@@ -101,7 +166,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
     round_class = UpdatePoolTxRound
 
     def test_run(self) -> None:
-        """Tests the happy path for ObservationRound."""
+        """Tests the happy path for UpdatePoolTxRound."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
             consensus_params=self.consensus_params,
