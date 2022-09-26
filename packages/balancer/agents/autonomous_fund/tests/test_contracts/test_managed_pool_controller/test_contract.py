@@ -29,16 +29,16 @@ from aea.test_tools.test_contract import BaseContractTestCase
 from aea_ledger_ethereum import EthereumCrypto
 from aea_test_autonomy.docker.base import skip_docker_tests
 
-from packages.balancer.contracts.managed_pool_controller import PACKAGE_DIR
-from packages.balancer.contracts.managed_pool_controller.contract import (
-    ManagedPoolControllerContract,
-)
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     ACCOUNTS,
     MANAGED_POOL_CONTROLLER,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.fixtures import (
     UseHardHatAutoFundBaseTest,
+)
+from packages.balancer.contracts.managed_pool_controller import PACKAGE_DIR
+from packages.balancer.contracts.managed_pool_controller.contract import (
+    ManagedPoolControllerContract,
 )
 
 

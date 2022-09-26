@@ -6,7 +6,7 @@ description: The contract package for the balancer ManagedPoolController.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeid3sgj2sbrk4tpjnpuivj75ts6plcqqmc4o2iml6svkhvuycn5u6a
+  __init__.py: bafybeib6wwdtqj6k65hwjampb37d4posy7lxik3ry7m7e63d7hxpecn5au
   build/ManagedPoolController.json: bafybeidvvz2bwwq33xc6ece2cddqbnlhhvj7kk7gugtawaynrnj6o3fyla
   contract.py: bafybeib26thtsdxhtj7uzwzndq7b35iealpsdoyw6nq53mxsjjc5mpyklu
 fingerprint_ignore_patterns: []

@@ -26,9 +26,7 @@ import docker
 import pytest
 from aea_test_autonomy.docker.base import launch_image
 
-from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
-    ACCOUNTS,
-)
+from packages.balancer.agents.autonomous_fund.tests.helpers.constants import ACCOUNTS
 from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
     AutonomousFundNetworkDockerImage,
     DEFAULT_HARDHAT_ADDR,

@@ -20,13 +20,12 @@
 """This class contains a wrapper for WeightedPool contract."""
 
 import logging
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional
 
 from aea.common import JSONLike
 from aea.configurations.base import PublicId
 from aea.contracts.base import Contract
-from aea_ledger_ethereum import EthereumApi, LedgerApi
-from web3.types import Nonce, TxParams, Wei
+from aea_ledger_ethereum import LedgerApi
 
 
 PUBLIC_ID = PublicId.from_str("balancer/weighted_pool:0.1.0")
@@ -69,7 +68,7 @@ class WeightedPoolContract(Contract):
         cls,
         ledger_api: LedgerApi,
         contract_address: str,
-    ) -> Dict[str, Any]:
+    ) -> Dict[str, List[float]]:
         """
         Returns all scaled down weights, in the same order as the Pool's tokens.
 
@@ -77,7 +76,9 @@ class WeightedPoolContract(Contract):
         """
         contract_instance = cls.get_instance(ledger_api, contract_address)
         current_weights = contract_instance.functions.getNormalizedWeights().call()
-        scaled_weights = list(map(lambda weight: weight / SCALING_FACTOR, current_weights))
+        scaled_weights = list(
+            map(lambda weight: weight / SCALING_FACTOR, current_weights)
+        )
         return dict(
             weights=scaled_weights,
         )
