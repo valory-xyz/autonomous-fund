@@ -17,7 +17,7 @@
 #
 # ------------------------------------------------------------------------------
 
-"""This module contains the support resources for the Managed Pool Controller contract."""
+"""This module contains the support resources for the Weighted Pool contract."""
 from pathlib import Path
 
 

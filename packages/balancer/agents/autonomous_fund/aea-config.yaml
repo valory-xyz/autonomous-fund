@@ -1,0 +1,38 @@
+agent_name: autonomous_fund
+author: balancer
+version: 0.1.0
+license: Apache-2.0
+description: ''
+aea_version: '>=1.19.0, <2.0.0'
+fingerprint:
+  __init__.py: bafybeialdpvrelsxfu7zh5r5s7tg3gpcz3kc33snhifzdlvjj6rssbzspa
+  tests/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
+  tests/helpers/__init__.py: bafybeiauwuw4a4wxqacqqkkk52ktps2qedadhypvh3ex7uqs7qaqrpygmy
+  tests/helpers/constants.py: bafybeiaxnzow6b6skwz2unt76n4qqz7vlp6sabyqhfqtijsivssh3l6dza
+  tests/helpers/docker.py: bafybeif6d6ku7ljgmcwfy6ogo7jm2x6mwxkwsp7gb4lbk3xijduui5humi
+  tests/helpers/fixtures.py: bafybeiayn2dvqkflpaeizlkyhhqk3gagenlqxo3h5etib7hjpv7jq7htiu
+  tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
+  tests/test_contracts/test_managed_pool_controller/__init__.py: bafybeid3fa64f4rskt4tf6hfjxqzid2o5dopuh2f53aegclg6fj5ylso5i
+  tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeigp42gxwkeyb3vtmh4oi7kjc7nv2xx3vakyv5qpajqb3mhxxxxyce
+  tests/test_contracts/test_weighted_pool/__init__.py: bafybeibtrvod3qxiehjgnezoxhembuinyapcow7dtekwbqfpiwsyb2nyjy
+  tests/test_contracts/test_weighted_pool/test_contract.py: bafybeig2db5cusxt3fqcls24kldtftoofjemjlj5ylekegco76d4brw46e
+fingerprint_ignore_patterns: []
+connections: []
+contracts:
+- balancer/managed_pool_controller:0.1.0:bafybeif44hlhnnrytsedm6knbhxh4knm64ibrx7clfx3b424akjb4h3kjq
+- balancer/weighted_pool:0.1.0:bafybeifz5t65kwgf6yhxdo5pvvpran5fmh2yjm2pm7cx6cikihlvjwpmd4
+protocols:
+- open_aea/signing:1.0.0:bafybeifexbtq3cqrodkmy75djq7hck5c44jnjezywins7fzzg5nn6yi6om
+skills: []
+default_ledger: ethereum
+required_ledgers:
+- ethereum
+default_routing: {}
+connection_private_key_paths: {}
+private_key_paths: {}
+logging_config:
+  disable_existing_loggers: false
+  version: 1
+dependencies:
+  open-aea-ledger-ethereum: {}
+default_connection: null

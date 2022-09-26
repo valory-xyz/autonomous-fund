@@ -29,7 +29,7 @@ from aea.exceptions import enforce
 from aea_test_autonomy.docker.base import DockerImage
 from docker.models.containers import Container
 
-from packages.balancer.contracts.managed_pool_controller.tests.helpers.constants import (
+from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     MANAGED_POOL_CONTROLLER,
 )
 

@@ -1,3 +1,4 @@
+544ca76d0e98c2ce005abc021bef017824bece1d:packages/balancer/skills/pool_manager_abci/skill.yaml:generic-api-key:79
 920341fcf1d179421c4afdbbbb4f9d23235023fd:packages/balancer/contracts/managed_pool_controller/tests/helpers/constants.py:generic-api-key:46
 fba2d8c0f6c143478db8b998f037f8d6f0954e81:packages/valory/connections/http_client/connection.yaml:generic-api-key:14
 fba2d8c0f6c143478db8b998f037f8d6f0954e81:packages/valory/connections/ledger/connection.yaml:generic-api-key:17
