@@ -19,7 +19,6 @@
 
 """This package contains round behaviours of PoolManagerAbciApp."""
 import json
-from abc import abstractmethod
 from typing import Generator, List, Optional, Set, Tuple, Type, cast
 
 from packages.balancer.contracts.managed_pool_controller.contract import (
