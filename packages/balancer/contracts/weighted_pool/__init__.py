@@ -17,7 +17,4 @@
 #
 # ------------------------------------------------------------------------------
 
-"""This module contains the support resources for the Managed Pool Controller contract."""
-from pathlib import Path
-
-PACKAGE_DIR = Path(__file__).parent
+"""This module contains the support resources for the Weighted Pool contract."""
