@@ -45,6 +45,11 @@ class PayloadTestCase:
     "test_case",
     [
         PayloadTestCase(
+            payload_cls=DecisionMakingPayload,
+            content="0xanydata",
+            transaction_type=TransactionType.DECISION_MAKING,
+        ),
+        PayloadTestCase(
             payload_cls=UpdatePoolTxPayload,
             content="0xanydata",
             transaction_type=TransactionType.UPDATE_POOL_TX,

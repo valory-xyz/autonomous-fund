@@ -59,7 +59,9 @@ class DecisionMakingPayload(BasePoolManagerPayload):
 
     transaction_type = TransactionType.DECISION_MAKING
 
-
+    def __init__(self, sender: str, decision_making: str, **kwargs: Any) -> None:
+        """Initialize an DecisionMakingPayload transaction payload."""
+        super().__init__(sender=sender, content=decision_making, **kwargs)
 
 class UpdatePoolTxPayload(BasePoolManagerPayload):
     """Represent a transaction payload for the UpdatePoolTxRound."""
