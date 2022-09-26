@@ -18,19 +18,20 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of PoolManagerAbciApp."""
-
+import json
 from abc import abstractmethod
 from typing import Generator, List, Optional, Set, Tuple, Type, cast
 
 from packages.balancer.contracts.managed_pool_controller.contract import (
     ManagedPoolControllerContract,
 )
+from packages.balancer.contracts.weighted_pool.contract import WeightedPoolContract
 from packages.balancer.skills.pool_manager_abci.models import Params, SharedState
-from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload
+from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload, DecisionMakingPayload
 from packages.balancer.skills.pool_manager_abci.rounds import (
     PoolManagerAbciApp,
     SynchronizedData,
-    UpdatePoolTxRound,
+    UpdatePoolTxRound, DecisionMakingRound,
 )
 from packages.valory.contracts.gnosis_safe.contract import GnosisSafeContract
 from packages.valory.protocols.contract_api import ContractApiMessage
@@ -63,7 +64,94 @@ class PoolManagerBaseBehaviour(BaseBehaviour):
         """Return the params."""
         return cast(Params, super().params)
 
+class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
+    """DecisionMakingBehaviour"""
 
+    state_id: str = "decision_making_state"
+    behaviour_id: str = "decision_making_behaviour"
+    matching_round: Type[AbstractRound] = DecisionMakingRound
+
+    def async_act(self) -> Generator:
+        """Do the act, supporting asynchronous execution."""
+        with self.context.benchmark_tool.measure(
+            self.behaviour_id,
+        ).local():
+            decision = yield from self.get_decision()
+            self.context.logger.info(f"Updated weights decision: {decision}")
+
+        # at this point the agent has the data,
+        # and shares it with the other agents (peers)
+        with self.context.benchmark_tool.measure(
+            self.behaviour_id,
+        ).consensus():
+            payload = DecisionMakingPayload(
+                self.context.agent_address,
+                decision,
+            )
+            yield from self.send_a2a_transaction(payload)
+            yield from self.wait_until_round_end()
+
+        self.set_done()
+    def get_decision(self) -> Generator[None, None, str]:
+        """
+        Checks the weight in the pool, and decides whether an update is necessary or not.
+
+        We only update in case the required change in the weights is greater than the configured tolerance.
+
+        :return: the new weights in case they are needed, or a payload that defines the opposite.
+        """
+        new_weights = self._get_new_pool_weights()
+        current_weights = yield from self._get_current_pool_weights()
+        if current_weights is None:
+            return DecisionMakingRound.NO_UPDATE_PAYLOAD
+
+        num_tokens = len(current_weights)
+        within_tolerance = all(abs(new_weights[i] - current_weights[i]) < self.params.weight_tolerance for i in range(num_tokens))
+        if within_tolerance:
+            # the new weights were within the tolerance amount different from
+            # what they currently are, so we don't update.
+            return DecisionMakingRound.NO_UPDATE_PAYLOAD
+
+        # the current weights need to be updated
+        serialized_weights = json.dumps(dict(weights=new_weights), sort_keys=True)
+        return serialized_weights
+    def _get_new_pool_weights(self) -> List[int]:
+        """Gets the pool weights from the latest estimation. We use these to update the pool with."""
+        _, latest_value = self.synchronized_data.most_voted_estimates["value_estimates"]
+
+        # we index intervals by their lower bound
+        # given an interval [a, b], it's lower bound is a
+        interval_lower_bounds = self.params.pool_weights.keys()
+        interval_to_use = 0
+
+        # we find the interval in which the node belongs to by checking
+        # which is the greatest lower bound of the available intervals
+        # that the latest estimation surpasses
+        for point in interval_lower_bounds:
+            if latest_value >= point:
+                interval_to_use = max(interval_to_use, point)
+
+        return self.params.pool_weights[interval_to_use]
+
+    def _get_current_pool_weights(self) -> Generator[None, None, Optional[List[float]]]:
+        """Returns the current weights the pool is using."""
+        response = yield from self.get_contract_api_response(
+            performative=ContractApiMessage.Performative.GET_STATE,
+            contract_id=str(WeightedPoolContract.contract_id),
+            contract_callable="get_normalized_weights",
+            contract_address=self.params.weighted_pool_address,
+        )
+
+        if response.performative != ContractApiMessage.Performative.STATE:
+            self.context.logger.error(
+                f"Couldn't get weights from WeightedPoolContract.get_normalized_weights. "
+                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
+                f"received {response.performative.value}."
+            )
+            return None
+
+        current_weights = response.state.body.get("weights")
+        return current_weights
 class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
     """UpdatePoolTxBehaviour"""
 
@@ -170,24 +258,6 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         tx_hash = cast(str, response.state.body["tx_hash"])[2:]
         return tx_hash
 
-    def _get_pool_weights(self) -> List[int]:
-        """Gets the pool weights from the latest estimation."""
-        _, latest_value = self.synchronized_data.most_voted_estimates["value_estimates"]
-
-        # we index intervals by their lower bound
-        # given an interval [a, b], it's lower bound is a
-        interval_lower_bounds = self.params.pool_weights.keys()
-        interval_to_use = 0
-
-        # we find the interval in which the node belongs to by checking
-        # which is the greatest lower bound of the available intervals
-        # that the latest estimation surpasses
-        for point in interval_lower_bounds:
-            if latest_value >= point:
-                interval_to_use = max(interval_to_use, point)
-
-        return self.params.pool_weights[interval_to_use]
-
     def _get_time_interval(self) -> Tuple[int, int]:
         """Returns start and end time."""
         # note that we cannot use time.now()
@@ -215,7 +285,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         :returns: byte encoded updateWeightsGradually() call
         """
         start_datetime, end_datetime = self._get_time_interval()
-        end_weights = self._get_pool_weights()
+        end_weights = self.synchronized_data.most_voted_weights
         response = yield from self.get_contract_api_response(
             performative=ContractApiMessage.Performative.GET_STATE,
             contract_id=str(ManagedPoolControllerContract.contract_id),
@@ -245,4 +315,4 @@ class PoolManagerRoundBehaviour(AbstractRoundBehaviour):
 
     initial_behaviour_cls = UpdatePoolTxBehaviour
     abci_app_cls = PoolManagerAbciApp  # type: ignore
-    behaviours: Set[Type[BaseBehaviour]] = [UpdatePoolTxBehaviour]
+    behaviours: Set[Type[BaseBehaviour]] = [DecisionMakingBehaviour, UpdatePoolTxBehaviour]

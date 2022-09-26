@@ -3,16 +3,23 @@ alphabet_in:
 - NO_MAJORITY
 - ROUND_TIMEOUT
 - NO_ACTION
-default_start_state: UpdatePoolTxRound
+default_start_state: DecisionMakingRound
 final_states:
 - FinishedTxPreparationRound
+- FinishedWithoutTxRound
 label: packages.balancer.skills.pool_manager_abci.rounds.PoolManagerAbciApp
 start_states:
-- UpdatePoolTxRound
+- DecisionMakingRound
 states:
+- DecisionMakingRound
 - UpdatePoolTxRound
 - FinishedTxPreparationRound
+- FinishedWithoutTxRound
 transition_func:
+    (DecisionMakingRound, DONE): UpdatePoolTxRound
+    (DecisionMakingRound, ROUND_TIMEOUT): DecisionMakingRound
+    (DecisionMakingRound, NO_MAJORITY): DecisionMakingRound
+    (DecisionMakingRound, NO_ACTION): FinishedWithoutTxRound
     (UpdatePoolTxRound, DONE): FinishedTxPreparationRound
     (UpdatePoolTxRound, ROUND_TIMEOUT): UpdatePoolTxRound
     (UpdatePoolTxRound, NO_MAJORITY): UpdatePoolTxRound

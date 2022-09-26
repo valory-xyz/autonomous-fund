@@ -29,6 +29,7 @@ from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 class TransactionType(Enum):
     """Enumeration of transaction types."""
 
+    DECISION_MAKING = "decision_making"
     UPDATE_POOL_TX = "update_pool_tx"
 
     def __str__(self) -> str:
@@ -51,6 +52,13 @@ class BasePoolManagerPayload(BaseTxPayload, ABC):
     def data(self) -> Dict[str, Hashable]:
         """Get the data."""
         return {str(self.transaction_type): getattr(self, str(self.transaction_type))}
+
+
+class DecisionMakingPayload(BasePoolManagerPayload):
+    """Represent a transaction payload for the DecisionMakingRound."""
+
+    transaction_type = TransactionType.DECISION_MAKING
+
 
 
 class UpdatePoolTxPayload(BasePoolManagerPayload):

@@ -31,16 +31,19 @@ from packages.valory.skills.abstract_round_abci.behaviours import (
     BaseBehaviour,
     make_degenerate_behaviour,
 )
-from balancer.skills.pool_manager_abci.behaviours import (
+from packages.balancer.skills.pool_manager_abci.behaviours import (
     PoolManagerBaseBehaviour,
+    DecisionMakingBehaviour,
     UpdatePoolTxBehaviour,
 )
-from balancer.skills.pool_manager_abci.rounds import (
+from packages.balancer.skills.pool_manager_abci.rounds import (
     SynchronizedData,
     DegenerateRound,
     Event,
     PoolManagerAbciApp,
+    DecisionMakingRound,
     FinishedTxPreparationRound,
+    FinishedWithoutTxRound,
     UpdatePoolTxRound,
 )
 
@@ -87,6 +90,24 @@ class BasePoolManagerTest(FSMBehaviourBaseCase):
         self._test_done_flag_set()
         self.end_round(done_event=event)
         assert self.behaviour.behaviour_id == self.next_behaviour_class.behaviour_id
+
+
+class TestDecisionMakingBehaviour(BasePoolManagerTest):
+    """Tests DecisionMakingBehaviour"""
+
+    # TODO: set next_behaviour_class
+    behaviour_class: Type[BaseBehaviour] = DecisionMakingBehaviour
+    next_behaviour_class: Type[BaseBehaviour] = ...
+
+    # TODO: provide test cases
+    @pytest.mark.parametrize("test_case, kwargs", [])
+    def test_run(self, test_case: BehaviourTestCase, **kwargs: Any) -> None:
+        """Run tests."""
+
+        self.fast_forward(test_case.initial_data)
+        # TODO: mock the necessary calls
+        # self.mock_ ...
+        self.complete(test_case.event)
 
 
 class TestUpdatePoolTxBehaviour(BasePoolManagerTest):

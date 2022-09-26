@@ -29,6 +29,7 @@ from balancer.skills.pool_manager_abci.payloads import *
 from balancer.skills.pool_manager_abci.rounds import (
     Event,
     SynchronizedData,
+    DecisionMakingRound,
     UpdatePoolTxRound,
 )
 from packages.valory.skills.abstract_round_abci.base import (
@@ -83,6 +84,19 @@ class BasePoolManagerRoundTestClass(BaseRoundTestClass):
                 **kwargs,  # varies per BaseRoundTestClass child
             )
         )
+
+
+class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
+    """Tests for DecisionMakingRound."""
+
+    round_class = DecisionMakingRound
+
+    # TODO: provide test cases
+    @pytest.mark.parametrize("test_case, kwargs", [])
+    def test_run(self, test_case: RoundTestCase, **kwargs: Any) -> None:
+        """Run tests."""
+
+        self.run_test(test_case, **kwargs)
 
 
 class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):

@@ -27,6 +27,7 @@ import pytest
 from balancer.skills.pool_manager_abci.payloads import (
     TransactionType,
     BasePoolManagerPayload,
+    DecisionMakingPayload,
     UpdatePoolTxPayload,
 )
 

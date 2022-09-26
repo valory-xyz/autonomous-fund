@@ -23,7 +23,7 @@ from enum import Enum
 from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, cast
 
-from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload
+from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload, DecisionMakingPayload
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
@@ -57,6 +57,16 @@ class SynchronizedData(BaseSynchronizedData):
         return cast(str, self.db.get_strict("safe_contract_address"))
 
     @property
+    def participant_to_decision(self) -> Dict:
+        """Get the participant_to_decision."""
+        return cast(Dict, self.db.get_strict("participant_to_decision"))
+
+    @property
+    def most_voted_weights(self) -> Dict:
+        """Get the most_voted_weights."""
+        return cast(Dict, self.db.get_strict("most_voted_weights"))
+
+    @property
     def participant_to_tx(self) -> Dict:
         """Get the participant_to_tx."""
         return cast(Dict, self.db.get_strict("participant_to_tx"))
@@ -70,6 +80,40 @@ class SynchronizedData(BaseSynchronizedData):
     def most_voted_estimates(self) -> Dict:
         """Get the most_voted_tx."""
         return cast(Dict, self.db.get_strict("most_voted_estimates"))
+
+class DecisionMakingRound(CollectSameUntilThresholdRound):
+    """This class defines the round in which the agents decide whether to update the weights or not."""
+
+    round_id: str = "decision_making"
+    allowed_tx_type = DecisionMakingPayload.transaction_type
+    payload_attribute: str = "decision_making"
+
+    # used for cases when we don't need to update
+    # in case we need to update the payload would contain
+    # the actual weights in the form of a serialized json string
+    NO_UPDATE_PAYLOAD = "no_update"
+
+    def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
+        """Process the end of the block."""
+        if self.threshold_reached:
+            if self.most_voted_payload == self.NO_UPDATE_PAYLOAD:
+                return self.synchronized_data, Event.NO_ACTION
+
+            payload = json.loads(self.most_voted_payload)
+            state = self.synchronized_data.update(
+                synchronized_data_class=self.synchronized_data_class,
+                participant_to_decision=MappingProxyType(self.collection),
+                most_voted_weights=payload.get("weights"),
+            )
+            return state, Event.DONE
+        if not self.is_majority_possible(
+            self.collection, self.synchronized_data.nb_participants
+        ):
+            return self.synchronized_data, Event.NO_MAJORITY
+
+        return None
+
+
 
 
 class UpdatePoolTxRound(CollectSameUntilThresholdRound):
@@ -102,6 +146,10 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
 
         return None
 
+class FinishedWithoutTxRound(DegenerateRound):
+    """FinishedWithoutTxRound"""
+
+    round_id = "finished_without_tx"
 
 class FinishedTxPreparationRound(DegenerateRound):
     """FinishedTxPreparationRound"""
@@ -112,17 +160,9 @@ class FinishedTxPreparationRound(DegenerateRound):
 class PoolManagerAbciApp(AbciApp[Event]):
     """PoolManagerAbciApp"""
 
-    initial_round_cls: AppState = UpdatePoolTxRound
-    initial_states: Set[AppState] = {UpdatePoolTxRound}
-    transition_function: AbciAppTransitionFunction = {
-        UpdatePoolTxRound: {
-            Event.DONE: FinishedTxPreparationRound,
-            Event.ROUND_TIMEOUT: UpdatePoolTxRound,
-            Event.NO_MAJORITY: UpdatePoolTxRound,
-            Event.NO_ACTION: UpdatePoolTxRound,
-        },
-        FinishedTxPreparationRound: {},
-    }
-    final_states: Set[AppState] = {FinishedTxPreparationRound}
+    initial_round_cls: AppState = DecisionMakingRound
+    initial_states: Set[AppState] = {DecisionMakingRound}
+    transition_function: AbciAppTransitionFunction = {DecisionMakingRound: {Event.DONE: UpdatePoolTxRound, Event.ROUND_TIMEOUT: DecisionMakingRound, Event.NO_MAJORITY: DecisionMakingRound, Event.NO_ACTION: FinishedWithoutTxRound}, UpdatePoolTxRound: {Event.DONE: FinishedTxPreparationRound, Event.ROUND_TIMEOUT: UpdatePoolTxRound, Event.NO_MAJORITY: UpdatePoolTxRound, Event.NO_ACTION: UpdatePoolTxRound}, FinishedWithoutTxRound: {}, FinishedTxPreparationRound: {}}
+    final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
     event_to_timeout: EventToTimeout = {}
     cross_period_persisted_keys: List[str] = []
