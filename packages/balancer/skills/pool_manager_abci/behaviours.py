@@ -19,7 +19,6 @@
 
 """This package contains round behaviours of PoolManagerAbciApp."""
 import json
-from abc import abstractmethod
 from typing import Generator, List, Optional, Set, Tuple, Type, cast
 
 from packages.balancer.contracts.managed_pool_controller.contract import (
@@ -27,11 +26,15 @@ from packages.balancer.contracts.managed_pool_controller.contract import (
 )
 from packages.balancer.contracts.weighted_pool.contract import WeightedPoolContract
 from packages.balancer.skills.pool_manager_abci.models import Params, SharedState
-from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload, DecisionMakingPayload
+from packages.balancer.skills.pool_manager_abci.payloads import (
+    DecisionMakingPayload,
+    UpdatePoolTxPayload,
+)
 from packages.balancer.skills.pool_manager_abci.rounds import (
+    DecisionMakingRound,
     PoolManagerAbciApp,
     SynchronizedData,
-    UpdatePoolTxRound, DecisionMakingRound,
+    UpdatePoolTxRound,
 )
 from packages.valory.contracts.gnosis_safe.contract import GnosisSafeContract
 from packages.valory.protocols.contract_api import ContractApiMessage
@@ -64,6 +67,7 @@ class PoolManagerBaseBehaviour(BaseBehaviour):
         """Return the params."""
         return cast(Params, super().params)
 
+
 class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
     """DecisionMakingBehaviour"""
 
@@ -92,6 +96,7 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
             yield from self.wait_until_round_end()
 
         self.set_done()
+
     def get_decision(self) -> Generator[None, None, str]:
         """
         Checks the weight in the pool, and decides whether an update is necessary or not.
@@ -106,7 +111,10 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
             return DecisionMakingRound.NO_UPDATE_PAYLOAD
 
         num_tokens = len(current_weights)
-        within_tolerance = all(abs(new_weights[i] - current_weights[i]) < self.params.weight_tolerance for i in range(num_tokens))
+        within_tolerance = all(
+            abs(new_weights[i] - current_weights[i]) < self.params.weight_tolerance
+            for i in range(num_tokens)
+        )
         if within_tolerance:
             # the new weights were within the tolerance amount different from
             # what they currently are, so we don't update.
@@ -115,6 +123,7 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
         # the current weights need to be updated
         serialized_weights = json.dumps(dict(weights=new_weights), sort_keys=True)
         return serialized_weights
+
     def _get_new_pool_weights(self) -> List[int]:
         """Gets the pool weights from the latest estimation. We use these to update the pool with."""
         _, latest_value = self.synchronized_data.most_voted_estimates["value_estimates"]
@@ -150,8 +159,12 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
             )
             return None
 
-        current_weights = response.state.body.get("weights")
+        current_weights = cast(
+            Optional[List[float]], response.state.body.get("weights", None)
+        )
         return current_weights
+
+
 class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
     """UpdatePoolTxBehaviour"""
 
@@ -315,4 +328,7 @@ class PoolManagerRoundBehaviour(AbstractRoundBehaviour):
 
     initial_behaviour_cls = UpdatePoolTxBehaviour
     abci_app_cls = PoolManagerAbciApp  # type: ignore
-    behaviours: Set[Type[BaseBehaviour]] = [DecisionMakingBehaviour, UpdatePoolTxBehaviour]
+    behaviours: Set[Type[BaseBehaviour]] = {
+        DecisionMakingBehaviour,
+        UpdatePoolTxBehaviour,
+    }

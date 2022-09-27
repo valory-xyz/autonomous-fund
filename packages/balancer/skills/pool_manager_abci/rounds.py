@@ -23,7 +23,10 @@ from enum import Enum
 from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, cast
 
-from packages.balancer.skills.pool_manager_abci.payloads import UpdatePoolTxPayload, DecisionMakingPayload
+from packages.balancer.skills.pool_manager_abci.payloads import (
+    DecisionMakingPayload,
+    UpdatePoolTxPayload,
+)
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
@@ -81,12 +84,14 @@ class SynchronizedData(BaseSynchronizedData):
         """Get the most_voted_tx."""
         return cast(Dict, self.db.get_strict("most_voted_estimates"))
 
+
 class DecisionMakingRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents decide whether to update the weights or not."""
 
     round_id: str = "decision_making"
     allowed_tx_type = DecisionMakingPayload.transaction_type
     payload_attribute: str = "decision_making"
+    synchronized_data_class = SynchronizedData
 
     # used for cases when we don't need to update
     # in case we need to update the payload would contain
@@ -114,8 +119,6 @@ class DecisionMakingRound(CollectSameUntilThresholdRound):
         return None
 
 
-
-
 class UpdatePoolTxRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents prepare a tx to update the pool."""
 
@@ -124,19 +127,18 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
     payload_attribute: str = "update_pool_tx"
     synchronized_data_class = SynchronizedData
 
-    ERROR_PAYLOAD = '{}'
+    ERROR_PAYLOAD = "{}"
+
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
         """Process the end of the block."""
         if self.threshold_reached:
             if self.most_voted_payload == self.ERROR_PAYLOAD:
                 return self.synchronized_data, Event.NO_ACTION
 
-            payload = json.loads(self.most_voted_payload)
-
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
                 participant_to_tx=MappingProxyType(self.collection),
-                most_voted_tx=payload,
+                most_voted_tx=self.most_voted_payload,
             )
             return state, Event.DONE
         if not self.is_majority_possible(
@@ -146,10 +148,12 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
 
         return None
 
+
 class FinishedWithoutTxRound(DegenerateRound):
     """FinishedWithoutTxRound"""
 
     round_id = "finished_without_tx"
+
 
 class FinishedTxPreparationRound(DegenerateRound):
     """FinishedTxPreparationRound"""
@@ -162,7 +166,24 @@ class PoolManagerAbciApp(AbciApp[Event]):
 
     initial_round_cls: AppState = DecisionMakingRound
     initial_states: Set[AppState] = {DecisionMakingRound}
-    transition_function: AbciAppTransitionFunction = {DecisionMakingRound: {Event.DONE: UpdatePoolTxRound, Event.ROUND_TIMEOUT: DecisionMakingRound, Event.NO_MAJORITY: DecisionMakingRound, Event.NO_ACTION: FinishedWithoutTxRound}, UpdatePoolTxRound: {Event.DONE: FinishedTxPreparationRound, Event.ROUND_TIMEOUT: UpdatePoolTxRound, Event.NO_MAJORITY: UpdatePoolTxRound, Event.NO_ACTION: UpdatePoolTxRound}, FinishedWithoutTxRound: {}, FinishedTxPreparationRound: {}}
+    transition_function: AbciAppTransitionFunction = {
+        DecisionMakingRound: {
+            Event.DONE: UpdatePoolTxRound,
+            Event.ROUND_TIMEOUT: DecisionMakingRound,
+            Event.NO_MAJORITY: DecisionMakingRound,
+            Event.NO_ACTION: FinishedWithoutTxRound,
+        },
+        UpdatePoolTxRound: {
+            Event.DONE: FinishedTxPreparationRound,
+            Event.ROUND_TIMEOUT: UpdatePoolTxRound,
+            Event.NO_MAJORITY: UpdatePoolTxRound,
+            Event.NO_ACTION: UpdatePoolTxRound,
+        },
+        FinishedWithoutTxRound: {},
+        FinishedTxPreparationRound: {},
+    }
     final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
-    event_to_timeout: EventToTimeout = {}
+    event_to_timeout: EventToTimeout = {
+        Event.ROUND_TIMEOUT: 30.0,
+    }
     cross_period_persisted_keys: List[str] = []

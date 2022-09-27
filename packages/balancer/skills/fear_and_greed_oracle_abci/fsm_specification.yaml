@@ -16,9 +16,9 @@ states:
 - OutlierDetectionRound
 transition_func:
     (EstimationRound, DONE): OutlierDetectionRound
+    (EstimationRound, NO_ACTION): ObservationRound
     (EstimationRound, NO_MAJORITY): ObservationRound
     (EstimationRound, ROUND_TIMEOUT): ObservationRound
-    (EstimationRound, NO_ACTION): ObservationRound
     (ObservationRound, DONE): EstimationRound
     (ObservationRound, NO_ACTION): ObservationRound
     (ObservationRound, NO_MAJORITY): ObservationRound

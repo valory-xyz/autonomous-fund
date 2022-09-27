@@ -59,6 +59,9 @@ class DecisionMakingPayload(BasePoolManagerPayload):
 
     transaction_type = TransactionType.DECISION_MAKING
 
+    def __init__(self, sender: str, decision_making: str, **kwargs: Any) -> None:
+        """Initialize an DecisionMakingPayload transaction payload."""
+        super().__init__(sender=sender, content=decision_making, **kwargs)
 
 
 class UpdatePoolTxPayload(BasePoolManagerPayload):
@@ -66,3 +69,6 @@ class UpdatePoolTxPayload(BasePoolManagerPayload):
 
     transaction_type = TransactionType.UPDATE_POOL_TX
 
+    def __init__(self, sender: str, update_pool_tx: str, **kwargs: Any) -> None:
+        """Initialize an UpdatePoolTx transaction payload."""
+        super().__init__(sender=sender, content=update_pool_tx, **kwargs)

@@ -23,6 +23,9 @@ from typing import Any, Dict, List
 
 from packages.balancer.skills.pool_manager_abci.rounds import PoolManagerAbciApp
 from packages.valory.skills.abstract_round_abci.models import BaseParams
+from packages.valory.skills.abstract_round_abci.models import (
+    BenchmarkTool as BaseBenchmarkTool,
+)
 from packages.valory.skills.abstract_round_abci.models import Requests as BaseRequests
 from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
@@ -49,13 +52,10 @@ class Params(BaseParams):
         self.weight_update_timespan: int = self._ensure(
             "weight_update_timespan", kwargs
         )
-        self.weighted_pool_address: str = self._ensure(
-            "weighted_pool_address", kwargs
-        )
-        self.weight_tolerance: float = self._ensure(
-            "weight_tolerance", kwargs
-        )
+        self.weighted_pool_address: str = self._ensure("weighted_pool_address", kwargs)
+        self.weight_tolerance: float = self._ensure("weight_tolerance", kwargs)
         super().__init__(*args, **kwargs)
 
 
 Requests = BaseRequests
+BenchmarkTool = BaseBenchmarkTool
