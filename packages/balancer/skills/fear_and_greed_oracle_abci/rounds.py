@@ -125,6 +125,7 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
     round_id: str = "outlier_detection_round"
     allowed_tx_type = OutlierDetectionRoundPayload.transaction_type
     payload_attribute: str = "outlier_detection_data"
+    synchronized_data_class = SynchronizedData
 
     class OutlierStatus(Enum):
         """Defines the possible status the outlier check may result in."""
