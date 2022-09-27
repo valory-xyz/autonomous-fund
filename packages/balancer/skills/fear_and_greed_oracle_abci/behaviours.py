@@ -322,7 +322,7 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
             else OutlierDetectionRound.OutlierStatus.OUTLIER_DETECTED.value
         )
         serialized_response = json.dumps(
-            json.dumps(dict(status=typed_status)), sort_keys=True
+            dict(status=typed_status), sort_keys=True
         )
         return serialized_response
 
