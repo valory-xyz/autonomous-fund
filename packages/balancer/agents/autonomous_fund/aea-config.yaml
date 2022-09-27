@@ -28,9 +28,9 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeia3b5yfvdrmyzc3oxv2rk5jeye2xuxrnkgdf6z2dkjgghnc2ugux4
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigkxsjyti4lva6nnlorbzgs5noe573v2ce2vjj5wifztnzu4vsiom
-- balancer/pool_manager_abci:0.1.0:bafybeiawwfviijswsq2xefytjiqamwqhuvfdhxmvjbwxkpgfthjr6owuki
+- balancer/autonomous_fund_abci:0.1.0:bafybeibuyyw574npkjrcje3mq2bel4azyhtfl3lk5y7tmng32mekt45cm4
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicmttoiyfvh2usfyrsuog475rkxoszb3ymh6ue3lnsc3p6q4aky6q
+- balancer/pool_manager_abci:0.1.0:bafybeibsosvd7nqlm3pnyvxj2l6u7wksgrxn3kqynkvgkgzpgvsmojjvgq
 - valory/abstract_abci:0.1.0:bafybeigqbgoej3zhsz6e5ibdu5tewv6plh4yzxllguyftbymj5bp2zaxyq
 - valory/abstract_round_abci:0.1.0:bafybeiasu3lbnwqdgdzoaxrvbos5qgabxtxkhb52r3rosrp4s4c246467a
 - valory/registration_abci:0.1.0:bafybeie7lxe5spcitc7pwfilapsu5wlictp4ibz7gbko5yg3nx6llcjisu

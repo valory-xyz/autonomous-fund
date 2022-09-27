@@ -12,7 +12,7 @@ fingerprint:
   dialogues.py: bafybeih3x4egnkh7xwnlawqbu6fpqyqbaum7ivdhqm6r6557dyy2rhzneq
   fsm_specification.yaml: bafybeibaihlkly6bkatiefvb4u5ve2a2ji2kx2ir7tmsxehbhprmthniii
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
-  models.py: bafybeiac7lefvh4f7q5uqwp2omaukekeyraluqhavtyw64sehvaz64ipuu
+  models.py: bafybeib37255svczowifrzighwy6gnwegz7lwazuupomdxsvusdgi7lcoy
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
   tests/test_behaviours.py: bafybeig2xeqhhed6ugfr2etzcj7ngxlforvqtiqcxm5igmbo2wkczpx5dy
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
@@ -23,8 +23,8 @@ connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigkxsjyti4lva6nnlorbzgs5noe573v2ce2vjj5wifztnzu4vsiom
-- balancer/pool_manager_abci:0.1.0:bafybeiawwfviijswsq2xefytjiqamwqhuvfdhxmvjbwxkpgfthjr6owuki
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicmttoiyfvh2usfyrsuog475rkxoszb3ymh6ue3lnsc3p6q4aky6q
+- balancer/pool_manager_abci:0.1.0:bafybeibsosvd7nqlm3pnyvxj2l6u7wksgrxn3kqynkvgkgzpgvsmojjvgq
 - valory/abstract_round_abci:0.1.0:bafybeiasu3lbnwqdgdzoaxrvbos5qgabxtxkhb52r3rosrp4s4c246467a
 - valory/registration_abci:0.1.0:bafybeie7lxe5spcitc7pwfilapsu5wlictp4ibz7gbko5yg3nx6llcjisu
 - valory/reset_pause_abci:0.1.0:bafybeiamkbck2c35uc6h7c6sotmsobr7h6tc2vzskoxztlu7o6af6mcacm
@@ -76,9 +76,10 @@ models:
       cleanup_history_depth_current: null
       consensus:
         max_participants: 1
-      setup:
-        safe_contract_address: ['0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1']
       drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
+      fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
+      fear_and_greed_num_points: 2
+      finalize_timeout: 60.0
       genesis_config:
         genesis_time: '2022-09-26T00:00:00.000000000Z'
         chain_id: chain-c4daS1
@@ -93,70 +94,69 @@ models:
             max_bytes: '1048576'
           validator:
             pub_key_types:
-              - ed25519
-          version: { }
+            - ed25519
+          version: {}
         voting_power: '10'
+      history_check_timeout: 1205
+      keeper_allowed_retries: 3
       keeper_timeout: 30.0
       managed_pool_controller_address: '0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA'
       max_healthcheck: 120
+      max_index_change: 0.00040509259
+      max_index_value: 100
+      min_index_value: 0
       observation_aggregator_function: median
       observation_interval: 10
       on_chain_service_id: null
       pool_weights:
         0:
-          - 60
-          - 30
-          - 10
+        - 60
+        - 30
+        - 10
         41:
-          - 33
-          - 33
-          - 34
+        - 33
+        - 33
+        - 34
         60:
-          - 10
-          - 30
-          - 60
+        - 10
+        - 30
+        - 60
       reset_tendermint_after: 2
       retry_attempts: 400
       retry_timeout: 3
       round_timeout_seconds: 30.0
       service_id: pool_manager
       service_registry_address: null
+      setup:
+        safe_contract_address:
+        - '0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1'
       sleep_time: 1
       tendermint_check_sleep_delay: 3
       tendermint_com_url: http://localhost:8080
       tendermint_max_retries: 5
       tendermint_url: http://localhost:26657
+      validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
       weighted_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
-      fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
-      fear_and_greed_num_points: 2
-      max_index_change: 0.00040509259
-      keeper_allowed_retries: 3
-      max_index_value: 100
-      min_index_value: 0
-      validate_timeout: 1205
-      finalize_timeout: 60.0
-      history_check_timeout: 1205
-
     class_name: Params
-  signing_dialogues:
-    args: {}
-    class_name: SigningDialogues
   randomness_api:
     args:
       api_id: cloudflare
-      headers: [ ]
+      headers: []
       method: GET
-      parameters: [ ]
+      parameters: []
       response_key: null
       response_type: dict
       retries: 5
       url: https://drand.cloudflare.com/public/latest
     class_name: RandomnessApi
   requests:
-    args: { }
+    args: {}
     class_name: Requests
+  signing_dialogues:
+    args: {}
+    class_name: SigningDialogues
   state:
     args: {}
     class_name: SharedState
