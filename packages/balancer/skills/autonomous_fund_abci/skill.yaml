@@ -132,8 +132,13 @@ models:
       fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
       fear_and_greed_num_points: 2
       max_index_change: 0.00040509259
+      keeper_allowed_retries: 3
       max_index_value: 100
       min_index_value: 0
+      validate_timeout: 1205
+      finalize_timeout: 60.0
+      history_check_timeout: 1205
+
     class_name: Params
   signing_dialogues:
     args: {}
