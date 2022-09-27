@@ -258,6 +258,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
             contract_id=str(GnosisSafeContract.contract_id),
             contract_callable="get_raw_safe_transaction_hash",
             to_address=self.params.managed_pool_controller_address,  # the contract the safe will invoke
+            value=self.ETHER_VALUE,
             data=data,
             safe_tx_gas=SAFE_GAS,
         )
