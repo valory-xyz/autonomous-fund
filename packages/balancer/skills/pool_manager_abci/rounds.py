@@ -80,9 +80,9 @@ class SynchronizedData(BaseSynchronizedData):
         return cast(Dict, self.db.get_strict("most_voted_tx"))
 
     @property
-    def most_voted_estimates(self) -> Dict:
+    def most_voted_estimates(self) -> str:
         """Get the most_voted_tx."""
-        return cast(Dict, self.db.get_strict("most_voted_estimates"))
+        return cast(str, self.db.get_strict("most_voted_estimates"))
 
 
 class DecisionMakingRound(CollectSameUntilThresholdRound):
