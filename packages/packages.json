@@ -21,8 +21,8 @@
     "skill/valory/transaction_settlement_abci/0.1.0": "bafybeia2gs36s2mz32yaznhlidiolhw5swkumiej4vgwywphppjvurldie",
     "agent/balancer/autonomous_fund/0.1.0": "bafybeidv4f27lal2v77b6jek75eggvyqol2p5z3bqmaytx2pla7et4oaqy",
     "contract/valory/multisend/0.1.0": "bafybeig45676hbh4c3p3mujrrskxgxww4cxdyyginlg5rmmav6orv4gtya",
-    "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeige2io4ljan7zunegdhrvqkplfswpjri5vlsqqczu5h7lhzf6wwjm",
-    "skill/balancer/pool_manager_abci/0.1.0": "bafybeiaujq2t2v7yaojdisj3rkanxpwhmqlkbvcqlxp3t3qlq3hawz6naa",
+    "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeigkxsjyti4lva6nnlorbzgs5noe573v2ce2vjj5wifztnzu4vsiom",
+    "skill/balancer/pool_manager_abci/0.1.0": "bafybeidxy3av4i2oqplf7wjy5xxntufryqvvp6ackfu4i7qr6lpwekzifi",
     "skill/valory/registration_abci/0.1.0": "bafybeie7lxe5spcitc7pwfilapsu5wlictp4ibz7gbko5yg3nx6llcjisu",
     "skill/valory/reset_pause_abci/0.1.0": "bafybeiamkbck2c35uc6h7c6sotmsobr7h6tc2vzskoxztlu7o6af6mcacm",
     "skill/valory/safe_deployment_abci/0.1.0": "bafybeifgljjbc2x42xcynmirchrno7iwwq6ufnhpqr37ypeoqstfnjujli"
