@@ -213,7 +213,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         actual_next_state = cast(SynchronizedData, state)
 
         # check that the state is updated as expected
-        assert actual_next_state.most_voted_tx == expected_next_state.most_voted_tx
+        assert actual_next_state.most_voted_tx_hash == expected_next_state.most_voted_tx_hash
 
         # make sure all the votes are as expected
         assert all(
@@ -262,6 +262,6 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         actual_next_state = cast(SynchronizedData, state)
 
         with pytest.raises(ValueError):
-            actual_next_state.most_voted_tx  # pylint: disable=pointless-statement
+            actual_next_state.most_voted_tx_hash  # pylint: disable=pointless-statement
 
         assert event == Event.NO_ACTION
