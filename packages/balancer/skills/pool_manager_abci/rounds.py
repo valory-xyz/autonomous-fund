@@ -72,17 +72,17 @@ class SynchronizedData(BaseSynchronizedData):
     @property
     def participant_to_tx(self) -> Dict:
         """Get the participant_to_tx."""
-        return cast(Dict, self.db.get_strict("participant_to_tx"))
+        return cast(Dict, self.db.get_strict("participant_to_tx_hash"))
 
     @property
-    def most_voted_tx(self) -> Dict:
-        """Get the most_voted_tx."""
-        return cast(Dict, self.db.get_strict("most_voted_tx"))
+    def most_voted_tx_hash(self) -> Dict:
+        """Get the most_voted_tx_hash."""
+        return cast(Dict, self.db.get_strict("most_voted_tx_hash"))
 
     @property
-    def most_voted_estimates(self) -> Dict:
+    def most_voted_estimates(self) -> str:
         """Get the most_voted_tx."""
-        return cast(Dict, self.db.get_strict("most_voted_estimates"))
+        return cast(str, self.db.get_strict("most_voted_estimates"))
 
 
 class DecisionMakingRound(CollectSameUntilThresholdRound):
@@ -137,8 +137,8 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
 
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_tx=MappingProxyType(self.collection),
-                most_voted_tx=self.most_voted_payload,
+                participant_to_tx_hash=MappingProxyType(self.collection),
+                most_voted_tx_hash=self.most_voted_payload,
             )
             return state, Event.DONE
         if not self.is_majority_possible(

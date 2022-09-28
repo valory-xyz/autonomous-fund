@@ -7,14 +7,14 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeibbvllj3mw4xbmnpbhat6hngbmdijpbxe464ekrg5kkhzbyoa4exe
-  behaviours.py: bafybeiarkmftt2ctcfn4llm5gejhg3vxyudvdu23yb2rzl6vqmivvf6lc4
+  behaviours.py: bafybeidid7apirgjvkkgakheguycmdpbl3y6zecnisemriyyftpo3h7274
   dialogues.py: bafybeih3x4egnkh7xwnlawqbu6fpqyqbaum7ivdhqm6r6557dyy2rhzneq
   fsm_specification.yaml: bafybeibl4xh3bhyzbiqtttlyip5pwpqahksgh5zxv7agbswvvgxd4qp7lu
   handlers.py: bafybeihkdkdow5jpbqoddddbgbutxb4azi3zr33434r7qwatisodj4r45m
   models.py: bafybeih5ek4sj7z6h27qujfhc5m67qzxwa4syrfx2eg4hv43vj7i2mr56u
   my_model.py: bafybeiaqfta55w3ygvyrk7g2wmb3xvlpmpvmq5wbsyqav3pwk46cgfp34u
   payloads.py: bafybeihhgcbnhxwbffhqfom4up5n4dfezxl6xrcf3mkaydcw2rp5twulaq
-  rounds.py: bafybeih6wz3yvvg57qbbkkwh2rv7rc44tyuz2yi5ps4jo5aaeorzcriunq
+  rounds.py: bafybeie2j3xausqfvpqhr45tv4itvvralo74lpjsrtxqx3kt6x2jdznms4
   tests/__init__.py: bafybeibox6bth5oqs3d2vpk3i5pxjbtqyiig764x74n6gh5valxouhk4ia
   tests/test_behaviours.py: bafybeihmr7hmhhuczdusy5g6vlxvgs66ta4plfvoim7cctpxdnyiu2gkea
   tests/test_dialogues.py: bafybeigodg2pya2k7qloexrryvfwnmwqbb7if2y7q5evk7slhzxf62byvy
@@ -124,4 +124,4 @@ models:
     args: {}
     class_name: SharedState
 dependencies: {}
-is_abstract: false
+is_abstract: true

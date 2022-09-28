@@ -18,6 +18,7 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of PoolManagerAbciApp."""
+import json
 import logging
 from dataclasses import dataclass
 from datetime import datetime
@@ -165,7 +166,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                 BehaviourTestCase(
                     name="weight update required",
                     initial_data=dict(
-                        most_voted_estimates=_estimates,  # type: ignore
+                        most_voted_estimates=json.dumps(_estimates),  # type: ignore
                     ),
                     event=Event.DONE,
                 ),
@@ -178,7 +179,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                 BehaviourTestCase(
                     name="weight update not required",
                     initial_data=dict(
-                        most_voted_estimates=_estimates,  # type: ignore
+                        most_voted_estimates=json.dumps(_estimates),  # type: ignore
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
@@ -211,7 +212,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                 BehaviourTestCase(
                     name="contract error",
                     initial_data=dict(
-                        most_voted_estimates=_estimates,  # type: ignore
+                        most_voted_estimates=json.dumps(_estimates),  # type: ignore
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore

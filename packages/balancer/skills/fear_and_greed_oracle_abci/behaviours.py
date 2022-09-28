@@ -321,9 +321,7 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
             if status
             else OutlierDetectionRound.OutlierStatus.OUTLIER_DETECTED.value
         )
-        serialized_response = json.dumps(
-            json.dumps(dict(status=typed_status)), sort_keys=True
-        )
+        serialized_response = json.dumps(dict(status=typed_status), sort_keys=True)
         return serialized_response
 
     def _is_in_allowed_range(self, most_voted_estimates: Dict) -> bool:

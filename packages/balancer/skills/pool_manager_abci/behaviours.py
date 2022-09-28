@@ -126,7 +126,9 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
 
     def _get_new_pool_weights(self) -> List[int]:
         """Gets the pool weights from the latest estimation. We use these to update the pool with."""
-        _, latest_value = self.synchronized_data.most_voted_estimates["value_estimates"]
+        _, latest_value = json.loads(self.synchronized_data.most_voted_estimates)[
+            "value_estimates"
+        ]
 
         # we index intervals by their lower bound
         # given an interval [a, b], it's lower bound is a
@@ -256,6 +258,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
             contract_id=str(GnosisSafeContract.contract_id),
             contract_callable="get_raw_safe_transaction_hash",
             to_address=self.params.managed_pool_controller_address,  # the contract the safe will invoke
+            value=self.ETHER_VALUE,
             data=data,
             safe_tx_gas=SAFE_GAS,
         )
