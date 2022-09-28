@@ -105,3 +105,4 @@ new_env: clean
 fix-abci-app-specs:
 	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse abci generate-app-specs packages.balancer.skills.fear_and_greed_oracle_abci.rounds.FearAndGreedOracleAbciApp packages/balancer/skills/fear_and_greed_oracle_abci/fsm_specification.yaml || (echo "Failed to check fear_and_greed_oracle_abci abci consistency" && exit 1)
 	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse abci generate-app-specs packages.balancer.skills.pool_manager_abci.rounds.PoolManagerAbciApp packages/balancer/skills/pool_manager_abci/fsm_specification.yaml || (echo "Failed to check pool_manager_abci abci consistency" && exit 1)
+	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse abci generate-app-specs packages.balancer.skills.autonomous_fund_abci.composition.AutonomousFundAbciApp packages/balancer/skills/autonomous_fund_abci/fsm_specification.yaml || (echo "Failed to check fear_and_greed_oracle_abci abci consistency" && exit 1)

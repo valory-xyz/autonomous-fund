@@ -20,18 +20,32 @@
 """This package contains round behaviours of AutonomousFundAbciApp."""
 from typing import Set, Type
 
-from packages.balancer.skills.autonomous_fund_abci.composition import AutonomousFundAbciApp
-from packages.balancer.skills.fear_and_greed_oracle_abci.behaviours import FearAndGreedOracleRoundBehaviour
-from packages.balancer.skills.pool_manager_abci.behaviours import PoolManagerRoundBehaviour
+from packages.balancer.skills.autonomous_fund_abci.composition import (
+    AutonomousFundAbciApp,
+)
+from packages.balancer.skills.fear_and_greed_oracle_abci.behaviours import (
+    FearAndGreedOracleRoundBehaviour,
+)
+from packages.balancer.skills.pool_manager_abci.behaviours import (
+    PoolManagerRoundBehaviour,
+)
 from packages.valory.skills.abstract_round_abci.behaviours import (
     AbstractRoundBehaviour,
     BaseBehaviour,
 )
-from packages.valory.skills.registration_abci.behaviours import RegistrationStartupBehaviour, \
-    AgentRegistrationRoundBehaviour
-from packages.valory.skills.reset_pause_abci.behaviours import ResetPauseABCIConsensusBehaviour
-from packages.valory.skills.safe_deployment_abci.behaviours import SafeDeploymentRoundBehaviour
-from packages.valory.skills.transaction_settlement_abci.behaviours import TransactionSettlementRoundBehaviour
+from packages.valory.skills.registration_abci.behaviours import (
+    AgentRegistrationRoundBehaviour,
+    RegistrationStartupBehaviour,
+)
+from packages.valory.skills.reset_pause_abci.behaviours import (
+    ResetPauseABCIConsensusBehaviour,
+)
+from packages.valory.skills.safe_deployment_abci.behaviours import (
+    SafeDeploymentRoundBehaviour,
+)
+from packages.valory.skills.transaction_settlement_abci.behaviours import (
+    TransactionSettlementRoundBehaviour,
+)
 
 
 class AutonomousFundConsensusBehaviour(AbstractRoundBehaviour):

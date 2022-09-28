@@ -24,33 +24,41 @@ from typing import Any
 from packages.balancer.skills.autonomous_fund_abci.composition import (
     AutonomousFundAbciApp,
 )
-from packages.valory.skills.reset_pause_abci.rounds import Event as ResetPauseEvent
-from packages.valory.skills.safe_deployment_abci.rounds import Event as SafeEvent
-from packages.valory.skills.transaction_settlement_abci.models import TransactionParams
-from packages.valory.skills.transaction_settlement_abci.rounds import Event as TSEvent
-from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import Event as FearAndGreedOracleEvent
+from packages.balancer.skills.fear_and_greed_oracle_abci.models import (
+    Params as FearAndGreedOracleAbciParams,
+)
+from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
+    Event as FearAndGreedOracleEvent,
+)
+from packages.balancer.skills.pool_manager_abci.models import (
+    Params as PoolManagerAbciParams,
+)
 from packages.balancer.skills.pool_manager_abci.rounds import Event as PoolManagerEvent
+from packages.valory.skills.abstract_round_abci.models import ApiSpecs
 from packages.valory.skills.abstract_round_abci.models import (
-    BenchmarkTool as BaseBenchmarkTool, ApiSpecs,
+    BenchmarkTool as BaseBenchmarkTool,
 )
 from packages.valory.skills.abstract_round_abci.models import Requests as BaseRequests
 from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
 )
-from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params as FearAndGreedOracleParams
-from packages.balancer.skills.pool_manager_abci.models import Params as PoolManagerParams
+from packages.valory.skills.reset_pause_abci.rounds import Event as ResetPauseEvent
+from packages.valory.skills.safe_deployment_abci.rounds import Event as SafeEvent
+from packages.valory.skills.transaction_settlement_abci.models import TransactionParams
+from packages.valory.skills.transaction_settlement_abci.rounds import Event as TSEvent
+
 
 MARGIN = 5
 MULTIPLIER = 2
 
-FearAndGreedOracleParams = FearAndGreedOracleParams
-PoolManagerParams = PoolManagerParams
+FearAndGreedOracleParams = FearAndGreedOracleAbciParams
+PoolManagerParams = PoolManagerAbciParams
 Requests = BaseRequests
 BenchmarkTool = BaseBenchmarkTool
 
+
 class RandomnessApi(ApiSpecs):
     """A model that wraps ApiSpecs for randomness api specifications."""
-
 
 
 class SharedState(BaseSharedState):
@@ -82,7 +90,6 @@ class SharedState(BaseSharedState):
             self.context.params.round_timeout_seconds * MULTIPLIER
         )
 
+
 class Params(PoolManagerParams, TransactionParams, FearAndGreedOracleParams):
-    """holder class"""
-
-
+    """A model to represent params for multiple abci apps."""
