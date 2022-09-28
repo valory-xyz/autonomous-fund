@@ -213,7 +213,10 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         actual_next_state = cast(SynchronizedData, state)
 
         # check that the state is updated as expected
-        assert actual_next_state.most_voted_tx_hash == expected_next_state.most_voted_tx_hash
+        assert (
+            actual_next_state.most_voted_tx_hash
+            == expected_next_state.most_voted_tx_hash
+        )
 
         # make sure all the votes are as expected
         assert all(
