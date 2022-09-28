@@ -43,6 +43,9 @@ from packages.valory.skills.abstract_round_abci.models import (
 )
 from packages.valory.skills.reset_pause_abci.rounds import Event as ResetPauseEvent
 from packages.valory.skills.safe_deployment_abci.rounds import Event as SafeEvent
+from packages.valory.skills.transaction_settlement_abci.models import (
+    RandomnessApi as TransactionSettlementRandomness,
+)
 from packages.valory.skills.transaction_settlement_abci.models import TransactionParams
 from packages.valory.skills.transaction_settlement_abci.rounds import Event as TSEvent
 
@@ -54,6 +57,7 @@ FearAndGreedOracleParams = FearAndGreedOracleAbciParams
 PoolManagerParams = PoolManagerAbciParams
 Requests = BaseRequests
 BenchmarkTool = BaseBenchmarkTool
+RandomnessApi = TransactionSettlementRandomness
 
 
 class SharedState(BaseSharedState):
