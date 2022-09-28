@@ -12,7 +12,7 @@ fingerprint:
   dialogues.py: bafybeih3x4egnkh7xwnlawqbu6fpqyqbaum7ivdhqm6r6557dyy2rhzneq
   fsm_specification.yaml: bafybeifyxchqmawibrvbgsonxoet6tjaykf34hghb7upoc4jgjfojafxyy
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
-  models.py: bafybeiawuid3mhtsv3377qdoyrumj2wqpqnvqet3hfedf5t2qoynu4e3me
+  models.py: bafybeienl22zkjcn7n7db2qk3jb5p54gxxja37cwsyr43ybsun23dg4iz4
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
   tests/test_behaviours.py: bafybeig2xeqhhed6ugfr2etzcj7ngxlforvqtiqcxm5igmbo2wkczpx5dy
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
@@ -140,17 +140,6 @@ models:
       weight_update_timespan: 72000
       weighted_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
     class_name: Params
-  randomness_api:
-    args:
-      api_id: cloudflare
-      headers: []
-      method: GET
-      parameters: []
-      response_key: null
-      response_type: dict
-      retries: 5
-      url: https://drand.cloudflare.com/public/latest
-    class_name: RandomnessApi
   requests:
     args: {}
     class_name: Requests

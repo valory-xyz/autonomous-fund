@@ -34,7 +34,6 @@ from packages.balancer.skills.pool_manager_abci.models import (
     Params as PoolManagerAbciParams,
 )
 from packages.balancer.skills.pool_manager_abci.rounds import Event as PoolManagerEvent
-from packages.valory.skills.abstract_round_abci.models import ApiSpecs
 from packages.valory.skills.abstract_round_abci.models import (
     BenchmarkTool as BaseBenchmarkTool,
 )
@@ -55,10 +54,6 @@ FearAndGreedOracleParams = FearAndGreedOracleAbciParams
 PoolManagerParams = PoolManagerAbciParams
 Requests = BaseRequests
 BenchmarkTool = BaseBenchmarkTool
-
-
-class RandomnessApi(ApiSpecs):
-    """A model that wraps ApiSpecs for randomness api specifications."""
 
 
 class SharedState(BaseSharedState):

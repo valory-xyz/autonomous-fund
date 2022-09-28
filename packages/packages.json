@@ -23,6 +23,7 @@
     "skill/valory/registration_abci/0.1.0": "bafybeie7lxe5spcitc7pwfilapsu5wlictp4ibz7gbko5yg3nx6llcjisu",
     "skill/valory/reset_pause_abci/0.1.0": "bafybeiamkbck2c35uc6h7c6sotmsobr7h6tc2vzskoxztlu7o6af6mcacm",
     "skill/valory/safe_deployment_abci/0.1.0": "bafybeifgljjbc2x42xcynmirchrno7iwwq6ufnhpqr37ypeoqstfnjujli",
-    "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeiblkds7vg4bbei2rtxbsd5a72mflucgh4hhmqgbb2pezmfywo35ku",
-    "agent/balancer/autonomous_fund/0.1.0": "bafybeiby7agpu7r6wlybotxzdhyp5aspfmrker7a2r4gnn4fd52ozzrlou",
+    "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeicc4o6k2jr4yx3wgtoo24n6rtsuewe36ie5k5bqvrroqjgnurptyy",
+    "agent/balancer/autonomous_fund/0.1.0": "bafybeidz6psvbr2eenfpx7fnhidlza7nbjtqx2be73zospb4hfvggom44e",
+    "contract/valory/multisend/0.1.0": "bafybeig45676hbh4c3p3mujrrskxgxww4cxdyyginlg5rmmav6orv4gtya"
 }
