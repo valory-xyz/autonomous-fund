@@ -22,4 +22,4 @@
 from aea.configurations.base import PublicId
 
 
-PUBLIC_ID = PublicId.from_str("balancer/autonomous_fund:0.1.0")
+PUBLIC_ID = PublicId.from_str("balancer/autonomous_fund_abci:0.1.0")

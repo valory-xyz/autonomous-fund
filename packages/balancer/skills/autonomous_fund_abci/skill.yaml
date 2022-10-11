@@ -6,7 +6,7 @@ description: The chained abci for the Autonomous Fund.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeifre2uvlsm3xo5hn6vhasc23nvn4fv3hy2drygmtivpfpnec7itiy
+  __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
   behaviours.py: bafybeihf3byvmvpoeq4qvwpky2muji2vdl3r2mlizl3cpvm66kpsnjkvoa
   composition.py: bafybeiebupr7hdkh5c77ouaetlp4u3wdhfysn4jysulaztdxgenmpzjyx4
   dialogues.py: bafybeih3x4egnkh7xwnlawqbu6fpqyqbaum7ivdhqm6r6557dyy2rhzneq
