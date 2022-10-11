@@ -7,7 +7,6 @@ aea_version: '>=1.19.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeibzqammkemm5yc5hqjzdnpmgr2aw3j7lwni64rc5c4sf7qsnv7ulu
   tests/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
-  tests/conftest.py: bafybeihssrvmu7lllp7u5elh2f4jcss3346w6mykw3logt5c3maw6sie7q
   tests/helpers/__init__.py: bafybeiauwuw4a4wxqacqqkkk52ktps2qedadhypvh3ex7uqs7qaqrpygmy
   tests/helpers/constants.py: bafybeie2nmfhdlrmnrwp2225cxclkw3dd4cxu4uig7hrhtqyg5t7nvfpje
   tests/helpers/data/json_server/data.json: bafybeidueptoi7g44hkdrzkyn326l44qhkbt4bsnidrvkn5y3pkgljmuzy
@@ -15,7 +14,7 @@ fingerprint:
   tests/helpers/fixtures.py: bafybeiczpplahcqw7zxi76gnefs5jhnhdpxy4box53evmu6j75tw6assny
   tests/test_agents/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
   tests/test_agents/base.py: bafybeig7o56fgyhggurr5tmdfntdwrfh73dalxemlphgdrvfyo6klrjy7i
-  tests/test_agents/test_autonomous_fund.py: bafybeiaht3qkbbfjjfdugp3c5bhuy36ii7dn7q4c4jiflhbbp343hhijoa
+  tests/test_agents/test_autonomous_fund.py: bafybeiap4dwh6o2u37njx6msg7rzbxp5enwqmrks5kwzzwzj6xtmjyjnja
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool_controller/__init__.py: bafybeid3fa64f4rskt4tf6hfjxqzid2o5dopuh2f53aegclg6fj5ylso5i
   tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeigp42gxwkeyb3vtmh4oi7kjc7nv2xx3vakyv5qpajqb3mhxxxxyce

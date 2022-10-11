@@ -23,6 +23,12 @@
 """End-to-End tests for the balancer/autonomous_fund agent."""
 
 import pytest
+from aea_test_autonomy.fixture_helpers import (  # noqa: F401
+    abci_host,
+    abci_port,
+    flask_tendermint,
+    tendermint_port,
+)
 
 from packages.balancer.agents.autonomous_fund.tests.helpers.fixtures import (
     UseHardHatAutoFundBaseTest,
