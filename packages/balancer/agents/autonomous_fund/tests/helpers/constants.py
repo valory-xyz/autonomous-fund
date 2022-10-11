@@ -52,5 +52,7 @@ MANAGED_POOL_CONTROLLER = "0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA"
 WEIGHTED_POOL = "0x28BF8d29cFA99aE9C3D876210453272f30e4D131"
 INITIAL_POOL_WEIGHTS = [30, 40, 30]  # scaled on 0-100
 
-# this safe contract is configured with the accounts above, and has the threshold set at 3/4.
-CONFIGURED_SAFE_INSTANCE = "0x5564550A54EcD43bA8f7c666fff1C4762889A572"
+# this safe contract is configured with the accounts above, and has the threshold set at 1/4.
+CONFIGURED_SAFE_INSTANCE = "0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"
+
+MOCK_API_PATH = "/fng?format=json"
