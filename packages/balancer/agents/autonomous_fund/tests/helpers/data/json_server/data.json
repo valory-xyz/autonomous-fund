@@ -1,0 +1,23 @@
+{
+  "/fng": {
+    "get": {
+      "name": "Fear and Greed Index",
+      "data": [
+        {
+          "value": "22",
+          "value_classification": "Extreme Fear",
+          "timestamp": "1665360000",
+          "time_until_update": "33681"
+        },
+        {
+          "value": "22",
+          "value_classification": "Extreme Fear",
+          "timestamp": "1665273600"
+        }
+      ],
+      "metadata": {
+        "error": null
+      }
+    }
+  }
+}

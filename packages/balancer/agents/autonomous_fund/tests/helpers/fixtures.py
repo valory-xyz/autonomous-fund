@@ -31,6 +31,9 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
     AutonomousFundNetworkDockerImage,
     DEFAULT_HARDHAT_ADDR,
     DEFAULT_HARDHAT_PORT,
+    DEFAULT_JSON_SERVER_ADDR,
+    DEFAULT_JSON_SERVER_PORT,
+    MockFearAndGreedApi,
 )
 
 
@@ -60,5 +63,30 @@ class UseHardHatAutoFundBaseTest:  # pylint: disable=too-few-public-methods
             addr=cls.NETWORK_ADDRESS,
             port=cls.NETWORK_PORT,
             use_safe_contracts=cls.USE_SAFE_CONTRACTS,
+        )
+        yield from launch_image(image, timeout=timeout, max_attempts=max_attempts)
+
+
+@pytest.mark.integration
+class UseMockFearAndGreedApiBaseTest:  # pylint: disable=too-few-public-methods
+    """Inherit from this class to use a mock Fear and Greed API."""
+
+    MOCK_API_ADDRESS = DEFAULT_JSON_SERVER_ADDR
+    MOCK_API_PORT = DEFAULT_JSON_SERVER_PORT
+
+    @classmethod
+    @pytest.fixture(autouse=True)
+    def _start_mock_api(
+        cls,
+        timeout: int = 3,
+        max_attempts: int = 200,
+    ) -> Generator:
+        """Start a Fear and Greed API instance."""
+        client = docker.from_env()
+        logging.info(f"Launching the Fear and Greed API on port {cls.MOCK_API_PORT}")
+        image = MockFearAndGreedApi(
+            client,
+            addr=cls.MOCK_API_ADDRESS,
+            port=cls.MOCK_API_PORT,
         )
         yield from launch_image(image, timeout=timeout, max_attempts=max_attempts)
