@@ -5,12 +5,17 @@ license: Apache-2.0
 description: ''
 aea_version: '>=1.19.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeialdpvrelsxfu7zh5r5s7tg3gpcz3kc33snhifzdlvjj6rssbzspa
+  __init__.py: bafybeibzqammkemm5yc5hqjzdnpmgr2aw3j7lwni64rc5c4sf7qsnv7ulu
   tests/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
+  tests/conftest.py: bafybeihssrvmu7lllp7u5elh2f4jcss3346w6mykw3logt5c3maw6sie7q
   tests/helpers/__init__.py: bafybeiauwuw4a4wxqacqqkkk52ktps2qedadhypvh3ex7uqs7qaqrpygmy
-  tests/helpers/constants.py: bafybeiaxnzow6b6skwz2unt76n4qqz7vlp6sabyqhfqtijsivssh3l6dza
-  tests/helpers/docker.py: bafybeif6d6ku7ljgmcwfy6ogo7jm2x6mwxkwsp7gb4lbk3xijduui5humi
-  tests/helpers/fixtures.py: bafybeiayn2dvqkflpaeizlkyhhqk3gagenlqxo3h5etib7hjpv7jq7htiu
+  tests/helpers/constants.py: bafybeie2nmfhdlrmnrwp2225cxclkw3dd4cxu4uig7hrhtqyg5t7nvfpje
+  tests/helpers/data/json_server/data.json: bafybeidueptoi7g44hkdrzkyn326l44qhkbt4bsnidrvkn5y3pkgljmuzy
+  tests/helpers/docker.py: bafybeiaicurt4s7unh362l26wbmetxc7kgl6fwninwfgusrrbyiaozf3hy
+  tests/helpers/fixtures.py: bafybeiczpplahcqw7zxi76gnefs5jhnhdpxy4box53evmu6j75tw6assny
+  tests/test_agents/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
+  tests/test_agents/base.py: bafybeig7o56fgyhggurr5tmdfntdwrfh73dalxemlphgdrvfyo6klrjy7i
+  tests/test_agents/test_autonomous_fund.py: bafybeiaht3qkbbfjjfdugp3c5bhuy36ii7dn7q4c4jiflhbbp343hhijoa
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool_controller/__init__.py: bafybeid3fa64f4rskt4tf6hfjxqzid2o5dopuh2f53aegclg6fj5ylso5i
   tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeigp42gxwkeyb3vtmh4oi7kjc7nv2xx3vakyv5qpajqb3mhxxxxyce
@@ -28,7 +33,7 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeifx2x3g3dhlq3clq2irf5ciqsj2gadyyelfhop7mlfiwj2yx5xri4
+- balancer/autonomous_fund_abci:0.1.0:bafybeie5tls5ppxzuqfny2kdzvxqjy3zpa75ylcngjqnlnjccbfra5tafm
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicmttoiyfvh2usfyrsuog475rkxoszb3ymh6ue3lnsc3p6q4aky6q
 - balancer/pool_manager_abci:0.1.0:bafybeihb5jzxuf7piv44v6ovhxvg222uwf7ke3y6bjxl7jipszqd7ay2bm
 - valory/abstract_abci:0.1.0:bafybeigqbgoej3zhsz6e5ibdu5tewv6plh4yzxllguyftbymj5bp2zaxyq
@@ -44,8 +49,27 @@ default_routing: {}
 connection_private_key_paths: {}
 private_key_paths: {}
 logging_config:
-  disable_existing_loggers: false
   version: 1
+  disable_existing_loggers: false
+  formatters:
+    standard:
+      format: '[%(asctime)s] [%(levelname)s] %(message)s'
+  handlers:
+    logfile:
+      class: logging.FileHandler
+      formatter: standard
+      filename: ${LOG_FILE:str:log.txt}
+      level: INFO
+    console:
+      class: logging.StreamHandler
+      formatter: standard
+      stream: ext://sys.stdout
+  loggers:
+    aea:
+      handlers:
+      - logfile
+      - console
+      propagate: false
 dependencies:
   open-aea-ledger-ethereum: {}
 default_connection: null
@@ -83,3 +107,76 @@ cert_requests:
   public_key: ${P2P_PUBLIC_KEY:str:0250827315351f6f4d3777b77d4bfd67280156240313bf221750b36404344bb35d}
   save_path: .certs/acn_cosmos_9005.txt
 is_abstract: true
+---
+public_id: balancer/autonomous_fund_abci:0.1.0
+type: skill
+models:
+  params:
+    args:
+      cleanup_history_depth: 1
+      cleanup_history_depth_current: null
+      consensus:
+        max_participants: 1
+      drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
+      fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
+      fear_and_greed_num_points: 2
+      finalize_timeout: 60.0
+      genesis_config:
+        genesis_time: '2022-09-26T00:00:00.000000000Z'
+        chain_id: chain-c4daS1
+        consensus_params:
+          block:
+            max_bytes: '22020096'
+            max_gas: '-1'
+            time_iota_ms: '1000'
+          evidence:
+            max_age_num_blocks: '100000'
+            max_age_duration: '172800000000000'
+            max_bytes: '1048576'
+          validator:
+            pub_key_types:
+            - ed25519
+          version: {}
+        voting_power: '10'
+      history_check_timeout: 1205
+      keeper_allowed_retries: 3
+      keeper_timeout: 30.0
+      managed_pool_controller_address: '0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA'
+      max_healthcheck: 120
+      max_index_change: 0.00040509259
+      max_index_value: 100
+      min_index_value: 0
+      observation_aggregator_function: median
+      observation_interval: 10
+      on_chain_service_id: null
+      pool_weights:
+        0:
+        - 60
+        - 30
+        - 10
+        41:
+        - 33
+        - 33
+        - 34
+        60:
+        - 10
+        - 30
+        - 60
+      reset_tendermint_after: 2
+      retry_attempts: 400
+      retry_timeout: 3
+      round_timeout_seconds: 30.0
+      service_id: pool_manager
+      service_registry_address: null
+      setup:
+        safe_contract_address:
+        - '0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1'
+      sleep_time: 1
+      tendermint_check_sleep_delay: 3
+      tendermint_com_url: http://localhost:8080
+      tendermint_max_retries: 5
+      tendermint_url: http://localhost:26657
+      validate_timeout: 1205
+      weight_tolerance: 0.1
+      weight_update_timespan: 72000
+      weighted_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'

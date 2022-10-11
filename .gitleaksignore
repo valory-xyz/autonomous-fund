@@ -1,3 +1,4 @@
+0b3f75dc1944c2551539d0b68b2b1c706330c774:packages/balancer/agents/autonomous_fund/aea-config.yaml:generic-api-key:120
 8efa33c0e847f2d75bdca1b0cdf5fd134f6b322b:packages/balancer/skills/autonomous_fund_abci/skill.yaml:generic-api-key:81
 c5417dfdd2c3aa5d1d7ab05e7ccbcf6d6c6487aa:packages/balancer/skills/pool_manager_abci/skill.yaml:generic-api-key:79
 920341fcf1d179421c4afdbbbb4f9d23235023fd:packages/balancer/contracts/managed_pool_controller/tests/helpers/constants.py:generic-api-key:46
