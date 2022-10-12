@@ -2,7 +2,7 @@ agent_name: autonomous_fund
 author: balancer
 version: 0.1.0
 license: Apache-2.0
-description: ''
+description: The autonomous fund agent.
 aea_version: '>=1.19.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeibzqammkemm5yc5hqjzdnpmgr2aw3j7lwni64rc5c4sf7qsnv7ulu
@@ -32,9 +32,9 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeigjchymxi4usijwffzzqmibusjlsi2cbbqkrre5e5j2isjs2oradu
+- balancer/autonomous_fund_abci:0.1.0:bafybeiefjcahfffs22dot7qk6xyrk26wotwfgqwzifwfrylzyhfld5ssee
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeid4wyqpkc7n3css2sh4y2pk4ncqtueexe5tdkxprtjanjpapimoc4
-- balancer/pool_manager_abci:0.1.0:bafybeihrjyybwkseug4vhi7zc5gxowigimha3sqlbdxaqbwqyrt4t5h4n4
+- balancer/pool_manager_abci:0.1.0:bafybeifzqrk3pvkuy3irvfgns6vyv3xf6kdp4ecmsoag4zcjryr3qtnp5y
 - valory/abstract_abci:0.1.0:bafybeiabow5j6wc63szukedutrx6bia2agnju62avxsbhqkhchcwwpvu5i
 - valory/abstract_round_abci:0.1.0:bafybeiegpewio6lkpikfnohjqmlwkqtxdmjbky4dphof4jvrixlvkiqixi
 - valory/registration_abci:0.1.0:bafybeigck3gb5tvm5tilzii7kvzqpryxrmxu2meck5empgl7lhuz66mbgq

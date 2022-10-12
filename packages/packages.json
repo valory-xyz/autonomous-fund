@@ -19,10 +19,10 @@
     "contract/balancer/weighted_pool/0.1.0": "bafybeifz5t65kwgf6yhxdo5pvvpran5fmh2yjm2pm7cx6cikihlvjwpmd4",
     "skill/valory/transaction_settlement_abci/0.1.0": "bafybeigvdugurqbx4vqrkpro2q662vhild76r6yfw7thpgfftx6ysvdjg4",
     "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeid4wyqpkc7n3css2sh4y2pk4ncqtueexe5tdkxprtjanjpapimoc4",
-    "skill/balancer/pool_manager_abci/0.1.0": "bafybeihrjyybwkseug4vhi7zc5gxowigimha3sqlbdxaqbwqyrt4t5h4n4",
+    "skill/balancer/pool_manager_abci/0.1.0": "bafybeifzqrk3pvkuy3irvfgns6vyv3xf6kdp4ecmsoag4zcjryr3qtnp5y",
     "skill/valory/registration_abci/0.1.0": "bafybeigck3gb5tvm5tilzii7kvzqpryxrmxu2meck5empgl7lhuz66mbgq",
     "skill/valory/reset_pause_abci/0.1.0": "bafybeid65rpcwq3rzxijwrpsbirersuwk2sdtcwnpkplczbszzoq2tbitu",
     "skill/valory/safe_deployment_abci/0.1.0": "bafybeiaywezmpo66nriweh7gn46tzkpftzacpz53ymdsmqpwlulmkfzlv4",
-    "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeigjchymxi4usijwffzzqmibusjlsi2cbbqkrre5e5j2isjs2oradu",
-    "agent/balancer/autonomous_fund/0.1.0": "bafybeide222q55ijq6vcka2vjpbhu22ypf7rgysyhlc72h4c63gn6ipmxu"
+    "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeiefjcahfffs22dot7qk6xyrk26wotwfgqwzifwfrylzyhfld5ssee",
+    "agent/balancer/autonomous_fund/0.1.0": "bafybeihzhjarueoocpbz4pupu3ybqrdjjspejeae4w5hz6sox5lqoujcui"
 }

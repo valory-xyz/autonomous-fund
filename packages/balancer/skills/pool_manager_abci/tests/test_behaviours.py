@@ -132,10 +132,10 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
             1662854400.0,
         ],
     }
-    _weighted_pool_error = (
+    _weighted_pool_error = (  # type: ignore
         f"Couldn't get weights from WeightedPoolContract.get_normalized_weights. "
-        f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
-        f"received {ContractApiMessage.Performative.ERROR.value}."
+        f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
+        f"received {ContractApiMessage.Performative.ERROR.value}."  # type: ignore
     )
 
     def _mock_weighted_pool_contract_request(
@@ -257,13 +257,13 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
     _weights = [30, 40, 30]
     _pool_controller_error = (
         f"Couldn't get tx data for ManagedPoolControllerContract.update_weights_gradually. "
-        f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
-        f"received {ContractApiMessage.Performative.ERROR.value}."
+        f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
+        f"received {ContractApiMessage.Performative.ERROR.value}."  # type: ignore
     )
     _safe_contract_error = (
         f"Couldn't get safe hash. "
-        f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
-        f"received {ContractApiMessage.Performative.ERROR.value}."
+        f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
+        f"received {ContractApiMessage.Performative.ERROR.value}."  # type: ignore
     )
 
     def _mock_pool_controller_contract_request(
