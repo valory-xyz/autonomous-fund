@@ -2,7 +2,7 @@ agent_name: autonomous_fund
 author: balancer
 version: 0.1.0
 license: Apache-2.0
-description: ''
+description: The autonomous fund agent.
 aea_version: '>=1.19.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeibzqammkemm5yc5hqjzdnpmgr2aw3j7lwni64rc5c4sf7qsnv7ulu
@@ -22,25 +22,25 @@ fingerprint:
   tests/test_contracts/test_weighted_pool/test_contract.py: bafybeig2db5cusxt3fqcls24kldtftoofjemjlj5ylekegco76d4brw46e
 fingerprint_ignore_patterns: []
 connections:
-- valory/abci:0.1.0:bafybeiejtgtkfxrrigsro6tvaaqgktrpao7bx476ob3n2wezonblnxi3xy
-- valory/http_client:0.1.0:bafybeiet6defg3qvov4r2ucjtkywkz53xcg6mgarjfdqmnxfgdixgcx45y
-- valory/ledger:0.1.0:bafybeicfycqnhdzg5nsir33dlcgs2k4ijjncysqjcn67zvzv2fkwr43eby
-- valory/p2p_libp2p_client:0.1.0:bafybeigvayl4ykzqf6o6bw2irv7am3qvczjoeu7yjhzn27ajiwvcio3lxm
+- valory/abci:0.1.0:bafybeid6p7vwyikn7sntlpc36vymotldfgonjbk3qa5gfacxxamybhmpvy
+- valory/http_client:0.23.0:bafybeihz3tubwado7j3wlivndzzuj3c6fdsp4ra5r3nqixn3ufawzo3wii
+- valory/ledger:0.19.0:bafybeihmz5us4ntmzvgikpkx4tththrl7zvou4uiebvletdeliidiuhi6m
+- valory/p2p_libp2p_client:0.1.0:bafybeihf35zfr35qsvfte4vbi7njvuzfx4httysw7owmlux53gvxh2or54
 contracts:
 - balancer/managed_pool_controller:0.1.0:bafybeiajqgorg5yfrp4zwwqjvtexrdzbzh53v4nwn5uukjbovrjyydwmt4
 - balancer/weighted_pool:0.1.0:bafybeifz5t65kwgf6yhxdo5pvvpran5fmh2yjm2pm7cx6cikihlvjwpmd4
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeie5tls5ppxzuqfny2kdzvxqjy3zpa75ylcngjqnlnjccbfra5tafm
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicmttoiyfvh2usfyrsuog475rkxoszb3ymh6ue3lnsc3p6q4aky6q
-- balancer/pool_manager_abci:0.1.0:bafybeihb5jzxuf7piv44v6ovhxvg222uwf7ke3y6bjxl7jipszqd7ay2bm
-- valory/abstract_abci:0.1.0:bafybeigqbgoej3zhsz6e5ibdu5tewv6plh4yzxllguyftbymj5bp2zaxyq
-- valory/abstract_round_abci:0.1.0:bafybeiasu3lbnwqdgdzoaxrvbos5qgabxtxkhb52r3rosrp4s4c246467a
-- valory/registration_abci:0.1.0:bafybeie7lxe5spcitc7pwfilapsu5wlictp4ibz7gbko5yg3nx6llcjisu
-- valory/reset_pause_abci:0.1.0:bafybeiamkbck2c35uc6h7c6sotmsobr7h6tc2vzskoxztlu7o6af6mcacm
-- valory/safe_deployment_abci:0.1.0:bafybeifgljjbc2x42xcynmirchrno7iwwq6ufnhpqr37ypeoqstfnjujli
-- valory/transaction_settlement_abci:0.1.0:bafybeia2gs36s2mz32yaznhlidiolhw5swkumiej4vgwywphppjvurldie
+- balancer/autonomous_fund_abci:0.1.0:bafybeiefjcahfffs22dot7qk6xyrk26wotwfgqwzifwfrylzyhfld5ssee
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeid4wyqpkc7n3css2sh4y2pk4ncqtueexe5tdkxprtjanjpapimoc4
+- balancer/pool_manager_abci:0.1.0:bafybeifzqrk3pvkuy3irvfgns6vyv3xf6kdp4ecmsoag4zcjryr3qtnp5y
+- valory/abstract_abci:0.1.0:bafybeiabow5j6wc63szukedutrx6bia2agnju62avxsbhqkhchcwwpvu5i
+- valory/abstract_round_abci:0.1.0:bafybeiegpewio6lkpikfnohjqmlwkqtxdmjbky4dphof4jvrixlvkiqixi
+- valory/registration_abci:0.1.0:bafybeigck3gb5tvm5tilzii7kvzqpryxrmxu2meck5empgl7lhuz66mbgq
+- valory/reset_pause_abci:0.1.0:bafybeid65rpcwq3rzxijwrpsbirersuwk2sdtcwnpkplczbszzoq2tbitu
+- valory/safe_deployment_abci:0.1.0:bafybeiaywezmpo66nriweh7gn46tzkpftzacpz53ymdsmqpwlulmkfzlv4
+- valory/transaction_settlement_abci:0.1.0:bafybeigvdugurqbx4vqrkpro2q662vhild76r6yfw7thpgfftx6ysvdjg4
 default_ledger: ethereum
 required_ledgers:
 - ethereum
@@ -81,7 +81,7 @@ config:
   port: ${ABCI_PORT:int:26658}
   use_tendermint: ${ABCI_USE_TENDERMINT:bool:false}
 ---
-public_id: valory/ledger:0.1.0
+public_id: valory/ledger:0.19.0
 type: connection
 config:
   ledger_apis:

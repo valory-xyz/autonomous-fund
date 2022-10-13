@@ -147,7 +147,7 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
     def _get_current_pool_weights(self) -> Generator[None, None, Optional[List[float]]]:
         """Returns the current weights the pool is using."""
         response = yield from self.get_contract_api_response(
-            performative=ContractApiMessage.Performative.GET_STATE,
+            performative=ContractApiMessage.Performative.GET_STATE,  # type: ignore
             contract_id=str(WeightedPoolContract.contract_id),
             contract_callable="get_normalized_weights",
             contract_address=self.params.weighted_pool_address,
@@ -156,7 +156,7 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
         if response.performative != ContractApiMessage.Performative.STATE:
             self.context.logger.error(
                 f"Couldn't get weights from WeightedPoolContract.get_normalized_weights. "
-                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
+                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
                 f"received {response.performative.value}."
             )
             return None
@@ -253,7 +253,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         :return: the tx hash
         """
         response = yield from self.get_contract_api_response(
-            performative=ContractApiMessage.Performative.GET_STATE,
+            performative=ContractApiMessage.Performative.GET_STATE,  # type: ignore
             contract_address=self.synchronized_data.safe_contract_address,  # the safe contract address
             contract_id=str(GnosisSafeContract.contract_id),
             contract_callable="get_raw_safe_transaction_hash",
@@ -265,7 +265,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         if response.performative != ContractApiMessage.Performative.STATE:
             self.context.logger.error(
                 f"Couldn't get safe hash. "
-                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
+                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
                 f"received {response.performative.value}."
             )
             return None
@@ -303,7 +303,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         start_datetime, end_datetime = self._get_time_interval()
         end_weights = self.synchronized_data.most_voted_weights
         response = yield from self.get_contract_api_response(
-            performative=ContractApiMessage.Performative.GET_STATE,
+            performative=ContractApiMessage.Performative.GET_STATE,  # type: ignore
             contract_id=str(ManagedPoolControllerContract.contract_id),
             contract_callable="get_update_weights_gradually_tx",
             contract_address=self.params.managed_pool_controller_address,
@@ -315,7 +315,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         if response.performative != ContractApiMessage.Performative.STATE:
             self.context.logger.error(
                 f"Couldn't get tx data for ManagedPoolControllerContract.update_weights_gradually. "
-                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "
+                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
                 f"received {response.performative.value}."
             )
             return None
@@ -332,6 +332,6 @@ class PoolManagerRoundBehaviour(AbstractRoundBehaviour):
     initial_behaviour_cls = UpdatePoolTxBehaviour
     abci_app_cls = PoolManagerAbciApp  # type: ignore
     behaviours: Set[Type[BaseBehaviour]] = {
-        DecisionMakingBehaviour,
-        UpdatePoolTxBehaviour,
+        DecisionMakingBehaviour,  # type: ignore
+        UpdatePoolTxBehaviour,  # type: ignore
     }
