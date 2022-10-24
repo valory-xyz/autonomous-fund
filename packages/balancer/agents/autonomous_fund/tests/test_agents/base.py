@@ -45,6 +45,7 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
     DEFAULT_JSON_SERVER_PORT as _DEFAULT_JSON_SERVER_PORT,
 )
 
+
 TERMINATION_TIMEOUT = 120
 
 
