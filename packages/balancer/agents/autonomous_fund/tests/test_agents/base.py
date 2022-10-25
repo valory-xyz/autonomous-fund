@@ -46,6 +46,9 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
 )
 
 
+TERMINATION_TIMEOUT = 120
+
+
 class BaseTestAutonomousFundEnd2End(
     BaseTestEnd2End
 ):  # pylint: disable=too-few-public-methods
@@ -93,4 +96,4 @@ class BaseTestAutonomousFundEnd2End(
             sleep_interval=self.HEALTH_CHECK_SLEEP_INTERVAL,
         )
         self.check_aea_messages()
-        self.terminate_processes()
+        self.terminate_agents(timeout=TERMINATION_TIMEOUT)
