@@ -1,3 +1,4 @@
+```
 .
 ├── agents 
 │   ├── autonomous_fund (ok)
@@ -32,7 +33,6 @@
 │   │   ├── build
 │   │   │   └── ManagedPoolController.json
 │   │   ├── contract.py
-```
 https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-utils/contracts/controllers/ManagedPoolController.sol
 https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-utils/contracts/controllers/ManagedPoolController.sol#L150
 At the moment, one function has been implemented from the contract. 
@@ -82,7 +82,7 @@ It is not clear whether it is checked somewhere in the code above that
 sum(end_weights) == 1e18
 start_datetime < end_datetime and end_datetime - start_datetime >= _minWeightChangeDuration 
 WIP
-```
+
 │   │   ├── contract.yaml
 │   │   └── __init__.py
 │   └── weighted_pool
@@ -149,4 +149,4 @@ At the moment view getNormalizedWeights() only implemented
             ├── test_payloads.py
             └── test_rounds.py
 
-22 directories, 74 files
+```
