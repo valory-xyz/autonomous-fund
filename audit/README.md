@@ -211,11 +211,12 @@ Active Token Management
 Add
 Remove
 ```
-6. https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-weighted/contracts/managed/ManagedPool.sol <br>
-Should we look here vs two current contracts that are being used (?!) <br>
+6. Requires a detailed explanation with which of the contracts (deployed contracts) there is interaction (read/write) and why with them. <br>
+This refers to two contracts that could be identified: <br>
 https://github.com/balancer-labs/balancer-v2-monorepo/blob/master/pkg/pool-weighted/contracts/WeightedPool.sol <br>
 https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-utils/contracts/controllers/ManagedPoolController.sol <br>
-WIP. Requires additional study. <br>
+As well as a contact that should probably be used. <br>
+https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-weighted/contracts/managed/ManagedPool.sol <br>
 
 
 ### Review of `packages/balancer/`
@@ -223,11 +224,12 @@ A quick code review with short notes for each file in the project can be found i
 packages/balancer: [packages_balancer.md](packages_balancer.md).
 
 Conclusions: <br>
-* At the moment, the code did not raise any obvious security issues. <br>
-The issue requiring serious clarification is the contracts used. That is, what kind of contracts we use. <br>
-Update: 14-10-22.
+* At the moment, the code did not raise obvious security issues. <br>
+There are places that require clarification and rechecking. Details are noted in the file [packages_balancer.md](packages_balancer.md)<br>
+Update: 26-10-22.
 * So far, the code has been reviewed up to
 ```
-└── skills
-    ├── autonomous_fund_abci (ok)
+    ├── fear_and_greed_oracle_abci
+    │   ├── rounds.py (WIP)
+
 ```
