@@ -5,7 +5,7 @@ https://github.com/valory-xyz/autonomous-fund <br>
 commit: `0756c4fdc24d99c63227057a1a8766d24a774b69`  or `v0.1.0-pre-audit`
 
 ## Objectives
-The audit is focused on [packages/balancer](https://github.com/valory-xyz/open-fund/tree/main/packages/balancer) in this repo.
+The audit is focused on [packages/balancer](https://github.com/valory-xyz/autonomous-fund/tree/main/packages/balancer) in this repo.
 
 ## Checks on quick start guides
 These checks were made on the basis of the following existing documentation:
