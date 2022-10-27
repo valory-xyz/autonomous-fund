@@ -226,10 +226,16 @@ packages/balancer: [packages_balancer.md](packages_balancer.md).
 Conclusions: <br>
 * At the moment, the code did not raise obvious security issues. <br>
 There are places that require clarification and rechecking. Details are noted in the file [packages_balancer.md](packages_balancer.md)<br>
-Update: 26-10-22.
+Update: 27-10-22.
 * So far, the code has been reviewed up to
 ```
-    ├── fear_and_greed_oracle_abci
-    │   ├── rounds.py (WIP)
-
+    └── pool_manager_abci
+        └── tests
 ```
+
+## Conclusion internal audit for v0.1.0-pre-audit
+The main questions that the auditor had after studying the material are more subjective. <br>
+I would summarize them into 3 big questions/issue:
+- Greater clarity is required on the intersection of the life cycle of the balancer pool and the product. The transfer of ownership is not very clear. 
+- It is sometimes unclear whether this is a complete (and how finished) a commercial product or just a demonstration of the possibilities.
+- Requires testing on a testnet from start to finish ("A-Z"). Most likely this is a question of the next stages of development.

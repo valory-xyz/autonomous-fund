@@ -79,11 +79,6 @@ contract WeightedPool is BaseWeightedPool, WeightedPoolProtocolFees {
     using FixedPoint for uint256;
 
 It is not entirely clear at the moment whether this is necessary and sufficient or only sufficient to demonstrate the idea of pool management.
-At the moment, no checks have been found for the following 2 criteria:
-sum(end_weights) == 1e18
-start_datetime < end_datetime and end_datetime - start_datetime >= _minWeightChangeDuration 
-
-
 │   │   ├── contract.yaml
 │   │   └── __init__.py
 │   └── weighted_pool
@@ -122,7 +117,7 @@ index_updates = json.loads(response.body)["data"]
                 for index_update in index_updates
             ]
 deterministic_body = json.dumps(response_body, sort_keys=True)
-The conversion logic: json-dict-json is not very clear. Is it for validation?
+The conversion logic: json->dict->json is not very clear. Is it for json validation?
 
 timestamps = [aggregate([t_a1, t_b1]), aggregate([t_a2, t_b2])]
         for i in range(self.params.fear_and_greed_num_points):
@@ -139,35 +134,42 @@ timestamps = [aggregate([t_a1, t_b1]), aggregate([t_a2, t_b2])]
     │   ├── models.py (ok)
     │   ├── my_model.py (ok)
     │   ├── payloads.py (ok)
-    │   ├── rounds.py (WIP)
-
+    │   ├── rounds.py (ok)
     │   ├── skill.yaml
     │   └── tests
     │       ├── __init__.py
-    │       ├── test_behaviours.py
-    │       ├── test_dialogues.py
-    │       ├── test_handlers.py
-    │       ├── test_models.py
-    │       ├── test_payloads.py
-    │       └── tests_rounds.py
+    │       ├── test_behaviours.py (ok)
+    │       ├── test_dialogues.py (ok)
+    │       ├── test_handlers.py (ok)
+    │       ├── test_models.py (ok)
+    │       ├── test_payloads.py (ok)
     ├── __init__.py
     └── pool_manager_abci
-        ├── behaviours.py
-        ├── dialogues.py
+        ├── behaviours.py (ok)
+def get_decision
+somewhere here there should be an additional check of 2 criteria:
+sum(end_weights) == 1e18
+start_datetime < end_datetime and end_datetime - start_datetime >= _minWeightChangeDuration
+
+I would recommend looking at proven algorithms for "prevent flapping"
+https://linuxczar.net/blog/2016/01/31/flap-detection/
+https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
+
+        ├── dialogues.py (ok)
         ├── fsm_specification.yaml
-        ├── handlers.py
-        ├── __init__.py
-        ├── models.py
-        ├── payloads.py
-        ├── rounds.py
+        ├── handlers.py (ok)
+        ├── __init__.py 
+        ├── models.py (ok)
+        ├── payloads.py (ok)
+        ├── rounds.py (ok)
         ├── skill.yaml
-        └── tests
+        └── tests (ok)
             ├── __init__.py
-            ├── test_behaviours.py
-            ├── test_dialogues.py
-            ├── test_handlers.py
-            ├── test_models.py
-            ├── test_payloads.py
-            └── test_rounds.py
+            ├── test_behaviours.py (ok, but as far as I understand it does not work in some way testnet like goerli) 
+            ├── test_dialogues.py (ok)
+            ├── test_handlers.py (ok)
+            ├── test_models.py (ok)
+            ├── test_payloads.py (ok)
+            └── test_rounds.py (ok)
 
 ```
