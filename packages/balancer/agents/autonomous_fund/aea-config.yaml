@@ -13,7 +13,7 @@ fingerprint:
   tests/helpers/docker.py: bafybeiaicurt4s7unh362l26wbmetxc7kgl6fwninwfgusrrbyiaozf3hy
   tests/helpers/fixtures.py: bafybeiczpplahcqw7zxi76gnefs5jhnhdpxy4box53evmu6j75tw6assny
   tests/test_agents/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
-  tests/test_agents/base.py: bafybeiaubjph7gcqgh62r7glt6ig6swzy6ri67vcs3v2qiopcp5h6xcdbi
+  tests/test_agents/base.py: bafybeih6dm742zpugaa2vve6cuyua7trhg4mlqji2wimy7jftdbtseir5e
   tests/test_agents/test_autonomous_fund.py: bafybeiap4dwh6o2u37njx6msg7rzbxp5enwqmrks5kwzzwzj6xtmjyjnja
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua

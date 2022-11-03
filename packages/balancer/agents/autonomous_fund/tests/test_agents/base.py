@@ -30,13 +30,13 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     DEFAULT_CALLBACK_HANDLER as _DEFAULT_SAFE_CALLBACK_HANDLER_ADDRESS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
+    MANAGED_POOL as _DEFAULT_MANAGED_POOL_ADDRESS,
+)
+from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     MANAGED_POOL_CONTROLLER as _DEFAULT_MANAGED_POOL_CONTROLLER_ADDRESS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     MOCK_API_PATH as _DEFAULT_MOCK_API_PATH,
-)
-from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
-    MANAGED_POOL as _DEFAULT_MANAGED_POOL_ADDRESS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
     DEFAULT_JSON_SERVER_ADDR as _DEFAULT_JSON_SERVER_ADDR,
