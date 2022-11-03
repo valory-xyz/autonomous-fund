@@ -17,4 +17,8 @@
 #
 # ------------------------------------------------------------------------------
 
-"""Tests package for balancer/weighted_pool contract."""
+"""This module contains the support resources for the  Managed Pool contract interface."""
+from pathlib import Path
+
+
+PACKAGE_DIR = Path(__file__).parent

@@ -7,15 +7,15 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeib7tq4xbys4lmfpz4kp7qs6vcw5lifiq6zb2a4strssd256g7rici
-  behaviours.py: bafybeif7r2bx62llm3v5phgj5cpejehg5zuz7p2bllkyxbifbnnzntiivq
+  behaviours.py: bafybeifv4pv4xtinswu76bdlyyiy5clglpzynavjkigaijm5ymglqe3t5u
   dialogues.py: bafybeic2grmbb2eepv745wuv6gbyx6xwahipduw6bzqbt5vcj3h6cpln7q
   fsm_specification.yaml: bafybeicn4p7uh4dmzq3iehjrxaa2h5wbzrqw35bkltyjuwoc4h57ce4aui
   handlers.py: bafybeiczztxmybnfcgggaw2dixwg6z6ql3rkicb5fstoo3iywliygpcw3u
-  models.py: bafybeic65y2e2g6qckvxyovwnisegg4p5lqyeqjknsavncikp6g7cfesbe
+  models.py: bafybeiboqtajzr7trmbmbquxepibhqyfcfsdeuvjkxoijvyf5elgudspb4
   payloads.py: bafybeib3awpsc5ghgyymtyaguir3apve3a3fxqacve5qcuhp3y7qh7i7ki
   rounds.py: bafybeib42t3j3jmyjg3ky5nitghthrikb7reo4nslirct5mlagbc5uuvni
   tests/__init__.py: bafybeiedv5h6wd6jjxzsu5d7foz3jyvgwtyotgtx2awmp2gqfysgtyziu4
-  tests/test_behaviours.py: bafybeiev2bzjhbg2ytufaom3onb3dvstqcxzcja2275xyvuvqy4kkqxszm
+  tests/test_behaviours.py: bafybeieih6qeq57afwql6vdsjlvjqaiskhll65njwn3tjc74khrlrynole
   tests/test_dialogues.py: bafybeigv2j6zxox7pk4gfpgvsdbugofglut4gmlpf3uq4hlbx64hscv7n4
   tests/test_handlers.py: bafybeiesvxlswqsmyufa52nuxbxet7oqbtbajb6xwsdmfdrf5x6wcwe47y
   tests/test_models.py: bafybeihp2476o2dteoitn27yqypucgsn7e4bdvump53d4z3ht33peucpm4
@@ -24,8 +24,8 @@ fingerprint:
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
+- balancer/managed_pool:0.1.0:bafybeiefq3l4vilcptek4tgqhru3xatq2dren2a7t4wpadt3hiegug7nfm
 - balancer/managed_pool_controller:0.1.0:bafybeiajqgorg5yfrp4zwwqjvtexrdzbzh53v4nwn5uukjbovrjyydwmt4
-- balancer/weighted_pool:0.1.0:bafybeifz5t65kwgf6yhxdo5pvvpran5fmh2yjm2pm7cx6cikihlvjwpmd4
 - valory/gnosis_safe:0.1.0:bafybeigoga63majfpe7svjnum5yp36tuwpgeyv26iacidgdbqcydonwvr4
 protocols:
 - valory/contract_api:1.0.0:bafybeiaxbrvgtbdrh4lslskuxyp4awyr4whcx3nqq5yrr6vimzsxg5dy64
@@ -97,6 +97,7 @@ models:
           version: {}
         voting_power: '10'
       keeper_timeout: 30.0
+      managed_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
       managed_pool_controller_address: '0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA'
       max_healthcheck: 120
       observation_aggregator_function: median
@@ -128,7 +129,6 @@ models:
       tendermint_url: http://localhost:26657
       weight_tolerance: 0.1
       weight_update_timespan: 72000
-      weighted_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
     class_name: Params
   requests:
     args: {}

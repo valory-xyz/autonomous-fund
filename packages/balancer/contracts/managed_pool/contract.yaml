@@ -1,0 +1,17 @@
+name: managed_pool
+author: balancer
+version: 0.1.0
+type: contract
+description: The contract package for the balancer ManagedPool interface.
+license: Apache-2.0
+aea_version: '>=1.0.0, <2.0.0'
+fingerprint:
+  __init__.py: bafybeifuqjdhsrydlwgdmuzlwvxsidbvxqrz3ulec4usczuquaj3g6jn4u
+  build/IManagedPool.json: bafybeidmc2exztkruyzk3ohwzfclsemhcnfalt6kezwmgnmtj2efcprk4q
+  contract.py: bafybeicyb6njkiblvtb465uzapo4htevcpiuojz2u5q4e6h43qglsondvm
+fingerprint_ignore_patterns: []
+contracts: []
+class_name: ManagedPoolContract
+contract_interface_paths:
+  ethereum: build/IManagedPool.json
+dependencies: {}

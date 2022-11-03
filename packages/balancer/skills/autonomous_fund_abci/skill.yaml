@@ -24,7 +24,7 @@ contracts: []
 protocols: []
 skills:
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeidrb44oqlwxvwbs6lsyn4bkfz7agzkuvj2xwn4ydyxjp73dlpmtj4
-- balancer/pool_manager_abci:0.1.0:bafybeib2vf4nocdlkse4t4ev4wl2yj3uz77usipv63g2j5lr3r35hetvsm
+- balancer/pool_manager_abci:0.1.0:bafybeigip55dunqup44b3ys7hysjxag2tgtiddfjkvpom34y3ogjz5dnt4
 - valory/abstract_round_abci:0.1.0:bafybeicwhcpuov2bvfwvzxdvmy6fhmijdhqi3uthee3bv4cfe7wm5fsbjy
 - valory/registration_abci:0.1.0:bafybeievtpfxmzrdueqgisebeqkefukvfhzhiczvmdnp4rerwup4v6karm
 - valory/reset_pause_abci:0.1.0:bafybeibplkijgsex7ikdkchzbbspyvyvic3tupq5kxm6pwih6vz4p6ckfi
@@ -100,6 +100,7 @@ models:
       history_check_timeout: 1205
       keeper_allowed_retries: 3
       keeper_timeout: 30.0
+      managed_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
       managed_pool_controller_address: '0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA'
       max_healthcheck: 120
       max_index_change: 0.00040509259
@@ -138,7 +139,6 @@ models:
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
-      weighted_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
     class_name: Params
   randomness_api:
     args:
