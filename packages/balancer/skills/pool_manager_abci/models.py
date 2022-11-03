@@ -21,6 +21,8 @@
 
 from typing import Any, Dict, List
 
+from aea.exceptions import enforce
+
 from packages.balancer.skills.pool_manager_abci.rounds import PoolManagerAbciApp
 from packages.valory.skills.abstract_round_abci.models import BaseParams
 from packages.valory.skills.abstract_round_abci.models import (
@@ -48,13 +50,28 @@ class Params(BaseParams):
         self.managed_pool_controller_address = self._ensure(
             "managed_pool_controller_address", kwargs
         )
-        self.pool_weights: Dict[int, List[int]] = self._ensure("pool_weights", kwargs)
-        self.weight_update_timespan: int = self._ensure(
-            "weight_update_timespan", kwargs
-        )
-        self.weighted_pool_address: str = self._ensure("weighted_pool_address", kwargs)
+        self.pool_weights: Dict[int, List[int]] = self._ensure_pool_weights(kwargs)
+        self.weight_update_timespan: int = self._ensure_weight_update_timespan(kwargs)
+        self.managed_pool_address: str = self._ensure("managed_pool_address", kwargs)
         self.weight_tolerance: float = self._ensure("weight_tolerance", kwargs)
         super().__init__(*args, **kwargs)
+
+    def _ensure_pool_weights(self, kwargs: Dict) -> Dict[int, List[int]]:
+        """Checks that the "pool_weights" param exists and that the weights sum up to 100%."""
+        all_pool_weights: Dict[int, List[int]] = self._ensure("pool_weights", kwargs)
+        for i, pool_weights in all_pool_weights.items():
+            enforce(
+                sum(pool_weights) == 100,
+                f"The pool weights MUST sum up to 100, "
+                f"the weights at pool_weights[{i}] do not sum up to 100.",
+            )
+        return all_pool_weights
+
+    def _ensure_weight_update_timespan(self, kwargs: Dict) -> int:
+        """Ensure that `weight_update_timespan` exists and that it is positive."""
+        weight_update_timespan: int = self._ensure("weight_update_timespan", kwargs)
+        enforce(weight_update_timespan > 0, "weight_update_timespan MUST be positive.")
+        return weight_update_timespan
 
 
 Requests = BaseRequests
