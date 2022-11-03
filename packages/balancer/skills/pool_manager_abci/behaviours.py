@@ -21,10 +21,10 @@
 import json
 from typing import Generator, List, Optional, Set, Tuple, Type, cast
 
+from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
 from packages.balancer.contracts.managed_pool_controller.contract import (
     ManagedPoolControllerContract,
 )
-from packages.balancer.contracts.weighted_pool.contract import WeightedPoolContract
 from packages.balancer.skills.pool_manager_abci.models import Params, SharedState
 from packages.balancer.skills.pool_manager_abci.payloads import (
     DecisionMakingPayload,
@@ -148,14 +148,14 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
         """Returns the current weights the pool is using."""
         response = yield from self.get_contract_api_response(
             performative=ContractApiMessage.Performative.GET_STATE,  # type: ignore
-            contract_id=str(WeightedPoolContract.contract_id),
+            contract_id=str(ManagedPoolContract.contract_id),
             contract_callable="get_normalized_weights",
-            contract_address=self.params.weighted_pool_address,
+            contract_address=self.params.managed_pool_address,
         )
 
         if response.performative != ContractApiMessage.Performative.STATE:
             self.context.logger.error(
-                f"Couldn't get weights from WeightedPoolContract.get_normalized_weights. "
+                f"Couldn't get weights from IManagedPool.get_normalized_weights. "
                 f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
                 f"received {response.performative.value}."
             )

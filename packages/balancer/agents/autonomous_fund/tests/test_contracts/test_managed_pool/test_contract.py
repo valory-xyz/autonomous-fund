@@ -18,7 +18,7 @@
 # ------------------------------------------------------------------------------
 # pylint: disable=import-error
 
-"""Tests for balancer/weighted_pool contract."""
+"""Tests for balancer/managed contract."""
 from typing import Dict
 
 from aea.test_tools.test_contract import BaseContractTestCase
@@ -27,25 +27,25 @@ from aea_test_autonomy.docker.base import skip_docker_tests
 
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     INITIAL_POOL_WEIGHTS,
-    WEIGHTED_POOL,
+    MANAGED_POOL,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.fixtures import (
     UseHardHatAutoFundBaseTest,
 )
-from packages.balancer.contracts.weighted_pool import PACKAGE_DIR
-from packages.balancer.contracts.weighted_pool.contract import WeightedPoolContract
+from packages.balancer.contracts.managed_pool import PACKAGE_DIR
+from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
 
 
 @skip_docker_tests
-class TestWeightedPoolContractContractTest(
+class TestManagedPoolContractContractTest(
     BaseContractTestCase, UseHardHatAutoFundBaseTest
 ):
-    """WeightedPool contract tests"""
+    """ManagedPool contract tests"""
 
-    contract_address = WEIGHTED_POOL
+    contract_address = MANAGED_POOL
     path_to_contract = PACKAGE_DIR
     ledger_identifier = EthereumCrypto.identifier
-    contract: WeightedPoolContract
+    contract: ManagedPoolContract
     private_key_path: str
     USE_SAFE_CONTRACTS = False
 

@@ -36,7 +36,7 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     MOCK_API_PATH as _DEFAULT_MOCK_API_PATH,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
-    WEIGHTED_POOL as _DEFAULT_WEIGHTED_POOL_ADDRESS,
+    MANAGED_POOL as _DEFAULT_MANAGED_POOL_ADDRESS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
     DEFAULT_JSON_SERVER_ADDR as _DEFAULT_JSON_SERVER_ADDR,
@@ -70,7 +70,7 @@ class BaseTestAutonomousFundEnd2End(
     SAFE_CALLBACK_HANDLER = _DEFAULT_SAFE_CALLBACK_HANDLER_ADDRESS
     SAFE_CONTRACT_ADDRESS = _DEFAULT_SAFE_CONTRACT_ADDRESS
     MANAGED_POOL_CONTROLLER_ADDRESS = _DEFAULT_MANAGED_POOL_CONTROLLER_ADDRESS
-    WEIGHTED_POOL_ADDRESS = _DEFAULT_WEIGHTED_POOL_ADDRESS
+    MANAGED_POOL_ADDRESS = _DEFAULT_MANAGED_POOL_ADDRESS
 
     __args_prefix = f"vendor.balancer.skills.{PublicId.from_str(skill_package).name}.models.params.args"
     extra_configs = [
@@ -79,8 +79,8 @@ class BaseTestAutonomousFundEnd2End(
             "value": MANAGED_POOL_CONTROLLER_ADDRESS,
         },
         {
-            "dotted_path": f"{__args_prefix}.weighted_pool_address",
-            "value": WEIGHTED_POOL_ADDRESS,
+            "dotted_path": f"{__args_prefix}.managed_pool_address",
+            "value": MANAGED_POOL_ADDRESS,
         },
         {
             "dotted_path": f"{__args_prefix}.fear_and_greed_endpoint",

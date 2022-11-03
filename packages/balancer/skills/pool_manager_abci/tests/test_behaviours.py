@@ -28,10 +28,10 @@ from unittest import mock
 
 import pytest
 
+from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
 from packages.balancer.contracts.managed_pool_controller.contract import (
     ManagedPoolControllerContract,
 )
-from packages.balancer.contracts.weighted_pool.contract import WeightedPoolContract
 from packages.balancer.skills.pool_manager_abci.behaviours import (
     DecisionMakingBehaviour,
     PoolManagerBaseBehaviour,
@@ -58,7 +58,7 @@ from packages.valory.skills.abstract_round_abci.test_tools.base import (
 
 SAFE_CONTRACT_ADDRESS = "0x5564550A54EcD43bA8f7c666fff1C4762889A572"
 MANAGED_POOL_CONTROLLER_ADDRESS = "0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA"
-WEIGHTED_POOL_ADDRESS = "0x28BF8d29cFA99aE9C3D876210453272f30e4D131"
+MANAGED_POOL_ADDRESS = "0x28BF8d29cFA99aE9C3D876210453272f30e4D131"
 
 
 @dataclass
@@ -132,23 +132,23 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
             1662854400.0,
         ],
     }
-    _weighted_pool_error = (  # type: ignore
-        f"Couldn't get weights from WeightedPoolContract.get_normalized_weights. "
+    _managed_pool_error = (  # type: ignore
+        f"Couldn't get weights from IManagedPool.get_normalized_weights. "
         f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
         f"received {ContractApiMessage.Performative.ERROR.value}."  # type: ignore
     )
 
-    def _mock_weighted_pool_contract_request(
+    def _mock_managed_pool_contract_request(
         self,
         response_body: Dict,
         response_performative: ContractApiMessage.Performative,
     ) -> None:
-        """Mock the WeightedPoolContract."""
+        """Mock the managedPoolContract."""
         self.mock_contract_api_request(
-            contract_id=str(WeightedPoolContract.contract_id),
+            contract_id=str(ManagedPoolContract.contract_id),
             request_kwargs=dict(
                 performative=ContractApiMessage.Performative.GET_STATE,
-                contract_address=WEIGHTED_POOL_ADDRESS,
+                contract_address=MANAGED_POOL_ADDRESS,
             ),
             response_kwargs=dict(
                 performative=response_performative,
@@ -198,7 +198,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
         self.fast_forward(test_case.initial_data)
         self.behaviour.act_wrapper()
 
-        self._mock_weighted_pool_contract_request(
+        self._mock_managed_pool_contract_request(
             response_body=kwargs.get("mock_response_data"),
             response_performative=kwargs.get("mock_response_performative"),
         )
@@ -222,12 +222,12 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                 {
                     "mock_response_data": dict(),
                     "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
-                    "expected_error": _weighted_pool_error,
+                    "expected_error": _managed_pool_error,
                 },
             )
         ],
     )
-    def test_weighted_pool_contract_error(
+    def test_managed_pool_contract_error(
         self, test_case: BehaviourTestCase, kwargs: Any
     ) -> None:
         """Test Managed Pool Controller Error."""
@@ -236,7 +236,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
             self.fast_forward(test_case.initial_data)
             self.behaviour.act_wrapper()
 
-            self._mock_weighted_pool_contract_request(
+            self._mock_managed_pool_contract_request(
                 response_body=kwargs.get("mock_response_data"),
                 response_performative=kwargs.get("mock_failing_response_performative"),
             )

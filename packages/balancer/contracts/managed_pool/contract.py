@@ -17,7 +17,7 @@
 #
 # ------------------------------------------------------------------------------
 
-"""This class contains a wrapper for WeightedPool contract."""
+"""This class contains a wrapper for ManagedPool contract interface."""
 
 import logging
 from typing import Any, Dict, List, Optional
@@ -28,7 +28,7 @@ from aea.contracts.base import Contract
 from aea_ledger_ethereum import LedgerApi
 
 
-PUBLIC_ID = PublicId.from_str("balancer/weighted_pool:0.1.0")
+PUBLIC_ID = PublicId.from_str("balancer/managed_pool:0.1.0")
 
 _logger = logging.getLogger(
     f"aea.packages.{PUBLIC_ID.author}.contracts.{PUBLIC_ID.name}.contract"
@@ -37,8 +37,8 @@ _logger = logging.getLogger(
 SCALING_FACTOR = 10 ** 16
 
 
-class WeightedPoolContract(Contract):
-    """The Weighted Pool contract."""
+class ManagedPoolContract(Contract):
+    """The Managed Pool contract interface."""
 
     contract_id = PUBLIC_ID
 
