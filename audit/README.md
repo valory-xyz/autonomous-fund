@@ -155,7 +155,7 @@ FAILED packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomou
 FAILED packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomous_fund.py::TestAutonomousFundSingleAgent::test_run[1] - ValueError: unsupported hash type ripemd160
 ```
 Conclusions: <br>
-Everything generally works as described in the file https://github.com/valory-xyz/autonomous-fund/README.md 
+Everything generally works as described in the file https://github.com/valory-xyz/autonomous-fund/README.md <br>
 This has not changed for the worse since the first audit. <br>
 Not 100% coverage is a minor issue. <br>
 Since this repository is called the `final` one, it would be good to pay attention to lines of code not covered by tests. <br>
@@ -165,8 +165,9 @@ A quick code review with short notes for each file in the project can be found i
 packages/balancer: [packages_balancer.md](packages_balancer.md).
 WIP
 
-Conclusions: <br>
-WIP
-
 ## Fixing based on results first internal audit (v0.1.0-pre-audit)
 WIP
+
+## Conclusions
+WIP
+
