@@ -1,7 +1,7 @@
-# Internal audit of autonomous-fund
+# Internal audit of autonomous-fund (chore/final-audit)
 
 This is the second internal audit. <br>
-The previous audit related to the code version: (v0.1.0-pre-audit) [README_audit_1.md](README_audit_1.md)
+The previous audit is internal audit for v0.1.0-pre-audit [README_audit_1.md](README_audit_1.md)
 
 The review has been performed based on the contract code in the following repository:<br>
 https://github.com/valory-xyz/autonomous-fund <br>
@@ -163,12 +163,10 @@ Since this repository is called the `final` one, it would be good to pay attenti
 ### Review of `packages/balancer/`
 A quick code review with short notes for each file in the project can be found in the file <br>
 packages/balancer: [packages_balancer.md](packages_balancer.md).
+WIP
 
 Conclusions: <br>
-WIP:
+WIP
 
 ## Fixing based on results first internal audit (v0.1.0-pre-audit)
-WIP:
-- Greater clarity is required on the intersection of the life cycle of the balancer pool and the product. The transfer of ownership is not very clear. 
-- It is sometimes unclear whether this is a complete (and how finished) a commercial product or just a demonstration of the possibilities.
-- Requires testing on a testnet from start to finish ("A-Z"). Most likely this is a question of the next stages of development.
+WIP
