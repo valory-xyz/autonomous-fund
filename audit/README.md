@@ -165,9 +165,9 @@ A quick code review with short notes for each file in the project can be found i
 packages/balancer: [packages_balancer.md](packages_balancer.md).
 WIP
 
-## Fixing based on results first internal audit (v0.1.0-pre-audit)
+### Fixing based on results first internal audit (v0.1.0-pre-audit)
 WIP
 
-## Conclusions
+### Conclusions
 WIP
 
