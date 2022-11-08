@@ -159,7 +159,6 @@ Everything generally works as described in the file https://github.com/valory-xy
 This has not changed for the worse since the first audit. <br>
 Not 100% coverage is a minor issue. <br>
 Since this repository is called the `final` one, it would be good to pay attention to lines of code not covered by tests. <br>
-`unsupported hash type ripemd160` This message still needs clarification. <br>
 
 ### Review of `packages/balancer/`
 A quick code review with short notes for each file in the project can be found in the file <br>
