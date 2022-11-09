@@ -163,10 +163,17 @@ Since this repository is called the `final` one, it would be good to pay attenti
 ### Review of `packages/balancer/`
 A quick code review with short notes for each file in the project can be found in the file <br>
 packages/balancer: [packages_balancer.md](packages_balancer.md).
-WIP
 
+WIP <br>
+Update: 09-11-22. <br>
+* So far, the code has been reviewed up to
+```
+    ├── fear_and_greed_oracle_abci
+    │   ├── behaviours.py (ok)
+```
 ### Fixing based on results first internal audit (v0.1.0-pre-audit)
-WIP
+Well know points from a previous audit for which there was a clear agreement with the developers that this should be corrected. <br>
+https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44 <br>
 
 ### Conclusions
 WIP
