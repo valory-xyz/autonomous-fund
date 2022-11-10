@@ -164,17 +164,46 @@ Since this repository is called the `final` one, it would be good to pay attenti
 A quick code review with short notes for each file in the project can be found in the file <br>
 packages/balancer: [packages_balancer.md](packages_balancer.md).
 
-WIP <br>
-Update: 09-11-22. <br>
+Update: 10-11-22. <br>
 * So far, the code has been reviewed up to
 ```
-    ├── fear_and_greed_oracle_abci
-    │   ├── behaviours.py (ok)
+            └── test_rounds.py (ok)
 ```
 ### Fixing based on results first internal audit (v0.1.0-pre-audit)
 Well know points from a previous audit for which there was a clear agreement with the developers that this should be corrected. <br>
-https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44 <br>
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011861555
+Conclusion: As far as I understand, this remark is in the process of work and should lead to the appearance of some kind of new document. Does not apply to the codebase.
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011855731
+Conclusion: WIP as I understand.
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011470410
+Conclusion: Problem solved.
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011472552
+Conclusion: Problem solved.
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011475254
+Conclusion: Problem solved. 
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011490278
+Conclusion: A little clarification with the test results is required.
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011503092
+Conclusion: Problem solved. 
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011854145
+Conclusion: A little clarification is needed.
+
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011504367
+Conclusion: As stated, this improvement is optional and does not require an immediate response. As far as I understand it has not been implemented yet.
+
 
 ### Conclusions
-WIP
+No new significant problems were noticed. <br>
+Significant issues (WeightedPool) addressed to the codebase that were raised in the first audit were resolved. <br>
+There are some minor issues that require clarification. <br>
+The most significant issues related to the documentation and testing process in the testnet have not yet been resolved and hopefully are in the process of being resolved. <br>
+Regarding testing in the testnet, I am aware that work is underway at the time of this audit. <br>
+There is no factual information regarding the new documentation. <br>
 
