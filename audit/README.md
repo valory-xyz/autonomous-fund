@@ -171,7 +171,7 @@ Update: 10-11-22. <br>
 ```
 ### Fixing based on results first internal audit (v0.1.0-pre-audit)
 Well know points from a previous audit for which there was a clear agreement with the developers that this should be corrected. <br>
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011861555
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011861555 <br>
 Conclusion: As far as I understand, this remark is in the process of work and should lead to the appearance of some kind of new document. Does not apply to the codebase.
 
 - https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011855731 <br>
