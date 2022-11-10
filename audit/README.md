@@ -174,28 +174,28 @@ Well know points from a previous audit for which there was a clear agreement wit
 - https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011861555
 Conclusion: As far as I understand, this remark is in the process of work and should lead to the appearance of some kind of new document. Does not apply to the codebase.
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011855731
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011855731 <br>
 Conclusion: WIP as I understand.
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011470410
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011470410 <br>
 Conclusion: Problem solved.
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011472552
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011472552 <br>
 Conclusion: Problem solved.
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011475254
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011475254 <br>
 Conclusion: Problem solved. 
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011490278
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011490278 <br>
 Conclusion: A little clarification with the test results is required.
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011503092
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011503092 <br>
 Conclusion: Problem solved. 
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011854145
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011854145 <br>
 Conclusion: A little clarification is needed.
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011504367
+- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011504367 <br>
 Conclusion: As stated, this improvement is optional and does not require an immediate response. As far as I understand it has not been implemented yet.
 
 
