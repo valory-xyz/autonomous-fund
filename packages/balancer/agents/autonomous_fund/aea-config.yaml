@@ -22,25 +22,25 @@ fingerprint:
   tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeigp42gxwkeyb3vtmh4oi7kjc7nv2xx3vakyv5qpajqb3mhxxxxyce
 fingerprint_ignore_patterns: []
 connections:
-- valory/abci:0.1.0:bafybeiav3mywaeik35huowg6vjekllqiaeorxlc6eesc6aftlb7msh6mdu
+- valory/abci:0.1.0:bafybeiap2iqpexya667merizj6h75267zurbbxhzcijrxu6hdt2wmkrhai
 - valory/http_client:0.23.0:bafybeihz3tubwado7j3wlivndzzuj3c6fdsp4ra5r3nqixn3ufawzo3wii
-- valory/ledger:0.19.0:bafybeihmz5us4ntmzvgikpkx4tththrl7zvou4uiebvletdeliidiuhi6m
+- valory/ledger:0.19.0:bafybeiadc25se7dgnn4mufztwpzdono4xsfs45qknzdqyi3gckn6ccuv44
 - valory/p2p_libp2p_client:0.1.0:bafybeidkk33xbga54szmitk6uwsi3ef56hbbdbuasltqtiyki34hgfpnxa
 contracts:
-- balancer/managed_pool:0.1.0:bafybeifbwlfhlvggm3q5xfmwuwx5dkp4kabqhyftucsnetp4rmtmn5lha4
-- balancer/managed_pool_controller:0.1.0:bafybeidl5amjsszohbmnm3ek3ojthnfz5xvkmdaprqrfw62epvlq2nyzee
+- balancer/managed_pool:0.1.0:bafybeiddwrb2nrjwnozit6npkjisaogmcqtb4vggsisdwa7t627oolupne
+- balancer/managed_pool_controller:0.1.0:bafybeie5ljpblzwravupy3pfhz2jqipmvoq4ohokxune25eizpixyafh5y
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeibrpfuu6kivfhk7vpzetac5byd6tjdk7fxvh7fvxxbu2osuksg6qm
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeia74ugwzybmh2dlldi6lxz7q2alf2g3brnjac65vph6f6kokklphi
-- balancer/pool_manager_abci:0.1.0:bafybeibigb7sve6cb6quad3lr22ho6w6k2cgnzrafb7ocjyyce3lsmrbha
-- valory/abstract_abci:0.1.0:bafybeidsvczp2wdu63eic7ytv2tdioscr2flaqfys755j5775xqotxqd54
-- valory/abstract_round_abci:0.1.0:bafybeihx3owgbdtbu4zr6v5gaqk6ur6er4wynameikbq6ndi2kfk5vovnu
-- valory/registration_abci:0.1.0:bafybeiee4hlizshxa55a2fego65glek6dkkafamuo4wxwnpp2prqlhximi
-- valory/reset_pause_abci:0.1.0:bafybeibqoz7wpk2sarakxnxm2j427x4r6jz5g2ewvg5ipvakbqvhjge2ta
-- valory/safe_deployment_abci:0.1.0:bafybeihzoavtj7oiuifizksjsshcudcmfsasgogy2ddfbzhm7kfz4wgwca
-- valory/transaction_settlement_abci:0.1.0:bafybeiclk72s54inkmlbeama3st2774tcssttorb6jlu3vj3yt7ne2tmkq
+- balancer/autonomous_fund_abci:0.1.0:bafybeiaj2kgvjkoylq6iypnp6yks45goxbft7ntknljqfqiish5kr4xguu
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeiaiauawdo5isydhchmicpfszdyjc2raoekqnwh6wsngo3w2s5yqxe
+- balancer/pool_manager_abci:0.1.0:bafybeigkgajc5w7vmjlm2d4xnrbunebmx7mc4kong6uutamsbw72n6y3by
+- valory/abstract_abci:0.1.0:bafybeidpixylwoisuciygaqnerwfk4wnbropwc2ghvtlmqusqxe6pyz5iu
+- valory/abstract_round_abci:0.1.0:bafybeigqcsyldiu4arougcfaz4kgqa37ko4gzkrrup22hwz344nuv3qx5q
+- valory/registration_abci:0.1.0:bafybeibbyutireqtu2nlhsafexqu5dqepwrzhwmr6yjgrdneed7nntypba
+- valory/reset_pause_abci:0.1.0:bafybeihu52fdmjslyvf6tpwa7sic4usde5uu5jtscpyjgqwaji53httw3q
+- valory/safe_deployment_abci:0.1.0:bafybeidwdjlu6dxcy7vxxgoaejstj7ffssygzjr6vxh7z7rpaap3i2oxwq
+- valory/transaction_settlement_abci:0.1.0:bafybeicgvudend6ame7taeqfqreferppqx4sgnteih4lnoq3drm2b7fqwq
 default_ledger: ethereum
 required_ledgers:
 - ethereum

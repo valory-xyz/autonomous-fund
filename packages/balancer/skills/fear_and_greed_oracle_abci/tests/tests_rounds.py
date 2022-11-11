@@ -20,7 +20,6 @@
 """This package contains the tests for rounds of FearAndGreedOracleAbciApp."""
 import json
 from dataclasses import dataclass, field
-from types import MappingProxyType
 from typing import Any, Callable, Dict, Hashable, List, cast
 
 import pytest
@@ -126,7 +125,7 @@ class TestObservationRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_observations=MappingProxyType(test_round.collection),
+                participant_to_observations=test_round.collection,
                 most_voted_observation=payload,
             ),
         )
@@ -235,7 +234,7 @@ class TestEstimationRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_observations=MappingProxyType(test_round.collection),
+                participant_to_observations=test_round.collection,
                 most_voted_observation=payload,
             ),
         )
@@ -305,7 +304,7 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_outlier_status=MappingProxyType(test_round.collection),
+                participant_to_outlier_status=test_round.collection,
                 most_voted_outlier_status=payload,
             ),
         )
@@ -372,7 +371,7 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_outlier_status=MappingProxyType(test_round.collection),
+                participant_to_outlier_status=test_round.collection,
                 most_voted_outlier_status=payload,
             ),
         )

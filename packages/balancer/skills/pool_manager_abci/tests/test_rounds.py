@@ -20,7 +20,6 @@
 """This package contains the tests for rounds of PoolManagerAbciApp."""
 import json
 from dataclasses import dataclass, field
-from types import MappingProxyType
 from typing import Callable, Dict, Hashable, List, cast
 
 import pytest
@@ -100,7 +99,7 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_decision=MappingProxyType(test_round.collection),
+                participant_to_decision=test_round.collection,
                 most_voted_weights=dummy_weights,
             ),
         )
@@ -202,7 +201,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_tx=MappingProxyType(test_round.collection),
+                participant_to_tx=test_round.collection,
                 most_voted_tx=payload_data,
             ),
         )
