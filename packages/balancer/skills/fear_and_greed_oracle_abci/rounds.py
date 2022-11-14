@@ -20,7 +20,6 @@
 """This package contains the rounds of FearAndGreedOracleAbciApp."""
 import json
 from enum import Enum
-from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
@@ -93,7 +92,7 @@ class ObservationRound(CollectSameUntilThresholdRound):
 
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_observations=MappingProxyType(self.collection),
+                participant_to_observations=self.collection,
                 most_voted_observation=payload,
             )
             return state, Event.DONE
@@ -146,7 +145,7 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
             status = payload.get("status", self.OutlierStatus.INVALID_STATE.value)
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_outlier_status=MappingProxyType(self.collection),
+                participant_to_outlier_status=self.collection,
                 most_voted_outlier_status=payload,
             )
             if status == self.OutlierStatus.OUTLIER_NOT_DETECTED.value:

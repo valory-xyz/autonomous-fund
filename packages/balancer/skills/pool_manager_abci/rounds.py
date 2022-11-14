@@ -20,7 +20,6 @@
 """This package contains the rounds of PoolManagerAbciApp."""
 import json
 from enum import Enum
-from types import MappingProxyType
 from typing import Dict, List, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.pool_manager_abci.payloads import (
@@ -107,7 +106,7 @@ class DecisionMakingRound(CollectSameUntilThresholdRound):
             payload = json.loads(self.most_voted_payload)
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_decision=MappingProxyType(self.collection),
+                participant_to_decision=self.collection,
                 most_voted_weights=payload.get("weights"),
             )
             return state, Event.DONE
@@ -137,7 +136,7 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
 
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_tx_hash=MappingProxyType(self.collection),
+                participant_to_tx_hash=self.collection,
                 most_voted_tx_hash=self.most_voted_payload,
             )
             return state, Event.DONE
