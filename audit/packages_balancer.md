@@ -1,6 +1,6 @@
 ```
 .
-├── agents 
+├── agents
 │   ├── autonomous_fund (ok)
 │   │   ├── aea-config.yaml
 │   │   ├── __init__.py
@@ -20,113 +20,60 @@
 │   │       │   └── test_autonomous_fund.py
 │   │       └── test_contracts
 │   │           ├── __init__.py
-│   │           ├── test_managed_pool_controller
+│   │           ├── test_managed_pool
 │   │           │   ├── __init__.py
 │   │           │   └── test_contract.py
-│   │           └── test_weighted_pool
+│   │           └── test_managed_pool_controller
 │   │               ├── __init__.py
 │   │               └── test_contract.py
 │   └── __init__.py
-├── contracts (ok)
+├── contracts
 │   ├── __init__.py
-│   ├── managed_pool_controller
+│   ├── managed_pool
 │   │   ├── build
-│   │   │   └── ManagedPoolController.json
-│   │   ├── contract.py
-https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-utils/contracts/controllers/ManagedPoolController.sol
-https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-utils/contracts/controllers/ManagedPoolController.sol#L150
-At the moment, one function has been implemented from the contract. 
-
-/**
-     * @dev Update weights linearly from the current values to the given end weights, between startTime
-     * and endTime.
-*/
-    function updateWeightsGradually(
-        uint256 startTime,
-        uint256 endTime,
-        uint256[] calldata endWeights
-    ) external virtual onlyManager withBoundPool {
-        _require(canChangeWeights(), Errors.FEATURE_DISABLED);
-        _require(
-            endTime >= startTime && endTime - startTime >= _minWeightChangeDuration,
-            Errors.WEIGHT_CHANGE_TOO_FAST
-        );
-
-        IControlledManagedPool(pool).updateWeightsGradually(startTime, endTime, endWeights);
-    }
-The logic of calling contract functions needs to be explained.
-The root of the problem is calling a function IControlledManagedPool(pool).updateWeightsGradually within a function updateWeightsGradually
-If we look at the source code of contracts.
-~/valory/balancer-v2-monorepo$ grep -rn --include="*.sol" "updateWeightsGradually" ./pkg/               
-./pkg/interfaces/contracts/pool-utils/IControlledManagedPool.sol:22:    function updateWeightsGradually(
-./pkg/pool-weighted/contracts/managed/ManagedPoolSettings.sol:388:     * updateWeightsGradually is called during an ongoing weight change.
-./pkg/pool-weighted/contracts/managed/ManagedPoolSettings.sol:394:    function updateWeightsGradually(
-./pkg/pool-weighted/contracts/managed/ManagedPoolSettings.sol:419:     * @dev When calling updateWeightsGradually again during an update, reset the start weights to the current weights,
-./pkg/pool-weighted/contracts/managed/ManagedPoolSettings.sol:993:            (actionId == getActionId(ManagedPoolSettings.updateWeightsGradually.selector)) ||
-./pkg/pool-weighted/contracts/lbp/LiquidityBootstrappingPool.sol:182:    function updateWeightsGradually(
-./pkg/pool-weighted/contracts/lbp/LiquidityBootstrappingPool.sol:311:            (actionId == getActionId(LiquidityBootstrappingPool.updateWeightsGradually.selector)) ||
-./pkg/pool-weighted/contracts/lbp/LiquidityBootstrappingPool.sol:318:     * @dev When calling updateWeightsGradually again during an update, reset the start weights to the current weights,
-./pkg/pool-utils/contracts/controllers/ManagedPoolController.sol:150:    function updateWeightsGradually(
-./pkg/pool-utils/contracts/controllers/ManagedPoolController.sol:161:        IControlledManagedPool(pool).updateWeightsGradually(startTime, endTime, endWeights);
-From here `pool` variable must be the address of the contract where the function updateWeightsGradually is implemented.
-Accordingly, it should be a contract ManagedPool.sol.
-Accordingly, it cannot be WeightedPool.sol (./pkg/pool-weighted/contracts/WeightedPool.sol).
-
-/**
- * @dev Basic Weighted Pool with immutable weights.
- */
-contract WeightedPool is BaseWeightedPool, WeightedPoolProtocolFees {
-    using FixedPoint for uint256;
-
-It is not entirely clear at the moment whether this is necessary and sufficient or only sufficient to demonstrate the idea of pool management.
+│   │   │   └── IManagedPool.json (ok)
+│   │   ├── contract.py (ok) (WeightedPool issue is solved.)
+Ref: https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011472552
+Issue is solved.
 │   │   ├── contract.yaml
 │   │   └── __init__.py
-│   └── weighted_pool
+│   └── managed_pool_controller 
 │       ├── build
-│       │   └── WeightedPool.json
-│       ├── contract.py
-At the moment view getNormalizedWeights() only implemented 
+│       │   └── ManagedPoolController.json
+│       ├── contract.py (ok) (WeightedPool issue is solved. end_weights check in WIP)
+if (
+            gas_price is None
+            and max_fee_per_gas is None
+            and max_priority_fee_per_gas is None
+        ):
+            tx_parameters.update(eth_api.try_get_gas_pricing())
+Is it possible to have a combination in which only one of the values will be None? Because the update condition: x is None and y is None and z is None => true and true and true
+
+scaled_weights = list(map(lambda weight: weight * SCALING_FACTOR, end_weights))
+As I understand is implemented via "model" of "skill":
+Fixing: https://github.com/valory-xyz/autonomous-fund/commit/5637105e6a5b65ca5b1fe9fc3f2e40522220fa9b
+Issue is solved.
 │       ├── contract.yaml
 │       └── __init__.py
 ├── __init__.py
-└── skills 
-    ├── autonomous_fund_abci (ok)
+└── skills
+    ├── autonomous_fund_abci
     │   ├── behaviours.py (ok)
     │   ├── composition.py (ok)
     │   ├── dialogues.py (ok)
     │   ├── fsm_specification.yaml
     │   ├── handlers.py (ok)
-    │   ├── __init__.py (ok)
+    │   ├── __init__.py
     │   ├── models.py (ok)
-    │   ├── skill.yaml 
+    │   ├── skill.yaml
     │   └── tests (ok)
-    │       ├── __init__.py (ok)
+    │       ├── __init__.py
     │       ├── test_behaviours.py (ok)
     │       ├── test_dialogues.py (ok)
     │       ├── test_handlers.py (ok)
     │       └── test_models.py (ok)
     ├── fear_and_greed_oracle_abci
-    │   ├── behaviours.py
-def get_data(self)
-index_updates = json.loads(response.body)["data"]
-            response_body = [
-                {
-                    VALUE_KEY: int(index_update[VALUE_KEY]),
-                    TIMESTAMP_KEY: int(index_update[TIMESTAMP_KEY]),
-                }
-                for index_update in index_updates
-            ]
-deterministic_body = json.dumps(response_body, sort_keys=True)
-The conversion logic: json->dict->json is not very clear. Is it for json validation?
-
-timestamps = [aggregate([t_a1, t_b1]), aggregate([t_a2, t_b2])]
-        for i in range(self.params.fear_and_greed_num_points):
-            ith_values = values[i]
-            ith_timestamps = timestamps[i]
-
-            aggregated_values.append(aggregator_method(ith_values)) ## ith_values = values[i] => aggregator_method(ith_values) I have doubts that this is correct. Please double check this place.
-            aggregated_timestamps.append(aggregator_method(ith_timestamps))
-
+    │   ├── behaviours.py (ok)
     │   ├── dialogues.py (ok)
     │   ├── fsm_specification.yaml
     │   ├── handlers.py (ok)
@@ -139,37 +86,49 @@ timestamps = [aggregate([t_a1, t_b1]), aggregate([t_a2, t_b2])]
     │   └── tests
     │       ├── __init__.py
     │       ├── test_behaviours.py (ok)
+Ref: https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011862790
+aggregated_values.append(aggregator_method(ith_values)) most likely does not contain a bug, but please indicate in which test it was checked and what were the initial parameters for aggregation and aggregator_method.
     │       ├── test_dialogues.py (ok)
     │       ├── test_handlers.py (ok)
     │       ├── test_models.py (ok)
     │       ├── test_payloads.py (ok)
+    │       └── tests_rounds.py (ok)
     ├── __init__.py
     └── pool_manager_abci
-        ├── behaviours.py (ok)
-def get_decision
-somewhere here there should be an additional check of 2 criteria:
-sum(end_weights) == 1e18
-start_datetime < end_datetime and end_datetime - start_datetime >= _minWeightChangeDuration
+        ├── behaviours.py
+Minor question:
+ETHER_VALUE = 0
+ether_value=self.ETHER_VALUE,  # we don't send any eth
+Maybe exclude the parameter altogether? Or is it mandatory?
 
-I would recommend looking at proven algorithms for "prevent flapping"
-https://linuxczar.net/blog/2016/01/31/flap-detection/
-https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/flapping.html
+As I understand sum checking is implemented:
+Fix: https://github.com/valory-xyz/autonomous-fund/commit/5637105e6a5b65ca5b1fe9fc3f2e40522220fa9b
+Discussed: https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011503092
+Issue is solved.
 
+Ref: https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011854145
+end_datetime - start_datetime >= _minWeightChangeDuration
+Just a little clarification needed. Are we checking this? If we don't check now, do we plan to check?
+
+Ref: https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1012666847
+As I understand it is not implemented yet?
+As discussed this is an optional change.
         ├── dialogues.py (ok)
         ├── fsm_specification.yaml
         ├── handlers.py (ok)
-        ├── __init__.py 
+        ├── __init__.py
         ├── models.py (ok)
+Discussed: https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011503092
+Issue is solved.
         ├── payloads.py (ok)
         ├── rounds.py (ok)
         ├── skill.yaml
-        └── tests (ok)
+        └── tests
             ├── __init__.py
-            ├── test_behaviours.py (ok, but as far as I understand it does not work in some way testnet like goerli) 
+            ├── test_behaviours.py (ok, as far as I understand test in goerli in WIP) 
             ├── test_dialogues.py (ok)
             ├── test_handlers.py (ok)
             ├── test_models.py (ok)
             ├── test_payloads.py (ok)
             └── test_rounds.py (ok)
-
 ```

@@ -1,11 +1,8 @@
-# Internal audit of autonomous-fund (chore/final-audit)
-
-This is the second internal audit. <br>
-The previous audit is internal audit for v0.1.0-pre-audit [README_audit_1.md](README_audit_1.md)
+# Internal audit of autonomous-fund (v0.1.0-pre-audit)
 
 The review has been performed based on the contract code in the following repository:<br>
 https://github.com/valory-xyz/autonomous-fund <br>
-commit: `7d6f758443a0dd4bd147bfd102dbd2e7b446597a`  or `chore/final-audit`
+commit: `0756c4fdc24d99c63227057a1a8766d24a774b69`  or `v0.1.0-pre-audit`
 
 ## Objectives
 The audit is focused on [packages/balancer](https://github.com/valory-xyz/autonomous-fund/tree/main/packages/balancer) in this repo.
@@ -47,6 +44,9 @@ ________________________________________________________________________________
   congratulations :)
 # ok
 tox -e py3.10 -- -m 'not e2e'
+---------- coverage: platform linux, python 3.10.6-final-0 -----------
+Name                                                                                                          Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------------------------------------------------------------------
 packages/__init__.py                                                                                              1      0   100%
 packages/balancer/__init__.py                                                                                     1      0   100%
 packages/balancer/agents/__init__.py                                                                              1      0   100%
@@ -57,18 +57,18 @@ packages/balancer/agents/autonomous_fund/tests/helpers/constants.py             
 packages/balancer/agents/autonomous_fund/tests/helpers/docker.py                                                 78     23    71%   70, 124, 145-148, 152, 157, 161-176, 186-197
 packages/balancer/agents/autonomous_fund/tests/helpers/fixtures.py                                               32      4    88%   85-92
 packages/balancer/agents/autonomous_fund/tests/test_agents/__init__.py                                            1      0   100%
-packages/balancer/agents/autonomous_fund/tests/test_agents/base.py                                               28      4    86%   93-99
+packages/balancer/agents/autonomous_fund/tests/test_agents/base.py                                               27      4    85%   90-96
 packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomous_fund.py                               37      0   100%
 packages/balancer/agents/autonomous_fund/tests/test_contracts/__init__.py                                         1      0   100%
-packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool/__init__.py                       1      0   100%
-packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool/test_contract.py                 30      0   100%
 packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool_controller/__init__.py            1      0   100%
 packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool_controller/test_contract.py      50      0   100%
+packages/balancer/agents/autonomous_fund/tests/test_contracts/test_weighted_pool/__init__.py                      1      0   100%
+packages/balancer/agents/autonomous_fund/tests/test_contracts/test_weighted_pool/test_contract.py                30      0   100%
 packages/balancer/contracts/__init__.py                                                                           1      0   100%
-packages/balancer/contracts/managed_pool/__init__.py                                                              3      0   100%
-packages/balancer/contracts/managed_pool/contract.py                                                             27      3    89%   50, 57, 64
 packages/balancer/contracts/managed_pool_controller/__init__.py                                                   3      0   100%
 packages/balancer/contracts/managed_pool_controller/contract.py                                                  46      8    83%   51, 58, 65, 123, 162-173
+packages/balancer/contracts/weighted_pool/__init__.py                                                             3      0   100%
+packages/balancer/contracts/weighted_pool/contract.py                                                            27      3    89%   50, 57, 64
 packages/balancer/skills/__init__.py                                                                              1      0   100%
 packages/balancer/skills/autonomous_fund_abci/__init__.py                                                         3      0   100%
 packages/balancer/skills/autonomous_fund_abci/behaviours.py                                                      14      0   100%
@@ -96,9 +96,29 @@ packages/balancer/skills/fear_and_greed_oracle_abci/tests/test_handlers.py      
 packages/balancer/skills/fear_and_greed_oracle_abci/tests/test_models.py                                          6      0   100%
 packages/balancer/skills/fear_and_greed_oracle_abci/tests/test_payloads.py                                       18      0   100%
 packages/balancer/skills/fear_and_greed_oracle_abci/tests/tests_rounds.py                                       144    109    24%   70-77, 98-156, 160-197, 207-265, 275-338, 342-405, 409-445
-...
+packages/balancer/skills/pool_manager_abci/__init__.py                                                            3      0   100%
+packages/balancer/skills/pool_manager_abci/behaviours.py                                                        109      0   100%
+packages/balancer/skills/pool_manager_abci/dialogues.py                                                          25      0   100%
+packages/balancer/skills/pool_manager_abci/handlers.py                                                           13      0   100%
+packages/balancer/skills/pool_manager_abci/models.py                                                             20      0   100%
+packages/balancer/skills/pool_manager_abci/payloads.py                                                           27      0   100%
+packages/balancer/skills/pool_manager_abci/rounds.py                                                             73      0   100%
+packages/balancer/skills/pool_manager_abci/tests/__init__.py                                                      1      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_behaviours.py                                             104      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_dialogues.py                                                3      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_handlers.py                                                 3      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_models.py                                                   6      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_payloads.py                                                17      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_rounds.py                                                  97      0   100%
+========================================================================================= 37 passed, 3 deselected, 11 warnings in 73.44s (0:01:13) =========================================================================================
+_________________________________________________________________________________________________________________ summary __________________________________________________________________________________________________________________
+  py3.10: commands succeeded
+  congratulations :)
 
 tox -e py3.10 -- -m 'e2e'
+---------- coverage: platform linux, python 3.10.6-final-0 -----------
+Name                                                                                                          Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------------------------------------------------------------------
 packages/__init__.py                                                                                              1      0   100%
 packages/balancer/__init__.py                                                                                     1      0   100%
 packages/balancer/agents/__init__.py                                                                              1      0   100%
@@ -109,18 +129,18 @@ packages/balancer/agents/autonomous_fund/tests/helpers/constants.py             
 packages/balancer/agents/autonomous_fund/tests/helpers/docker.py                                                 78      4    95%   70, 124, 152, 197
 packages/balancer/agents/autonomous_fund/tests/helpers/fixtures.py                                               32      0   100%
 packages/balancer/agents/autonomous_fund/tests/test_agents/__init__.py                                            1      0   100%
-packages/balancer/agents/autonomous_fund/tests/test_agents/base.py                                               28      3    89%   94-99
+packages/balancer/agents/autonomous_fund/tests/test_agents/base.py                                               27      3    89%   91-96
 packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomous_fund.py                               37      0   100%
 packages/balancer/agents/autonomous_fund/tests/test_contracts/__init__.py                                         1      0   100%
-packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool/__init__.py                       1      0   100%
-packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool/test_contract.py                 30      8    73%   55, 60, 64-77
 packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool_controller/__init__.py            1      0   100%
 packages/balancer/agents/autonomous_fund/tests/test_contracts/test_managed_pool_controller/test_contract.py      50     22    56%   60-64, 69, 74, 78-103, 107
+packages/balancer/agents/autonomous_fund/tests/test_contracts/test_weighted_pool/__init__.py                      1      0   100%
+packages/balancer/agents/autonomous_fund/tests/test_contracts/test_weighted_pool/test_contract.py                30      8    73%   55, 60, 64-77
 packages/balancer/contracts/__init__.py                                                                           1      0   100%
-packages/balancer/contracts/managed_pool/__init__.py                                                              3      0   100%
-packages/balancer/contracts/managed_pool/contract.py                                                             27      7    74%   50, 57, 64, 77-82
 packages/balancer/contracts/managed_pool_controller/__init__.py                                                   3      0   100%
 packages/balancer/contracts/managed_pool_controller/contract.py                                                  46     23    50%   51, 58, 65, 100-140, 162-173
+packages/balancer/contracts/weighted_pool/__init__.py                                                             3      0   100%
+packages/balancer/contracts/weighted_pool/contract.py                                                            27      7    74%   50, 57, 64, 77-82
 packages/balancer/skills/__init__.py                                                                              1      0   100%
 packages/balancer/skills/autonomous_fund_abci/__init__.py                                                         3      0   100%
 packages/balancer/skills/autonomous_fund_abci/behaviours.py                                                      14      0   100%
@@ -148,7 +168,20 @@ packages/balancer/skills/fear_and_greed_oracle_abci/tests/test_handlers.py      
 packages/balancer/skills/fear_and_greed_oracle_abci/tests/test_models.py                                          6      1    83%   33
 packages/balancer/skills/fear_and_greed_oracle_abci/tests/test_payloads.py                                       18      5    72%   68-75
 packages/balancer/skills/fear_and_greed_oracle_abci/tests/tests_rounds.py                                       144    109    24%   70-77, 98-156, 160-197, 207-265, 275-338, 342-405, 409-445
-...
+packages/balancer/skills/pool_manager_abci/__init__.py                                                            3      0   100%
+packages/balancer/skills/pool_manager_abci/behaviours.py                                                        109     68    38%   63, 68, 80-98, 108-125, 129-145, 149-167, 183-201, 223-243, 255-275, 282-289, 303-326
+packages/balancer/skills/pool_manager_abci/dialogues.py                                                          25      0   100%
+packages/balancer/skills/pool_manager_abci/handlers.py                                                           13      0   100%
+packages/balancer/skills/pool_manager_abci/models.py                                                             20      7    65%   40, 48-57
+packages/balancer/skills/pool_manager_abci/payloads.py                                                           27      7    74%   46-49, 54, 64, 74
+packages/balancer/skills/pool_manager_abci/rounds.py                                                             73     23    68%   60, 65, 70, 75, 80, 85, 103-119, 134-149
+packages/balancer/skills/pool_manager_abci/tests/__init__.py                                                      1      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_behaviours.py                                             104     42    60%   88-94, 103-111, 147, 198-206, 235-249, 275, 296, 339-355, 383-400, 431-452
+packages/balancer/skills/pool_manager_abci/tests/test_dialogues.py                                                3      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_handlers.py                                                 3      0   100%
+packages/balancer/skills/pool_manager_abci/tests/test_models.py                                                   6      1    83%   31
+packages/balancer/skills/pool_manager_abci/tests/test_payloads.py                                                17      5    71%   62-66
+packages/balancer/skills/pool_manager_abci/tests/test_rounds.py                                                  97     67    31%   75-130, 134-168, 178-232, 236-270
 ========================================================================================================= short test summary info ==========================================================================================================
 FAILED packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomous_fund.py::TestAutonomousFundFourAgents::test_run[4] - ValueError: unsupported hash type ripemd160
 FAILED packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomous_fund.py::TestAutonomousFundTwoAgents::test_run[2] - ValueError: unsupported hash type ripemd160
@@ -156,54 +189,53 @@ FAILED packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomou
 ```
 Conclusions: <br>
 Everything generally works as described in the file https://github.com/valory-xyz/autonomous-fund/README.md <br>
-This has not changed for the worse since the first audit. <br>
-Not 100% coverage is a minor issue. <br>
-Since this repository is called the `final` one, it would be good to pay attention to lines of code not covered by tests. <br>
+Not 100% coverage (perhaps I missed something) is a minor issue. <br>
+```ValueError: unsupported hash type ripemd160``` requires clarification. <br>
+
+### Review of [Log] [Autonomous Fund]
+Original proposal: [RFC] Balancer Grant Proposal: Smart Managed Pools (SMPs) <br>
+Gantt chart: Project Plan – Gantt Chart - Balancer Grant <br>
+Spec: [WD] Balancer Smart Managed Pools Data Sources & Specification <br>
+
+Open questions at the time of studying the documentation: <br>
+The questions are arranged from more general to more specific. <br>
+1. It is not entirely clear whether there are measurable economic indicators that tell whether a pool is successfully managed or not. Perhaps the answer to this question is beyond the scope of the project. <br>
+2. There is no (even formal) justification for the relationship between pool weights and "Fear and Greed Index". <br>
+3. There is no (even formal) justification why these tokens were chosen. Since we are talking about ERC20 tokens, it is formally correct to write WETH (less significant) and WBTC (more significant) <br>
+4. The previous question is similarly about mapping range to weights <br> 
+5. It is not entirely clear which functionality is actually supported. <br>
+https://docs.balancer.fi/products/balancer-pools/managed-pools
+```
+For example:
+Active Token Management
+Add
+Remove
+```
+6. Requires a detailed explanation with which of the contracts (deployed contracts) there is interaction (read/write) and why with them. <br>
+This refers to two contracts that could be identified: <br>
+https://github.com/balancer-labs/balancer-v2-monorepo/blob/master/pkg/pool-weighted/contracts/WeightedPool.sol <br>
+https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-utils/contracts/controllers/ManagedPoolController.sol <br>
+As well as a contact that should probably be used. <br>
+https://github.com/valory-xyz/balancer-v2-monorepo/blob/master/pkg/pool-weighted/contracts/managed/ManagedPool.sol <br>
+
 
 ### Review of `packages/balancer/`
 A quick code review with short notes for each file in the project can be found in the file <br>
-packages/balancer: [packages_balancer.md](packages_balancer.md).
+packages/balancer: [packages_balancer_audit_1.md](packages_balancer_audit_1.md).
 
-Update: 10-11-22. <br>
+Conclusions: <br>
+* At the moment, the code did not raise obvious security issues. <br>
+There are places that require clarification and rechecking. Details are noted in the file [packages_balancer_audit_1.md](packages_balancer_audit_1.md)<br>
+Update: 27-10-22.
 * So far, the code has been reviewed up to
 ```
-            └── test_rounds.py (ok)
+    └── pool_manager_abci
+        └── tests
 ```
-### Fixing based on results first internal audit (v0.1.0-pre-audit)
-Well know points from a previous audit for which there was a clear agreement with the developers that this should be corrected. <br>
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011861555 <br>
-Conclusion: As far as I understand, this remark is in the process of work and should lead to the appearance of some kind of new document. Does not apply to the codebase.
 
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011855731 <br>
-Conclusion: WIP as I understand.
-
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011470410 <br>
-Conclusion: Problem solved.
-
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011472552 <br>
-Conclusion: Problem solved.
-
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011475254 <br>
-Conclusion: Problem solved. 
-
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011490278 <br>
-Conclusion: A little clarification with the test results is required.
-
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011503092 <br>
-Conclusion: Problem solved. 
-
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011854145 <br>
-Conclusion: A little clarification is needed.
-
-- https://github.com/valory-xyz/autonomous-fund/pull/37/files/eb6872bed54ae8b353ff7c6b95f64783ca831a44#r1011504367 <br>
-Conclusion: As stated, this improvement is optional and does not require an immediate response. As far as I understand it has not been implemented yet.
-
-
-### Conclusions
-No new significant problems were noticed. <br>
-Significant issues (WeightedPool) addressed to the codebase that were raised in the first audit were resolved. <br>
-There are some minor issues that require clarification. <br>
-The most significant issues related to the documentation and testing process in the testnet have not yet been resolved and hopefully are in the process of being resolved. <br>
-Regarding testing in the testnet, I am aware that work is underway at the time of this audit. <br>
-There is no factual information regarding the new documentation. <br>
-
+## Conclusion internal audit for v0.1.0-pre-audit
+The main questions that the auditor had after studying the material are more subjective. <br>
+I would summarize them into 3 big questions/issue:
+- Greater clarity is required on the intersection of the life cycle of the balancer pool and the product. The transfer of ownership is not very clear. 
+- It is sometimes unclear whether this is a complete (and how finished) a commercial product or just a demonstration of the possibilities.
+- Requires testing on a testnet from start to finish ("A-Z"). Most likely this is a question of the next stages of development.
