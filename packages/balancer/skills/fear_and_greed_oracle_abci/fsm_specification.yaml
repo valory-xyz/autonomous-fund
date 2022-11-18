@@ -6,7 +6,7 @@ alphabet_in:
 default_start_state: ObservationRound
 final_states:
 - FinishedDataCollectionRound
-label: packages.balancer.skills.fear_and_greed_oracle_abci.rounds.FearAndGreedOracleAbciApp
+label: FearAndGreedOracleAbciApp
 start_states:
 - ObservationRound
 states:
