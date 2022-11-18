@@ -17,8 +17,8 @@ models:
     args:
       setup:
         safe_contract_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_SETUP_SAFE_CONTRACT_ADDRESS:list:[]}
-      managed_pool_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_ADDRESS}
-      managed_pool_controller_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_CONTROLLER_ADDRESS}
+      managed_pool_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_ADDRESS:str:0x28BF8d29cFA99aE9C3D876210453272f30e4D131}
+      managed_pool_controller_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_CONTROLLER_ADDRESS:str:0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA}
       consensus:
         max_participants: 4
       observation_interval: 300
