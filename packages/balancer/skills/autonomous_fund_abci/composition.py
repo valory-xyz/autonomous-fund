@@ -52,7 +52,7 @@ AutonomousFundAbciApp = chain(
         FearAndGreedAbci.FearAndGreedOracleAbciApp,
         PoolManagerAbci.PoolManagerAbciApp,
         TransactionSubmissionAbci.TransactionSubmissionAbciApp,
-        ResetAndPauseAbci.ResetPauseABCIApp,
+        ResetAndPauseAbci.ResetPauseAbciApp,
     ),
     abci_app_transition_mapping,
 )

@@ -70,8 +70,8 @@ class AutonomousFundNetworkDockerImage(DockerImage):
         raise NotImplementedError()
 
     @property
-    def tag(self) -> str:
-        """Get the tag."""
+    def image(self) -> str:
+        """Get the image."""
         return "valory/autonomous-fund-contracts:latest"
 
     def _get_env_vars(self) -> Dict:
@@ -84,7 +84,7 @@ class AutonomousFundNetworkDockerImage(DockerImage):
         ports = {f"{self._CONTAINER_PORT}/tcp": ("0.0.0.0", self.port)}  # nosec
         env_vars = self._get_env_vars()
         container = self._client.containers.run(
-            self.tag,
+            self.image,
             detach=True,
             ports=ports,
             environment=env_vars,
@@ -152,8 +152,8 @@ class MockFearAndGreedApi(DockerImage):
         raise NotImplementedError()
 
     @property
-    def tag(self) -> str:
-        """Get the tag."""
+    def image(self) -> str:
+        """Get the image."""
         return "ajoelpod/mock-json-server:latest"
 
     def create(self) -> Container:
@@ -167,7 +167,7 @@ class MockFearAndGreedApi(DockerImage):
         }
         ports = {"8000/tcp": ("0.0.0.0", self.port)}  # nosec
         container = self._client.containers.run(
-            self.tag,
+            self.image,
             detach=True,
             ports=ports,
             volumes=volumes,

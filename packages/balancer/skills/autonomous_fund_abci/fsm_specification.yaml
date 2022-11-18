@@ -21,7 +21,7 @@ alphabet_in:
 - VALIDATE_TIMEOUT
 default_start_state: RegistrationStartupRound
 final_states: []
-label: packages.balancer.skills.autonomous_fund_abci.composition.AutonomousFundAbciApp
+label: AutonomousFundAbciApp
 start_states:
 - RegistrationStartupRound
 states:

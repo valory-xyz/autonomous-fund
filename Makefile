@@ -103,6 +103,6 @@ new_env: clean
 
 .PHONY: fix-abci-app-specs
 fix-abci-app-specs:
-	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse abci generate-app-specs packages.balancer.skills.fear_and_greed_oracle_abci.rounds.FearAndGreedOracleAbciApp packages/balancer/skills/fear_and_greed_oracle_abci/fsm_specification.yaml || (echo "Failed to check fear_and_greed_oracle_abci abci consistency" && exit 1)
-	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse abci generate-app-specs packages.balancer.skills.pool_manager_abci.rounds.PoolManagerAbciApp packages/balancer/skills/pool_manager_abci/fsm_specification.yaml || (echo "Failed to check pool_manager_abci abci consistency" && exit 1)
-	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse abci generate-app-specs packages.balancer.skills.autonomous_fund_abci.composition.AutonomousFundAbciApp packages/balancer/skills/autonomous_fund_abci/fsm_specification.yaml || (echo "Failed to check fear_and_greed_oracle_abci abci consistency" && exit 1)
+	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse fsm-specs --app-class FearAndGreedOracleAbciApp --package packages/balancer/skills/fear_and_greed_oracle_abci || (echo "Failed to check fear_and_greed_oracle_abci abci consistency" && exit 1)
+	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse fsm-specs --app-class PoolManagerAbciApp --package packages/balancer/skills/pool_manager_abci || (echo "Failed to check pool_manager_abci abci consistency" && exit 1)
+	export PYTHONPATH=${PYTHONPATH}:${PWD} && autonomy analyse fsm-specs --app-class AutonomousFundAbciApp --package packages/balancer/skills/autonomous_fund_abci || (echo "Failed to check fear_and_greed_oracle_abci abci consistency" && exit 1)
