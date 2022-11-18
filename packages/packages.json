@@ -5,7 +5,8 @@
         "skill/balancer/pool_manager_abci/0.1.0": "bafybeicoxskrkd5uhshc3nm6bjumelwrvxskmldnmjqm3klk5gr7xa3wky",
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeicdmq5557o4epoizzkduem4xz57rkhaptswi2aqisdn5x7xcpkpfi",
         "contract/balancer/managed_pool_controller/0.1.0": "bafybeiehd6hc5zpigr3tl2j4x4wzj35qjm27mcnv5uqdexoib7g4gn2mxi",
-        "contract/balancer/managed_pool/0.1.0": "bafybeibdvfjbkz5rdhhnoc6w75vgnaeo6ahh4w36c5e44lqcihc2omy3zq"
+        "contract/balancer/managed_pool/0.1.0": "bafybeibdvfjbkz5rdhhnoc6w75vgnaeo6ahh4w36c5e44lqcihc2omy3zq",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeigdyoaa3fdsobowttt23c4z26s34niub3wr5cicvqsbjv4zxqm2ve"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeiaw3tzlg3rkvnn5fcufblktmfwngmxugn4yo7pyjp76zz6aqtqcay",
