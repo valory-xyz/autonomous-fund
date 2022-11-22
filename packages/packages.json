@@ -1,12 +1,12 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeieuzi3iz6lpapqfjticmqguqa2dqxijaec237zx5vyxyfsqhidvgm",
-        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeieoolxcjygmycaxvngdb64m4nn2tf3s7mxmkqazywwqnjptc42a3m",
-        "skill/balancer/pool_manager_abci/0.1.0": "bafybeicoxskrkd5uhshc3nm6bjumelwrvxskmldnmjqm3klk5gr7xa3wky",
-        "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeicdmq5557o4epoizzkduem4xz57rkhaptswi2aqisdn5x7xcpkpfi",
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeibcdpdfjozgnwc2dd2mcfd34taihglmojg3y2mei5n5tn7yf52bne",
+        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeicfaelqxlcpda2bf2kyc62egynaxtwl5nyhi2oli2rbxaqn5uc27i",
+        "skill/balancer/pool_manager_abci/0.1.0": "bafybeigflumois3mhxgavdlcwuc4typsrl3owtsxgwha2bdr6ejeebcqlq",
+        "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeihepj6zaidkylh6vczxb7vv2hzd4ghtitizgjia4iqmtgtlbutsfi",
         "contract/balancer/managed_pool_controller/0.1.0": "bafybeiehd6hc5zpigr3tl2j4x4wzj35qjm27mcnv5uqdexoib7g4gn2mxi",
         "contract/balancer/managed_pool/0.1.0": "bafybeibdvfjbkz5rdhhnoc6w75vgnaeo6ahh4w36c5e44lqcihc2omy3zq",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeigdyoaa3fdsobowttt23c4z26s34niub3wr5cicvqsbjv4zxqm2ve"
+        "service/balancer/autonomous_fund/0.1.0": "bafybeicieyyujuqnkf3lymjnqfseamvfimiwzlzn5u7c6cqkzzfrcorgvm"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeiaw3tzlg3rkvnn5fcufblktmfwngmxugn4yo7pyjp76zz6aqtqcay",
@@ -23,11 +23,11 @@
         "skill/valory/abstract_abci/0.1.0": "bafybeicog4eierjad4f542ubhe3ez7sxgrsna7t2e5pci2hncpq5vckw4e",
         "contract/valory/gnosis_safe/0.1.0": "bafybeidoa7hkpzpnjswns2jq6tlisbzinzpkdqtqd6gbpyxiytt3mnszpm",
         "protocol/valory/acn/1.1.0": "bafybeifontek6tvaecatoauiule3j3id6xoktpjubvuqi3h2jkzqg7zh7a",
-        "skill/valory/abstract_round_abci/0.1.0": "bafybeid3sx66tzs6mmwu52tlaqdycfszzpetgybzu34gagfocg5bmivh7e",
+        "skill/valory/abstract_round_abci/0.1.0": "bafybeia5meor4p77p62khoddlqj4vg5rxiwi3djxc7feusgein6adi7t7m",
         "connection/valory/p2p_libp2p_client/0.1.0": "bafybeidkk33xbga54szmitk6uwsi3ef56hbbdbuasltqtiyki34hgfpnxa",
-        "skill/valory/transaction_settlement_abci/0.1.0": "bafybeiaaugllwdbh5pmnus2gbnsr72cvdysoobb7gf2ccmtctvxzdqcpii",
-        "skill/valory/registration_abci/0.1.0": "bafybeifxquhkccygjawoqyj26b3k6rxizaa7geoef7oyet2baojjk4gy2q",
-        "skill/valory/reset_pause_abci/0.1.0": "bafybeibnziujsv7toespbguradspw52rfrhhgdojcbznckqia2jwm2jvwm",
-        "skill/valory/safe_deployment_abci/0.1.0": "bafybeig4bni62vg6bschvvtnpsg5p6p7owqispx64zomk4pqcugmqv4wpe"
+        "skill/valory/transaction_settlement_abci/0.1.0": "bafybeicjc5fa4lheqiymguk2auvcg7wzvigwzgay3mcryy2puwvxapptku",
+        "skill/valory/registration_abci/0.1.0": "bafybeib2cr65zmunztkr3miy4sa2pwlsj2dsi4pz7rwtgg75xczc7hrj3q",
+        "skill/valory/reset_pause_abci/0.1.0": "bafybeie3qy5v3ggc54bmrubd27kbofrkw6srgbggo3b6ewssw3pbxjuvla",
+        "skill/valory/safe_deployment_abci/0.1.0": "bafybeih2mywgkx2z6fdjdumr3ghdth54gp6glyltrasezyo37bu3zqk7by"
     }
 }
