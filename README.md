@@ -1,5 +1,9 @@
 # autonomous-fund
 
+Checkout the [spec](https://drive.google.com/file/d/1_WuEODpEKV7BR3LMKVLxyZUWjcGhHNRS/view) of the autonomous-fund, and the [grant announcement](https://medium.com/@BalancerGrants/valory-is-building-smart-managed-pools-on-balancer-1b03a2f4cc89) by Balancer. 
+
+## Developing
+
 - Clone the repository:
 
       git clone git@github.com:valory-xyz/autonomous-fund.git
