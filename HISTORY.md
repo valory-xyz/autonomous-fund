@@ -1,5 +1,8 @@
 # Release History - `Autonomous Fund`
 
+## 0.1.0.post2 (2022-11-23)
+- Adds env vars to the autonomous-fund agent. 
+
 ## 0.1.0.post1 (2022-11-22)
 - Bumps to `open-autonomy@v0.4.0.post1`. 
 
