@@ -21,6 +21,7 @@ Checkout the [spec](https://drive.google.com/file/d/1_WuEODpEKV7BR3LMKVLxyZUWjcG
 
       docker pull valory/autonolas-registries:latest
       docker pull valory/safe-contract-net:latest
+      docker pull valory/autonomous-fund-contracts:latest
 
 - Create development environment:
 
@@ -35,3 +36,7 @@ Checkout the [spec](https://drive.google.com/file/d/1_WuEODpEKV7BR3LMKVLxyZUWjcG
       autonomy packages sync
 
 - During development use `make formatters`, `make code-checks` and `make generators`
+
+- After building your development environment and pulling the packages, you can conduct an end-to-end test with a local network and 4 agents by running
+      
+      pytest packages/balancer/agents/autonomous_fund/tests/test_agents/test_autonomous_fund.py::TestAutonomousFundFourAgents
