@@ -8,7 +8,7 @@ fingerprint:
   __init__.py: bafybeibzqammkemm5yc5hqjzdnpmgr2aw3j7lwni64rc5c4sf7qsnv7ulu
   tests/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
   tests/helpers/__init__.py: bafybeiauwuw4a4wxqacqqkkk52ktps2qedadhypvh3ex7uqs7qaqrpygmy
-  tests/helpers/constants.py: bafybeifkitbifaxa4o552zki2uurdhasli2dbi7loby23ifgra3bz7wtja
+  tests/helpers/constants.py: bafybeicw6yrzglzc4j3i734jmxyhkyhxtt6wqpk6lvsijajab4nkmnsuwm
   tests/helpers/data/json_server/data.json: bafybeidueptoi7g44hkdrzkyn326l44qhkbt4bsnidrvkn5y3pkgljmuzy
   tests/helpers/docker.py: bafybeidez67kvj75yuh5tzk4pfg2zwvueupomi3rzv5q2htblllpw45uhq
   tests/helpers/fixtures.py: bafybeiczpplahcqw7zxi76gnefs5jhnhdpxy4box53evmu6j75tw6assny
@@ -19,7 +19,7 @@ fingerprint:
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua
   tests/test_contracts/test_managed_pool/test_contract.py: bafybeibmvkjtdgkpt3xif7ynmpnykeucprytrv5fr45ji5lzokqnl57jc4
   tests/test_contracts/test_managed_pool_controller/__init__.py: bafybeid3fa64f4rskt4tf6hfjxqzid2o5dopuh2f53aegclg6fj5ylso5i
-  tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeigp42gxwkeyb3vtmh4oi7kjc7nv2xx3vakyv5qpajqb3mhxxxxyce
+  tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeieu4j573uf2f7yyeyz4occydirs7s6dyfbsuiid7zoz3noa44iika
 fingerprint_ignore_patterns: []
 connections:
 - valory/abci:0.1.0:bafybeics24v7csn2xwyrkdgthrzdbuqutssx3mn572z2tavyr33banqz6u
@@ -28,13 +28,13 @@ connections:
 - valory/p2p_libp2p_client:0.1.0:bafybeidkk33xbga54szmitk6uwsi3ef56hbbdbuasltqtiyki34hgfpnxa
 contracts:
 - balancer/managed_pool:0.1.0:bafybeibdvfjbkz5rdhhnoc6w75vgnaeo6ahh4w36c5e44lqcihc2omy3zq
-- balancer/managed_pool_controller:0.1.0:bafybeiehd6hc5zpigr3tl2j4x4wzj35qjm27mcnv5uqdexoib7g4gn2mxi
+- balancer/managed_pool_controller:0.1.0:bafybeig53q73cgwzu5d6hwhjh6jyjxg3pinoelg4mzeamnfwg2rkxbg4vi
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeicfaelqxlcpda2bf2kyc62egynaxtwl5nyhi2oli2rbxaqn5uc27i
+- balancer/autonomous_fund_abci:0.1.0:bafybeiffsqfor2notchguv4ubbz5ztmnmc6qkpjmyrifwxkbfqtufiylkm
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihepj6zaidkylh6vczxb7vv2hzd4ghtitizgjia4iqmtgtlbutsfi
-- balancer/pool_manager_abci:0.1.0:bafybeigflumois3mhxgavdlcwuc4typsrl3owtsxgwha2bdr6ejeebcqlq
+- balancer/pool_manager_abci:0.1.0:bafybeihv4btmnj5umw7njkizto64u6okpdsujwknlgxyo3s23ocpeyyt7u
 - valory/abstract_abci:0.1.0:bafybeicog4eierjad4f542ubhe3ez7sxgrsna7t2e5pci2hncpq5vckw4e
 - valory/abstract_round_abci:0.1.0:bafybeia5meor4p77p62khoddlqj4vg5rxiwi3djxc7feusgein6adi7t7m
 - valory/registration_abci:0.1.0:bafybeib2cr65zmunztkr3miy4sa2pwlsj2dsi4pz7rwtgg75xczc7hrj3q
@@ -148,6 +148,7 @@ models:
       observation_aggregator_function: median
       observation_interval: 10
       on_chain_service_id: null
+      pool_tokens: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_POOL_TOKENS:list:["0x3A78BF1783a0187c1C8000e41C2a008897D0a35f","0xC97b465daC9f52A26F2A234c658a57f5B3f15D19","0xfe46A8F577d3367848bdd127173B7d5F14a6088C"]}
       pool_weights:
         0:
         - 60

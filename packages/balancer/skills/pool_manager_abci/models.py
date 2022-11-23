@@ -50,6 +50,7 @@ class Params(BaseParams):
         self.managed_pool_controller_address = self._ensure(
             "managed_pool_controller_address", kwargs
         )
+        self.pool_tokens: List[str] = self._ensure("pool_tokens", kwargs)
         self.pool_weights: Dict[int, List[int]] = self._ensure_pool_weights(kwargs)
         self.weight_update_timespan: int = self._ensure_weight_update_timespan(kwargs)
         self.managed_pool_address: str = self._ensure("managed_pool_address", kwargs)
@@ -58,12 +59,18 @@ class Params(BaseParams):
 
     def _ensure_pool_weights(self, kwargs: Dict) -> Dict[int, List[int]]:
         """Checks that the "pool_weights" param exists and that the weights sum up to 100%."""
+        num_tokens = len(self.pool_tokens)
         all_pool_weights: Dict[int, List[int]] = self._ensure("pool_weights", kwargs)
         for i, pool_weights in all_pool_weights.items():
             enforce(
                 sum(pool_weights) == 100,
                 f"The pool weights MUST sum up to 100, "
                 f"the weights at pool_weights[{i}] do not sum up to 100.",
+            )
+            enforce(
+                len(pool_weights) == num_tokens,
+                f"The pool weights MUST be the same length as the number of tokens in the pool, "
+                f"the weights at pool_weights[{i}] do not match the number of tokens ({num_tokens}).",
             )
         return all_pool_weights
 
