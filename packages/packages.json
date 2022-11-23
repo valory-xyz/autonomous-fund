@@ -1,12 +1,12 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeibcdpdfjozgnwc2dd2mcfd34taihglmojg3y2mei5n5tn7yf52bne",
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeigw2ghyywgygfbcymtr4vm6didxhq2ariwhq3inxi3gzqvx5ts2qm",
         "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeicfaelqxlcpda2bf2kyc62egynaxtwl5nyhi2oli2rbxaqn5uc27i",
         "skill/balancer/pool_manager_abci/0.1.0": "bafybeigflumois3mhxgavdlcwuc4typsrl3owtsxgwha2bdr6ejeebcqlq",
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeihepj6zaidkylh6vczxb7vv2hzd4ghtitizgjia4iqmtgtlbutsfi",
         "contract/balancer/managed_pool_controller/0.1.0": "bafybeiehd6hc5zpigr3tl2j4x4wzj35qjm27mcnv5uqdexoib7g4gn2mxi",
         "contract/balancer/managed_pool/0.1.0": "bafybeibdvfjbkz5rdhhnoc6w75vgnaeo6ahh4w36c5e44lqcihc2omy3zq",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeicieyyujuqnkf3lymjnqfseamvfimiwzlzn5u7c6cqkzzfrcorgvm"
+        "service/balancer/autonomous_fund/0.1.0": "bafybeicfkzh5ok5xpdu7xisybxdfw25qh2v65xd3hvgvycydjknv2ph4qy"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeiaw3tzlg3rkvnn5fcufblktmfwngmxugn4yo7pyjp76zz6aqtqcay",
