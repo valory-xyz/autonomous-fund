@@ -33,7 +33,7 @@ Checkout the [spec](https://drive.google.com/file/d/1_WuEODpEKV7BR3LMKVLxyZUWjcG
 
 - Pull packages:
 
-      autonomy packages sync
+      autonomy packages sync --update-packages
 
 - During development use `make formatters`, `make code-checks` and `make generators`
 
