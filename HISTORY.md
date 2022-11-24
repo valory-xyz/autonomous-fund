@@ -1,5 +1,8 @@
 # Release History - `Autonomous Fund`
 
+## v0.1.0.post3 (2022-11-24)
+- Utilizes the latest interface for the `ManagedPoolController` contract.
+
 ## 0.1.0.post2 (2022-11-23)
 - Adds env vars to the autonomous-fund agent. 
 
