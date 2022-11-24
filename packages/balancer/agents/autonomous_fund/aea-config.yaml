@@ -115,7 +115,7 @@ models:
       cleanup_history_depth: 1
       cleanup_history_depth_current: null
       consensus:
-        max_participants: 1
+        max_participants: ${MAX_PARTICIPANTS:int:1}
       drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
       fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
       fear_and_greed_num_points: 2
@@ -172,9 +172,9 @@ models:
         safe_contract_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_SETUP_SAFE_CONTRACT_ADDRESS:list:["0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"]}
       sleep_time: 1
       tendermint_check_sleep_delay: 3
-      tendermint_com_url: http://localhost:8080
+      tendermint_com_url: ${TENDERMINT_COM_URL:str:http://localhost:8080}
       tendermint_max_retries: 5
-      tendermint_url: http://localhost:26657
+      tendermint_url: ${TENDERMINT_URL:str:http://localhost:26657}
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
