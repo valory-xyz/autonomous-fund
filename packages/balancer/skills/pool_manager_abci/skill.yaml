@@ -7,11 +7,11 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeib7tq4xbys4lmfpz4kp7qs6vcw5lifiq6zb2a4strssd256g7rici
-  behaviours.py: bafybeifv4pv4xtinswu76bdlyyiy5clglpzynavjkigaijm5ymglqe3t5u
+  behaviours.py: bafybeihae4yyt26vwtsjxcvujcbmez6igqeuoenjl7f7a7yld6sr53olu4
   dialogues.py: bafybeic2grmbb2eepv745wuv6gbyx6xwahipduw6bzqbt5vcj3h6cpln7q
   fsm_specification.yaml: bafybeify5zvsgb6acwgcekmltgb4rlpeovls4plcqmcuoyr7tgjlwp72pi
   handlers.py: bafybeiczztxmybnfcgggaw2dixwg6z6ql3rkicb5fstoo3iywliygpcw3u
-  models.py: bafybeiboqtajzr7trmbmbquxepibhqyfcfsdeuvjkxoijvyf5elgudspb4
+  models.py: bafybeiddpb3swlag6brr6c2v66o2kd7cvdri56pvufrxzmvyx2zjvcrnia
   payloads.py: bafybeib3awpsc5ghgyymtyaguir3apve3a3fxqacve5qcuhp3y7qh7i7ki
   rounds.py: bafybeibijqj4imhxy2avwvebp6lb4kepisvuaar352umax2rcmugfh7ppi
   tests/__init__.py: bafybeiedv5h6wd6jjxzsu5d7foz3jyvgwtyotgtx2awmp2gqfysgtyziu4
@@ -25,7 +25,7 @@ fingerprint_ignore_patterns: []
 connections: []
 contracts:
 - balancer/managed_pool:0.1.0:bafybeibdvfjbkz5rdhhnoc6w75vgnaeo6ahh4w36c5e44lqcihc2omy3zq
-- balancer/managed_pool_controller:0.1.0:bafybeiehd6hc5zpigr3tl2j4x4wzj35qjm27mcnv5uqdexoib7g4gn2mxi
+- balancer/managed_pool_controller:0.1.0:bafybeig53q73cgwzu5d6hwhjh6jyjxg3pinoelg4mzeamnfwg2rkxbg4vi
 - valory/gnosis_safe:0.1.0:bafybeidoa7hkpzpnjswns2jq6tlisbzinzpkdqtqd6gbpyxiytt3mnszpm
 protocols:
 - valory/contract_api:1.0.0:bafybeiaxbrvgtbdrh4lslskuxyp4awyr4whcx3nqq5yrr6vimzsxg5dy64
@@ -103,6 +103,10 @@ models:
       observation_aggregator_function: median
       observation_interval: 10
       on_chain_service_id: null
+      pool_tokens:
+      - '0x3A78BF1783a0187c1C8000e41C2a008897D0a35f'
+      - '0xC97b465daC9f52A26F2A234c658a57f5B3f15D19'
+      - '0xfe46A8F577d3367848bdd127173B7d5F14a6088C'
       pool_weights:
         0:
         - 60

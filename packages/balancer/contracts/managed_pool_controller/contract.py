@@ -72,6 +72,7 @@ class ManagedPoolControllerContract(Contract):
         sender_address: str,
         start_datetime: int,
         end_datetime: int,
+        tokens: List[str],
         end_weights: List[int],
         gas: Optional[int] = None,
         gas_price: Optional[int] = None,
@@ -90,6 +91,7 @@ class ManagedPoolControllerContract(Contract):
         :param sender_address: the address of the tx sender
         :param start_datetime: The datetime from which the update should begin.
         :param end_datetime: The datetime in which the update should end.
+        :param tokens: The tokens in the pool.
         :param end_weights: What to set the weights to, updated gradually.
         :param gas: Gas
         :param gas_price: Gas Price
@@ -134,6 +136,7 @@ class ManagedPoolControllerContract(Contract):
         raw_tx = controller_contract.functions.updateWeightsGradually(
             start_datetime,
             end_datetime,
+            tokens,
             scaled_weights,
         ).buildTransaction(tx_parameters)
 
@@ -146,6 +149,7 @@ class ManagedPoolControllerContract(Contract):
         contract_address: str,
         start_datetime: int,
         end_datetime: int,
+        tokens: List[str],
         end_weights: List[int],
     ) -> Dict[str, Any]:
         """
@@ -156,6 +160,7 @@ class ManagedPoolControllerContract(Contract):
 
         :param start_datetime: The datetime from which the update should begin.
         :param end_datetime: The datetime in which the update should end.
+        :param tokens: The tokens in the pool.
         :param end_weights: What to set the weights to, updated gradually.
         :return: the encoded tx data
         """
@@ -166,6 +171,7 @@ class ManagedPoolControllerContract(Contract):
             args=[
                 start_datetime,
                 end_datetime,
+                tokens,
                 scaled_weights,
             ],
         )

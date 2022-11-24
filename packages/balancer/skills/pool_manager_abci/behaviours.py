@@ -309,6 +309,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
             contract_address=self.params.managed_pool_controller_address,
             start_datetime=start_datetime,
             end_datetime=end_datetime,
+            tokens=self.params.pool_tokens,
             end_weights=end_weights,
         )
 

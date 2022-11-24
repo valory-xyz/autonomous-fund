@@ -32,6 +32,7 @@ from aea_test_autonomy.docker.base import skip_docker_tests
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     ACCOUNTS,
     MANAGED_POOL_CONTROLLER,
+    MANAGED_POOL_TOKENS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.fixtures import (
     UseHardHatAutoFundBaseTest,
@@ -82,12 +83,13 @@ class TestManagedPoolControllerContractTest(
         ONE_DAY = 86400
         end_datetime = start_datetime + ONE_DAY
         end_weights = [80, 10, 10]
-
+        tokens = MANAGED_POOL_TOKENS
         tx_raw = self.contract.update_weights_gradually(
             ledger_api=self.ledger_api,
             sender_address=sender.address,
             contract_address=self.contract_address,
             start_datetime=start_datetime,
+            tokens=tokens,
             end_datetime=end_datetime,
             end_weights=end_weights,
         )

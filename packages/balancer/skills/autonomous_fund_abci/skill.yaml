@@ -24,7 +24,7 @@ contracts: []
 protocols: []
 skills:
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihepj6zaidkylh6vczxb7vv2hzd4ghtitizgjia4iqmtgtlbutsfi
-- balancer/pool_manager_abci:0.1.0:bafybeigflumois3mhxgavdlcwuc4typsrl3owtsxgwha2bdr6ejeebcqlq
+- balancer/pool_manager_abci:0.1.0:bafybeihv4btmnj5umw7njkizto64u6okpdsujwknlgxyo3s23ocpeyyt7u
 - valory/abstract_round_abci:0.1.0:bafybeia5meor4p77p62khoddlqj4vg5rxiwi3djxc7feusgein6adi7t7m
 - valory/registration_abci:0.1.0:bafybeib2cr65zmunztkr3miy4sa2pwlsj2dsi4pz7rwtgg75xczc7hrj3q
 - valory/reset_pause_abci:0.1.0:bafybeie3qy5v3ggc54bmrubd27kbofrkw6srgbggo3b6ewssw3pbxjuvla
@@ -101,7 +101,7 @@ models:
       keeper_allowed_retries: 3
       keeper_timeout: 30.0
       managed_pool_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
-      managed_pool_controller_address: '0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA'
+      managed_pool_controller_address: '0x28BF8d29cFA99aE9C3D876210453272f30e4D131'
       max_healthcheck: 120
       max_index_change: 0.00040509259
       max_index_value: 100
@@ -109,6 +109,10 @@ models:
       observation_aggregator_function: median
       observation_interval: 10
       on_chain_service_id: null
+      pool_tokens:
+      - '0x3A78BF1783a0187c1C8000e41C2a008897D0a35f'
+      - '0xC97b465daC9f52A26F2A234c658a57f5B3f15D19'
+      - '0xfe46A8F577d3367848bdd127173B7d5F14a6088C'
       pool_weights:
         0:
         - 60
