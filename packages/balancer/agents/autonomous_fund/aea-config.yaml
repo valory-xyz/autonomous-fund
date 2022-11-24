@@ -119,7 +119,7 @@ models:
       drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
       fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
       fear_and_greed_num_points: 2
-      finalize_timeout: 60.0
+      finalize_timeout: 600.0
       genesis_config:
         genesis_time: '2022-09-26T00:00:00.000000000Z'
         chain_id: chain-c4daS1
@@ -146,7 +146,7 @@ models:
       max_index_value: 100
       min_index_value: 0
       observation_aggregator_function: median
-      observation_interval: 10
+      observation_interval: 72000
       on_chain_service_id: null
       pool_tokens: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_POOL_TOKENS:list:["0x3A78BF1783a0187c1C8000e41C2a008897D0a35f","0xC97b465daC9f52A26F2A234c658a57f5B3f15D19","0xfe46A8F577d3367848bdd127173B7d5F14a6088C"]}
       pool_weights:
