@@ -32,7 +32,7 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeiffsqfor2notchguv4ubbz5ztmnmc6qkpjmyrifwxkbfqtufiylkm
+- balancer/autonomous_fund_abci:0.1.0:bafybeiahxdqef6ylmonqqvzuvk2eg5uzxaw4nfpwppaccc24hetw6kiwyi
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihepj6zaidkylh6vczxb7vv2hzd4ghtitizgjia4iqmtgtlbutsfi
 - balancer/pool_manager_abci:0.1.0:bafybeihv4btmnj5umw7njkizto64u6okpdsujwknlgxyo3s23ocpeyyt7u
 - valory/abstract_abci:0.1.0:bafybeicog4eierjad4f542ubhe3ez7sxgrsna7t2e5pci2hncpq5vckw4e
@@ -68,7 +68,7 @@ logging_config:
       handlers:
       - logfile
       - console
-      propagate: false
+      propagate: true
 dependencies:
   open-aea-ledger-ethereum: {}
 default_connection: null
@@ -115,11 +115,11 @@ models:
       cleanup_history_depth: 1
       cleanup_history_depth_current: null
       consensus:
-        max_participants: 1
+        max_participants: ${MAX_PARTICIPANTS:int:1}
       drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
       fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
       fear_and_greed_num_points: 2
-      finalize_timeout: 60.0
+      finalize_timeout: 600.0
       genesis_config:
         genesis_time: '2022-09-26T00:00:00.000000000Z'
         chain_id: chain-c4daS1
@@ -146,7 +146,7 @@ models:
       max_index_value: 100
       min_index_value: 0
       observation_aggregator_function: median
-      observation_interval: 10
+      observation_interval: 72000
       on_chain_service_id: null
       pool_tokens: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_POOL_TOKENS:list:["0x3A78BF1783a0187c1C8000e41C2a008897D0a35f","0xC97b465daC9f52A26F2A234c658a57f5B3f15D19","0xfe46A8F577d3367848bdd127173B7d5F14a6088C"]}
       pool_weights:
@@ -162,7 +162,7 @@ models:
         - 10
         - 30
         - 60
-      reset_tendermint_after: 2
+      reset_tendermint_after: 1
       retry_attempts: 400
       retry_timeout: 3
       round_timeout_seconds: 30.0
@@ -172,9 +172,9 @@ models:
         safe_contract_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_SETUP_SAFE_CONTRACT_ADDRESS:list:["0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"]}
       sleep_time: 1
       tendermint_check_sleep_delay: 3
-      tendermint_com_url: http://localhost:8080
+      tendermint_com_url: ${TENDERMINT_COM_URL:str:http://localhost:8080}
       tendermint_max_retries: 5
-      tendermint_url: http://localhost:26657
+      tendermint_url: ${TENDERMINT_URL:str:http://localhost:26657}
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000

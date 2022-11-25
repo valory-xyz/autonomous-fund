@@ -9,10 +9,10 @@ fingerprint:
   __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
   behaviours.py: bafybeihf3byvmvpoeq4qvwpky2muji2vdl3r2mlizl3cpvm66kpsnjkvoa
   composition.py: bafybeiddgrsa5y3dbt6zpbpxwhkqro6xhb33up34xz3re4pvjos7chlzka
-  dialogues.py: bafybeih3x4egnkh7xwnlawqbu6fpqyqbaum7ivdhqm6r6557dyy2rhzneq
+  dialogues.py: bafybeidlaxto7h652uthpw6ycewqmd44jckh2dztgr464bywieinuha7cm
   fsm_specification.yaml: bafybeifghpso76r4wcu4pasqqkyd2gokfoqa5kyzh4jxwpo4hjbsnznree
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
-  models.py: bafybeiflzl5rysq6zae6w7egyamdjaur5oobcbgvyucfu6v4dbp5epmnmy
+  models.py: bafybeieddpsxt64kw7dbqz7pe2fqmqbu3nzzlupweglfeowantxlujkshu
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
   tests/test_behaviours.py: bafybeig2xeqhhed6ugfr2etzcj7ngxlforvqtiqcxm5igmbo2wkczpx5dy
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
@@ -164,6 +164,9 @@ models:
   state:
     args: {}
     class_name: SharedState
+  tendermint_dialogues:
+    args: {}
+    class_name: TendermintDialogues
 dependencies:
   open-aea-cli-ipfs:
     version: <2.0.0,>=1.20.0
