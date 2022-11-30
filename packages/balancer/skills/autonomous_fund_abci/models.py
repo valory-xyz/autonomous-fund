@@ -91,6 +91,15 @@ class SharedState(BaseSharedState):
         AutonomousFundAbciApp.event_to_timeout[
             ResetPauseEvent.RESET_AND_PAUSE_TIMEOUT
         ] = (self.context.params.observation_interval + MARGIN)
+        AutonomousFundAbciApp.event_to_timeout[
+            SafeEvent.VALIDATE_TIMEOUT
+        ] = self.context.params.validate_timeout
+        AutonomousFundAbciApp.event_to_timeout[
+            TSEvent.VALIDATE_TIMEOUT
+        ] = self.context.params.validate_timeout
+        AutonomousFundAbciApp.event_to_timeout[
+            TSEvent.FINALIZE_TIMEOUT
+        ] = self.context.params.finalize_timeout
 
 
 class Params(PoolManagerParams, TransactionParams, FearAndGreedOracleParams):
