@@ -25,18 +25,18 @@ from typing import Hashable, Type
 import pytest
 
 from packages.balancer.skills.pool_manager_abci.payloads import (
-    BasePoolManagerPayload,
     DecisionMakingPayload,
     TransactionType,
     UpdatePoolTxPayload,
 )
+from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
 
 @dataclass
 class PayloadTestCase:
     """PayloadTestCase"""
 
-    payload_cls: Type[BasePoolManagerPayload]
+    payload_cls: Type[BaseTxPayload]
     content: Hashable
     transaction_type: TransactionType
 
@@ -46,12 +46,12 @@ class PayloadTestCase:
     [
         PayloadTestCase(
             payload_cls=DecisionMakingPayload,
-            content="0xanydata",
+            content=dict(decision_making="test"),
             transaction_type=TransactionType.DECISION_MAKING,
         ),
         PayloadTestCase(
             payload_cls=UpdatePoolTxPayload,
-            content="0xanydata",
+            content=dict(update_pool_tx="test"),
             transaction_type=TransactionType.UPDATE_POOL_TX,
         ),
     ],
@@ -59,8 +59,11 @@ class PayloadTestCase:
 def test_payloads(test_case: PayloadTestCase) -> None:
     """Tests for PoolManagerAbciApp payloads"""
 
-    payload = test_case.payload_cls("sender", test_case.content)
+    payload = test_case.payload_cls(
+        sender="sender",
+        **test_case.content,
+    )
     assert payload.sender == "sender"
-    assert getattr(payload, f"{payload.transaction_type}") == test_case.content
+    assert getattr(payload, "data") == test_case.content  # type: ignore # noqa: B009
     assert payload.transaction_type == test_case.transaction_type
     assert payload.from_json(payload.json) == payload

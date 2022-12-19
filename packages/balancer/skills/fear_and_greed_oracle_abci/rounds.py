@@ -35,6 +35,7 @@ from packages.valory.skills.abstract_round_abci.base import (
     CollectSameUntilThresholdRound,
     DegenerateRound,
     EventToTimeout,
+    get_name,
 )
 
 
@@ -78,9 +79,8 @@ class SynchronizedData(BaseSynchronizedData):
 class ObservationRound(CollectSameUntilThresholdRound):
     """A round in which agents collect observations"""
 
-    round_id = "collect_observation"
     allowed_tx_type = ObservationRoundPayload.transaction_type
-    payload_attribute = "observation_data"
+    payload_attribute = get_name(ObservationRoundPayload.observation_data)
     synchronized_data_class = SynchronizedData
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
@@ -92,8 +92,12 @@ class ObservationRound(CollectSameUntilThresholdRound):
 
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_observations=self.collection,
-                most_voted_observation=payload,
+                **{
+                    get_name(
+                        SynchronizedData.participant_to_observations
+                    ): self.collection,
+                    get_name(SynchronizedData.most_voted_observation): payload,
+                },
             )
             return state, Event.DONE
         if not self.is_majority_possible(
@@ -107,23 +111,23 @@ class ObservationRound(CollectSameUntilThresholdRound):
 class EstimationRound(CollectSameUntilThresholdRound):
     """A round that in which the data processing logic is done."""
 
-    round_id: str = "estimation_round"
     allowed_tx_type = EstimationRoundPayload.transaction_type
-    payload_attribute: str = "estimation_data"
+    payload_attribute: str = get_name(EstimationRoundPayload.estimation_data)
     synchronized_data_class = SynchronizedData
     done_event = Event.DONE
     none_event = Event.NO_ACTION
     no_majority_event = Event.NO_MAJORITY
-    collection_key = "participant_to_estimates"
-    selection_key = "most_voted_estimates"
+    collection_key = get_name(SynchronizedData.participant_to_estimates)
+    selection_key = get_name(SynchronizedData.most_voted_estimates)
 
 
 class OutlierDetectionRound(CollectSameUntilThresholdRound):
     """A round in which outlier detection is done."""
 
-    round_id: str = "outlier_detection_round"
     allowed_tx_type = OutlierDetectionRoundPayload.transaction_type
-    payload_attribute: str = "outlier_detection_data"
+    payload_attribute: str = get_name(
+        OutlierDetectionRoundPayload.outlier_detection_data
+    )
     synchronized_data_class = SynchronizedData
 
     class OutlierStatus(Enum):
@@ -163,8 +167,6 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
 class FinishedDataCollectionRound(DegenerateRound):
     """A degenerate round that acts as the terminal state of FearAndGreedOracleAbciApp."""
 
-    round_id: str = "finished_data_collection_round"
-
 
 class FearAndGreedOracleAbciApp(AbciApp[Event]):
     """A class that defines the transition between rounds in this abci app."""
@@ -194,5 +196,16 @@ class FearAndGreedOracleAbciApp(AbciApp[Event]):
     final_states: Set[AppState] = {FinishedDataCollectionRound}
     event_to_timeout: EventToTimeout = {
         Event.ROUND_TIMEOUT: 30.0,
+    }
+    db_pre_conditions: Dict[AppState, List[str]] = {
+        ObservationRound: [],
+    }
+    db_post_conditions: Dict[AppState, List[str]] = {
+        FinishedDataCollectionRound: [
+            get_name(SynchronizedData.participant_to_observations),
+            get_name(SynchronizedData.most_voted_observation),
+            get_name(SynchronizedData.participant_to_estimates),
+            get_name(SynchronizedData.most_voted_estimates),
+        ]
     }
     cross_period_persisted_keys: List[str] = []

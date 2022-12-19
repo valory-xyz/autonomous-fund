@@ -88,12 +88,12 @@ class BasePoolManagerTest(FSMBehaviourBaseCase):
         data = data if data is not None else {}
         self.fast_forward_to_behaviour(
             self.behaviour,  # type: ignore
-            self.behaviour_class.behaviour_id,
+            self.behaviour_class.auto_behaviour_id(),
             SynchronizedData(AbciAppDB(setup_data=AbciAppDB.data_to_lists(data))),
         )
         assert (
-            self.behaviour.current_behaviour.behaviour_id  # type: ignore
-            == self.behaviour_class.behaviour_id
+            self.behaviour.current_behaviour.auto_behaviour_id()  # type: ignore
+            == self.behaviour_class.auto_behaviour_id()
         )
 
     def complete(
@@ -109,8 +109,8 @@ class BasePoolManagerTest(FSMBehaviourBaseCase):
         self._test_done_flag_set()
         self.end_round(done_event=event)
         assert (
-            self.behaviour.current_behaviour.behaviour_id  # type: ignore
-            == next_behaviour_class.behaviour_id
+            self.behaviour.current_behaviour.auto_behaviour_id()  # type: ignore
+            == next_behaviour_class.auto_behaviour_id()
         )
 
 
@@ -183,7 +183,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedWithoutTxRound.round_id
+                        FinishedWithoutTxRound.auto_round_id()
                     ),  # noqa
                 ),
                 {
@@ -216,7 +216,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedWithoutTxRound.round_id
+                        FinishedWithoutTxRound.auto_round_id()
                     ),
                 ),
                 {
@@ -320,7 +320,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.DONE,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedTxPreparationRound.round_id
+                        FinishedTxPreparationRound.auto_round_id()
                     ),  # noqa
                 ),
                 {

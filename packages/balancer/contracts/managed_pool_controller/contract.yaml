@@ -16,6 +16,6 @@ contract_interface_paths:
   ethereum: build/ManagedPoolController.json
 dependencies:
   open-aea-ledger-ethereum:
-    version: ==1.24.0
+    version: ==1.26.0
   web3:
     version: ==5.25.0

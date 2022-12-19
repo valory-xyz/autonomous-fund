@@ -37,6 +37,20 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.fixtures import (
 from packages.balancer.agents.autonomous_fund.tests.test_agents.base import (
     BaseTestAutonomousFundEnd2End,
 )
+from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
+    EstimationRound,
+    ObservationRound,
+    OutlierDetectionRound,
+)
+from packages.balancer.skills.pool_manager_abci.rounds import (
+    DecisionMakingRound,
+    UpdatePoolTxRound,
+)
+from packages.valory.skills.registration_abci.rounds import RegistrationStartupRound
+from packages.valory.skills.reset_pause_abci.rounds import ResetAndPauseRound
+from packages.valory.skills.transaction_settlement_abci.rounds import (
+    ValidateTransactionRound,
+)
 
 
 TIME_TO_FINISH = 60  # 1 minute
@@ -44,8 +58,8 @@ TARGET_AGENT = "balancer/autonomous_fund:0.1.0"
 TARGET_SKILL = "balancer/autonomous_fund_abci:0.1.0"
 
 REGISTRATION_CHECK_STRINGS = (
-    "Entered in the 'registration_startup' round for period 0",
-    "'registration_startup' round is done",
+    f"Entered in the '{RegistrationStartupRound.auto_round_id()}' round for period 0",
+    f"'{RegistrationStartupRound.auto_round_id()}' round is done",
 )
 
 _expected_api_response = (
@@ -53,29 +67,29 @@ _expected_api_response = (
 )
 _expected_outlier_status = '{"status": "outlier_not_detected"}'
 FEAR_AND_GREED_ORACLE_STRINGS = (
-    "Entered in the 'collect_observation' round for period 0",
+    f"Entered in the '{ObservationRound.auto_round_id()}' round for period 0",
     f"Received data from Fear and Greed API: {_expected_api_response}",
-    "Entered in the 'estimation_round' round for period 0",
+    f"Entered in the '{EstimationRound.auto_round_id()}' round for period 0",
     "Estimated Fear and Greed Index values to be ",
-    "Entered in the 'outlier_detection_round' round for period 0",
+    f"Entered in the '{OutlierDetectionRound.auto_round_id()}' round for period 0",
     f"Outlier detection status: {_expected_outlier_status}",
 )
 
 _expected_update_weights_decision = '{"weights": [60, 30, 10]}'
 POOL_MANAGER_STRINGS = (
-    "Entered in the 'decision_making' round for period 0",
+    f"Entered in the '{DecisionMakingRound.auto_round_id()}' round for period 0",
     f"Updated weights decision: {_expected_update_weights_decision}",
-    "Entered in the 'update_pool_tx' round for period 0",
+    f"Entered in the '{UpdatePoolTxRound.auto_round_id()}' round for period 0",
     "Prepared safe tx:",
 )
 
 TRANSACTION_SUBMISSION_STRINGS = (
-    "Entered in the 'validate_transaction' round for period 0",
+    f"Entered in the '{ValidateTransactionRound.auto_round_id()}' round for period 0",
     "Verified result: True",
 )
 
 RESET_STRINGS = (
-    "Entered in the 'reset_and_pause' round for period 0",
+    f"Entered in the '{ResetAndPauseRound.auto_round_id()}' round for period 0",
     "Period end.",
 )
 
