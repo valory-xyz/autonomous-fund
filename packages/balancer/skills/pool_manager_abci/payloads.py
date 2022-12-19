@@ -19,9 +19,8 @@
 
 """This module contains the transaction payloads of the PoolManagerAbciApp."""
 
-from abc import ABC
 from enum import Enum
-from typing import Any, Dict, Hashable
+from typing import Any, Dict
 
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 

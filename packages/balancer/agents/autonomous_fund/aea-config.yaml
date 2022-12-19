@@ -32,9 +32,9 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeigqv2o6rlcvxr7j7odzk4vw6impjdmcqg446sqsfecmxathfyuole
+- balancer/autonomous_fund_abci:0.1.0:bafybeibuqervxxdcdgg2hkh3djs44vihgbhwmi7zf3jwt2k62i4irv6g5a
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/pool_manager_abci:0.1.0:bafybeiggk2xfawdednzyphfibn5yphalxzlboq3y7czmwjjm4gtaymwaei
+- balancer/pool_manager_abci:0.1.0:bafybeidq6cmtkjvd3hz2dezmkmkgkasvhdozpzy5uujw7k732v6u3gqkt4
 - valory/abstract_abci:0.1.0:bafybeibqgoxd25itxyuauou6xybiwu3nxkhqwxklggvdwcg42b7expnflq
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
