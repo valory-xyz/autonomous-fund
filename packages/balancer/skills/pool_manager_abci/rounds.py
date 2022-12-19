@@ -34,6 +34,7 @@ from packages.valory.skills.abstract_round_abci.base import (
     CollectSameUntilThresholdRound,
     DegenerateRound,
     EventToTimeout,
+    get_name,
 )
 
 
@@ -87,9 +88,8 @@ class SynchronizedData(BaseSynchronizedData):
 class DecisionMakingRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents decide whether to update the weights or not."""
 
-    round_id: str = "decision_making"
     allowed_tx_type = DecisionMakingPayload.transaction_type
-    payload_attribute: str = "decision_making"
+    payload_attribute: str = get_name(DecisionMakingPayload.decision_making)
     synchronized_data_class = SynchronizedData
 
     # used for cases when we don't need to update
@@ -121,9 +121,8 @@ class DecisionMakingRound(CollectSameUntilThresholdRound):
 class UpdatePoolTxRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents prepare a tx to update the pool."""
 
-    round_id = "update_pool_tx"
     allowed_tx_type = UpdatePoolTxPayload.transaction_type
-    payload_attribute: str = "update_pool_tx"
+    payload_attribute: str = get_name(UpdatePoolTxPayload.update_pool_tx)
     synchronized_data_class = SynchronizedData
 
     ERROR_PAYLOAD = "{}"
@@ -151,13 +150,9 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
 class FinishedWithoutTxRound(DegenerateRound):
     """FinishedWithoutTxRound"""
 
-    round_id = "finished_without_tx"
-
 
 class FinishedTxPreparationRound(DegenerateRound):
     """FinishedTxPreparationRound"""
-
-    round_id = "finished_tx_preparation"
 
 
 class PoolManagerAbciApp(AbciApp[Event]):
@@ -186,3 +181,15 @@ class PoolManagerAbciApp(AbciApp[Event]):
         Event.ROUND_TIMEOUT: 30.0,
     }
     cross_period_persisted_keys: List[str] = []
+    db_pre_conditions: Dict[AppState, List[str]] = {
+        DecisionMakingRound: [
+            get_name(SynchronizedData.most_voted_estimates),
+        ],
+    }
+    db_post_conditions: Dict[AppState, List[str]] = {
+        FinishedTxPreparationRound: [
+            get_name(SynchronizedData.most_voted_tx_hash),
+            get_name(SynchronizedData.safe_contract_address),
+        ],
+        FinishedWithoutTxRound: [],
+    }

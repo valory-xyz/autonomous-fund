@@ -63,8 +63,6 @@ class FearAndGreedOracleBaseBehaviour(BaseBehaviour):
 class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
     """Defines the logic used for data collection."""
 
-    state_id: str = "observation"
-    behaviour_id: str = "observation_behaviour"
     matching_round: Type[AbstractRound] = ObservationRound
 
     def async_act(self) -> Generator:
@@ -161,8 +159,6 @@ class ObservationBehaviour(FearAndGreedOracleBaseBehaviour):
 class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
     """Defines the logic used for processing the previously collected data."""
 
-    state_id: str = "estimation"
-    behaviour_id: str = "estimation_behaviour"
     matching_round: Type[AbstractRound] = EstimationRound
 
     _aggregator_methods: Dict[str, Callable] = {
@@ -266,8 +262,6 @@ class EstimationBehaviour(FearAndGreedOracleBaseBehaviour):
 class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
     """Defines logic to safeguard against a fault API or sudden changes in the index value."""
 
-    state_id: str = "outlier_detection"
-    behaviour_id: str = "outlier_detection_behaviour"
     matching_round: Type[AbstractRound] = OutlierDetectionRound
 
     def async_act(self) -> Generator:

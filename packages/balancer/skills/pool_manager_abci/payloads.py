@@ -19,9 +19,8 @@
 
 """This module contains the transaction payloads of the PoolManagerAbciApp."""
 
-from abc import ABC
 from enum import Enum
-from typing import Any, Dict, Hashable
+from typing import Any, Dict
 
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
@@ -37,38 +36,43 @@ class TransactionType(Enum):
         return self.value
 
 
-class BasePoolManagerPayload(BaseTxPayload, ABC):
-    """Base payload for PoolManager."""
-
-    def __init__(self, sender: str, content: Hashable, **kwargs: Any) -> None:
-        """Initialize a transaction payload."""
-
-        super().__init__(sender, **kwargs)
-        setattr(self, f"_{self.transaction_type}", content)
-        p = property(lambda s: getattr(self, f"_{self.transaction_type}"))
-        setattr(self.__class__, f"{self.transaction_type}", p)
-
-    @property
-    def data(self) -> Dict[str, Hashable]:
-        """Get the data."""
-        return {str(self.transaction_type): getattr(self, str(self.transaction_type))}
-
-
-class DecisionMakingPayload(BasePoolManagerPayload):
+class DecisionMakingPayload(BaseTxPayload):
     """Represent a transaction payload for the DecisionMakingRound."""
 
     transaction_type = TransactionType.DECISION_MAKING
 
     def __init__(self, sender: str, decision_making: str, **kwargs: Any) -> None:
         """Initialize an DecisionMakingPayload transaction payload."""
-        super().__init__(sender=sender, content=decision_making, **kwargs)
+        super().__init__(sender, **kwargs)
+        self._decision_making = decision_making
+
+    @property
+    def decision_making(self) -> str:
+        """Get the decision-making data."""
+        return self._decision_making
+
+    @property
+    def data(self) -> Dict:
+        """Get the data."""
+        return dict(decision_making=self.decision_making)
 
 
-class UpdatePoolTxPayload(BasePoolManagerPayload):
+class UpdatePoolTxPayload(BaseTxPayload):
     """Represent a transaction payload for the UpdatePoolTxRound."""
 
     transaction_type = TransactionType.UPDATE_POOL_TX
 
     def __init__(self, sender: str, update_pool_tx: str, **kwargs: Any) -> None:
         """Initialize an UpdatePoolTx transaction payload."""
-        super().__init__(sender=sender, content=update_pool_tx, **kwargs)
+        super().__init__(sender, **kwargs)
+        self._update_pool_tx = update_pool_tx
+
+    @property
+    def update_pool_tx(self) -> str:
+        """Get the UpdatePool transaction data."""
+        return self._update_pool_tx
+
+    @property
+    def data(self) -> Dict:
+        """Get the data."""
+        return dict(update_pool_tx=self.update_pool_tx)

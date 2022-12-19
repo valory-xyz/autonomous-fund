@@ -23,6 +23,7 @@ default_start_state: RegistrationStartupRound
 final_states: []
 label: AutonomousFundAbciApp
 start_states:
+- RegistrationRound
 - RegistrationStartupRound
 states:
 - CheckLateTxHashesRound

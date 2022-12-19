@@ -10,7 +10,7 @@ fingerprint:
   behaviours.py: bafybeihf3byvmvpoeq4qvwpky2muji2vdl3r2mlizl3cpvm66kpsnjkvoa
   composition.py: bafybeiddgrsa5y3dbt6zpbpxwhkqro6xhb33up34xz3re4pvjos7chlzka
   dialogues.py: bafybeidlaxto7h652uthpw6ycewqmd44jckh2dztgr464bywieinuha7cm
-  fsm_specification.yaml: bafybeifghpso76r4wcu4pasqqkyd2gokfoqa5kyzh4jxwpo4hjbsnznree
+  fsm_specification.yaml: bafybeifm3witsuumawlxqgdadqiwavdr7txzycvrysvbwqrafx5ebaynmy
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
   models.py: bafybeifbojdadkdqg2reurqld23gdmrmjewb6gfed65l2bitvsdo6r5qhq
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
@@ -23,13 +23,13 @@ connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihepj6zaidkylh6vczxb7vv2hzd4ghtitizgjia4iqmtgtlbutsfi
-- balancer/pool_manager_abci:0.1.0:bafybeihv4btmnj5umw7njkizto64u6okpdsujwknlgxyo3s23ocpeyyt7u
-- valory/abstract_round_abci:0.1.0:bafybeia5meor4p77p62khoddlqj4vg5rxiwi3djxc7feusgein6adi7t7m
-- valory/registration_abci:0.1.0:bafybeib2cr65zmunztkr3miy4sa2pwlsj2dsi4pz7rwtgg75xczc7hrj3q
-- valory/reset_pause_abci:0.1.0:bafybeie3qy5v3ggc54bmrubd27kbofrkw6srgbggo3b6ewssw3pbxjuvla
-- valory/safe_deployment_abci:0.1.0:bafybeih2mywgkx2z6fdjdumr3ghdth54gp6glyltrasezyo37bu3zqk7by
-- valory/transaction_settlement_abci:0.1.0:bafybeicjc5fa4lheqiymguk2auvcg7wzvigwzgay3mcryy2puwvxapptku
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
+- balancer/pool_manager_abci:0.1.0:bafybeicdmdka4f5zfzbjs4g4xvo2dobxqwrwkvwwgrow4x4rtplvk2r6pu
+- valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
+- valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
+- valory/reset_pause_abci:0.1.0:bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q
+- valory/safe_deployment_abci:0.1.0:bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana
+- valory/transaction_settlement_abci:0.1.0:bafybeibmivn3szn4iuim5dqrnilgiag2hf6oidqgjhnjxqaumru4aewlca
 behaviours:
   main:
     args: {}

@@ -71,8 +71,6 @@ class PoolManagerBaseBehaviour(BaseBehaviour):
 class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
     """DecisionMakingBehaviour"""
 
-    state_id: str = "decision_making_state"
-    behaviour_id: str = "decision_making_behaviour"
     matching_round: Type[AbstractRound] = DecisionMakingRound
 
     def async_act(self) -> Generator:
@@ -170,8 +168,6 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
 class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
     """UpdatePoolTxBehaviour"""
 
-    state_id: str = "update_pool_tx_state"
-    behaviour_id: str = "update_pool_tx_behaviour"
     matching_round: Type[AbstractRound] = UpdatePoolTxRound
 
     # hardcoded to 0 because we don't need to send any ETH
