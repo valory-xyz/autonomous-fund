@@ -20,7 +20,7 @@
 """This package contains payload tests for the PoolManagerAbciApp."""
 
 from dataclasses import dataclass
-from typing import Hashable, Type
+from typing import Dict, Type
 
 import pytest
 
@@ -37,7 +37,7 @@ class PayloadTestCase:
     """PayloadTestCase"""
 
     payload_cls: Type[BaseTxPayload]
-    content: Hashable
+    content: Dict
     transaction_type: TransactionType
 
 
