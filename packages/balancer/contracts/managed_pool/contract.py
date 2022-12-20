@@ -64,6 +64,38 @@ class ManagedPoolContract(Contract):
         raise NotImplementedError
 
     @classmethod
+    def scale_down_weights(cls, weights: List[int]) -> List[float]:
+        """Scales down the weights to be represented in the [0, 100] interval."""
+        scaled_weights = list(map(lambda weight: weight / SCALING_FACTOR, weights))
+        return scaled_weights
+
+    @classmethod
+    def get_gradual_weight_update_params(
+        cls,
+        ledger_api: LedgerApi,
+        contract_address: str,
+    ) -> Dict[str, Any]:
+        """
+        Returns the current gradual weight change update parameters.
+
+        :return: the update params
+        """
+        contract_instance = cls.get_instance(ledger_api, contract_address)
+        update_params = (
+            contract_instance.functions.getGradualWeightUpdateParams().call()
+        )
+        start_time = int(update_params[0])
+        end_time = int(update_params[1])
+        start_weights = cls.scale_down_weights(update_params[2])
+        end_weights = cls.scale_down_weights(update_params[3])
+        return dict(
+            start_time=start_time,
+            end_time=end_time,
+            start_weights=start_weights,
+            end_weights=end_weights,
+        )
+
+    @classmethod
     def get_normalized_weights(
         cls,
         ledger_api: LedgerApi,
@@ -76,9 +108,7 @@ class ManagedPoolContract(Contract):
         """
         contract_instance = cls.get_instance(ledger_api, contract_address)
         current_weights = contract_instance.functions.getNormalizedWeights().call()
-        scaled_weights = list(
-            map(lambda weight: weight / SCALING_FACTOR, current_weights)
-        )
+        scaled_weights = cls.scale_down_weights(current_weights)
         return dict(
             weights=scaled_weights,
         )

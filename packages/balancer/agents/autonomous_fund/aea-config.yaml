@@ -17,7 +17,7 @@ fingerprint:
   tests/test_agents/test_autonomous_fund.py: bafybeihrugjrge6vk3z7rars6lpbjnaiosk34ybmurqgvsujqreikvyffi
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua
-  tests/test_contracts/test_managed_pool/test_contract.py: bafybeibmvkjtdgkpt3xif7ynmpnykeucprytrv5fr45ji5lzokqnl57jc4
+  tests/test_contracts/test_managed_pool/test_contract.py: bafybeid77pfsghhci6binfyqbfabbu7rgcgzqfzzd6hfnmxr5tevb4qoqa
   tests/test_contracts/test_managed_pool_controller/__init__.py: bafybeid3fa64f4rskt4tf6hfjxqzid2o5dopuh2f53aegclg6fj5ylso5i
   tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeieu4j573uf2f7yyeyz4occydirs7s6dyfbsuiid7zoz3noa44iika
 fingerprint_ignore_patterns: []
@@ -27,14 +27,14 @@ connections:
 - valory/ledger:0.19.0:bafybeiadc25se7dgnn4mufztwpzdono4xsfs45qknzdqyi3gckn6ccuv44
 - valory/p2p_libp2p_client:0.1.0:bafybeidkk33xbga54szmitk6uwsi3ef56hbbdbuasltqtiyki34hgfpnxa
 contracts:
-- balancer/managed_pool:0.1.0:bafybeigflonbvhsyeidzy7vlnj45tzxlkvok5ria4uzf3s6fdyesyeaxli
+- balancer/managed_pool:0.1.0:bafybeigwhw2pbqnjqueewtalm2dktvrma7lyfzlv75tsnzkoocavamvxh4
 - balancer/managed_pool_controller:0.1.0:bafybeihzha5pmyqff5jovqhzgdomhiajwvfbvh7swgt64p62cwfywqybme
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeihb7ivqdzpuhkirhea7vumit3nzft3agwz63sofki5eavdie2ydzm
+- balancer/autonomous_fund_abci:0.1.0:bafybeic4okpufzvpfoigcph3gwqao7xsf2xqhgcfaljz3a3so746utdmve
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/pool_manager_abci:0.1.0:bafybeicdmdka4f5zfzbjs4g4xvo2dobxqwrwkvwwgrow4x4rtplvk2r6pu
+- balancer/pool_manager_abci:0.1.0:bafybeiefrle4pcjeb34ferof5iq6wmvxnhiljoru3rfzeqotfqyjbc5yk4
 - valory/abstract_abci:0.1.0:bafybeibqgoxd25itxyuauou6xybiwu3nxkhqwxklggvdwcg42b7expnflq
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi

@@ -122,6 +122,18 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
 
     _update_required_weights = [80, 10, 10]
     _update_not_required_weights = [60, 30, 10]
+    _no_update_required_update = {
+        "start_time": 1662940800,
+        "end_time": 1662940800,
+        "start_weights": _update_not_required_weights,
+        "end_weights": _update_not_required_weights,
+    }
+    _update_required_update = {
+        "start_time": 1662940800,
+        "end_time": 1662940800,
+        "start_weights": _update_required_weights,
+        "end_weights": _update_required_weights,
+    }
     _estimates = {
         "value_estimates": [
             25.0,
@@ -171,8 +183,11 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     event=Event.DONE,
                 ),
                 {
-                    "mock_response_data": dict(weights=_update_required_weights),
-                    "mock_response_performative": ContractApiMessage.Performative.STATE,
+                    "mock_current_weights": dict(weights=_update_required_weights),
+                    "mock_current_weights_performative": ContractApiMessage.Performative.STATE,
+                    "update_call_expected": True,
+                    "mock_last_update": _update_required_update,
+                    "mock_last_update_performative": ContractApiMessage.Performative.STATE,
                 },
             ),
             (
@@ -187,23 +202,75 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     ),  # noqa
                 ),
                 {
-                    "mock_response_data": dict(weights=_update_not_required_weights),
-                    "mock_response_performative": ContractApiMessage.Performative.STATE,
+                    "mock_current_weights": dict(weights=_update_not_required_weights),
+                    "mock_current_weights_performative": ContractApiMessage.Performative.STATE,
+                    "update_call_expected": False,
+                    "mock_last_update": _no_update_required_update,
+                    "mock_last_update_performative": ContractApiMessage.Performative.STATE,
+                },
+            ),
+            (
+                BehaviourTestCase(
+                    name="weight update not required due to an ongoing weight update",
+                    initial_data=dict(
+                        most_voted_estimates=json.dumps(_estimates),  # type: ignore
+                    ),
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=make_degenerate_behaviour(  # type: ignore
+                        FinishedWithoutTxRound.auto_round_id()
+                    ),  # noqa
+                ),
+                {
+                    "mock_current_weights": dict(weights=_update_required_weights),
+                    "mock_current_weights_performative": ContractApiMessage.Performative.STATE,
+                    "update_call_expected": True,
+                    "mock_last_update": _no_update_required_update,
+                    "mock_last_update_performative": ContractApiMessage.Performative.STATE,
+                },
+            ),
+            (
+                BehaviourTestCase(
+                    name="bad response from ongoing weight update call",
+                    initial_data=dict(
+                        most_voted_estimates=json.dumps(_estimates),  # type: ignore
+                    ),
+                    event=Event.NO_ACTION,
+                    next_behaviour_class=make_degenerate_behaviour(  # type: ignore
+                        FinishedWithoutTxRound.auto_round_id()
+                    ),  # noqa
+                ),
+                {
+                    "mock_current_weights": dict(weights=_update_required_weights),
+                    "mock_current_weights_performative": ContractApiMessage.Performative.STATE,
+                    "update_call_expected": True,
+                    "mock_last_update": _no_update_required_update,
+                    "mock_last_update_performative": ContractApiMessage.Performative.ERROR,
                 },
             ),
         ],
     )
     def test_happy_path(self, test_case: BehaviourTestCase, kwargs: Any) -> None:
         """The behaviour gets executed without error."""
-        self.fast_forward(test_case.initial_data)
-        self.behaviour.act_wrapper()
+        with mock.patch(
+            "packages.valory.skills.abstract_round_abci.base.RoundSequence.last_round_transition_timestamp",
+            return_value=datetime.now(),
+        ):
+            self.fast_forward(test_case.initial_data)
+            self.behaviour.act_wrapper()
 
-        self._mock_managed_pool_contract_request(
-            response_body=kwargs.get("mock_response_data"),
-            response_performative=kwargs.get("mock_response_performative"),
-        )
+            self._mock_managed_pool_contract_request(
+                response_body=kwargs.get("mock_current_weights"),
+                response_performative=kwargs.get("mock_current_weights_performative"),
+            )
+            if kwargs.get("update_call_expected"):
+                # if the weights are what they need to be, a call to check whether there's
+                # an ongoing update will never be made
+                self._mock_managed_pool_contract_request(
+                    response_body=kwargs.get("mock_last_update"),
+                    response_performative=kwargs.get("mock_last_update_performative"),
+                )
 
-        self.complete(test_case.event, test_case.next_behaviour_class)
+            self.complete(test_case.event, test_case.next_behaviour_class)
 
     @pytest.mark.parametrize(
         "test_case, kwargs",
@@ -337,7 +404,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         """Test the happy path."""
 
         with mock.patch(
-            "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
+            "packages.valory.skills.abstract_round_abci.base.RoundSequence.last_round_transition_timestamp",
             return_value=datetime.now(),
         ):
             self.fast_forward(test_case.initial_data)
@@ -381,7 +448,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         """Test Managed Pool Controller Error."""
 
         with mock.patch(
-            "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
+            "packages.valory.skills.abstract_round_abci.base.RoundSequence.last_round_transition_timestamp",
             return_value=datetime.now(),
         ), mock.patch.object(self.behaviour.context.logger, "log") as mock_logger:
             self.fast_forward(test_case.initial_data)
@@ -429,7 +496,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         """Test Safe Contract Error."""
 
         with mock.patch(
-            "packages.valory.skills.abstract_round_abci.base.AbciApp.last_timestamp",
+            "packages.valory.skills.abstract_round_abci.base.RoundSequence.last_round_transition_timestamp",
             return_value=datetime.now(),
         ), mock.patch.object(self.behaviour.context.logger, "log") as mock_logger:
             self.fast_forward(test_case.initial_data)

@@ -19,7 +19,7 @@
 
 """This package contains round behaviours of PoolManagerAbciApp."""
 import json
-from typing import Generator, List, Optional, Set, Tuple, Type, cast
+from typing import Any, Dict, Generator, List, Optional, Set, Tuple, Type, cast
 
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
 from packages.balancer.contracts.managed_pool_controller.contract import (
@@ -67,6 +67,20 @@ class PoolManagerBaseBehaviour(BaseBehaviour):
         """Return the params."""
         return cast(Params, super().params)
 
+    @property
+    def last_synced_timestamp(self) -> int:
+        """
+        Get last synced timestamp.
+
+        This is the last timestamp guaranteed to be the same by 2/3 of the agents.
+        :returns: the last synced timestamp.
+        """
+        state = cast(SharedState, self.context.state)
+        last_timestamp = (
+            state.round_sequence.last_round_transition_timestamp.timestamp()
+        )
+        return int(last_timestamp)
+
 
 class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
     """DecisionMakingBehaviour"""
@@ -99,13 +113,16 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
         """
         Checks the weight in the pool, and decides whether an update is necessary or not.
 
-        We only update in case the required change in the weights is greater than the configured tolerance.
+        We only update in case the required change in the weights is greater than the configured tolerance AND
+        there isn't an ongoing update with matching target weights.
 
         :return: the new weights in case they are needed, or a payload that defines the opposite.
         """
         new_weights = self._get_new_pool_weights()
         current_weights = yield from self._get_current_pool_weights()
         if current_weights is None:
+            # we couldn't retrieve the current weights
+            # we don't update the weights
             return DecisionMakingRound.NO_UPDATE_PAYLOAD
 
         num_tokens = len(current_weights)
@@ -116,6 +133,29 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
         if within_tolerance:
             # the new weights were within the tolerance amount different from
             # what they currently are, so we don't update.
+            return DecisionMakingRound.NO_UPDATE_PAYLOAD
+
+        # the current weights are not what we want them to be, so we check whether there's
+        # already an ongoing update aiming to set the weights that we need.
+        params = yield from self._get_weight_update_params()
+        if params is None:
+            # we couldn't retrieve the params
+            # we don't update the weights
+            return DecisionMakingRound.NO_UPDATE_PAYLOAD
+
+        # although we have access to the start time and weights, we only care about
+        # the end result. We are interested to see whether the update is headed to
+        # where we want it to go, we are not interested in the starting params.
+        update_end_time = cast(int, params.get("end_time"))
+        update_end_weights = cast(List[float], params.get("end_weights"))
+        within_tolerance = all(
+            abs(new_weights[i] - update_end_weights[i]) < self.params.weight_tolerance
+            for i in range(num_tokens)
+        )
+        if update_end_time > self.last_synced_timestamp and within_tolerance:
+            # there is an ongoing update, and its end weights are within
+            # the tolerance amount different to the ones we want to set
+            # so, we don't need to send an update tx
             return DecisionMakingRound.NO_UPDATE_PAYLOAD
 
         # the current weights need to be updated
@@ -163,6 +203,28 @@ class DecisionMakingBehaviour(PoolManagerBaseBehaviour):
             Optional[List[float]], response.state.body.get("weights", None)
         )
         return current_weights
+
+    def _get_weight_update_params(
+        self,
+    ) -> Generator[None, None, Optional[Dict[str, Any]]]:
+        """Returns the current gradual weight change update parameters."""
+        response = yield from self.get_contract_api_response(
+            performative=ContractApiMessage.Performative.GET_STATE,  # type: ignore
+            contract_id=str(ManagedPoolContract.contract_id),
+            contract_callable="get_gradual_weight_update_params",
+            contract_address=self.params.managed_pool_address,
+        )
+
+        if response.performative != ContractApiMessage.Performative.STATE:
+            self.context.logger.error(
+                f"Couldn't get weight update params from IManagedPool.get_gradual_weight_update_params. "
+                f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
+                f"received {response.performative.value}."
+            )
+            return None
+
+        params = cast(Optional[Dict[str, Any]], response.state.body)
+        return params
 
 
 class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
@@ -274,12 +336,8 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         """Returns start and end time."""
         # note that we cannot use time.now()
         # as that would most likely result in different
-        # values accords the different agents
-        last_synced_time = cast(
-            SharedState, self.context.state
-        ).round_sequence.abci_app.last_timestamp
-
-        start_datetime = int(last_synced_time.timestamp())
+        # values across the different agents
+        start_datetime = self.last_synced_timestamp
         end_datetime = start_datetime + self.params.weight_update_timespan
 
         return start_datetime, end_datetime
