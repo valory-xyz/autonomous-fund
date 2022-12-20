@@ -30,7 +30,7 @@ from packages.valory.skills.abstract_round_abci.base import (
     BaseSynchronizedData,
     DegenerateRound,
     EventToTimeout,
-    TransactionType
+    TransactionType,
 )
 
 from packages.balancer.skills.liquidity_provision_abci.payloads import (
@@ -65,7 +65,9 @@ class AllowListUpdateRound(AbstractRound):
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
         """Process the end of the block."""
-        raise NotImplementedError
+        return self.synchronized_data, Event.DONE
+        return self.synchronized_data, Event.NO_ACTION
+        return self.synchronized_data, Event.NO_MAJORITY
 
     def check_payload(self, payload: AllowListUpdatePayload) -> None:
         """Check payload."""
@@ -94,10 +96,10 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
             Event.DONE: FinishedTxPreparationRound,
             Event.NO_ACTION: FinishedWithoutTxRound,
             Event.NO_MAJORITY: AllowListUpdateRound,
-            Event.ROUND_TIMEOUT: AllowListUpdateRound
+            Event.ROUND_TIMEOUT: AllowListUpdateRound,
         },
         FinishedWithoutTxRound: {},
-        FinishedTxPreparationRound: {}
+        FinishedTxPreparationRound: {},
     }
     final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
     event_to_timeout: EventToTimeout = {}
@@ -107,5 +109,8 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
     }
     db_post_conditions: Dict[AppState, List[str]] = {
         FinishedWithoutTxRound: [],
-    	FinishedTxPreparationRound: [],
+        FinishedTxPreparationRound: [],
+    }
+    event_to_timeout: EventToTimeout = {
+        Event.ROUND_TIMEOUT: 30.0,
     }

@@ -24,4 +24,3 @@ import packages.balancer.skills.liquidity_provision_abci.handlers  # noqa
 
 def test_import() -> None:
     """Test that the 'handlers.py' of the LiquidityProvision can be imported."""
-

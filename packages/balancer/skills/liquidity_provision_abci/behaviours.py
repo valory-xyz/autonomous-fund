@@ -77,6 +77,4 @@ class LiquidityProvisionRoundBehaviour(AbstractRoundBehaviour):
 
     initial_behaviour_cls = AllowListUpdateBehaviour
     abci_app_cls = LiquidityProvisionAbciApp  # type: ignore
-    behaviours: Set[Type[BaseBehaviour]] = [
-        AllowListUpdateBehaviour
-    ]
+    behaviours: Set[Type[BaseBehaviour]] = [AllowListUpdateBehaviour]

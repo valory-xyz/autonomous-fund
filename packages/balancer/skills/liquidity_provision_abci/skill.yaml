@@ -6,21 +6,21 @@ description: The scaffold skill is a scaffold for your own skill implementation.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeigco67e3b56jw3zcgunigslljkemzwqhx3pfm2dvckidsnisabjbe
-  behaviours.py: bafybeigibyy62oludujhmofuv7nczkjcrr6ug3j26g52uwrgms65djucpa
+  __init__.py: bafybeid24c62anvzpj5mz3ojtaavy5wjkjlxchsp3g67kz7hmrc5r2cuom
+  behaviours.py: bafybeibanbmyutyhudmuhbfazigzlwbvet473y6xjhkvgf4cieqru7u3wm
   dialogues.py: bafybeifbwyvsv4qpnsidzwcz2xgzmjnnhyrzwxcveomenn2z4xb6qndg7i
   fsm_specification.yaml: bafybeieq6getm72a54gw3ukv3orakee7kc4n656mcuuhcqazw5n4cvunem
   handlers.py: bafybeidqthtxzrf5zim7x6hm4vqjmyjtqwhsmfclkxqntm6atn43w26gci
-  models.py: bafybeifg2gf2tm3wodil6c2e5fo4iqjuwkgfmdzqrjqpna7o6genmoa7bq
-  payloads.py: bafybeieap4dezbuglcofzzxpdmc43l4zurnjarlehuwstl7vghmwdzsyti
-  rounds.py: bafybeib3uuio3fobz53yudxlbph6c76hwktkifx4yg6b3j2ntsmgjarusq
-  tests/__init__.py: bafybeiaxqzwmh36bhquqztcyrkxjjkz5cctseqetglrwdezgnkjrtg2654
-  tests/test_behaviours.py: bafybeifx3ah3n4ear25coptyirphomoxdx7psy4uaxrhlnb4se7gm6lwou
-  tests/test_dialogues.py: bafybeifgnxmbe5orsngec2nz3z2xj72tbyc6a32fbuxtbgdw55cjmi7qqi
-  tests/test_handlers.py: bafybeiaxwabhbomc764xt3bduadzdxkw3loedkony7lizbeojufw7j53q4
-  tests/test_models.py: bafybeic4g4mqx3kkbjriytgvfvrizady7uaqngqm4ofo6q7vqhwtr3cvfa
-  tests/test_payloads.py: bafybeibquz54lafardcj6xw2hhjiwvdnnowvyeynijzj2feezx4somi6ou
-  tests/test_rounds.py: bafybeia763pf4s7tnwbjj63ha5jqd5uo74tiy65uzindnczl7pcucxvlt4
+  models.py: bafybeib2l6uxi6246gxe7vkywaiq4o4k6qjpqcauc3lojdiylfzvufypbq
+  payloads.py: bafybeiecrghvhqo2hwq63dm3sj7732ijcry3dqyfggnamsadsetqauvrgi
+  rounds.py: bafybeic6eyp2do4f3ycuyskuddqbn44jryvqvu35rgybkljc7v2bqflrkq
+  tests/__init__.py: bafybeib42wqezi4kgsi742sh4zcmtlmx5kez2wduunroxschy444b7r6ci
+  tests/test_behaviours.py: bafybeicjedmlu46w76d7j3djet35xymrufuymsf7abodhrk7k46jstnkry
+  tests/test_dialogues.py: bafybeichxq55mft3ynudsv5aasoe2ya3gz5u3gqu62tv4r6y6nyyz3272y
+  tests/test_handlers.py: bafybeighnw2xw7qmqzocjx42kou2wzsnmdr4y5fr6lpttkvqinjrtciyra
+  tests/test_models.py: bafybeialeehz6zbv7l6fqt6ixqzewtqbolcr44a2zzyz3a77jngsdcprgi
+  tests/test_payloads.py: bafybeicg6myyfuxetiu6tiriyvw4afonpuvuvsjnfpjmiyevwbnvzkec6a
+  tests/test_rounds.py: bafybeibamhmhfe7z442t5arikojbz3jkzri5su4lde22cbw2pf3v62y4ju
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []

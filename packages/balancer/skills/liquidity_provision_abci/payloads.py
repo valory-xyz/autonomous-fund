@@ -58,4 +58,3 @@ class AllowListUpdatePayload(BaseLiquidityProvisionPayload):
     """Represent a transaction payload for the AllowListUpdateRound."""
 
     transaction_type = TransactionType.ALLOW_LIST_UPDATE
-

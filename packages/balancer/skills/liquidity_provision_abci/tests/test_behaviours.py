@@ -115,4 +115,3 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
         # TODO: mock the necessary calls
         # self.mock_ ...
         self.complete(test_case.event)
-
