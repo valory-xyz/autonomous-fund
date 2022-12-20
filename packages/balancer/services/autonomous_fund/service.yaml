@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeicdyhjhou5zymkztgxubvtzwwrldmzbhophrmtkubnuoh7pbwpcsq
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeibimsmok5kdqacm7ur7h2regylca2x37e5hsvr4niok3orpo3dace
+agent: balancer/autonomous_fund:0.1.0:bafybeia3kwtziwvbztryu35g6l3zvu64k3ou3l57l7jvtsrikjzdtvqrg4
 number_of_agents: 4
 ---
 public_id: balancer/autonomous_fund_abci:0.1.0
@@ -19,7 +19,6 @@ models:
         safe_contract_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_SETUP_SAFE_CONTRACT_ADDRESS:list:["0xD1A2679e3455a018d9e0D11edb873e7C5B5d831e"]}
       pool_tokens: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
       managed_pool_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_ADDRESS:str:0xE7718Db6786516f426cC72673088e628Ac4721A1}
-      managed_pool_controller_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_CONTROLLER_ADDRESS:str:0x7017752b993958d7b4e65bf68a08c7833840f1e8}
       consensus:
         max_participants: 4
 ---

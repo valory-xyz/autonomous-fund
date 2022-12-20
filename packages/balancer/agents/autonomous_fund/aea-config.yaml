@@ -8,18 +8,16 @@ fingerprint:
   __init__.py: bafybeibzqammkemm5yc5hqjzdnpmgr2aw3j7lwni64rc5c4sf7qsnv7ulu
   tests/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
   tests/helpers/__init__.py: bafybeiauwuw4a4wxqacqqkkk52ktps2qedadhypvh3ex7uqs7qaqrpygmy
-  tests/helpers/constants.py: bafybeicw6yrzglzc4j3i734jmxyhkyhxtt6wqpk6lvsijajab4nkmnsuwm
+  tests/helpers/constants.py: bafybeihob7tvxnjfne2ky55szmr63f4e2r5ki2hcnbquxwtxabrcgfjvxe
   tests/helpers/data/json_server/data.json: bafybeidueptoi7g44hkdrzkyn326l44qhkbt4bsnidrvkn5y3pkgljmuzy
-  tests/helpers/docker.py: bafybeidez67kvj75yuh5tzk4pfg2zwvueupomi3rzv5q2htblllpw45uhq
+  tests/helpers/docker.py: bafybeiarwqamtkyhucykx6qmlafuzvhvbdhiznoozvc3wgx7ccpv4it3jm
   tests/helpers/fixtures.py: bafybeiczpplahcqw7zxi76gnefs5jhnhdpxy4box53evmu6j75tw6assny
   tests/test_agents/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
-  tests/test_agents/base.py: bafybeih6dm742zpugaa2vve6cuyua7trhg4mlqji2wimy7jftdbtseir5e
+  tests/test_agents/base.py: bafybeif3oohsz3mbr7eaim6ajraikydzdqhbbpymdlshshj7hzxpdvzyha
   tests/test_agents/test_autonomous_fund.py: bafybeihrugjrge6vk3z7rars6lpbjnaiosk34ybmurqgvsujqreikvyffi
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua
-  tests/test_contracts/test_managed_pool/test_contract.py: bafybeid77pfsghhci6binfyqbfabbu7rgcgzqfzzd6hfnmxr5tevb4qoqa
-  tests/test_contracts/test_managed_pool_controller/__init__.py: bafybeid3fa64f4rskt4tf6hfjxqzid2o5dopuh2f53aegclg6fj5ylso5i
-  tests/test_contracts/test_managed_pool_controller/test_contract.py: bafybeieu4j573uf2f7yyeyz4occydirs7s6dyfbsuiid7zoz3noa44iika
+  tests/test_contracts/test_managed_pool/test_contract.py: bafybeid2e7xlflqvm4i2wo7ws7wfnnee6lcl6d2q6tzdvq22oxgrkqokam
 fingerprint_ignore_patterns: []
 connections:
 - valory/abci:0.1.0:bafybeihgmvw7m7eyexwbqx4kkg5o4shqvmpnreizv743n5bmes3jdz6jr4
@@ -27,14 +25,13 @@ connections:
 - valory/ledger:0.19.0:bafybeiadc25se7dgnn4mufztwpzdono4xsfs45qknzdqyi3gckn6ccuv44
 - valory/p2p_libp2p_client:0.1.0:bafybeidkk33xbga54szmitk6uwsi3ef56hbbdbuasltqtiyki34hgfpnxa
 contracts:
-- balancer/managed_pool:0.1.0:bafybeigwhw2pbqnjqueewtalm2dktvrma7lyfzlv75tsnzkoocavamvxh4
-- balancer/managed_pool_controller:0.1.0:bafybeihzha5pmyqff5jovqhzgdomhiajwvfbvh7swgt64p62cwfywqybme
+- balancer/managed_pool:0.1.0:bafybeiefed67esjr6q43wyjmfijrnpo2cubhwcemomzd7z4l7hzxhky6im
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeic4okpufzvpfoigcph3gwqao7xsf2xqhgcfaljz3a3so746utdmve
+- balancer/autonomous_fund_abci:0.1.0:bafybeibl46urvhzmoqklqns2shhktk73jf4cnd2yaame3x2nefiyoe2mem
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/pool_manager_abci:0.1.0:bafybeiefrle4pcjeb34ferof5iq6wmvxnhiljoru3rfzeqotfqyjbc5yk4
+- balancer/pool_manager_abci:0.1.0:bafybeieh64tn37w6y5hhhrrqdrvrqrxjs4unafdgo3m4k7coh5aotpowsy
 - valory/abstract_abci:0.1.0:bafybeibqgoxd25itxyuauou6xybiwu3nxkhqwxklggvdwcg42b7expnflq
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
@@ -141,7 +138,6 @@ models:
       history_check_timeout: 1205
       keeper_allowed_retries: 3
       keeper_timeout: 30.0
-      managed_pool_controller_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_CONTROLLER_ADDRESS:str:0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA}
       max_healthcheck: 120
       max_index_change: 0.00040509259
       max_index_value: 100
@@ -179,4 +175,4 @@ models:
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
-      managed_pool_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_ADDRESS:str:0x28BF8d29cFA99aE9C3D876210453272f30e4D131}
+      managed_pool_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_ADDRESS:str:0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1}

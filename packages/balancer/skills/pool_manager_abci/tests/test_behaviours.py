@@ -29,9 +29,6 @@ from unittest import mock
 import pytest
 
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
-from packages.balancer.contracts.managed_pool_controller.contract import (
-    ManagedPoolControllerContract,
-)
 from packages.balancer.skills.pool_manager_abci.behaviours import (
     DecisionMakingBehaviour,
     PoolManagerBaseBehaviour,
@@ -57,8 +54,7 @@ from packages.valory.skills.abstract_round_abci.test_tools.base import (
 
 
 SAFE_CONTRACT_ADDRESS = "0x5564550A54EcD43bA8f7c666fff1C4762889A572"
-MANAGED_POOL_CONTROLLER_ADDRESS = "0xb821BFfE924E18F8B3d92473C5279d60F0Dfc6eA"
-MANAGED_POOL_ADDRESS = "0x28BF8d29cFA99aE9C3D876210453272f30e4D131"
+MANAGED_POOL_ADDRESS = "0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1"
 
 
 @dataclass
@@ -297,7 +293,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
     def test_managed_pool_contract_error(
         self, test_case: BehaviourTestCase, kwargs: Any
     ) -> None:
-        """Test Managed Pool Controller Error."""
+        """Test ManagedPool Error."""
 
         with mock.patch.object(self.behaviour.context.logger, "log") as mock_logger:
             self.fast_forward(test_case.initial_data)
@@ -322,8 +318,8 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
     behaviour_class = UpdatePoolTxBehaviour
 
     _weights = [30, 40, 30]
-    _pool_controller_error = (
-        f"Couldn't get tx data for ManagedPoolControllerContract.update_weights_gradually. "
+    _pool_error = (
+        f"Couldn't get tx data for ManagedPoolContract.update_weights_gradually. "
         f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
         f"received {ContractApiMessage.Performative.ERROR.value}."  # type: ignore
     )
@@ -333,17 +329,17 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         f"received {ContractApiMessage.Performative.ERROR.value}."  # type: ignore
     )
 
-    def _mock_pool_controller_contract_request(
+    def _mock_pool_contract_request(
         self,
         response_body: Dict,
         response_performative: ContractApiMessage.Performative,
     ) -> None:
-        """Mock the ManagedPoolControllerContract."""
+        """Mock the ManagedPoolContract."""
         self.mock_contract_api_request(
-            contract_id=str(ManagedPoolControllerContract.contract_id),
+            contract_id=str(ManagedPoolContract.contract_id),
             request_kwargs=dict(
                 performative=ContractApiMessage.Performative.GET_STATE,
-                contract_address=MANAGED_POOL_CONTROLLER_ADDRESS,
+                contract_address=MANAGED_POOL_ADDRESS,
             ),
             response_kwargs=dict(
                 performative=response_performative,
@@ -359,7 +355,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
         response_body: Dict,
         response_performative: ContractApiMessage.Performative,
     ) -> None:
-        """Mock the ManagedPoolControllerContract."""
+        """Mock the ManagedPoolContract."""
         self.mock_contract_api_request(
             contract_id=str(GnosisSafeContract.contract_id),
             request_kwargs=dict(
@@ -410,7 +406,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
             self.fast_forward(test_case.initial_data)
             self.behaviour.act_wrapper()
 
-            self._mock_pool_controller_contract_request(
+            self._mock_pool_contract_request(
                 response_body=kwargs.get("mock_response_data"),
                 response_performative=kwargs.get("mock_response_performative"),
             )
@@ -437,15 +433,15 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
                 {
                     "mock_response_data": dict(),
                     "mock_failing_response_performative": ContractApiMessage.Performative.ERROR,
-                    "expected_error": _pool_controller_error,
+                    "expected_error": _pool_error,
                 },
             )
         ],
     )
-    def test_managed_pool_controller_error(
+    def test_managed_pool_error(
         self, test_case: BehaviourTestCase, kwargs: Any
     ) -> None:
-        """Test Managed Pool Controller Error."""
+        """Test ManagedPool Error."""
 
         with mock.patch(
             "packages.valory.skills.abstract_round_abci.base.RoundSequence.last_round_transition_timestamp",
@@ -454,7 +450,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
             self.fast_forward(test_case.initial_data)
             self.behaviour.act_wrapper()
 
-            self._mock_pool_controller_contract_request(
+            self._mock_pool_contract_request(
                 response_body=kwargs.get("mock_response_data"),
                 response_performative=kwargs.get("mock_failing_response_performative"),
             )
@@ -502,7 +498,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
             self.fast_forward(test_case.initial_data)
             self.behaviour.act_wrapper()
 
-            self._mock_pool_controller_contract_request(
+            self._mock_pool_contract_request(
                 response_body=kwargs.get("mock_response_data"),
                 response_performative=kwargs.get("mock_response_performative"),
             )

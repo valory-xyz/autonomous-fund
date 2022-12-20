@@ -33,9 +33,6 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     MANAGED_POOL as _DEFAULT_MANAGED_POOL_ADDRESS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
-    MANAGED_POOL_CONTROLLER as _DEFAULT_MANAGED_POOL_CONTROLLER_ADDRESS,
-)
-from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     MOCK_API_PATH as _DEFAULT_MOCK_API_PATH,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
@@ -69,15 +66,10 @@ class BaseTestAutonomousFundEnd2End(
     # contract related constants
     SAFE_CALLBACK_HANDLER = _DEFAULT_SAFE_CALLBACK_HANDLER_ADDRESS
     SAFE_CONTRACT_ADDRESS = _DEFAULT_SAFE_CONTRACT_ADDRESS
-    MANAGED_POOL_CONTROLLER_ADDRESS = _DEFAULT_MANAGED_POOL_CONTROLLER_ADDRESS
     MANAGED_POOL_ADDRESS = _DEFAULT_MANAGED_POOL_ADDRESS
 
     __args_prefix = f"vendor.balancer.skills.{PublicId.from_str(skill_package).name}.models.params.args"
     extra_configs = [
-        {
-            "dotted_path": f"{__args_prefix}.managed_pool_controller_address",
-            "value": MANAGED_POOL_CONTROLLER_ADDRESS,
-        },
         {
             "dotted_path": f"{__args_prefix}.managed_pool_address",
             "value": MANAGED_POOL_ADDRESS,
