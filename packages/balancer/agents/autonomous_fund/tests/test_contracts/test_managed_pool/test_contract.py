@@ -24,10 +24,6 @@ import tempfile
 import time
 from typing import Dict, List, cast
 
-from aea.configurations.base import ContractConfig
-from aea.configurations.data_types import ComponentType
-from aea.configurations.loader import load_component_configuration
-from aea.contracts import Contract, contract_registry
 from aea.crypto.registries import crypto_registry
 from aea.test_tools.test_contract import BaseContractTestCase
 from aea_ledger_ethereum import EthereumCrypto
@@ -37,7 +33,6 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     ACCOUNTS,
     INITIAL_POOL_WEIGHTS,
     MANAGED_POOL,
-    MANAGED_POOL_CONTROLLER,
     MANAGED_POOL_TOKENS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.fixtures import (
@@ -45,12 +40,6 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.fixtures import (
 )
 from packages.balancer.contracts.managed_pool import PACKAGE_DIR
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
-from packages.balancer.contracts.managed_pool_controller import (
-    PACKAGE_DIR as CONTROLLER_PACKAGE_DIR,
-)
-from packages.balancer.contracts.managed_pool_controller.contract import (
-    ManagedPoolControllerContract,
-)
 
 
 @skip_docker_tests
@@ -63,10 +52,7 @@ class TestManagedPoolContractContractTest(
     path_to_contract = PACKAGE_DIR
     ledger_identifier = EthereumCrypto.identifier
     contract: ManagedPoolContract
-    controller: ManagedPoolControllerContract
     private_key_path: str
-    controller_address = MANAGED_POOL_CONTROLLER
-
     USE_SAFE_CONTRACTS = False
 
     def setup_class(self) -> None:
@@ -76,22 +62,6 @@ class TestManagedPoolContractContractTest(
         with os.fdopen(fd, "w") as tmp:
             tmp.write(pk)
         self.private_key_path = path
-        configuration = cast(
-            ContractConfig,
-            load_component_configuration(
-                ComponentType.CONTRACT, CONTROLLER_PACKAGE_DIR
-            ),
-        )
-        configuration._directory = (  # pylint: disable=protected-access
-            CONTROLLER_PACKAGE_DIR
-        )
-        if str(configuration.public_id) not in contract_registry.specs:
-            # load contract into sys modules
-            Contract.from_config(configuration)  # pragma: nocover
-        self.controller = cast(
-            ManagedPoolControllerContract,
-            contract_registry.make(str(configuration.public_id)),
-        )
 
     @classmethod
     def finish_contract_deployment(cls) -> str:
@@ -111,10 +81,10 @@ class TestManagedPoolContractContractTest(
             EthereumCrypto.identifier, private_key_path=self.private_key_path
         )
         tokens = MANAGED_POOL_TOKENS
-        tx_raw = self.controller.update_weights_gradually(
+        tx_raw = self.contract.update_weights_gradually(
             ledger_api=self.ledger_api,
             sender_address=sender.address,
-            contract_address=self.controller_address,
+            contract_address=self.contract_address,
             start_datetime=start_datetime,
             tokens=tokens,
             end_datetime=end_datetime,
@@ -157,6 +127,10 @@ class TestManagedPoolContractContractTest(
             == update_params["end_weights"]
             == INITIAL_POOL_WEIGHTS
         )
+
+    def teardown_class(self) -> None:
+        """Remove the tmp file."""
+        os.remove(self.private_key_path)
 
 
 @skip_docker_tests

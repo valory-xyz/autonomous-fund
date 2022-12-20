@@ -22,9 +22,6 @@ import json
 from typing import Any, Dict, Generator, List, Optional, Set, Tuple, Type, cast
 
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
-from packages.balancer.contracts.managed_pool_controller.contract import (
-    ManagedPoolControllerContract,
-)
 from packages.balancer.skills.pool_manager_abci.models import Params, SharedState
 from packages.balancer.skills.pool_manager_abci.payloads import (
     DecisionMakingPayload,
@@ -264,7 +261,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
 
         There are two steps in sending an on-chain transaction in an autonomous service.
         1.  Prepare the tx the safe needs to execute.
-            In our case this is the `ManagedPoolControllerContract.updateWeightsGradually()` tx. Note that the invoker
+            In our case this is the `ManagedPoolContract.updateWeightsGradually()` tx. Note that the invoker
             of this function is the safe, NOT the individual agents. This is handled by `_get_safe_tx_hash()`.
 
         2.  Prepare the safe tx.
@@ -295,7 +292,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
             safe_tx_hash=safe_tx_hash,
             ether_value=self.ETHER_VALUE,  # we don't send any eth
             safe_tx_gas=SAFE_GAS,
-            to_address=self.params.managed_pool_controller_address,
+            to_address=self.params.managed_pool_address,
             data=update_weights_gradually_tx_data,
         )
         return payload_data
@@ -315,7 +312,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
             contract_address=self.synchronized_data.safe_contract_address,  # the safe contract address
             contract_id=str(GnosisSafeContract.contract_id),
             contract_callable="get_raw_safe_transaction_hash",
-            to_address=self.params.managed_pool_controller_address,  # the contract the safe will invoke
+            to_address=self.params.managed_pool_address,  # the contract the safe will invoke
             value=self.ETHER_VALUE,
             data=data,
             safe_tx_gas=SAFE_GAS,
@@ -346,9 +343,9 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         self,
     ) -> Generator[None, None, Optional[bytes]]:
         """
-        This function returns the encoded ManagedPoolControllerContract.updateWeightsGradually() function.
+        This function returns the encoded ManagedPoolContract.updateWeightsGradually() function.
 
-        In the ManagedPoolControllerContract we have defined a method (get_update_weights_gradually_tx) that acts as a
+        In the ManagedPoolContract we have defined a method (get_update_weights_gradually_tx) that acts as a
         wrapper and takes care of this encoding for us. Here we are responsible for simply calling it with the right
         arguments.
 
@@ -358,9 +355,9 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
         end_weights = self.synchronized_data.most_voted_weights
         response = yield from self.get_contract_api_response(
             performative=ContractApiMessage.Performative.GET_STATE,  # type: ignore
-            contract_id=str(ManagedPoolControllerContract.contract_id),
+            contract_id=str(ManagedPoolContract.contract_id),
             contract_callable="get_update_weights_gradually_tx",
-            contract_address=self.params.managed_pool_controller_address,
+            contract_address=self.params.managed_pool_address,
             start_datetime=start_datetime,
             end_datetime=end_datetime,
             tokens=self.params.pool_tokens,
@@ -369,7 +366,7 @@ class UpdatePoolTxBehaviour(PoolManagerBaseBehaviour):
 
         if response.performative != ContractApiMessage.Performative.STATE:
             self.context.logger.error(
-                f"Couldn't get tx data for ManagedPoolControllerContract.update_weights_gradually. "
+                f"Couldn't get tx data for ManagedPoolContract.update_weights_gradually. "
                 f"Expected response performative {ContractApiMessage.Performative.STATE.value}, "  # type: ignore
                 f"received {response.performative.value}."
             )

@@ -32,7 +32,7 @@ from docker.models.containers import Container
 
 from packages.balancer.agents.autonomous_fund import PACKAGE_DIR
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
-    MANAGED_POOL_CONTROLLER,
+    MANAGED_POOL,
 )
 
 
@@ -58,7 +58,7 @@ class AutonomousFundNetworkDockerImage(DockerImage):
         :param client: the docker client instance.
         :param addr: the host to run the network on, localhost by default.
         :param port: the port to run the network on, 8545 by default.
-        :param use_safe_contracts: whether to make the already configured safe the manager of the pool controller.
+        :param use_safe_contracts: whether to make the already configured safe the manager of the pool.
         """
         super().__init__(client)
         self.addr = addr
@@ -105,7 +105,7 @@ class AutonomousFundNetworkDockerImage(DockerImage):
                 body = {
                     "jsonrpc": "2.0",
                     "method": "eth_getCode",
-                    "params": [MANAGED_POOL_CONTROLLER],
+                    "params": [MANAGED_POOL],
                     "id": 1,
                 }
                 response = requests.post(

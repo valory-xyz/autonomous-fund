@@ -47,9 +47,6 @@ class Params(BaseParams):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Initialize the parameters object."""
-        self.managed_pool_controller_address = self._ensure(
-            "managed_pool_controller_address", kwargs
-        )
         self.pool_tokens: List[str] = self._ensure("pool_tokens", kwargs)
         self.pool_weights: Dict[int, List[int]] = self._ensure_pool_weights(kwargs)
         self.weight_update_timespan: int = self._ensure_weight_update_timespan(kwargs)
