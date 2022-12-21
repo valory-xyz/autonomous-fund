@@ -3,6 +3,7 @@ alphabet_in:
 - NO_ACTION
 - NO_MAJORITY
 - ROUND_TIMEOUT
+- ERROR
 default_start_state: AllowListUpdateRound
 final_states:
 - FinishedTxPreparationRound
@@ -18,4 +19,5 @@ transition_func:
     (AllowListUpdateRound, DONE): FinishedTxPreparationRound
     (AllowListUpdateRound, NO_ACTION): FinishedWithoutTxRound
     (AllowListUpdateRound, NO_MAJORITY): AllowListUpdateRound
+    (AllowListUpdateRound, ERROR): AllowListUpdateRound
     (AllowListUpdateRound, ROUND_TIMEOUT): AllowListUpdateRound
