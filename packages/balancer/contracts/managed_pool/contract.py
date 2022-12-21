@@ -26,7 +26,7 @@ from aea.common import JSONLike
 from aea.configurations.base import PublicId
 from aea.contracts.base import Contract
 from aea_ledger_ethereum import EthereumApi, LedgerApi
-from web3.types import Nonce, TxParams, Wei
+from web3.types import BlockIdentifier, Nonce, TxParams, Wei
 
 
 PUBLIC_ID = PublicId.from_str("balancer/managed_pool:0.1.0")
@@ -544,3 +544,36 @@ class ManagedPoolContract(Contract):
         return dict(
             data=tx_data,
         )
+
+    @classmethod
+    def get_allowlist(
+        cls,
+        ledger_api: LedgerApi,
+        contract_address: str,
+        from_block: BlockIdentifier = "earliest",
+        to_block: BlockIdentifier = "latest",
+    ) -> JSONLike:
+        """Returns the current allowlist of the pool."""
+        contract_instance = cls.get_instance(ledger_api, contract_address)
+        add_entries = contract_instance.events.AllowlistAddressAdded.createFilter(
+            fromBlock=from_block,
+            toBlock=to_block,
+        ).get_all_entries()
+        remove_entries = contract_instance.events.AllowlistAddressRemoved.createFilter(
+            fromBlock=from_block,
+            toBlock=to_block,
+        ).get_all_entries()
+
+        added_members = [entry.args["member"] for entry in add_entries]
+        removed_members = [entry.args["member"] for entry in remove_entries]
+        current_allowlist = []
+        # all members that have ever been in allowlist,
+        # must have been added at some point
+        unique_members = set(added_members)
+        for member in unique_members:
+            if added_members.count(member) > removed_members.count(member):
+                # if a member has been added more times than removed
+                # then they are on the allowlist
+                current_allowlist.append(member)
+
+        return dict(allowlist=current_allowlist)

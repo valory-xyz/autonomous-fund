@@ -179,6 +179,46 @@ class TestAllowlist(BaseManagedPoolContractContractTest):
         self._test_allowlist_enforced_after_update(contract)
         self._test_allowlist_gets_updated_by_adding(contract)
         self._test_allowlist_gets_updated_by_removing(contract)
+        self._test_get_allowlist(contract)
+
+    def _test_get_allowlist(self, contract: ManagedPoolContract) -> None:
+        """Tests whether get allowlist returns correctly."""
+        # the allowlist is empty in the beginning
+        allowlist = contract.get_allowlist(self.ledger_api, self.contract_address).get(
+            "allowlist"
+        )
+        assert len(allowlist) == 0
+
+        # a member gets added
+        raw_tx = contract.add_allowed_address(
+            self.ledger_api,
+            self.contract_address,
+            self.sender.address,
+            self.sender.address,
+        )
+        self.send_tx(raw_tx)
+
+        # the allowlist should contain it
+        allowlist = contract.get_allowlist(self.ledger_api, self.contract_address).get(
+            "allowlist"
+        )
+        assert len(allowlist) == 1
+        assert self.sender.address in allowlist
+
+        # the member gets removed
+        raw_tx = contract.remove_allowed_address(
+            self.ledger_api,
+            self.contract_address,
+            self.sender.address,
+            self.sender.address,
+        )
+        self.send_tx(raw_tx)
+
+        # the allowlist should be empty
+        allowlist = contract.get_allowlist(self.ledger_api, self.contract_address).get(
+            "allowlist"
+        )
+        assert len(allowlist) == 0
 
     def _test_allowlist_gets_updated_by_removing(
         self, contract: ManagedPoolContract
