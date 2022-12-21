@@ -552,7 +552,7 @@ class ManagedPoolContract(Contract):
         contract_address: str,
         from_block: BlockIdentifier = "earliest",
         to_block: BlockIdentifier = "latest",
-    ) -> JSONLike:
+    ) -> Dict[str, List[str]]:
         """Returns the current allowlist of the pool."""
         contract_instance = cls.get_instance(ledger_api, contract_address)
         add_entries = contract_instance.events.AllowlistAddressAdded.createFilter(

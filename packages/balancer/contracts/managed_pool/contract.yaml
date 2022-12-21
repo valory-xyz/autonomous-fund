@@ -8,7 +8,7 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeifuqjdhsrydlwgdmuzlwvxsidbvxqrz3ulec4usczuquaj3g6jn4u
   build/IManagedPool.json: bafybeidmc2exztkruyzk3ohwzfclsemhcnfalt6kezwmgnmtj2efcprk4q
-  contract.py: bafybeig5k5ewe234zy5yswf7pdvq7rhs7q3roqnmzipsbtekk7kbqcioby
+  contract.py: bafybeiggtipykohgwx75mds2ve3y6qvqfgd43hdpi7dvvp3k3gwaixrdxu
 fingerprint_ignore_patterns: []
 contracts: []
 class_name: ManagedPoolContract

@@ -187,6 +187,7 @@ class TestAllowlist(BaseManagedPoolContractContractTest):
         allowlist = contract.get_allowlist(self.ledger_api, self.contract_address).get(
             "allowlist"
         )
+        assert allowlist is not None
         assert len(allowlist) == 0
 
         # a member gets added
@@ -202,6 +203,7 @@ class TestAllowlist(BaseManagedPoolContractContractTest):
         allowlist = contract.get_allowlist(self.ledger_api, self.contract_address).get(
             "allowlist"
         )
+        assert allowlist is not None
         assert len(allowlist) == 1
         assert self.sender.address in allowlist
 
@@ -218,6 +220,7 @@ class TestAllowlist(BaseManagedPoolContractContractTest):
         allowlist = contract.get_allowlist(self.ledger_api, self.contract_address).get(
             "allowlist"
         )
+        assert allowlist is not None
         assert len(allowlist) == 0
 
     def _test_allowlist_gets_updated_by_removing(
