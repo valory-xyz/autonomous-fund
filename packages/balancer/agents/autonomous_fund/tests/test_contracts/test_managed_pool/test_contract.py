@@ -22,7 +22,7 @@
 import os
 import tempfile
 import time
-from typing import Dict, List, cast
+from typing import Any, Dict, List, cast
 
 from aea.crypto.registries import crypto_registry
 from aea.test_tools.test_contract import BaseContractTestCase
@@ -42,8 +42,7 @@ from packages.balancer.contracts.managed_pool import PACKAGE_DIR
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
 
 
-@skip_docker_tests
-class TestManagedPoolContractContractTest(
+class BaseManagedPoolContractContractTest(
     BaseContractTestCase, UseHardHatAutoFundBaseTest
 ):
     """ManagedPool contract tests"""
@@ -73,25 +72,43 @@ class TestManagedPoolContractContractTest(
         """Deploy contract."""
         return {}
 
+    @property
+    def sender(self) -> Any:
+        """Returns the default tx sender."""
+        sender = crypto_registry.make(
+            EthereumCrypto.identifier, private_key_path=self.private_key_path
+        )
+        return sender
+
+    def send_tx(self, raw_tx: Dict) -> None:
+        """Send a tx with the default sender."""
+        tx_signed = self.sender.sign_transaction(raw_tx)
+        self.ledger_api.send_signed_transaction(tx_signed)
+
     def _update_weights_tx(
         self, start_datetime: int, end_datetime: int, end_weights: List[int]
     ) -> None:
         """Update the weights of the pool."""
-        sender = crypto_registry.make(
-            EthereumCrypto.identifier, private_key_path=self.private_key_path
-        )
         tokens = MANAGED_POOL_TOKENS
-        tx_raw = self.contract.update_weights_gradually(
+        raw_tx = self.contract.update_weights_gradually(
             ledger_api=self.ledger_api,
-            sender_address=sender.address,
+            sender_address=self.sender.address,
             contract_address=self.contract_address,
             start_datetime=start_datetime,
             tokens=tokens,
             end_datetime=end_datetime,
             end_weights=end_weights,
         )
-        tx_signed = sender.sign_transaction(tx_raw)
-        self.ledger_api.send_signed_transaction(tx_signed)
+        self.send_tx(raw_tx)
+
+    def teardown_class(self) -> None:
+        """Remove the tmp file."""
+        os.remove(self.private_key_path)
+
+
+@skip_docker_tests
+class TestWeightUpdating(BaseManagedPoolContractContractTest):
+    """ManagedPool gradual update params."""
 
     def test_get_normalized_weights(self) -> None:
         """Test whether `get_normalized_weights` returns the expected weights."""
@@ -128,13 +145,9 @@ class TestManagedPoolContractContractTest(
             == INITIAL_POOL_WEIGHTS
         )
 
-    def teardown_class(self) -> None:
-        """Remove the tmp file."""
-        os.remove(self.private_key_path)
-
 
 @skip_docker_tests
-class TestGradualUpdateParams(TestManagedPoolContractContractTest):
+class TestGradualUpdateParams(BaseManagedPoolContractContractTest):
     """ManagedPool gradual update params."""
 
     def test_get_normalized_weights(self) -> None:
@@ -153,3 +166,99 @@ class TestGradualUpdateParams(TestManagedPoolContractContractTest):
         assert cast(int, update_params["end_time"]) == end_datetime
         assert update_params["start_weights"] == INITIAL_POOL_WEIGHTS
         assert update_params["end_weights"] == end_weights
+
+
+@skip_docker_tests
+class TestAllowlist(BaseManagedPoolContractContractTest):
+    """ManagedPool allow-list related tests."""
+
+    def test_run(self) -> None:
+        """Test allow_list calls and txs."""
+        contract = cast(ManagedPoolContract, self.contract)
+        self._test_no_allowlist_on_init(contract)
+        self._test_allowlist_enforced_after_update(contract)
+        self._test_allowlist_gets_updated_by_adding(contract)
+        self._test_allowlist_gets_updated_by_removing(contract)
+
+    def _test_allowlist_gets_updated_by_removing(
+        self, contract: ManagedPoolContract
+    ) -> None:
+        """Check that the contract gets updated when a member gets removed."""
+        # the member is in the allowlist before it gets removed
+        is_address_in_allowlist = contract.is_address_in_allowlist(
+            self.ledger_api, self.contract_address, self.sender.address
+        ).get("is_address_in_allowlist")
+        assert is_address_in_allowlist
+
+        # the member gets removed
+        raw_tx = contract.remove_allowed_address(
+            self.ledger_api,
+            self.contract_address,
+            self.sender.address,
+            self.sender.address,
+        )
+        self.send_tx(raw_tx)
+
+        # the member should no longer be in the allowlist
+        is_address_in_allowlist = contract.is_address_in_allowlist(
+            self.ledger_api, self.contract_address, self.sender.address
+        ).get("is_address_in_allowlist")
+        assert not is_address_in_allowlist
+
+    def _test_allowlist_gets_updated_by_adding(
+        self, contract: ManagedPoolContract
+    ) -> None:
+        """Check that the contract gets updated when a member gets added."""
+        # the member is not in the allowlist before it gets added
+        is_address_in_allowlist = contract.is_address_in_allowlist(
+            self.ledger_api, self.contract_address, self.sender.address
+        ).get("is_address_in_allowlist")
+        assert not is_address_in_allowlist
+
+        # the member gets added
+        raw_tx = contract.add_allowed_address(
+            self.ledger_api,
+            self.contract_address,
+            self.sender.address,
+            self.sender.address,
+        )
+        self.send_tx(raw_tx)
+
+        # the member should be in the allowlist
+        is_address_in_allowlist = contract.is_address_in_allowlist(
+            self.ledger_api, self.contract_address, self.sender.address
+        ).get("is_address_in_allowlist")
+        assert is_address_in_allowlist
+
+    def _test_allowlist_enforced_after_update(
+        self, contract: ManagedPoolContract
+    ) -> None:
+        """Check the allowlist is enforced after an update."""
+        # the allowlist should not be enforced before an update
+        is_enforced = contract.get_must_allowlist_lps(
+            self.ledger_api, self.contract_address
+        ).get("is_enforced")
+        assert not is_enforced
+
+        # a tx to enforce the allowlist is made
+        enforce_allowlist = True
+        raw_tx = contract.set_must_allowlist_lps(
+            self.ledger_api,
+            self.contract_address,
+            self.sender.address,
+            enforce_allowlist,
+        )
+        self.send_tx(raw_tx)
+
+        # the allowlist should be enforced before an update
+        is_enforced = contract.get_must_allowlist_lps(
+            self.ledger_api, self.contract_address
+        ).get("is_enforced")
+        assert is_enforced
+
+    def _test_no_allowlist_on_init(self, contract: ManagedPoolContract) -> None:
+        """The allowlist should not be enforced on pool init."""
+        is_enforced = contract.get_must_allowlist_lps(
+            self.ledger_api, self.contract_address
+        ).get("is_enforced")
+        assert not is_enforced
