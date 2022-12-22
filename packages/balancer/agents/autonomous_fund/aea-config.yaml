@@ -17,7 +17,7 @@ fingerprint:
   tests/test_agents/test_autonomous_fund.py: bafybeihrugjrge6vk3z7rars6lpbjnaiosk34ybmurqgvsujqreikvyffi
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua
-  tests/test_contracts/test_managed_pool/test_contract.py: bafybeihj4sg6ttvn6mck5tyxg7wmxb2fiedtniewkbsse3bdwid7apiwxu
+  tests/test_contracts/test_managed_pool/test_contract.py: bafybeihgslla2gwanf4rnmzy7vqse2xpur2gndon6hk3ffxpuyljbifa6i
 fingerprint_ignore_patterns: []
 connections:
 - valory/abci:0.1.0:bafybeihgmvw7m7eyexwbqx4kkg5o4shqvmpnreizv743n5bmes3jdz6jr4
@@ -25,13 +25,13 @@ connections:
 - valory/ledger:0.19.0:bafybeiadc25se7dgnn4mufztwpzdono4xsfs45qknzdqyi3gckn6ccuv44
 - valory/p2p_libp2p_client:0.1.0:bafybeidkk33xbga54szmitk6uwsi3ef56hbbdbuasltqtiyki34hgfpnxa
 contracts:
-- balancer/managed_pool:0.1.0:bafybeid4xdwod3rsjf3u4qkf7f7xq645hdgi3yqgbbu4lwpbogobhyjvem
+- balancer/managed_pool:0.1.0:bafybeiaxyultdqowr57mqp6aetepstwxzzz2vfnkp5uzfqgoebffabyi74
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeibhru6pyzta7cn57hr6bnvcsi6oa3a45grmywxogdrsjf3tycote4
+- balancer/autonomous_fund_abci:0.1.0:bafybeifwhbqxaenl7w7u46wxsjsemjlnu53tguygvmj3swwmw5tprlqfm4
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/pool_manager_abci:0.1.0:bafybeicsffndyqh22jk7pdzlueqoegdqhnb7usxgxbekoomugtmw4i5bd4
+- balancer/pool_manager_abci:0.1.0:bafybeia2zgpcd2665ihbaxjajbp24wysumhc2wxq22tvz7yig73pxc36qa
 - valory/abstract_abci:0.1.0:bafybeibqgoxd25itxyuauou6xybiwu3nxkhqwxklggvdwcg42b7expnflq
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
