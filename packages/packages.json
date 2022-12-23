@@ -7,7 +7,7 @@
         "contract/balancer/managed_pool_controller/0.1.0": "bafybeihzha5pmyqff5jovqhzgdomhiajwvfbvh7swgt64p62cwfywqybme",
         "contract/balancer/managed_pool/0.1.0": "bafybeiaxyultdqowr57mqp6aetepstwxzzz2vfnkp5uzfqgoebffabyi74",
         "service/balancer/autonomous_fund/0.1.0": "bafybeihvwmab4ddszt3dze6v5gjc43lnx3hpjyejt4ohugwxw7ralxqfgm",
-        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeienltua7yz75koflovwcoxqimqcwwggdl5zx5g7dz2odt64fdcy5u"
+        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeihs66bqf4lyw252tab2stqba64642mw4rzue3zpn76hywqmsergzq"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeiaw3tzlg3rkvnn5fcufblktmfwngmxugn4yo7pyjp76zz6aqtqcay",
@@ -29,6 +29,7 @@
         "skill/valory/transaction_settlement_abci/0.1.0": "bafybeibmivn3szn4iuim5dqrnilgiag2hf6oidqgjhnjxqaumru4aewlca",
         "skill/valory/registration_abci/0.1.0": "bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi",
         "skill/valory/reset_pause_abci/0.1.0": "bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q",
-        "skill/valory/safe_deployment_abci/0.1.0": "bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana"
+        "skill/valory/safe_deployment_abci/0.1.0": "bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana",
+        "contract/valory/multisend/0.1.0": "bafybeiaveffaomsnmsc5hx62o77u7ilma6eipox7m5lrwa56737ektva3i"
     }
 }

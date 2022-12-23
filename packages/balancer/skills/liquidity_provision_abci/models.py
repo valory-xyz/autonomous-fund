@@ -19,8 +19,13 @@
 
 """This module contains the shared state for the abci skill of LiquidityProvisionAbciApp."""
 
-from typing import Any
+from typing import Any, Dict, List
 
+from aea.exceptions import enforce
+
+from packages.balancer.skills.liquidity_provision_abci.rounds import (
+    LiquidityProvisionAbciApp,
+)
 from packages.valory.skills.abstract_round_abci.models import BaseParams
 from packages.valory.skills.abstract_round_abci.models import (
     BenchmarkTool as BaseBenchmarkTool,
@@ -28,9 +33,6 @@ from packages.valory.skills.abstract_round_abci.models import (
 from packages.valory.skills.abstract_round_abci.models import Requests as BaseRequests
 from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
-)
-from packages.balancer.skills.liquidity_provision_abci.rounds import (
-    LiquidityProvisionAbciApp,
 )
 
 
@@ -42,6 +44,30 @@ class SharedState(BaseSharedState):
         super().__init__(*args, abci_app_cls=LiquidityProvisionAbciApp, **kwargs)
 
 
-Params = BaseParams
 Requests = BaseRequests
 BenchmarkTool = BaseBenchmarkTool
+
+
+class Params(BaseParams):
+    """Parameters."""
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        """Initialize the parameters object."""
+        self.enforce_allowlist: bool = self._ensure("enforce_allowlist", kwargs)
+        self.allowed_lp_addresses: List[str] = self._ensure(
+            "allowed_lp_addresses", kwargs
+        )
+        self.managed_pool_address: str = self._ensure_managed_pool_address(kwargs)
+        self.multisend_address: str = self._ensure("multisend_address", kwargs)
+        super().__init__(*args, **kwargs)
+
+    def _ensure_managed_pool_address(  # pylint: disable=no-self-use
+        self, kwargs: Dict
+    ) -> str:
+        """Ensure that the ManagedPool address is available."""
+        managed_pool_address = kwargs.get("managed_pool_address", None)
+        enforce(
+            managed_pool_address is not None,
+            "'managed_pool_address' is a required parameter",
+        )
+        return managed_pool_address

@@ -1,7 +1,6 @@
 [MASTER]
 ignore-patterns=.*_pb2.py
-# TODO: remove liquidity_provision_abci from the following
-ignore-paths=^packages/valory/.*$, ^packages/balancer/skills/liquidity_provision_abci.*$
+ignore-paths=^packages/valory/.*$
 
 [MESSAGES CONTROL]
 disable=C0103,R0801,C0301,C0204,C0209,W1203,C0302,R1735,R0913,R0901,R0904,R1729,R0912,W0511,E0611

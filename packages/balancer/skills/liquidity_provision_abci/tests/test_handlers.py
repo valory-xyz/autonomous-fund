@@ -16,7 +16,7 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
-
+# pylint: disable=unused-import
 """Test the handlers.py module of the LiquidityProvision."""
 
 import packages.balancer.skills.liquidity_provision_abci.handlers  # noqa

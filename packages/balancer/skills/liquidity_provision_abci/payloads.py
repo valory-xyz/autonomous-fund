@@ -19,9 +19,8 @@
 
 """This module contains the transaction payloads of the LiquidityProvisionAbciApp."""
 
-from abc import ABC
 from enum import Enum
-from typing import Any, Dict, Hashable, Optional
+from typing import Any, Dict
 
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
@@ -29,7 +28,6 @@ from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 class TransactionType(Enum):
     """Enumeration of transaction types."""
 
-    # TODO: define transaction types: e.g. TX_HASH: "tx_hash"
     ALLOW_LIST_UPDATE = "allow_list_update"
 
     def __str__(self) -> str:
@@ -37,24 +35,22 @@ class TransactionType(Enum):
         return self.value
 
 
-class BaseLiquidityProvisionPayload(BaseTxPayload, ABC):
-    """Base payload for LiquidityProvisionAbciApp."""
-
-    def __init__(self, sender: str, content: Hashable, **kwargs: Any) -> None:
-        """Initialize a transaction payload."""
-
-        super().__init__(sender, **kwargs)
-        setattr(self, f"_{self.transaction_type}", content)
-        p = property(lambda s: getattr(self, f"_{self.transaction_type}"))
-        setattr(self.__class__, f"{self.transaction_type}", p)
-
-    @property
-    def data(self) -> Dict[str, Hashable]:
-        """Get the data."""
-        return dict(content=getattr(self, str(self.transaction_type)))
-
-
-class AllowListUpdatePayload(BaseLiquidityProvisionPayload):
+class AllowListUpdatePayload(BaseTxPayload):
     """Represent a transaction payload for the AllowListUpdateRound."""
 
     transaction_type = TransactionType.ALLOW_LIST_UPDATE
+
+    def __init__(self, sender: str, allow_list_update: str, **kwargs: Any) -> None:
+        """Initialize an AllowlistUpdate transaction payload."""
+        super().__init__(sender, **kwargs)
+        self._allow_list_update = allow_list_update
+
+    @property
+    def allow_list_update(self) -> str:
+        """Get the Allowlist update transaction data."""
+        return self._allow_list_update
+
+    @property
+    def data(self) -> Dict:
+        """Get the data."""
+        return dict(allow_list_update=self.allow_list_update)

@@ -19,8 +19,7 @@
 
 """This package contains the tests for rounds of LiquidityProvision."""
 
-from typing import Any, Type, Dict, List, Callable, Hashable, Mapping
-from dataclasses import dataclass, field
+from typing import Dict, cast
 
 import pytest
 
@@ -28,78 +27,91 @@ from packages.balancer.skills.liquidity_provision_abci.payloads import (
     AllowListUpdatePayload,
 )
 from packages.balancer.skills.liquidity_provision_abci.rounds import (
-    AbstractRound,
+    AllowListUpdateRound,
     Event,
     SynchronizedData,
-    AllowListUpdateRound,
-)
-from packages.valory.skills.abstract_round_abci.base import (
-    BaseTxPayload,
 )
 from packages.valory.skills.abstract_round_abci.test_tools.rounds import (
     BaseRoundTestClass,
-    BaseOnlyKeeperSendsRoundTest,
-    BaseCollectDifferentUntilThresholdRoundTest,
-    BaseCollectSameUntilThresholdRoundTest,
 )
-
-
-@dataclass
-class RoundTestCase:
-    """RoundTestCase"""
-
-    name: str
-    initial_data: Dict[str, Hashable]
-    payloads: Mapping[str, BaseTxPayload]
-    final_data: Dict[str, Hashable]
-    event: Event
-    synchronized_data_attr_checks: List[Callable] = field(default_factory=list)
-    kwargs: Dict[str, Any] = field(default_factory=dict)
 
 
 MAX_PARTICIPANTS: int = 4
 
 
-class BaseLiquidityProvisionRoundTest(BaseRoundTestClass):
-    """Base test class for LiquidityProvision rounds."""
+class TestAllowListUpdateRound(BaseRoundTestClass):
+    """Tests for AllowListUpdateRound."""
 
-    round_cls: Type[AbstractRound]
+    round_class = AllowListUpdateRound
     synchronized_data: SynchronizedData
     _synchronized_data_class = SynchronizedData
     _event_class = Event
 
-    def run_test(self, test_case: RoundTestCase) -> None:
-        """Run the test"""
-
-        self.synchronized_data.update(**test_case.initial_data)
-
-        test_round = self.round_cls(
+    @pytest.mark.parametrize(
+        "payload_data, expected_event",
+        [
+            ("0xTX_hash", Event.DONE),
+            (
+                AllowListUpdateRound.NoUpdatePayloads.NO_UPDATE_PAYLOAD.value,
+                Event.NO_ACTION,
+            ),
+            (AllowListUpdateRound.NoUpdatePayloads.ERROR_PAYLOAD.value, Event.ERROR),
+        ],
+    )
+    def test_run(self, payload_data: str, expected_event: Event) -> None:
+        """Run round tests."""
+        test_round = self.round_class(
             synchronized_data=self.synchronized_data,
             consensus_params=self.consensus_params,
         )
+        first_payload, *payloads = [
+            AllowListUpdatePayload(sender=participant, allow_list_update=payload_data)
+            for participant in self.participants
+        ]
 
-        self._complete_run(
-            self._test_round(
-                test_round=test_round,
-                round_payloads=test_case.payloads,
-                synchronized_data_update_fn=lambda sync_data, _: sync_data.update(
-                    **test_case.final_data
-                ),
-                synchronized_data_attr_checks=test_case.synchronized_data_attr_checks,
-                exit_event=test_case.event,
-                **test_case.kwargs,  # varies per BaseRoundTestClass child
-            )
+        # only one participant has voted
+        # no event should be returned
+        test_round.process_payload(first_payload)
+        assert test_round.collection[first_payload.sender] == first_payload
+        assert test_round.end_block() is None
+
+        # enough members have voted
+        # but no majority is reached
+        self._test_no_majority_event(test_round)
+
+        # all members voted in the same way
+        for payload in payloads:  # type: ignore
+            test_round.process_payload(payload)  # type: ignore
+
+        expected_next_state = cast(
+            SynchronizedData,
+            self.synchronized_data.update(
+                participant_to_tx=test_round.collection,
+                most_voted_tx=payload_data,
+            ),
         )
 
+        res = test_round.end_block()
+        assert res is not None
+        state, event = res
+        actual_next_state = cast(SynchronizedData, state)
 
-class TestAllowListUpdateRound(BaseLiquidityProvisionRoundTest):
-    """Tests for AllowListUpdateRound."""
+        if expected_event == Event.DONE:
+            # check that the state is updated as expected
+            assert (
+                actual_next_state.most_voted_tx_hash
+                == expected_next_state.most_voted_tx_hash
+            )
 
-    round_class = AllowListUpdateRound
+            # make sure all the votes are as expected
+            assert all(
+                [
+                    cast(Dict, actual_next_state.participant_to_tx_hash)[participant]
+                    == actual_vote
+                    for (participant, actual_vote) in cast(
+                        Dict, expected_next_state.participant_to_tx_hash
+                    ).items()
+                ]
+            )
 
-    # TODO: provide test cases
-    @pytest.mark.parametrize("test_case", [])
-    def test_run(self, test_case: RoundTestCase) -> None:
-        """Run tests."""
-
-        self.run_test(test_case)
+        assert event == expected_event

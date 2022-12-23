@@ -20,21 +20,20 @@
 """This package contains the rounds of LiquidityProvisionAbciApp."""
 
 from enum import Enum
-from typing import Dict, List, Optional, Set, Tuple
-
-from packages.valory.skills.abstract_round_abci.base import (
-    AbciApp,
-    AbciAppTransitionFunction,
-    AbstractRound,
-    AppState,
-    BaseSynchronizedData,
-    DegenerateRound,
-    EventToTimeout,
-    TransactionType,
-)
+from typing import Dict, List, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.liquidity_provision_abci.payloads import (
     AllowListUpdatePayload,
+)
+from packages.valory.skills.abstract_round_abci.base import (
+    AbciApp,
+    AbciAppTransitionFunction,
+    AppState,
+    BaseSynchronizedData,
+    CollectSameUntilThresholdRound,
+    DegenerateRound,
+    EventToTimeout,
+    get_name,
 )
 
 
@@ -45,6 +44,7 @@ class Event(Enum):
     ROUND_TIMEOUT = "round_timeout"
     DONE = "done"
     NO_MAJORITY = "no_majority"
+    ERROR = "error"
 
 
 class SynchronizedData(BaseSynchronizedData):
@@ -54,28 +54,65 @@ class SynchronizedData(BaseSynchronizedData):
     This data is replicated by the tendermint application.
     """
 
+    @property
+    def safe_contract_address(self) -> str:
+        """Get the safe contract address."""
+        return cast(str, self.db.get_strict("safe_contract_address"))
 
-class AllowListUpdateRound(AbstractRound):
-    """AllowListUpdateRound"""
+    @property
+    def participant_to_tx_hash(self) -> Dict:
+        """Get the participant_to_tx_hash."""
+        return cast(Dict, self.db.get_strict("participant_to_tx_hash"))
 
-    # TODO: replace AbstractRound with one of CollectDifferentUntilAllRound, CollectSameUntilAllRound, CollectSameUntilThresholdRound, CollectDifferentUntilThresholdRound, OnlyKeeperSendsRound, VotingRound
-    allowed_tx_type: Optional[TransactionType] = AllowListUpdatePayload.transaction_type
-    # TODO: set the correct payload attribute
-    payload_attribute: str
+    @property
+    def most_voted_tx_hash(self) -> str:
+        """Get the most_voted_tx_hash."""
+        return cast(str, self.db.get_strict("most_voted_tx_hash"))
+
+
+class AllowListUpdateRound(CollectSameUntilThresholdRound):
+    """A round in which the"""
+
+    allowed_tx_type = AllowListUpdatePayload.transaction_type
+    payload_attribute: str = get_name(AllowListUpdatePayload.allow_list_update)
+    synchronized_data_class = SynchronizedData
+
+    class NoUpdatePayloads(Enum):
+        """
+        This class defines special payload types to be used in this round.
+
+        These payloads are for cases when we are not required or able
+        to perform an allowlist update.
+        """
+
+        NO_UPDATE_PAYLOAD = "no_allowlist_update"
+        ERROR_PAYLOAD = "error_payload"
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
         """Process the end of the block."""
-        return self.synchronized_data, Event.DONE
-        return self.synchronized_data, Event.NO_ACTION
-        return self.synchronized_data, Event.NO_MAJORITY
+        if self.threshold_reached:
+            if self.most_voted_payload == self.NoUpdatePayloads.NO_UPDATE_PAYLOAD.value:
+                return self.synchronized_data, Event.NO_ACTION
 
-    def check_payload(self, payload: AllowListUpdatePayload) -> None:
-        """Check payload."""
-        raise NotImplementedError
+            if self.most_voted_payload == self.NoUpdatePayloads.ERROR_PAYLOAD.value:
+                return self.synchronized_data, Event.ERROR
 
-    def process_payload(self, payload: AllowListUpdatePayload) -> None:
-        """Process payload."""
-        raise NotImplementedError
+            state = self.synchronized_data.update(
+                synchronized_data_class=self.synchronized_data_class,
+                **{
+                    get_name(SynchronizedData.participant_to_tx_hash): self.collection,
+                    get_name(
+                        SynchronizedData.most_voted_tx_hash
+                    ): self.most_voted_payload,
+                }
+            )
+            return state, Event.DONE
+        if not self.is_majority_possible(
+            self.collection, self.synchronized_data.nb_participants
+        ):
+            return self.synchronized_data, Event.NO_MAJORITY
+
+        return None
 
 
 class FinishedTxPreparationRound(DegenerateRound):
@@ -97,20 +134,24 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
             Event.NO_ACTION: FinishedWithoutTxRound,
             Event.NO_MAJORITY: AllowListUpdateRound,
             Event.ROUND_TIMEOUT: AllowListUpdateRound,
+            Event.ERROR: AllowListUpdateRound,
         },
         FinishedWithoutTxRound: {},
         FinishedTxPreparationRound: {},
     }
     final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
-    event_to_timeout: EventToTimeout = {}
+    event_to_timeout: EventToTimeout = {
+        Event.ROUND_TIMEOUT: 30.0,
+    }
     cross_period_persisted_keys: List[str] = []
     db_pre_conditions: Dict[AppState, List[str]] = {
-        AllowListUpdateRound: [],
+        AllowListUpdateRound: [
+            get_name(SynchronizedData.safe_contract_address),
+        ],
     }
     db_post_conditions: Dict[AppState, List[str]] = {
         FinishedWithoutTxRound: [],
-        FinishedTxPreparationRound: [],
-    }
-    event_to_timeout: EventToTimeout = {
-        Event.ROUND_TIMEOUT: 30.0,
+        FinishedTxPreparationRound: [
+            get_name(SynchronizedData.most_voted_tx_hash),
+        ],
     }
