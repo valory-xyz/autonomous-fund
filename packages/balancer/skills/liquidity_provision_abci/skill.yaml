@@ -133,5 +133,6 @@ models:
   tendermint_dialogues:
     args: {}
     class_name: TendermintDialogues
-dependencies: {}
+dependencies:
+  hexbytes: {}
 is_abstract: false
