@@ -19,14 +19,14 @@
 
 """This package contains payload tests for the LiquidityProvisionAbciApp."""
 
-from typing import Type, Dict
 from dataclasses import dataclass
+from typing import Dict, Type
 
 import pytest
 
 from packages.balancer.skills.liquidity_provision_abci.payloads import (
-    TransactionType,
     AllowListUpdatePayload,
+    TransactionType,
 )
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
@@ -41,14 +41,17 @@ class PayloadTestCase:
     transaction_type: TransactionType
 
 
-@pytest.mark.parametrize("test_case", [
-    PayloadTestCase(
-        name="basic payload test",
-        payload_cls=AllowListUpdatePayload,
-        content=dict(allow_list_update="test"),
-        transaction_type=TransactionType.ALLOW_LIST_UPDATE,
-    ),
-])
+@pytest.mark.parametrize(
+    "test_case",
+    [
+        PayloadTestCase(
+            name="basic payload test",
+            payload_cls=AllowListUpdatePayload,
+            content=dict(allow_list_update="test"),
+            transaction_type=TransactionType.ALLOW_LIST_UPDATE,
+        ),
+    ],
+)
 def test_payloads(test_case: PayloadTestCase) -> None:
     """Tests for LiquidityProvisionAbciApp payloads"""
 

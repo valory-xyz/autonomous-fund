@@ -16,3 +16,4 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
+"""Module that contains tests for `liquidity_provision_abci`."""

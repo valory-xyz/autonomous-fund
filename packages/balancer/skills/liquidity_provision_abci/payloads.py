@@ -19,9 +19,8 @@
 
 """This module contains the transaction payloads of the LiquidityProvisionAbciApp."""
 
-from abc import ABC
 from enum import Enum
-from typing import Any, Dict, Hashable, Optional
+from typing import Any, Dict
 
 from packages.valory.skills.abstract_round_abci.base import BaseTxPayload
 
@@ -34,7 +33,6 @@ class TransactionType(Enum):
     def __str__(self) -> str:
         """Get the string value of the transaction type."""
         return self.value
-
 
 
 class AllowListUpdatePayload(BaseTxPayload):

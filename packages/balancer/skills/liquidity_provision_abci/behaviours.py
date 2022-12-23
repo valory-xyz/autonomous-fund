@@ -19,30 +19,36 @@
 
 """This package contains round behaviours of LiquidityProvisionAbciApp."""
 
-from typing import Generator, Set, Type, cast, Optional, List, Dict, Any, Tuple
+from typing import Any, Dict, Generator, List, Optional, Set, Type, cast
 
 from hexbytes import HexBytes
 
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
-from packages.valory.contracts.gnosis_safe.contract import SafeOperation, GnosisSafeContract
-from packages.valory.contracts.multisend.contract import MultiSendOperation, MultiSendContract
+from packages.balancer.skills.liquidity_provision_abci.models import Params
+from packages.balancer.skills.liquidity_provision_abci.rounds import (
+    AllowListUpdatePayload,
+    AllowListUpdateRound,
+    LiquidityProvisionAbciApp,
+    SynchronizedData,
+)
+from packages.valory.contracts.gnosis_safe.contract import (
+    GnosisSafeContract,
+    SafeOperation,
+)
+from packages.valory.contracts.multisend.contract import (
+    MultiSendContract,
+    MultiSendOperation,
+)
 from packages.valory.protocols.contract_api import ContractApiMessage
 from packages.valory.skills.abstract_round_abci.base import AbstractRound
 from packages.valory.skills.abstract_round_abci.behaviours import (
     AbstractRoundBehaviour,
     BaseBehaviour,
 )
+from packages.valory.skills.transaction_settlement_abci.payload_tools import (
+    hash_payload_to_hex,
+)
 
-from packages.balancer.skills.liquidity_provision_abci.models import Params
-from packages.balancer.skills.liquidity_provision_abci.rounds import (
-    SynchronizedData,
-    LiquidityProvisionAbciApp,
-    AllowListUpdateRound,
-)
-from packages.balancer.skills.liquidity_provision_abci.rounds import (
-    AllowListUpdatePayload,
-)
-from packages.valory.skills.transaction_settlement_abci.payload_tools import hash_payload_to_hex
 
 # setting the safe gas to 0 means that all available gas will be used
 # which is what we want in most cases
@@ -51,6 +57,7 @@ SAFE_GAS = 0
 
 # hardcoded to 0 because we don't need to send any ETH when performing txs in this behaviour
 ETHER_VALUE = 0
+
 
 class LiquidityProvisionBaseBehaviour(BaseBehaviour):
     """Base behaviour for the common apps' skill."""
@@ -76,7 +83,9 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
 
         with self.context.benchmark_tool.measure(self.behaviour_id).local():
             update_payload = yield from self.get_allow_list_update()
-            payload = AllowListUpdatePayload(sender=self.context.agent_address, allow_list_update=update_payload)
+            payload = AllowListUpdatePayload(
+                sender=self.context.agent_address, allow_list_update=update_payload
+            )
 
         with self.context.benchmark_tool.measure(self.behaviour_id).consensus():
             yield from self.send_a2a_transaction(payload)
@@ -107,7 +116,9 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
             # an error was encountered if the allowlist is None
             return AllowListUpdateRound.NoUpdatePayloads.ERROR_PAYLOAD.value
 
-        required_updates = yield from self._get_required_update_txs(current_allowlist, is_allowlist_enforced)
+        required_updates = yield from self._get_required_update_txs(
+            current_allowlist, is_allowlist_enforced
+        )
         if required_updates is None:
             # an error was encountered while checking and preparing txs for the required updates
             return AllowListUpdateRound.NoUpdatePayloads.ERROR_PAYLOAD.value
@@ -122,7 +133,6 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
             # an error was encountered while prepared
             return AllowListUpdateRound.NoUpdatePayloads.ERROR_PAYLOAD.value
         return payload_data
-
 
     def _is_allowlist_enforced(self) -> Generator[None, None, Optional[bool]]:
         """Returns whether the pool is configured to enforce an allowlist."""
@@ -164,20 +174,28 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
         params = cast(Optional[List[str]], response.state.body.get("allowlist", None))
         return params
 
-    def _get_required_update_txs(self, current_allowlist: List[str], is_allowlist_currently_enforced: bool) -> Generator[None, None, Optional[List[bytes]]]:
+    def _get_required_update_txs(
+        self, current_allowlist: List[str], is_allowlist_currently_enforced: bool
+    ) -> Generator[None, None, Optional[List[bytes]]]:
         """Returns the required update txs to be made."""
 
         transactions: List[bytes] = []
         if self.params.enforce_allowlist != is_allowlist_currently_enforced:
-            self.context.logger.info("A tx to change the allowlist enforcing should be made.")
-            tx_data = yield from self._set_must_allowlist_lps_tx(self.params.enforce_allowlist)
+            self.context.logger.info(
+                "A tx to change the allowlist enforcing should be made."
+            )
+            tx_data = yield from self._set_must_allowlist_lps_tx(
+                self.params.enforce_allowlist
+            )
             if tx_data is None:
                 # something went wrong,
                 # we cancel the whole update
                 return None
             transactions.append(tx_data)
 
-        current_set, required_set = set(current_allowlist), set(self.params.allowed_lp_addresses)
+        current_set, required_set = set(current_allowlist), set(
+            self.params.allowed_lp_addresses
+        )
         members_to_be_removed = list(current_set - required_set)
         members_to_be_added = list(required_set - current_set)
 
@@ -190,7 +208,9 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
         members_to_be_removed.sort()
 
         for member in members_to_be_removed:
-            self.context.logger.info(f"Member with address {member} should be removed from the allowlist.")
+            self.context.logger.info(
+                f"Member with address {member} should be removed from the allowlist."
+            )
             tx_data = yield from self._get_remove_allowed_address_tx(member)
             if tx_data is None:
                 # something went wrong,
@@ -199,7 +219,9 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
             transactions.append(tx_data)
 
         for member in members_to_be_added:
-            self.context.logger.info(f"Member with address {member} should be added to the allowlist.")
+            self.context.logger.info(
+                f"Member with address {member} should be added to the allowlist."
+            )
             tx_data = yield from self._get_add_allowed_address_tx(member)
             if tx_data is None:
                 # something went wrong,
@@ -209,7 +231,9 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
 
         return transactions
 
-    def _set_must_allowlist_lps_tx(self, enforce_allowlist: bool) -> Generator[None, None, Optional[bytes]]:
+    def _set_must_allowlist_lps_tx(
+        self, enforce_allowlist: bool
+    ) -> Generator[None, None, Optional[bytes]]:
         """
         A method that prepares a IManagedPool.setMustAllowlistLPs() tx.
 
@@ -239,7 +263,9 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
         data = bytes.fromhex(data_str)
         return data
 
-    def _get_add_allowed_address_tx(self, member: str)-> Generator[None, None, Optional[bytes]]:
+    def _get_add_allowed_address_tx(
+        self, member: str
+    ) -> Generator[None, None, Optional[bytes]]:
         """
         A method that prepares a IManagedPool.addAllowedAddress() tx.
 
@@ -269,7 +295,9 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
         data = bytes.fromhex(data_str)
         return data
 
-    def _get_remove_allowed_address_tx(self, member: str)-> Generator[None, None, Optional[bytes]]:
+    def _get_remove_allowed_address_tx(
+        self, member: str
+    ) -> Generator[None, None, Optional[bytes]]:
         """
         A method that prepares a IManagedPool.removeAllowedAddress() tx.
 
@@ -314,7 +342,7 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
             contract_address=self.synchronized_data.safe_contract_address,
             contract_id=str(GnosisSafeContract.contract_id),
             contract_callable="get_raw_safe_transaction_hash",
-            to_address=self.params.multisend_address, # we send the tx to the multisend address
+            to_address=self.params.multisend_address,  # we send the tx to the multisend address
             value=ETHER_VALUE,
             data=data,
             safe_tx_gas=SAFE_GAS,
@@ -333,11 +361,11 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
         tx_hash = cast(str, response.state.body["tx_hash"])[2:]
         return tx_hash
 
-    def _get_multisend_tx(self, txs: List[bytes]) -> Generator[None, None, Optional[str]]:
+    def _get_multisend_tx(
+        self, txs: List[bytes]
+    ) -> Generator[None, None, Optional[str]]:
         """Given a list of transactions, bundle them together in a single multisend tx."""
-        multi_send_txs = [
-            self._to_multisend_format(tx) for tx in txs
-        ]
+        multi_send_txs = [self._to_multisend_format(tx) for tx in txs]
         response = yield from self.get_contract_api_response(
             performative=ContractApiMessage.Performative.GET_RAW_TRANSACTION,  # type: ignore
             contract_address=self.params.multisend_address,
@@ -381,9 +409,10 @@ class AllowListUpdateBehaviour(LiquidityProvisionBaseBehaviour):
         }
         return multisend_format
 
+
 class LiquidityProvisionRoundBehaviour(AbstractRoundBehaviour):
     """LiquidityProvisionRoundBehaviour"""
 
     initial_behaviour_cls = AllowListUpdateBehaviour
     abci_app_cls = LiquidityProvisionAbciApp  # type: ignore
-    behaviours: Set[Type[BaseBehaviour]] = [AllowListUpdateBehaviour]
+    behaviours: Set[Type[BaseBehaviour]] = {AllowListUpdateBehaviour}

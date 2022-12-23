@@ -19,40 +19,34 @@
 
 """This package contains round behaviours of LiquidityProvisionAbciApp."""
 
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Hashable, Optional, Type, List, Callable, Tuple, Union
-from dataclasses import dataclass, field
-from unittest import mock
+from typing import Any, Callable, Dict, List, Optional, Tuple, Type, Union, cast
 
 import pytest
 from _pytest.logging import LogCaptureFixture
+from aea.common import JSONLike
 
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
+from packages.balancer.skills.liquidity_provision_abci.behaviours import (
+    AllowListUpdateBehaviour,
+    LiquidityProvisionBaseBehaviour,
+    LiquidityProvisionRoundBehaviour,
+)
+from packages.balancer.skills.liquidity_provision_abci.rounds import (
+    Event,
+    FinishedTxPreparationRound,
+    SynchronizedData,
+)
 from packages.valory.contracts.gnosis_safe.contract import GnosisSafeContract
 from packages.valory.contracts.multisend.contract import MultiSendContract
 from packages.valory.protocols.contract_api import ContractApiMessage
-from packages.valory.protocols.contract_api.custom_types import State, RawTransaction
+from packages.valory.protocols.contract_api.custom_types import RawTransaction, State
 from packages.valory.skills.abstract_round_abci.base import AbciAppDB
 from packages.valory.skills.abstract_round_abci.behaviours import (
-    AbstractRoundBehaviour,
     BaseBehaviour,
     make_degenerate_behaviour,
 )
-from packages.balancer.skills.liquidity_provision_abci.behaviours import (
-    LiquidityProvisionBaseBehaviour,
-    LiquidityProvisionRoundBehaviour,
-    AllowListUpdateBehaviour,
-)
-from packages.balancer.skills.liquidity_provision_abci.rounds import (
-    SynchronizedData,
-    DegenerateRound,
-    Event,
-    LiquidityProvisionAbciApp,
-    AllowListUpdateRound,
-    FinishedTxPreparationRound,
-    FinishedWithoutTxRound,
-)
-
 from packages.valory.skills.abstract_round_abci.test_tools.base import (
     FSMBehaviourBaseCase,
 )
@@ -68,18 +62,20 @@ class BehaviourTestCase:
     err_reqs: List[Tuple[Callable, Dict]]
     expected_logs: List[str]
     expected_event: Event = Event.DONE
-    allowed_lp_addresses: Union[List[str], Tuple[str]] = ()
+    allowed_lp_addresses: Union[List[str], Tuple[str]] = ()  # type: ignore
+
 
 SAFE_CONTRACT_ADDRESS = "0x5564550A54EcD43bA8f7c666fff1C4762889A572"
 MANAGED_POOL_ADDRESS = "0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1"
 MULTISEND_ADDRESS = "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761"
+
 
 class BaseLiquidityProvisionTest(FSMBehaviourBaseCase):
     """Base test case."""
 
     path_to_skill = Path(__file__).parent.parent
 
-    behaviour: LiquidityProvisionRoundBehaviour
+    behaviour: LiquidityProvisionRoundBehaviour  # type: ignore
     behaviour_class: Type[LiquidityProvisionBaseBehaviour]
     next_behaviour_class: Type[LiquidityProvisionBaseBehaviour]
     synchronized_data: SynchronizedData
@@ -89,7 +85,7 @@ class BaseLiquidityProvisionTest(FSMBehaviourBaseCase):
     def current_behaviour_id(self) -> str:
         """Current RoundBehaviour's behaviour id"""
 
-        return self.behaviour.current_behaviour.auto_behaviour_id()
+        return self.behaviour.current_behaviour.auto_behaviour_id()  # type: ignore
 
     def fast_forward(self, data: Optional[Dict[str, Any]] = None) -> None:
         """Fast-forward on initialization"""
@@ -109,16 +105,19 @@ class BaseLiquidityProvisionTest(FSMBehaviourBaseCase):
         self.mock_a2a_transaction()
         self._test_done_flag_set()
         self.end_round(done_event=event)
-        assert self.current_behaviour_id == self.next_behaviour_class.auto_behaviour_id()
+        assert (
+            self.current_behaviour_id == self.next_behaviour_class.auto_behaviour_id()
+        )
 
 
 class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
     """Tests AllowListUpdateBehaviour"""
 
-    behaviour_class: Type[BaseBehaviour] = AllowListUpdateBehaviour
-    next_behaviour_class: Type[BaseBehaviour] = make_degenerate_behaviour(FinishedTxPreparationRound.auto_round_id())
+    behaviour_class: Type[BaseBehaviour] = AllowListUpdateBehaviour  # type: ignore
+    next_behaviour_class: Type[BaseBehaviour] = make_degenerate_behaviour(  # type: ignore
+        FinishedTxPreparationRound.auto_round_id()
+    )
 
-    
     _MOCK_TX_RESPONSE = b"0xIrrelevantForTests".hex()
     _MOCK_TX_HASH = "0x" + "0" * 64
     _INITIAL_DATA: Dict[str, Any] = dict(
@@ -128,7 +127,9 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
 
     # possible logs from the behaviour
     _NO_UPDATES_REQUIRED = "No updates to the allowlist are required."
-    _ALLOWLIST_ENFORCING_CHANGE = "A tx to change the allowlist enforcing should be made."
+    _ALLOWLIST_ENFORCING_CHANGE = (
+        "A tx to change the allowlist enforcing should be made."
+    )
     _MEMBER_ADDITION = "Member with address {} should be added to the allowlist."
     _MEMBER_REMOVAL = "Member with address {} should be removed from the allowlist."
 
@@ -140,18 +141,32 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
         f"Expected response performative {ContractApiMessage.Performative.RAW_TRANSACTION.value}, "  # type: ignore
         f"received {ContractApiMessage.Performative.ERROR}."
     )
-    _GET_ALLOWLIST_ERR_LOG = f"Couldn't get allowlist from IManagedPool.get_allowlist. " f"{_STATE_ERR_LOG}"
-    _IS_ALLOWLIST_ENFORCED_LOG = f"Couldn't check whether the pool is configured to enforce an allowlist via IManagedPool.get_must_allowlist_lps. " f"{_STATE_ERR_LOG}"
-    _SET_ALLOWLIST_ERR_LOG = f"Couldn't get tx data for IManagedPool.setMustAllowlistLPs(). " f"{_STATE_ERR_LOG}"
-    _ADD_MEMBER_ERR_LOG = f"Couldn't get tx data for IManagedPool.addAllowedAddress(). " f"{_STATE_ERR_LOG}"
-    _REMOVE_MEMBER_ERR_LOG = f"Couldn't get tx data for IManagedPool.removeAllowedAddress(). " f"{_STATE_ERR_LOG}"
+    _GET_ALLOWLIST_ERR_LOG = (
+        f"Couldn't get allowlist from IManagedPool.get_allowlist. " f"{_STATE_ERR_LOG}"
+    )
+    _IS_ALLOWLIST_ENFORCED_LOG = (
+        f"Couldn't check whether the pool is configured to enforce an allowlist via IManagedPool.get_must_allowlist_lps. "
+        f"{_STATE_ERR_LOG}"
+    )
+    _SET_ALLOWLIST_ERR_LOG = (
+        f"Couldn't get tx data for IManagedPool.setMustAllowlistLPs(). "
+        f"{_STATE_ERR_LOG}"
+    )
+    _ADD_MEMBER_ERR_LOG = (
+        f"Couldn't get tx data for IManagedPool.addAllowedAddress(). "
+        f"{_STATE_ERR_LOG}"
+    )
+    _REMOVE_MEMBER_ERR_LOG = (
+        f"Couldn't get tx data for IManagedPool.removeAllowedAddress(). "
+        f"{_STATE_ERR_LOG}"
+    )
     _MULTISEND_ERR_LOG = "Couldn't compile the multisend tx. " f"{_RAW_TRANSACTION_ERR}"
     _SAFE_HASH_ERR_LOG = f"Couldn't get safe hash. " f"{_STATE_ERR_LOG}"
 
     def _mock_get_must_allowlist_lps(
-            self,
-            error: bool = False,
-            is_enforced: bool = True,
+        self,
+        error: bool = False,
+        is_enforced: bool = True,
     ) -> None:
         """Mock the response of IManagedPool.get_must_allowlist_lps"""
         if not error:
@@ -170,15 +185,15 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 performative=response_performative,
                 state=State(
                     ledger_id="ethereum",
-                    body=response_body,
+                    body=cast(JSONLike, response_body),
                 ),
             ),
         )
 
     def _mock_get_current_allowlist(
-            self,
-            error: bool = False,
-            allowlist: Union[Tuple[str], List[str]] = (),
+        self,
+        error: bool = False,
+        allowlist: Union[Tuple[str], List[str]] = (),  # type: ignore
     ) -> None:
         """Mock the response of IManagedPool.get_allowlist"""
         if not error:
@@ -197,14 +212,14 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 performative=response_performative,
                 state=State(
                     ledger_id="ethereum",
-                    body=response_body,
+                    body=cast(JSONLike, response_body),
                 ),
             ),
         )
 
     def _mock_set_must_allowlist_lps_tx(
-            self,
-            error: bool = False,
+        self,
+        error: bool = False,
     ) -> None:
         """Mock the response of IManagedPool.setMustAllowlistLPs()"""
         if not error:
@@ -223,14 +238,14 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 performative=response_performative,
                 state=State(
                     ledger_id="ethereum",
-                    body=response_body,
+                    body=cast(JSONLike, response_body),
                 ),
             ),
         )
-    
+
     def _mock_get_add_allowed_address_tx(
-            self,
-            error: bool = False,
+        self,
+        error: bool = False,
     ) -> None:
         """Mock the response of IManagedPool.addAllowedAddress()"""
         if not error:
@@ -249,14 +264,14 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 performative=response_performative,
                 state=State(
                     ledger_id="ethereum",
-                    body=response_body,
+                    body=cast(JSONLike, response_body),
                 ),
             ),
         )
 
     def _mock_get_remove_allowed_address_tx(
-            self,
-            error: bool = False,
+        self,
+        error: bool = False,
     ) -> None:
         """Mock the response of IManagedPool.removeAllowedAddress()"""
         if not error:
@@ -275,14 +290,14 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 performative=response_performative,
                 state=State(
                     ledger_id="ethereum",
-                    body=response_body,
+                    body=cast(JSONLike, response_body),
                 ),
             ),
         )
 
     def _mock_get_raw_safe_transaction_hash(
-            self,
-            error: bool = False,
+        self,
+        error: bool = False,
     ) -> None:
         """Mock the response of GnosisSafeContract.get_raw_safe_transaction_hash()"""
         if not error:
@@ -301,14 +316,14 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 performative=response_performative,
                 state=State(
                     ledger_id="ethereum",
-                    body=response_body,
+                    body=cast(JSONLike, response_body),
                 ),
             ),
         )
-        
+
     def _mock_get_multisend_tx(
-            self,
-            error: bool = False,
+        self,
+        error: bool = False,
     ) -> None:
         """Mock the response of GnosisSafeContract.get_tx_data()"""
         if not error:
@@ -327,7 +342,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 performative=response_performative,
                 raw_transaction=RawTransaction(
                     ledger_id="ethereum",
-                    body=response_body,
+                    body=cast(JSONLike, response_body),
                 ),
             ),
         )
@@ -343,7 +358,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                     (_mock_get_current_allowlist, {}),
                 ],
                 err_reqs=[],
-                expected_logs=[_NO_UPDATES_REQUIRED]
+                expected_logs=[_NO_UPDATES_REQUIRED],
             ),
             BehaviourTestCase(
                 name="Allowlist enforcing needs to be changed.",
@@ -356,7 +371,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                     (_mock_get_raw_safe_transaction_hash, {}),
                 ],
                 err_reqs=[],
-                expected_logs=[_ALLOWLIST_ENFORCING_CHANGE]
+                expected_logs=[_ALLOWLIST_ENFORCING_CHANGE],
             ),
             BehaviourTestCase(
                 name="Allowlist enforcing needs to be changed, and one member needs to be removed.",
@@ -372,8 +387,8 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 err_reqs=[],
                 expected_logs=[
                     _ALLOWLIST_ENFORCING_CHANGE,
-                    _MEMBER_REMOVAL.format(_MOCK_MEMBERS[0])
-                ]
+                    _MEMBER_REMOVAL.format(_MOCK_MEMBERS[0]),
+                ],
             ),
             BehaviourTestCase(
                 name="Allowlist enforcing needs to be changed, and two members needs to be removed.",
@@ -392,7 +407,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                     _ALLOWLIST_ENFORCING_CHANGE,
                     _MEMBER_REMOVAL.format(_MOCK_MEMBERS[0]),
                     _MEMBER_REMOVAL.format(_MOCK_MEMBERS[1]),
-                ]
+                ],
             ),
             BehaviourTestCase(
                 name="Two members needs to be removed.",
@@ -409,7 +424,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 expected_logs=[
                     _MEMBER_REMOVAL.format(_MOCK_MEMBERS[0]),
                     _MEMBER_REMOVAL.format(_MOCK_MEMBERS[1]),
-                ]
+                ],
             ),
             BehaviourTestCase(
                 name="Two members needs to be added.",
@@ -456,9 +471,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 err_reqs=[
                     (_mock_get_must_allowlist_lps, {}),
                 ],
-                expected_logs=[
-                    _IS_ALLOWLIST_ENFORCED_LOG
-                ],
+                expected_logs=[_IS_ALLOWLIST_ENFORCED_LOG],
             ),
             BehaviourTestCase(
                 name="Getting allowlist from pool fails. ",
@@ -469,9 +482,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                 err_reqs=[
                     (_mock_get_current_allowlist, {}),
                 ],
-                expected_logs=[
-                    _GET_ALLOWLIST_ERR_LOG
-                ],
+                expected_logs=[_GET_ALLOWLIST_ERR_LOG],
             ),
             BehaviourTestCase(
                 name="Removing member from pool fails. ",
@@ -509,11 +520,9 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
                     (_mock_get_must_allowlist_lps, {}),
                     (_mock_get_current_allowlist, {"allowlist": _MOCK_MEMBERS[2:3]}),
                     (_mock_get_remove_allowed_address_tx, {}),
-
                 ],
                 err_reqs=[
                     (_mock_get_multisend_tx, {}),
-
                 ],
                 expected_logs=[
                     _MULTISEND_ERR_LOG,
@@ -559,7 +568,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
 
         # apply the OK reqs first
         for ok_req, kwargs in test_case.ok_reqs:
-                ok_req(self, **kwargs)
+            ok_req(self, **kwargs)
 
         # apply the failing reqs
         for err_req, kwargs in test_case.err_reqs:
@@ -574,4 +583,6 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
 
     def mock_params(self, test_case: BehaviourTestCase) -> None:
         """Update skill params."""
-        self.skill.skill_context.params.allowed_lp_addresses = list(test_case.allowed_lp_addresses)
+        self.skill.skill_context.params.allowed_lp_addresses = list(
+            test_case.allowed_lp_addresses
+        )
