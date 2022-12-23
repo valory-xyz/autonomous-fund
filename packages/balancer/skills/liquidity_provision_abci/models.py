@@ -54,6 +54,7 @@ class Params(BaseParams):
         self.enforce_allowlist: bool = self._ensure("enforce_allowlist", kwargs)
         self.allowed_lp_addresses: List[str] = self._ensure("allowed_lp_addresses", kwargs)
         self.managed_pool_address: str = self._ensure_managed_pool_address(kwargs)
+        self.multisend_address: str = self._ensure("multisend_address", kwargs)
         super().__init__(*args, **kwargs)
 
     def _ensure_managed_pool_address(self, kwargs: Dict) -> str:
