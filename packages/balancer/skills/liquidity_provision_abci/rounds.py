@@ -22,19 +22,18 @@
 from enum import Enum
 from typing import Dict, List, Optional, Set, Tuple, cast
 
+from packages.balancer.skills.liquidity_provision_abci.payloads import (
+    AllowListUpdatePayload,
+)
 from packages.valory.skills.abstract_round_abci.base import (
     AbciApp,
     AbciAppTransitionFunction,
-    AbstractRound,
     AppState,
     BaseSynchronizedData,
+    CollectSameUntilThresholdRound,
     DegenerateRound,
     EventToTimeout,
-    TransactionType, CollectSameUntilThresholdRound, get_name,
-)
-
-from packages.balancer.skills.liquidity_provision_abci.payloads import (
-    AllowListUpdatePayload,
+    get_name,
 )
 
 
@@ -47,12 +46,14 @@ class Event(Enum):
     NO_MAJORITY = "no_majority"
     ERROR = "error"
 
+
 class SynchronizedData(BaseSynchronizedData):
     """
     Class to represent the synchronized data.
 
     This data is replicated by the tendermint application.
     """
+
     @property
     def safe_contract_address(self) -> str:
         """Get the safe contract address."""
@@ -70,9 +71,9 @@ class SynchronizedData(BaseSynchronizedData):
 
 
 class AllowListUpdateRound(CollectSameUntilThresholdRound):
-    """A round in which the """
+    """A round in which the"""
 
-    allowed_tx_type: Optional[TransactionType] = AllowListUpdatePayload.transaction_type
+    allowed_tx_type = AllowListUpdatePayload.transaction_type
     payload_attribute: str = get_name(AllowListUpdatePayload.allow_list_update)
     synchronized_data_class = SynchronizedData
 
@@ -84,8 +85,8 @@ class AllowListUpdateRound(CollectSameUntilThresholdRound):
         to perform an allowlist update.
         """
 
-        NO_UPDATE_PAYLOAD = 'no_allowlist_update'
-        ERROR_PAYLOAD = 'error_payload'
+        NO_UPDATE_PAYLOAD = "no_allowlist_update"
+        ERROR_PAYLOAD = "error_payload"
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Enum]]:
         """Process the end of the block."""
@@ -100,7 +101,9 @@ class AllowListUpdateRound(CollectSameUntilThresholdRound):
                 synchronized_data_class=self.synchronized_data_class,
                 **{
                     get_name(SynchronizedData.participant_to_tx_hash): self.collection,
-                    get_name(SynchronizedData.most_voted_tx_hash): self.most_voted_payload,
+                    get_name(
+                        SynchronizedData.most_voted_tx_hash
+                    ): self.most_voted_payload,
                 }
             )
             return state, Event.DONE
@@ -110,7 +113,6 @@ class AllowListUpdateRound(CollectSameUntilThresholdRound):
             return self.synchronized_data, Event.NO_MAJORITY
 
         return None
-
 
 
 class FinishedTxPreparationRound(DegenerateRound):
@@ -138,7 +140,9 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
         FinishedTxPreparationRound: {},
     }
     final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
-    event_to_timeout: EventToTimeout = {}
+    event_to_timeout: EventToTimeout = {
+        Event.ROUND_TIMEOUT: 30.0,
+    }
     cross_period_persisted_keys: List[str] = []
     db_pre_conditions: Dict[AppState, List[str]] = {
         AllowListUpdateRound: [
@@ -150,7 +154,4 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
         FinishedTxPreparationRound: [
             get_name(SynchronizedData.most_voted_tx_hash),
         ],
-    }
-    event_to_timeout: EventToTimeout = {
-        Event.ROUND_TIMEOUT: 30.0,
     }

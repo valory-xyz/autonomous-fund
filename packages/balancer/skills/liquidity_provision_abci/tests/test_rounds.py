@@ -19,8 +19,7 @@
 
 """This package contains the tests for rounds of LiquidityProvision."""
 
-from typing import Any, Type, Dict, List, Callable, Hashable, Mapping, cast
-from dataclasses import dataclass, field
+from typing import Dict, cast
 
 import pytest
 
@@ -28,21 +27,13 @@ from packages.balancer.skills.liquidity_provision_abci.payloads import (
     AllowListUpdatePayload,
 )
 from packages.balancer.skills.liquidity_provision_abci.rounds import (
-    AbstractRound,
+    AllowListUpdateRound,
     Event,
     SynchronizedData,
-    AllowListUpdateRound,
-)
-from packages.valory.skills.abstract_round_abci.base import (
-    BaseTxPayload,
 )
 from packages.valory.skills.abstract_round_abci.test_tools.rounds import (
     BaseRoundTestClass,
-    BaseOnlyKeeperSendsRoundTest,
-    BaseCollectDifferentUntilThresholdRoundTest,
-    BaseCollectSameUntilThresholdRoundTest,
 )
-
 
 
 MAX_PARTICIPANTS: int = 4
@@ -60,11 +51,14 @@ class TestAllowListUpdateRound(BaseRoundTestClass):
         "payload_data, expected_event",
         [
             ("0xTX_hash", Event.DONE),
-            (AllowListUpdateRound.NoUpdatePayloads.NO_UPDATE_PAYLOAD.value, Event.NO_ACTION),
+            (
+                AllowListUpdateRound.NoUpdatePayloads.NO_UPDATE_PAYLOAD.value,
+                Event.NO_ACTION,
+            ),
             (AllowListUpdateRound.NoUpdatePayloads.ERROR_PAYLOAD.value, Event.ERROR),
         ],
     )
-    def test_run(self, payload_data: str, expected_event) -> None:
+    def test_run(self, payload_data: str, expected_event: Event) -> None:
         """Run round tests."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
@@ -105,8 +99,8 @@ class TestAllowListUpdateRound(BaseRoundTestClass):
         if expected_event == Event.DONE:
             # check that the state is updated as expected
             assert (
-                    actual_next_state.most_voted_tx_hash
-                    == expected_next_state.most_voted_tx_hash
+                actual_next_state.most_voted_tx_hash
+                == expected_next_state.most_voted_tx_hash
             )
 
             # make sure all the votes are as expected
@@ -115,10 +109,9 @@ class TestAllowListUpdateRound(BaseRoundTestClass):
                     cast(Dict, actual_next_state.participant_to_tx_hash)[participant]
                     == actual_vote
                     for (participant, actual_vote) in cast(
-                    Dict, expected_next_state.participant_to_tx_hash
-                ).items()
+                        Dict, expected_next_state.participant_to_tx_hash
+                    ).items()
                 ]
             )
 
         assert event == expected_event
-

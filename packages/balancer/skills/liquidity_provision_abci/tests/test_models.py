@@ -16,11 +16,11 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
-
+# pylint: disable=too-few-public-methods, no-self-use
 """Test the models.py module of the LiquidityProvision."""
 
-from packages.valory.skills.abstract_round_abci.test_tools.base import DummyContext
 from packages.balancer.skills.liquidity_provision_abci.models import SharedState
+from packages.valory.skills.abstract_round_abci.test_tools.base import DummyContext
 
 
 class TestSharedState:

@@ -16,6 +16,7 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
+# pylint: disable=unused-import
 
 """Test the dialogues.py module of the LiquidityProvision."""
 
