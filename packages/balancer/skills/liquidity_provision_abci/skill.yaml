@@ -23,10 +23,15 @@ fingerprint:
   tests/test_rounds.py: bafybeierzx46rioxzudrdyixo7coyyyyuhori4gh3okplswxxdlgd4olcy
 fingerprint_ignore_patterns: []
 connections: []
-contracts: []
-protocols: []
+contracts:
+- balancer/managed_pool:0.1.0:bafybeicgldldlzn6glmj2vju57aswfcdtmmt44yqqlr7ao6wm63n5lat3m
+- valory/gnosis_safe:0.1.0:bafybeich2izgpdvzzoodlmomvmob6yxadji6h7sp65dl4hz6vus7ra7jjm
+- valory/multisend:0.1.0:bafybeiaveffaomsnmsc5hx62o77u7ilma6eipox7m5lrwa56737ektva3i
+protocols:
+- valory/contract_api:1.0.0:bafybeiaxbrvgtbdrh4lslskuxyp4awyr4whcx3nqq5yrr6vimzsxg5dy64
 skills:
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
+- valory/transaction_settlement_abci:0.1.0:bafybeibmivn3szn4iuim5dqrnilgiag2hf6oidqgjhnjxqaumru4aewlca
 behaviours:
   main:
     args: {}
@@ -95,6 +100,10 @@ models:
       history_check_timeout: 1205
       keeper_allowed_retries: 3
       keeper_timeout: 30.0
+      multisend_address: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761'
+      managed_pool_address: '0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1'
+      enforce_allowlist: true
+      allowed_lp_addresses: []
       max_healthcheck: 120
       observation_interval: 10
       on_chain_service_id: null

@@ -29,6 +29,7 @@
         "skill/valory/transaction_settlement_abci/0.1.0": "bafybeibmivn3szn4iuim5dqrnilgiag2hf6oidqgjhnjxqaumru4aewlca",
         "skill/valory/registration_abci/0.1.0": "bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi",
         "skill/valory/reset_pause_abci/0.1.0": "bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q",
-        "skill/valory/safe_deployment_abci/0.1.0": "bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana"
+        "skill/valory/safe_deployment_abci/0.1.0": "bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana",
+        "contract/valory/multisend/0.1.0": "bafybeiaveffaomsnmsc5hx62o77u7ilma6eipox7m5lrwa56737ektva3i"
     }
 }
