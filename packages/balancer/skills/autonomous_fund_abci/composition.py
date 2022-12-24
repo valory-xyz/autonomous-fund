@@ -28,6 +28,10 @@ from packages.valory.skills.abstract_round_abci.abci_app_chain import (
     AbciAppTransitionMapping,
     chain,
 )
+from packages.valory.skills.abstract_round_abci.base import get_name
+from packages.valory.skills.safe_deployment_abci.rounds import (
+    SynchronizedData as SDSynchronizedData,
+)
 
 
 # here we define how the transition between the FSMs should happen
@@ -44,6 +48,16 @@ abci_app_transition_mapping: AbciAppTransitionMapping = {
     TransactionSubmissionAbci.FailedRound: ResetAndPauseAbci.ResetAndPauseRound,
     ResetAndPauseAbci.FinishedResetAndPauseErrorRound: RegistrationAbci.RegistrationRound,
 }
+
+
+RegistrationAbci.AgentRegistrationAbciApp.db_post_conditions[
+    RegistrationAbci.FinishedRegistrationFFWRound
+].extend(
+    [
+        get_name(SDSynchronizedData.safe_contract_address),
+    ]
+)
+
 
 AutonomousFundAbciApp = chain(
     (

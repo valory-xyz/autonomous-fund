@@ -8,7 +8,7 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
   behaviours.py: bafybeihf3byvmvpoeq4qvwpky2muji2vdl3r2mlizl3cpvm66kpsnjkvoa
-  composition.py: bafybeiddgrsa5y3dbt6zpbpxwhkqro6xhb33up34xz3re4pvjos7chlzka
+  composition.py: bafybeihpzdo5vwuretkvzxv2nhn5me53gezbckabph4hii6tg3avv77aly
   dialogues.py: bafybeidlaxto7h652uthpw6ycewqmd44jckh2dztgr464bywieinuha7cm
   fsm_specification.yaml: bafybeifm3witsuumawlxqgdadqiwavdr7txzycvrysvbwqrafx5ebaynmy
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
@@ -24,7 +24,7 @@ contracts: []
 protocols: []
 skills:
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/pool_manager_abci:0.1.0:bafybeia2zgpcd2665ihbaxjajbp24wysumhc2wxq22tvz7yig73pxc36qa
+- balancer/pool_manager_abci:0.1.0:bafybeidet4wa2dvx6gqqjx2au6mqfzmst36wmh66eidvuhtxfnueg6mfou
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
 - valory/reset_pause_abci:0.1.0:bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q

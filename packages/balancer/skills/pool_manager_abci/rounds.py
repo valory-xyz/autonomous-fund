@@ -189,7 +189,6 @@ class PoolManagerAbciApp(AbciApp[Event]):
     db_post_conditions: Dict[AppState, List[str]] = {
         FinishedTxPreparationRound: [
             get_name(SynchronizedData.most_voted_tx_hash),
-            get_name(SynchronizedData.safe_contract_address),
         ],
         FinishedWithoutTxRound: [],
     }
