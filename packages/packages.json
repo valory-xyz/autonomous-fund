@@ -1,12 +1,13 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeiafm3p576rqagerkokgtt4b5ottatpqbezv4yz2nct7xckrp2btza",
-        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeih52y22ottlomuozhi4ihxu7cjmvzw7tf2igtgpcbb4hwpmn7gfxe",
-        "skill/balancer/pool_manager_abci/0.1.0": "bafybeifuvrzozqdcwimzkqjrkpg7eipola267anzcxpnr4sj3hf6kaczw4",
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeidu2rq5dauq3rkobjvi7cwpd27a46sfwlwrnviep7eaq366u2bbu4",
+        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeic72pdshqxwafw6hboy6eddorrpqxqpxvw2dwvyy3kjk5dhajkxuq",
+        "skill/balancer/pool_manager_abci/0.1.0": "bafybeidet4wa2dvx6gqqjx2au6mqfzmst36wmh66eidvuhtxfnueg6mfou",
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u",
         "contract/balancer/managed_pool_controller/0.1.0": "bafybeihzha5pmyqff5jovqhzgdomhiajwvfbvh7swgt64p62cwfywqybme",
-        "contract/balancer/managed_pool/0.1.0": "bafybeiefed67esjr6q43wyjmfijrnpo2cubhwcemomzd7z4l7hzxhky6im",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeigapjkbqrzmbgueibqb2ayn4xivblewiqoha6mfap3tuj3notyyay"
+        "contract/balancer/managed_pool/0.1.0": "bafybeiaxyultdqowr57mqp6aetepstwxzzz2vfnkp5uzfqgoebffabyi74",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeigi4k6nykawuhrds3vmzynhvxxiveaqqpdg5g53jz6nnesctdpg5m",
+        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeihs66bqf4lyw252tab2stqba64642mw4rzue3zpn76hywqmsergzq"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeiaw3tzlg3rkvnn5fcufblktmfwngmxugn4yo7pyjp76zz6aqtqcay",
@@ -28,6 +29,7 @@
         "skill/valory/transaction_settlement_abci/0.1.0": "bafybeibmivn3szn4iuim5dqrnilgiag2hf6oidqgjhnjxqaumru4aewlca",
         "skill/valory/registration_abci/0.1.0": "bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi",
         "skill/valory/reset_pause_abci/0.1.0": "bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q",
-        "skill/valory/safe_deployment_abci/0.1.0": "bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana"
+        "skill/valory/safe_deployment_abci/0.1.0": "bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana",
+        "contract/valory/multisend/0.1.0": "bafybeiaveffaomsnmsc5hx62o77u7ilma6eipox7m5lrwa56737ektva3i"
     }
 }

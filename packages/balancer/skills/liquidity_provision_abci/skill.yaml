@@ -1,4 +1,4 @@
-name: pool_manager_abci
+name: liquidity_provision_abci
 author: balancer
 version: 0.1.0
 type: skill
@@ -6,26 +6,27 @@ description: The scaffold skill is a scaffold for your own skill implementation.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeib7tq4xbys4lmfpz4kp7qs6vcw5lifiq6zb2a4strssd256g7rici
-  behaviours.py: bafybeicevqpesafwlk4qpdknilgfrhynxdi3mnkmdxbj7g6np2fdaowoxi
-  dialogues.py: bafybeic2grmbb2eepv745wuv6gbyx6xwahipduw6bzqbt5vcj3h6cpln7q
-  fsm_specification.yaml: bafybeify5zvsgb6acwgcekmltgb4rlpeovls4plcqmcuoyr7tgjlwp72pi
-  handlers.py: bafybeiczztxmybnfcgggaw2dixwg6z6ql3rkicb5fstoo3iywliygpcw3u
-  models.py: bafybeieuopnk4uektmr42vtnw6yydeh7ca2522kvanmb5xczwpexbo5rte
-  payloads.py: bafybeihzuwv3amtvpvu2qged5ifwy746focexq4wtp75rvgbkoxp57jyrm
-  rounds.py: bafybeiaapphaw7ultstimcetxz2rk3ybbjijmvtgwkzuqhr3oe6xvtfsne
-  tests/__init__.py: bafybeiedv5h6wd6jjxzsu5d7foz3jyvgwtyotgtx2awmp2gqfysgtyziu4
-  tests/test_behaviours.py: bafybeigovooer34273ot3x3srltgqxrrhg5hi6yio4ddkvkfg2xwwx3z6a
-  tests/test_dialogues.py: bafybeigv2j6zxox7pk4gfpgvsdbugofglut4gmlpf3uq4hlbx64hscv7n4
-  tests/test_handlers.py: bafybeiesvxlswqsmyufa52nuxbxet7oqbtbajb6xwsdmfdrf5x6wcwe47y
-  tests/test_models.py: bafybeihp2476o2dteoitn27yqypucgsn7e4bdvump53d4z3ht33peucpm4
-  tests/test_payloads.py: bafybeib3nuyb4rxwhixtwimremlqwk623p5lp75faezhwrqcgc7uluupyy
-  tests/test_rounds.py: bafybeihcdvyixxpurdifbk3pigk4aj3dkeupkf2phcatrf5e4orphlvzba
+  __init__.py: bafybeid24c62anvzpj5mz3ojtaavy5wjkjlxchsp3g67kz7hmrc5r2cuom
+  behaviours.py: bafybeiczejwotrlovanjg4qs3foezvkfglavzvhit3htuvyb3cvpmvziz4
+  dialogues.py: bafybeifbwyvsv4qpnsidzwcz2xgzmjnnhyrzwxcveomenn2z4xb6qndg7i
+  fsm_specification.yaml: bafybeiaevctcn2jdjlf5pvgv6shbcfwsae5dvybzg4d6sjhjl2bqqdxd3y
+  handlers.py: bafybeidqthtxzrf5zim7x6hm4vqjmyjtqwhsmfclkxqntm6atn43w26gci
+  models.py: bafybeiejxf3iz747uvborrmww66cyzapls6ntgb2ovil3pywujiiomzgwi
+  payloads.py: bafybeibmzwxy4pm7srxeuxpsxr44m66sbijosregn7ng36ttrouxtpji6a
+  rounds.py: bafybeih64ajicdk5rj3hlzmhb3ctz6ny7sdtsjuwtj63p7ffxvyr5l2fxm
+  tests/__init__.py: bafybeigyyqbkzhinzvwsbkilbbdpholgsp73dxhauudb36zrzmg3vnvjky
+  tests/test_behaviours.py: bafybeigq4ukint4en7w3aw7cf2mavq32b5jsyumtipz352isjlcb5wuyri
+  tests/test_dialogues.py: bafybeifxxdhqax3jdmaln4hkygy5jtdewj43dr5kmjb7qeijwt5sjnvkpu
+  tests/test_handlers.py: bafybeihmwy54qjsryayo7n77w4hd676dywzclefgzaigg2meffilkz23w4
+  tests/test_models.py: bafybeibyyynsukooaxab3qrblngq4is6nmey5hpvvlt63llogmcwtkwobq
+  tests/test_payloads.py: bafybeif7czqemat2z6tkxdwq2jxtyvrgi57rgryqi7oulgdmepumqqnsay
+  tests/test_rounds.py: bafybeifty3yxlb3rpqgttl6i5v76g5b2oaysjhey2blhnj5xufjrfovmw4
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
 - balancer/managed_pool:0.1.0:bafybeiaxyultdqowr57mqp6aetepstwxzzz2vfnkp5uzfqgoebffabyi74
 - valory/gnosis_safe:0.1.0:bafybeich2izgpdvzzoodlmomvmob6yxadji6h7sp65dl4hz6vus7ra7jjm
+- valory/multisend:0.1.0:bafybeiaveffaomsnmsc5hx62o77u7ilma6eipox7m5lrwa56737ektva3i
 protocols:
 - valory/contract_api:1.0.0:bafybeiaxbrvgtbdrh4lslskuxyp4awyr4whcx3nqq5yrr6vimzsxg5dy64
 skills:
@@ -34,7 +35,7 @@ skills:
 behaviours:
   main:
     args: {}
-    class_name: PoolManagerRoundBehaviour
+    class_name: LiquidityProvisionRoundBehaviour
 handlers:
   abci:
     args: {}
@@ -73,13 +74,15 @@ models:
     class_name: LedgerApiDialogues
   params:
     args:
+      allowed_lp_addresses: []
       cleanup_history_depth: 1
       cleanup_history_depth_current: null
       consensus:
         max_participants: 1
       drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
+      enforce_allowlist: true
+      finalize_timeout: 60.0
       genesis_config:
-        genesis_time: '2022-09-26T00:00:00.000000000Z'
         chain_id: chain-c4daS1
         consensus_params:
           block:
@@ -87,50 +90,36 @@ models:
             max_gas: '-1'
             time_iota_ms: '1000'
           evidence:
-            max_age_num_blocks: '100000'
             max_age_duration: '172800000000000'
+            max_age_num_blocks: '100000'
             max_bytes: '1048576'
           validator:
             pub_key_types:
             - ed25519
           version: {}
+        genesis_time: '2022-05-20T16:00:21.735122717Z'
         voting_power: '10'
+      history_check_timeout: 1205
+      keeper_allowed_retries: 3
       keeper_timeout: 30.0
       managed_pool_address: '0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1'
       max_healthcheck: 120
-      observation_aggregator_function: median
+      multisend_address: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761'
       observation_interval: 10
       on_chain_service_id: null
-      pool_tokens:
-      - '0x3A78BF1783a0187c1C8000e41C2a008897D0a35f'
-      - '0xC97b465daC9f52A26F2A234c658a57f5B3f15D19'
-      - '0xfe46A8F577d3367848bdd127173B7d5F14a6088C'
-      pool_weights:
-        0:
-        - 60
-        - 30
-        - 10
-        41:
-        - 33
-        - 33
-        - 34
-        60:
-        - 10
-        - 30
-        - 60
       reset_tendermint_after: 2
       retry_attempts: 400
       retry_timeout: 3
       round_timeout_seconds: 30.0
-      service_id: pool_manager
+      service_id: liquidity_provision
       service_registry_address: null
+      setup: {}
       sleep_time: 1
       tendermint_check_sleep_delay: 3
       tendermint_com_url: http://localhost:8080
       tendermint_max_retries: 5
       tendermint_url: http://localhost:26657
-      weight_tolerance: 0.1
-      weight_update_timespan: 72000
+      validate_timeout: 1205
     class_name: Params
   requests:
     args: {}
@@ -141,5 +130,9 @@ models:
   state:
     args: {}
     class_name: SharedState
-dependencies: {}
-is_abstract: true
+  tendermint_dialogues:
+    args: {}
+    class_name: TendermintDialogues
+dependencies:
+  hexbytes: {}
+is_abstract: false
