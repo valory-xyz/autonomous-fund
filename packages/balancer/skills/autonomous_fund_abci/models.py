@@ -30,8 +30,11 @@ from packages.balancer.skills.fear_and_greed_oracle_abci.models import (
 from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
     Event as FearAndGreedOracleEvent,
 )
-from packages.balancer.skills.pool_manager_abci.models import (
+from packages.balancer.skills.liquidity_provision_abci.models import (
     Params as PoolManagerAbciParams,
+)
+from packages.balancer.skills.pool_manager_abci.models import (
+    Params as LiquidityProvisionParams,
 )
 from packages.balancer.skills.pool_manager_abci.rounds import Event as PoolManagerEvent
 from packages.valory.skills.abstract_round_abci.models import (
@@ -102,5 +105,10 @@ class SharedState(BaseSharedState):
         ] = self.context.params.finalize_timeout
 
 
-class Params(PoolManagerParams, TransactionParams, FearAndGreedOracleParams):
+class Params(
+    LiquidityProvisionParams,
+    PoolManagerParams,
+    TransactionParams,
+    FearAndGreedOracleParams,
+):
     """A model to represent params for multiple abci apps."""

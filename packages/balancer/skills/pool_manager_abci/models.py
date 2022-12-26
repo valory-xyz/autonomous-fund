@@ -50,7 +50,7 @@ class Params(BaseParams):
         self.pool_tokens: List[str] = self._ensure("pool_tokens", kwargs)
         self.pool_weights: Dict[int, List[int]] = self._ensure_pool_weights(kwargs)
         self.weight_update_timespan: int = self._ensure_weight_update_timespan(kwargs)
-        self.managed_pool_address: str = self._ensure("managed_pool_address", kwargs)
+        self.managed_pool_address: str = self._ensure_managed_pool_address(kwargs)
         self.weight_tolerance: float = self._ensure("weight_tolerance", kwargs)
         super().__init__(*args, **kwargs)
 
@@ -76,6 +76,17 @@ class Params(BaseParams):
         weight_update_timespan: int = self._ensure("weight_update_timespan", kwargs)
         enforce(weight_update_timespan > 0, "weight_update_timespan MUST be positive.")
         return weight_update_timespan
+
+    def _ensure_managed_pool_address(  # pylint: disable=no-self-use
+        self, kwargs: Dict
+    ) -> str:
+        """Ensure that the ManagedPool address is available."""
+        managed_pool_address = kwargs.get("managed_pool_address", None)
+        enforce(
+            managed_pool_address is not None,
+            "'managed_pool_address' is a required parameter",
+        )
+        return managed_pool_address
 
 
 Requests = BaseRequests

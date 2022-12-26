@@ -72,7 +72,7 @@ class SynchronizedData(BaseSynchronizedData):
     @property
     def participant_to_tx(self) -> Dict:
         """Get the participant_to_tx."""
-        return cast(Dict, self.db.get_strict("participant_to_tx_hash"))
+        return cast(Dict, self.db.get_strict("participant_to_tx"))
 
     @property
     def most_voted_tx_hash(self) -> Dict:
@@ -83,6 +83,11 @@ class SynchronizedData(BaseSynchronizedData):
     def most_voted_estimates(self) -> str:
         """Get the most_voted_tx."""
         return cast(str, self.db.get_strict("most_voted_estimates"))
+
+    @property
+    def tx_submitter(self) -> str:
+        """Get the round that submitted a tx to transaction_settlement_abci."""
+        return cast(str, self.db.get_strict("tx_submitter"))
 
 
 class DecisionMakingRound(CollectSameUntilThresholdRound):
@@ -135,8 +140,13 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
 
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_tx_hash=self.collection,
-                most_voted_tx_hash=self.most_voted_payload,
+                **{
+                    get_name(SynchronizedData.participant_to_tx): self.collection,
+                    get_name(
+                        SynchronizedData.most_voted_tx_hash
+                    ): self.most_voted_payload,
+                    get_name(SynchronizedData.tx_submitter): self.auto_round_id(),
+                },
             )
             return state, Event.DONE
         if not self.is_majority_possible(
@@ -189,6 +199,7 @@ class PoolManagerAbciApp(AbciApp[Event]):
     db_post_conditions: Dict[AppState, List[str]] = {
         FinishedTxPreparationRound: [
             get_name(SynchronizedData.most_voted_tx_hash),
+            get_name(SynchronizedData.tx_submitter),
         ],
         FinishedWithoutTxRound: [],
     }

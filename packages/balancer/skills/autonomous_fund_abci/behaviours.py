@@ -18,13 +18,21 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of AutonomousFundAbciApp."""
-from typing import Set, Type
+from typing import Generator, Set, Type, cast
 
 from packages.balancer.skills.autonomous_fund_abci.composition import (
     AutonomousFundAbciApp,
 )
+from packages.balancer.skills.autonomous_fund_abci.multiplexer import (
+    PostTransactionSettlementRound,
+    SynchronizedData,
+    TransactionSettlementAbciMultiplexer,
+)
 from packages.balancer.skills.fear_and_greed_oracle_abci.behaviours import (
     FearAndGreedOracleRoundBehaviour,
+)
+from packages.balancer.skills.liquidity_provision_abci.behaviours import (
+    LiquidityProvisionRoundBehaviour,
 )
 from packages.balancer.skills.pool_manager_abci.behaviours import (
     PoolManagerRoundBehaviour,
@@ -48,12 +56,46 @@ from packages.valory.skills.transaction_settlement_abci.behaviours import (
 )
 
 
+class PostTransactionSettlementBehaviour(BaseBehaviour):
+    """
+    The post transaction settlement behaviour.
+
+    This behaviour is executed after a tx is settled,
+    via the transaction_settlement_abci.
+    """
+
+    matching_round = PostTransactionSettlementRound
+
+    @property
+    def synchronized_data(self) -> SynchronizedData:
+        """Return the synchronized data."""
+        return cast(SynchronizedData, super().synchronized_data)
+
+    def async_act(self) -> Generator:
+        """Simply log that a tx is settled and wait for round end."""
+        self.context.logger.info(
+            f"The transaction submitted by {self.synchronized_data.tx_submitter} was successfully settled."
+        )
+        yield from self.wait_until_round_end()
+        self.set_done()
+
+
+class PostTransactionSettlementFullBehaviour(AbstractRoundBehaviour):
+    """The post tx settlement full behaviour."""
+
+    initial_behaviour_cls = PostTransactionSettlementBehaviour
+    abci_app_cls = TransactionSettlementAbciMultiplexer
+    behaviours: Set[Type[BaseBehaviour]] = {PostTransactionSettlementBehaviour}
+
+
 class AutonomousFundConsensusBehaviour(AbstractRoundBehaviour):
     """Class to define the behaviours this AbciApp has."""
 
     initial_behaviour_cls = RegistrationStartupBehaviour
     abci_app_cls = AutonomousFundAbciApp
     behaviours: Set[Type[BaseBehaviour]] = {
+        *PostTransactionSettlementFullBehaviour.behaviours,
+        *LiquidityProvisionRoundBehaviour.behaviours,
         *FearAndGreedOracleRoundBehaviour.behaviours,
         *PoolManagerRoundBehaviour.behaviours,
         *AgentRegistrationRoundBehaviour.behaviours,

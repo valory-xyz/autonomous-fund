@@ -19,6 +19,7 @@
 # pylint: disable=broad-except,unspecified-encoding,import-error,redefined-outer-name
 
 """End2End tests base classes for the Autonomous Fund."""
+from typing import List
 
 from aea.configurations.base import PublicId
 from aea_test_autonomy.base_test_classes.agents import BaseTestEnd2End
@@ -34,6 +35,9 @@ from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
     MOCK_API_PATH as _DEFAULT_MOCK_API_PATH,
+)
+from packages.balancer.agents.autonomous_fund.tests.helpers.constants import (
+    MULTISEND as _DEFAULT_MULTISEND_ADDRESS,
 )
 from packages.balancer.agents.autonomous_fund.tests.helpers.docker import (
     DEFAULT_JSON_SERVER_ADDR as _DEFAULT_JSON_SERVER_ADDR,
@@ -67,12 +71,28 @@ class BaseTestAutonomousFundEnd2End(
     SAFE_CALLBACK_HANDLER = _DEFAULT_SAFE_CALLBACK_HANDLER_ADDRESS
     SAFE_CONTRACT_ADDRESS = _DEFAULT_SAFE_CONTRACT_ADDRESS
     MANAGED_POOL_ADDRESS = _DEFAULT_MANAGED_POOL_ADDRESS
+    MUTLISEND_ADDRESS = _DEFAULT_MULTISEND_ADDRESS
+
+    enforce_allowlist = False
+    allowed_lp_addresses: List[str] = []
 
     __args_prefix = f"vendor.balancer.skills.{PublicId.from_str(skill_package).name}.models.params.args"
     extra_configs = [
         {
             "dotted_path": f"{__args_prefix}.managed_pool_address",
             "value": MANAGED_POOL_ADDRESS,
+        },
+        {
+            "dotted_path": f"{__args_prefix}.multisend_address",
+            "value": MUTLISEND_ADDRESS,
+        },
+        {
+            "dotted_path": f"{__args_prefix}.enforce_allowlist",
+            "value": enforce_allowlist,
+        },
+        {
+            "dotted_path": f"{__args_prefix}.allowed_lp_addresses",
+            "value": allowed_lp_addresses,
         },
         {
             "dotted_path": f"{__args_prefix}.fear_and_greed_endpoint",

@@ -7,24 +7,27 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
-  behaviours.py: bafybeihf3byvmvpoeq4qvwpky2muji2vdl3r2mlizl3cpvm66kpsnjkvoa
-  composition.py: bafybeihpzdo5vwuretkvzxv2nhn5me53gezbckabph4hii6tg3avv77aly
+  behaviours.py: bafybeidfhj7drl56fpfq46x35tdwfytsemoyj5wcon64dtgltbbz7jsuja
+  composition.py: bafybeiceskwecbaiqww32m37shhmcfmae32bd5iptsfcrb32mghjj7tyje
   dialogues.py: bafybeidlaxto7h652uthpw6ycewqmd44jckh2dztgr464bywieinuha7cm
-  fsm_specification.yaml: bafybeifm3witsuumawlxqgdadqiwavdr7txzycvrysvbwqrafx5ebaynmy
+  fsm_specification.yaml: bafybeiboshzst2uzhed66brouq6b5fn53r54ojz3r5a67tgze5andhnaim
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
-  models.py: bafybeifbojdadkdqg2reurqld23gdmrmjewb6gfed65l2bitvsdo6r5qhq
+  models.py: bafybeid2txqfusuhrqpz6l352l4sgcwmc4v3tqp6u4h2vkkjbrqa6ct75i
+  multiplexer.py: bafybeie2scbpddzzs3opvz5mlgq4ifx5crrozxwpr5urhl43upc6pz22n4
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
-  tests/test_behaviours.py: bafybeig2xeqhhed6ugfr2etzcj7ngxlforvqtiqcxm5igmbo2wkczpx5dy
+  tests/test_behaviours.py: bafybeidu2yaeu2y3eptualv3nnr7bfzmudgsnxtntfvoyeqf6y2f7f66du
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
   tests/test_handlers.py: bafybeieuhhzq67glblqzeos634w3c3rqgl2tqy3clctpwzvr7cedlzu7tq
   tests/test_models.py: bafybeignzrzmljbyqofuiphrkufx4inb6i4j3zr2tekqebyew32hmxusbi
+  tests/test_multiplexer.py: bafybeibfcjzaf6roh7d5whkeg7tqgeysvcj2pty4ifyqzlj2bb5qkxbq3a
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
 protocols: []
 skills:
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/pool_manager_abci:0.1.0:bafybeidet4wa2dvx6gqqjx2au6mqfzmst36wmh66eidvuhtxfnueg6mfou
+- balancer/liquidity_provision_abci:0.1.0:bafybeiath6xaxgi7w5pjyzq7xxzsxc3owlozutwnfqli3ozgqzklx4form
+- balancer/pool_manager_abci:0.1.0:bafybeietwtbb6y26wculchmw6rm3jxvt6pypgeojb37uswexwgnpdxzr24
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
 - valory/reset_pause_abci:0.1.0:bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q
@@ -72,11 +75,17 @@ models:
     class_name: LedgerApiDialogues
   params:
     args:
+      allowed_lp_addresses:
+      - '0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1'
+      - '0xFFcf8FDEE72ac11b5c542428B35EEF5769C409f0'
+      - '0x22d491Bde2303f2f43325b2108D26f1eAbA1e32b'
+      - '0xE11BA2b4D45Eaed5996Cd0823791E0C93114882d'
       cleanup_history_depth: 1
       cleanup_history_depth_current: null
       consensus:
         max_participants: 1
       drand_public_key: 868f005eb8e6e4ca0a47c8a77ceaa5309a47978a7c71bc5cce96366b5d7a569937c529eeda66c7293784a9402801af31
+      enforce_allowlist: true
       fear_and_greed_endpoint: https://api.alternative.me/fng/?format=json
       fear_and_greed_num_points: 2
       finalize_timeout: 60.0
@@ -105,6 +114,7 @@ models:
       max_index_change: 0.00040509259
       max_index_value: 100
       min_index_value: 0
+      multisend_address: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761'
       observation_aggregator_function: median
       observation_interval: 10
       on_chain_service_id: null
