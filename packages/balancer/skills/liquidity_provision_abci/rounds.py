@@ -69,9 +69,14 @@ class SynchronizedData(BaseSynchronizedData):
         """Get the most_voted_tx_hash."""
         return cast(str, self.db.get_strict("most_voted_tx_hash"))
 
+    @property
+    def tx_submitter(self) -> str:
+        """Get the round that submitted a tx to transaction_settlement_abci."""
+        return cast(str, self.db.get_strict("tx_submitter"))
+
 
 class AllowListUpdateRound(CollectSameUntilThresholdRound):
-    """A round in which the"""
+    """A round in which the LP related parameters are updated."""
 
     allowed_tx_type = AllowListUpdatePayload.transaction_type
     payload_attribute: str = get_name(AllowListUpdatePayload.allow_list_update)
@@ -104,6 +109,7 @@ class AllowListUpdateRound(CollectSameUntilThresholdRound):
                     get_name(
                         SynchronizedData.most_voted_tx_hash
                     ): self.most_voted_payload,
+                    get_name(SynchronizedData.tx_submitter): self.auto_round_id(),
                 }
             )
             return state, Event.DONE
@@ -115,12 +121,12 @@ class AllowListUpdateRound(CollectSameUntilThresholdRound):
         return None
 
 
-class FinishedTxPreparationRound(DegenerateRound):
-    """FinishedTxPreparationRound"""
+class FinishedAllowlistTxPreparationRound(DegenerateRound):
+    """FinishedAllowlistTxPreparationRound"""
 
 
-class FinishedWithoutTxRound(DegenerateRound):
-    """FinishedWithoutTxRound"""
+class FinishedWithoutAllowlistTxRound(DegenerateRound):
+    """FinishedWithoutAllowlistTxRound"""
 
 
 class LiquidityProvisionAbciApp(AbciApp[Event]):
@@ -130,16 +136,19 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
     initial_states: Set[AppState] = {AllowListUpdateRound}
     transition_function: AbciAppTransitionFunction = {
         AllowListUpdateRound: {
-            Event.DONE: FinishedTxPreparationRound,
-            Event.NO_ACTION: FinishedWithoutTxRound,
+            Event.DONE: FinishedAllowlistTxPreparationRound,
+            Event.NO_ACTION: FinishedWithoutAllowlistTxRound,
             Event.NO_MAJORITY: AllowListUpdateRound,
             Event.ROUND_TIMEOUT: AllowListUpdateRound,
             Event.ERROR: AllowListUpdateRound,
         },
-        FinishedWithoutTxRound: {},
-        FinishedTxPreparationRound: {},
+        FinishedWithoutAllowlistTxRound: {},
+        FinishedAllowlistTxPreparationRound: {},
     }
-    final_states: Set[AppState] = {FinishedWithoutTxRound, FinishedTxPreparationRound}
+    final_states: Set[AppState] = {
+        FinishedWithoutAllowlistTxRound,
+        FinishedAllowlistTxPreparationRound,
+    }
     event_to_timeout: EventToTimeout = {
         Event.ROUND_TIMEOUT: 30.0,
     }
@@ -150,8 +159,9 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
         ],
     }
     db_post_conditions: Dict[AppState, List[str]] = {
-        FinishedWithoutTxRound: [],
-        FinishedTxPreparationRound: [
+        FinishedWithoutAllowlistTxRound: [],
+        FinishedAllowlistTxPreparationRound: [
             get_name(SynchronizedData.most_voted_tx_hash),
+            get_name(SynchronizedData.tx_submitter),
         ],
     }
