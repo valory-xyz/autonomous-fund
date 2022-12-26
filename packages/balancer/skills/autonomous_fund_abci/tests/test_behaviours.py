@@ -19,10 +19,37 @@
 # pylint: skip-file
 
 """This package contains round behaviours of AutonomousFundAbciApp."""
+from pathlib import Path
+
+from _pytest.logging import LogCaptureFixture
+
 from packages.balancer.skills.autonomous_fund_abci.behaviours import (  # noqa
     AutonomousFundConsensusBehaviour,
+    PostTransactionSettlementBehaviour,
+    PostTransactionSettlementFullBehaviour,
+)
+from packages.balancer.skills.autonomous_fund_abci.multiplexer import SynchronizedData
+from packages.valory.skills.abstract_round_abci.base import AbciAppDB, get_name
+from packages.valory.skills.abstract_round_abci.test_tools.base import (
+    FSMBehaviourBaseCase,
 )
 
 
-def test_import() -> None:
-    """Test that the 'dialogues.py' of the FearAndGreedOracle can be imported."""
+class TestPostTransactionSettlementBehaviour(FSMBehaviourBaseCase):
+    """Tests PostTransactionSettlementBehaviour."""
+
+    behaviour: PostTransactionSettlementFullBehaviour  # type: ignore
+    path_to_skill = Path(__file__).parent.parent
+
+    def test_run(self, caplog: LogCaptureFixture) -> None:
+        """The behaviour should log when a tx is settled."""
+        data = {get_name(SynchronizedData.tx_submitter): "test"}
+        self.fast_forward_to_behaviour(
+            self.behaviour,
+            PostTransactionSettlementBehaviour.auto_behaviour_id(),
+            SynchronizedData(AbciAppDB(setup_data=AbciAppDB.data_to_lists(data))),
+        )
+        self.behaviour.act_wrapper()
+        assert (
+            "The transaction submitted by test was successfully settled." in caplog.text
+        )

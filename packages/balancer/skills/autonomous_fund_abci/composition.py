@@ -18,7 +18,9 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of AutonomousFundAbciApp."""
+import packages.balancer.skills.autonomous_fund_abci.multiplexer as TxMultiplexingAbci
 import packages.balancer.skills.fear_and_greed_oracle_abci.rounds as FearAndGreedAbci
+import packages.balancer.skills.liquidity_provision_abci.rounds as LiqudityProvisionAbci
 import packages.balancer.skills.pool_manager_abci.rounds as PoolManagerAbci
 import packages.valory.skills.registration_abci.rounds as RegistrationAbci
 import packages.valory.skills.reset_pause_abci.rounds as ResetAndPauseAbci
@@ -38,14 +40,18 @@ from packages.valory.skills.safe_deployment_abci.rounds import (
 # more information here: https://docs.autonolas.network/fsm_app_introduction/#composition-of-fsm-apps
 abci_app_transition_mapping: AbciAppTransitionMapping = {
     RegistrationAbci.FinishedRegistrationRound: SafeDeploymentAbci.RandomnessSafeRound,
-    RegistrationAbci.FinishedRegistrationFFWRound: FearAndGreedAbci.ObservationRound,
-    SafeDeploymentAbci.FinishedSafeRound: FearAndGreedAbci.ObservationRound,
+    RegistrationAbci.FinishedRegistrationFFWRound: LiqudityProvisionAbci.AllowListUpdateRound,
+    SafeDeploymentAbci.FinishedSafeRound: LiqudityProvisionAbci.AllowListUpdateRound,
     FearAndGreedAbci.FinishedDataCollectionRound: PoolManagerAbci.DecisionMakingRound,
     PoolManagerAbci.FinishedTxPreparationRound: TransactionSubmissionAbci.RandomnessTransactionSubmissionRound,
     PoolManagerAbci.FinishedWithoutTxRound: ResetAndPauseAbci.ResetAndPauseRound,
-    TransactionSubmissionAbci.FinishedTransactionSubmissionRound: ResetAndPauseAbci.ResetAndPauseRound,
+    LiqudityProvisionAbci.FinishedAllowlistTxPreparationRound: TransactionSubmissionAbci.RandomnessTransactionSubmissionRound,
+    LiqudityProvisionAbci.FinishedWithoutAllowlistTxRound: FearAndGreedAbci.ObservationRound,
+    TransactionSubmissionAbci.FinishedTransactionSubmissionRound: TxMultiplexingAbci.PostTransactionSettlementRound,
+    TxMultiplexingAbci.FinishedAllowlistUpdateRound: FearAndGreedAbci.ObservationRound,
+    TxMultiplexingAbci.FinishedWeightUpdateRound: ResetAndPauseAbci.ResetAndPauseRound,
     ResetAndPauseAbci.FinishedResetAndPauseRound: FearAndGreedAbci.ObservationRound,
-    TransactionSubmissionAbci.FailedRound: ResetAndPauseAbci.ResetAndPauseRound,
+    TransactionSubmissionAbci.FailedRound: LiqudityProvisionAbci.AllowListUpdateRound,
     ResetAndPauseAbci.FinishedResetAndPauseErrorRound: RegistrationAbci.RegistrationRound,
 }
 
@@ -65,8 +71,10 @@ AutonomousFundAbciApp = chain(
         SafeDeploymentAbci.SafeDeploymentAbciApp,
         FearAndGreedAbci.FearAndGreedOracleAbciApp,
         PoolManagerAbci.PoolManagerAbciApp,
+        TxMultiplexingAbci.TransactionSettlementAbciMultiplexer,
         TransactionSubmissionAbci.TransactionSubmissionAbciApp,
         ResetAndPauseAbci.ResetPauseAbciApp,
+        LiqudityProvisionAbci.LiquidityProvisionAbciApp,
     ),
     abci_app_transition_mapping,
 )
