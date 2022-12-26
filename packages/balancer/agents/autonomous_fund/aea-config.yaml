@@ -13,8 +13,8 @@ fingerprint:
   tests/helpers/docker.py: bafybeiarwqamtkyhucykx6qmlafuzvhvbdhiznoozvc3wgx7ccpv4it3jm
   tests/helpers/fixtures.py: bafybeiczpplahcqw7zxi76gnefs5jhnhdpxy4box53evmu6j75tw6assny
   tests/test_agents/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
-  tests/test_agents/base.py: bafybeif3oohsz3mbr7eaim6ajraikydzdqhbbpymdlshshj7hzxpdvzyha
-  tests/test_agents/test_autonomous_fund.py: bafybeihrugjrge6vk3z7rars6lpbjnaiosk34ybmurqgvsujqreikvyffi
+  tests/test_agents/base.py: bafybeiavpsnf5xop2vsykezimb7xb7dlblwil3doenylch6yg4cgmywpdm
+  tests/test_agents/test_autonomous_fund.py: bafybeif3q2xhuxi3xsvbvcl45znclrjxvyrwwifutq4uc7gyg2q5hrvuai
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua
   tests/test_contracts/test_managed_pool/test_contract.py: bafybeihgslla2gwanf4rnmzy7vqse2xpur2gndon6hk3ffxpuyljbifa6i
@@ -29,9 +29,10 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeic72pdshqxwafw6hboy6eddorrpqxqpxvw2dwvyy3kjk5dhajkxuq
+- balancer/autonomous_fund_abci:0.1.0:bafybeif2jrryeo7vmg4fkb323blnuodcl7iphajdvknw7kdnhk7xom5jsm
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/pool_manager_abci:0.1.0:bafybeidet4wa2dvx6gqqjx2au6mqfzmst36wmh66eidvuhtxfnueg6mfou
+- balancer/liquidity_provision_abci:0.1.0:bafybeiath6xaxgi7w5pjyzq7xxzsxc3owlozutwnfqli3ozgqzklx4form
+- balancer/pool_manager_abci:0.1.0:bafybeietwtbb6y26wculchmw6rm3jxvt6pypgeojb37uswexwgnpdxzr24
 - valory/abstract_abci:0.1.0:bafybeibqgoxd25itxyuauou6xybiwu3nxkhqwxklggvdwcg42b7expnflq
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
@@ -145,6 +146,9 @@ models:
       observation_aggregator_function: median
       observation_interval: 72000
       on_chain_service_id: null
+      allowed_lp_addresses: ${list:[]}
+      enforce_allowlist: ${bool:true}
+      multisend_address: ${str:"0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761"}
       pool_tokens: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_POOL_TOKENS:list:["0x3A78BF1783a0187c1C8000e41C2a008897D0a35f","0xC97b465daC9f52A26F2A234c658a57f5B3f15D19","0xfe46A8F577d3367848bdd127173B7d5F14a6088C"]}
       pool_weights:
         0:
