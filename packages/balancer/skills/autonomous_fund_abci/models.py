@@ -109,7 +109,6 @@ class SharedState(BaseSharedState):
 class Params(
     LiquidityProvisionParams,
     PoolManagerParams,
-    TransactionParams,
     FearAndGreedOracleParams,
     TerminationParams,
 ):

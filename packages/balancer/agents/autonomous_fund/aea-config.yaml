@@ -29,9 +29,9 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeidsbqk5wnppmicml7cewoh4j2sij43evcmqrwkckbktink7zfo5dm
+- balancer/autonomous_fund_abci:0.1.0:bafybeidrgvj6hgtc76wz2odf6adv6kstf6ofuhxmsdjriln6lnedids3ju
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
-- balancer/liquidity_provision_abci:0.1.0:bafybeiath6xaxgi7w5pjyzq7xxzsxc3owlozutwnfqli3ozgqzklx4form
+- balancer/liquidity_provision_abci:0.1.0:bafybeibdehytki7qu6q37bdtylm27pokz54ffigrv53n43dl4q5w7e4jb4
 - balancer/pool_manager_abci:0.1.0:bafybeib2u6dwfk6dj3yt4less2i5roe44w2dvdy5y2jpnznbhacjrrffey
 - valory/abstract_abci:0.1.0:bafybeibqgoxd25itxyuauou6xybiwu3nxkhqwxklggvdwcg42b7expnflq
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
