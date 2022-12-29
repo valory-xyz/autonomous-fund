@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeibfahh3htjez7vf7lwx2s7tth26cwxgtalgn5hj7yg7akhk67f4ny
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeihvgdnxpewcyuloiinzpsxrqkgxflrsw6tyzmrmjb7utw6ahgwzbu
+agent: balancer/autonomous_fund:0.1.0:bafybeibtmfdngen57a2ayygvsnhgcxwtrq5a6fojekcak2iofvagh3oib4
 number_of_agents: 1
 ---
 public_id: balancer/autonomous_fund_abci:0.1.0
@@ -22,6 +22,8 @@ models:
       allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x87cc0d34f6111c8A7A4Bdf758a9a715A3675f941"]}
       enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
       observation_interval: ${OBSERVATION_INTERVAL:int:600}
+      service_registry_address: 415121357655178209012117035068431686002096436682
+      on_chain_service_id: 2
       consensus:
         max_participants: 1
 ---

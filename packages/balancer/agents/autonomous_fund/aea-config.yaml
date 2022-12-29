@@ -146,7 +146,7 @@ models:
       min_index_value: 0
       observation_aggregator_function: median
       observation_interval: ${int:72000}
-      on_chain_service_id: ${int:0}
+      on_chain_service_id: ${int:2}
       allowed_lp_addresses: ${list:[]}
       enforce_allowlist: ${bool:true}
       multisend_address: ${str:0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761}
@@ -169,14 +169,14 @@ models:
       retry_timeout: 3
       round_timeout_seconds: 30.0
       service_id: pool_manager
-      service_registry_address: null
+      service_registry_address: ${str:0x48b6af7B12C71f09e2fC8aF4855De4Ff54e775cA}
       setup:
         safe_contract_address: ${list:["0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"]}
       sleep_time: 1
       tendermint_check_sleep_delay: 3
-      tendermint_com_url: ${str:http://localhost:8080}
+      tendermint_com_url: ${TENDERMINT_COM_URL:str:http://localhost:8080}
       tendermint_max_retries: 5
-      tendermint_url: ${str:http://localhost:26657}
+      tendermint_url: ${TENDERMINT_URL:str:http://localhost:26657}
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
