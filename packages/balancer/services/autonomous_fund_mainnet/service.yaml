@@ -16,11 +16,11 @@ models:
   params:
     args:
       setup:
-        safe_contract_address: ${SAFE_CONTRACT_ADDRESS:list:["0xD1A2679e3455a018d9e0D11edb873e7C5B5d831e"]}
-      pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
-      managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
-      allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:[]}
-      enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:false}
+        safe_contract_address: ${SAFE_CONTRACT_ADDRESS:list:["0x0000000000000000000000000000000000000000"]}
+      pool_tokens: ${POOL_TOKENS:list:["0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2","0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599","0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"]}
+      managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0x0000000000000000000000000000000000000000}
+      allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x87cc0d34f6111c8A7A4Bdf758a9a715A3675f941"]}
+      enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
       observation_interval: ${OBSERVATION_INTERVAL:int:600}
       consensus:
         max_participants: 1
