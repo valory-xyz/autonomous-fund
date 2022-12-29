@@ -144,12 +144,12 @@ models:
       max_index_value: 100
       min_index_value: 0
       observation_aggregator_function: median
-      observation_interval: 72000
-      on_chain_service_id: null
+      observation_interval: ${int:72000}
+      on_chain_service_id: ${int:0}
       allowed_lp_addresses: ${list:[]}
       enforce_allowlist: ${bool:true}
       multisend_address: ${str:0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761}
-      pool_tokens: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_POOL_TOKENS:list:["0x3A78BF1783a0187c1C8000e41C2a008897D0a35f","0xC97b465daC9f52A26F2A234c658a57f5B3f15D19","0xfe46A8F577d3367848bdd127173B7d5F14a6088C"]}
+      pool_tokens: ${list:["0x3A78BF1783a0187c1C8000e41C2a008897D0a35f","0xC97b465daC9f52A26F2A234c658a57f5B3f15D19","0xfe46A8F577d3367848bdd127173B7d5F14a6088C"]}
       pool_weights:
         0:
         - 60
@@ -170,13 +170,13 @@ models:
       service_id: pool_manager
       service_registry_address: null
       setup:
-        safe_contract_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_SETUP_SAFE_CONTRACT_ADDRESS:list:["0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"]}
+        safe_contract_address: ${list:["0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"]}
       sleep_time: 1
       tendermint_check_sleep_delay: 3
-      tendermint_com_url: ${TENDERMINT_COM_URL:str:http://localhost:8080}
+      tendermint_com_url: ${str:http://localhost:8080}
       tendermint_max_retries: 5
-      tendermint_url: ${TENDERMINT_URL:str:http://localhost:26657}
+      tendermint_url: ${str:http://localhost:26657}
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
-      managed_pool_address: ${SKILL_AUTONOMOUS_FUND_ABCI_MODELS_PARAMS_ARGS_MANAGED_POOL_ADDRESS:str:0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1}
+      managed_pool_address: ${str:0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1}
