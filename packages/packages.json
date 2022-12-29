@@ -7,7 +7,7 @@
         "contract/balancer/managed_pool_controller/0.1.0": "bafybeihzha5pmyqff5jovqhzgdomhiajwvfbvh7swgt64p62cwfywqybme",
         "contract/balancer/managed_pool/0.1.0": "bafybeiaxyultdqowr57mqp6aetepstwxzzz2vfnkp5uzfqgoebffabyi74",
         "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeibbjkjpgxcmqkq4u74uiwaw6zurutiguvohftc3iscwid2dapphvm",
-        "service/balancer/autonomous_fund_mainnet/0.1.0": "bafybeiffrlebexjpiee6xip4tcns5zhetagbn2y4rhco3get4pei4gyr6e",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeif7qf5vuu67t3mt3hh3qxllv3gnefrhcllrhplswko6zrrxch2h7a",
         "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeiath6xaxgi7w5pjyzq7xxzsxc3owlozutwnfqli3ozgqzklx4form"
     },
     "third_party": {
