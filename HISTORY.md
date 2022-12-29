@@ -14,6 +14,7 @@
 - Feat/chain lp abci by @0xArdi in https://github.com/valory-xyz/autonomous-fund/pull/67
 - chore: update service by @0xArdi in https://github.com/valory-xyz/autonomous-fund/pull/68
 - Feat/mainnet service by @0xArdi in https://github.com/valory-xyz/autonomous-fund/pull/69
+- Feat/add termination by @0xArdi in https://github.com/valory-xyz/autonomous-fund/pull/72
 
 ## v0.1.0.post3 (2022-11-24)
 - Utilizes the latest interface for the `ManagedPoolController` contract.
