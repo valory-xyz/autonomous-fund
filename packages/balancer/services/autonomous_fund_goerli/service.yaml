@@ -1,4 +1,4 @@
-name: autonomous_fund
+name: autonomous_fund_goerli
 author: balancer
 version: 0.1.0
 description: A set of agents implementing the Autonomous Fund.
