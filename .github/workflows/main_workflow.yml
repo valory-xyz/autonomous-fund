@@ -262,8 +262,7 @@ jobs:
 
   e2e-tests:
     continue-on-error: True
-    needs:
-      - test
+    needs: []
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

@@ -34,6 +34,9 @@ from packages.valory.skills.abstract_round_abci.base import get_name
 from packages.valory.skills.safe_deployment_abci.rounds import (
     SynchronizedData as SDSynchronizedData,
 )
+from packages.valory.skills.termination_abci.rounds import BackgroundRound
+from packages.valory.skills.termination_abci.rounds import Event as TerminationEvent
+from packages.valory.skills.termination_abci.rounds import TerminationAbciApp
 
 
 # here we define how the transition between the FSMs should happen
@@ -77,4 +80,8 @@ AutonomousFundAbciApp = chain(
         LiqudityProvisionAbci.LiquidityProvisionAbciApp,
     ),
     abci_app_transition_mapping,
+).add_termination(
+    background_round_cls=BackgroundRound,
+    termination_event=TerminationEvent.TERMINATE,
+    termination_abci_app=TerminationAbciApp,
 )

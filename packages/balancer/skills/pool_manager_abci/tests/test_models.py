@@ -16,16 +16,32 @@
 #   limitations under the License.
 #
 # ------------------------------------------------------------------------------
-
+# pylint: disable=no-self-use, too-few-public-methods, protected-access
 """Test the models.py module of the PoolManager."""
 
-from packages.balancer.skills.pool_manager_abci.models import SharedState
+from packages.balancer.skills.pool_manager_abci.models import Params, SharedState
 from packages.valory.skills.abstract_round_abci.test_tools.base import DummyContext
 
 
-class TestSharedState:  # pylint: disable=too-few-public-methods
+class TestSharedState:
     """Test SharedState of PoolManager."""
 
-    def test_initialization(self) -> None:  # pylint: disable=no-self-use
+    def test_initialization(self) -> None:
         """Test initialization."""
         SharedState(name="", skill_context=DummyContext())
+
+
+class TestParams:
+    """Test Params of PoolManager."""
+
+    def test_sort(self) -> None:
+        """Tests whether sort works as expected."""
+        tokens = ["c", "b", "a"]
+        weights = {0: [3, 2, 1], 1: [5, 6, 7]}
+
+        actual_tokens, actual_weights = Params._sort(tokens, weights)
+        expected_tokens = ["a", "b", "c"]
+        expected_weights = {0: [1, 2, 3], 1: [7, 6, 5]}
+
+        assert actual_tokens == expected_tokens
+        assert actual_weights == expected_weights
