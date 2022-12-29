@@ -165,6 +165,7 @@ models:
         - 30
         - 60
       reset_tendermint_after: 1
+      termination_sleep: 900
       retry_attempts: 400
       retry_timeout: 3
       round_timeout_seconds: 30.0
