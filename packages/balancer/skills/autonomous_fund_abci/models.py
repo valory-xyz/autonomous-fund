@@ -50,7 +50,6 @@ from packages.valory.skills.termination_abci.models import TerminationParams
 from packages.valory.skills.transaction_settlement_abci.models import (
     RandomnessApi as TransactionSettlementRandomness,
 )
-from packages.valory.skills.transaction_settlement_abci.models import TransactionParams
 from packages.valory.skills.transaction_settlement_abci.rounds import Event as TSEvent
 
 
