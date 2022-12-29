@@ -1,13 +1,12 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeievg5lnqh6u4akac34cbrx52wywlue4x5kegq5d5j2ttzv3d7hbua",
-        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeif2jrryeo7vmg4fkb323blnuodcl7iphajdvknw7kdnhk7xom5jsm",
-        "skill/balancer/pool_manager_abci/0.1.0": "bafybeietwtbb6y26wculchmw6rm3jxvt6pypgeojb37uswexwgnpdxzr24",
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeiaxxjorjnpqhbyuqh2adcn4y4vgdokdgbktsj6qavdn7nl352jmzm",
+        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeibhglcn6jjh7ijbcjt4es2w36e4tebtho53yvq5yhcxwyok7chrhy",
+        "skill/balancer/pool_manager_abci/0.1.0": "bafybeifat4k3xzyvkk5a7dkqjgojqm46ypkhdzw6gzzij2uytwzqztpwxq",
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u",
-        "contract/balancer/managed_pool_controller/0.1.0": "bafybeihzha5pmyqff5jovqhzgdomhiajwvfbvh7swgt64p62cwfywqybme",
         "contract/balancer/managed_pool/0.1.0": "bafybeiaxyultdqowr57mqp6aetepstwxzzz2vfnkp5uzfqgoebffabyi74",
-        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeibbjkjpgxcmqkq4u74uiwaw6zurutiguvohftc3iscwid2dapphvm",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeif7qf5vuu67t3mt3hh3qxllv3gnefrhcllrhplswko6zrrxch2h7a",
+        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeiedzfd4njl4aoodkfvy5bl3vdei67xizokzvu2wrznci3zhvbj34a",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeidc3mkzt36vynqhg5ajqlhjbwdpia3k2t27plctxaruauj7cnmlw4",
         "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeiath6xaxgi7w5pjyzq7xxzsxc3owlozutwnfqli3ozgqzklx4form"
     },
     "third_party": {
@@ -31,6 +30,7 @@
         "skill/valory/registration_abci/0.1.0": "bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi",
         "skill/valory/reset_pause_abci/0.1.0": "bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q",
         "skill/valory/safe_deployment_abci/0.1.0": "bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana",
-        "contract/valory/multisend/0.1.0": "bafybeiaveffaomsnmsc5hx62o77u7ilma6eipox7m5lrwa56737ektva3i"
+        "contract/valory/multisend/0.1.0": "bafybeiaveffaomsnmsc5hx62o77u7ilma6eipox7m5lrwa56737ektva3i",
+        "skill/valory/termination_abci/0.1.0": "bafybeictwhzizllmr4cd3jwxsmkhkspgwinipynoxdtfe4vwdeyov2zary"
     }
 }

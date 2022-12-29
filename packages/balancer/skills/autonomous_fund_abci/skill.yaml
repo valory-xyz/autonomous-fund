@@ -7,8 +7,8 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
-  behaviours.py: bafybeidfhj7drl56fpfq46x35tdwfytsemoyj5wcon64dtgltbbz7jsuja
-  composition.py: bafybeiceskwecbaiqww32m37shhmcfmae32bd5iptsfcrb32mghjj7tyje
+  behaviours.py: bafybeibtmmelyfqljnmolrgmuhlhys2zxlp7wr7hba2foiaw5y2cegiq2u
+  composition.py: bafybeigvgxml3rkdkcezucxumigfl3gpkeujqmdidookvjke7whtflllua
   dialogues.py: bafybeidlaxto7h652uthpw6ycewqmd44jckh2dztgr464bywieinuha7cm
   fsm_specification.yaml: bafybeiboshzst2uzhed66brouq6b5fn53r54ojz3r5a67tgze5andhnaim
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
@@ -27,11 +27,12 @@ protocols: []
 skills:
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
 - balancer/liquidity_provision_abci:0.1.0:bafybeiath6xaxgi7w5pjyzq7xxzsxc3owlozutwnfqli3ozgqzklx4form
-- balancer/pool_manager_abci:0.1.0:bafybeietwtbb6y26wculchmw6rm3jxvt6pypgeojb37uswexwgnpdxzr24
+- balancer/pool_manager_abci:0.1.0:bafybeifat4k3xzyvkk5a7dkqjgojqm46ypkhdzw6gzzij2uytwzqztpwxq
 - valory/abstract_round_abci:0.1.0:bafybeih7sibc3evofk3fnmfijavyp6hhkku7fg4l336qysqwlnhvjhsvlm
 - valory/registration_abci:0.1.0:bafybeibvuyylbaxqits6eskh5i3wrtyglr4l7gmahvcaqevphv7haj5mbi
 - valory/reset_pause_abci:0.1.0:bafybeibq5tl6xf4g22ojzzeglylbanu5nxfsf6s6g7uf3yubogpv3acc4q
 - valory/safe_deployment_abci:0.1.0:bafybeihm66nrj5fqg4r3cjyfitdbzs2r4yms5t66ior3nmqdtyd44iiana
+- valory/termination_abci:0.1.0:bafybeictwhzizllmr4cd3jwxsmkhkspgwinipynoxdtfe4vwdeyov2zary
 - valory/transaction_settlement_abci:0.1.0:bafybeibmivn3szn4iuim5dqrnilgiag2hf6oidqgjhnjxqaumru4aewlca
 behaviours:
   main:
