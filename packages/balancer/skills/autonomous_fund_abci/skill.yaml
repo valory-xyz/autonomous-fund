@@ -12,7 +12,7 @@ fingerprint:
   dialogues.py: bafybeidlaxto7h652uthpw6ycewqmd44jckh2dztgr464bywieinuha7cm
   fsm_specification.yaml: bafybeiboshzst2uzhed66brouq6b5fn53r54ojz3r5a67tgze5andhnaim
   handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
-  models.py: bafybeid2txqfusuhrqpz6l352l4sgcwmc4v3tqp6u4h2vkkjbrqa6ct75i
+  models.py: bafybeidg7he6s5tscctvqvkuhgbc7pzyrckdbbjg6o7aizfhtr7jqrll5i
   multiplexer.py: bafybeie2scbpddzzs3opvz5mlgq4ifx5crrozxwpr5urhl43upc6pz22n4
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
   tests/test_behaviours.py: bafybeidu2yaeu2y3eptualv3nnr7bfzmudgsnxtntfvoyeqf6y2f7f66du
@@ -150,6 +150,7 @@ models:
       tendermint_com_url: http://localhost:8080
       tendermint_max_retries: 5
       tendermint_url: http://localhost:26657
+      termination_sleep: 900
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
