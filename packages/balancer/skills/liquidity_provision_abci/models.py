@@ -58,7 +58,7 @@ class Params(BaseParams):
             "allowed_lp_addresses", kwargs
         )
         self.managed_pool_address: str = self._ensure_managed_pool_address(kwargs)
-        self.multisend_address: str = self._ensure("multisend_address", kwargs)
+        self.multisend_address: str = self._ensure_multisend_address(kwargs)
         super().__init__(*args, **kwargs)
 
     def _ensure_managed_pool_address(  # pylint: disable=no-self-use
@@ -71,3 +71,14 @@ class Params(BaseParams):
             "'managed_pool_address' is a required parameter",
         )
         return managed_pool_address
+
+    def _ensure_multisend_address(  # pylint: disable=no-self-use
+        self, kwargs: Dict
+    ) -> str:
+        """Ensure that the MultiSend address is available."""
+        multisend_address = kwargs.get("multisend_address", None)
+        enforce(
+            multisend_address is not None,
+            "'multisend_address' is a required parameter",
+        )
+        return multisend_address

@@ -1,0 +1,9 @@
+token_id-"component_id"
+34-"contract/balancer/managed_pool/0.1.0"
+35-"skill/balancer/fear_and_greed_oracle_abci/0.1.0"
+36-"skill/balancer/liquidity_provision_abci/0.1.0"
+37-"skill/balancer/pool_manager_abci/0.1.0"
+38-"skill/balancer/autonomous_fund_abci/0.1.0"
+---
+token_id-"agent_id"
+3-"agent/balancer/autonomous_fund/0.1.0"

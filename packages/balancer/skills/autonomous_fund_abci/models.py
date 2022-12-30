@@ -46,10 +46,10 @@ from packages.valory.skills.abstract_round_abci.models import (
 )
 from packages.valory.skills.reset_pause_abci.rounds import Event as ResetPauseEvent
 from packages.valory.skills.safe_deployment_abci.rounds import Event as SafeEvent
+from packages.valory.skills.termination_abci.models import TerminationParams
 from packages.valory.skills.transaction_settlement_abci.models import (
     RandomnessApi as TransactionSettlementRandomness,
 )
-from packages.valory.skills.transaction_settlement_abci.models import TransactionParams
 from packages.valory.skills.transaction_settlement_abci.rounds import Event as TSEvent
 
 
@@ -108,7 +108,7 @@ class SharedState(BaseSharedState):
 class Params(
     LiquidityProvisionParams,
     PoolManagerParams,
-    TransactionParams,
     FearAndGreedOracleParams,
+    TerminationParams,
 ):
     """A model to represent params for multiple abci apps."""
