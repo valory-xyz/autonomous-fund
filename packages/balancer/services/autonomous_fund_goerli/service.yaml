@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeicdyhjhou5zymkztgxubvtzwwrldmzbhophrmtkubnuoh7pbwpcsq
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeihhfoqilop4keycnapyqebdoubwdzackehuraofjznz3byfedhfhm
+agent: balancer/autonomous_fund:0.1.0:bafybeiccrjwpwlvpdcucadqlbwzpj6g7otvjo2aw7carfctqd6qdr2kray
 number_of_agents: 4
 ---
 public_id: balancer/autonomous_fund_abci:0.1.0
@@ -19,6 +19,7 @@ models:
         safe_contract_address: ${SAFE_CONTRACT_ADDRESS:list:["0xD1A2679e3455a018d9e0D11edb873e7C5B5d831e"]}
       pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
       managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
+      share_tm_config_on_startup: ${USE_ACN:bool:false}
       consensus:
         max_participants: 4
 ---

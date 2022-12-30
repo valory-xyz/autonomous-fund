@@ -29,7 +29,7 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeiambqptflge33eemdhis2whik67hjplfnqwieoa6wblzlaf7vuo44
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeibkwkrkiqdz3d67nyedih45p4aw6ii336s72ebemswsa643yozxdu
+- balancer/autonomous_fund_abci:0.1.0:bafybeihnd27toxis5nbhfmxy2y74kieifrs6cbz2pnph4guf4sfat7ma6i
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigwp2sg7llmhzddjqf2ixbpt6g3lsvlcvog2ruf2fk523d2nnjp4u
 - balancer/liquidity_provision_abci:0.1.0:bafybeibdehytki7qu6q37bdtylm27pokz54ffigrv53n43dl4q5w7e4jb4
 - balancer/pool_manager_abci:0.1.0:bafybeib2u6dwfk6dj3yt4less2i5roe44w2dvdy5y2jpnznbhacjrrffey
@@ -173,6 +173,7 @@ models:
       service_registry_address: ${str:0x48b6af7B12C71f09e2fC8aF4855De4Ff54e775cA}
       setup:
         safe_contract_address: ${list:["0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"]}
+      share_tm_config_on_startup: ${bool:false}
       sleep_time: 1
       tendermint_check_sleep_delay: 3
       tendermint_com_url: ${TENDERMINT_COM_URL:str:http://localhost:8080}

@@ -145,6 +145,7 @@ models:
       setup:
         safe_contract_address:
         - '0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1'
+      share_tm_config_on_startup: false
       sleep_time: 1
       tendermint_check_sleep_delay: 3
       tendermint_com_url: http://localhost:8080
