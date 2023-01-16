@@ -154,9 +154,7 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
     }
     cross_period_persisted_keys: List[str] = []
     db_pre_conditions: Dict[AppState, List[str]] = {
-        AllowListUpdateRound: [
-            get_name(SynchronizedData.safe_contract_address),
-        ],
+        AllowListUpdateRound: [],
     }
     db_post_conditions: Dict[AppState, List[str]] = {
         FinishedWithoutAllowlistTxRound: [],

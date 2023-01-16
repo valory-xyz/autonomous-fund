@@ -20,6 +20,7 @@
 """This package contains round behaviours of FearAndGreedOracleAbciApp."""
 import json
 import statistics
+from abc import ABC
 from typing import Callable, Dict, Generator, List, Set, Tuple, Type, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.models import Params
@@ -46,7 +47,7 @@ TIMESTAMP_KEY = "timestamp"
 VALUE_KEY = "value"
 
 
-class FearAndGreedOracleBaseBehaviour(BaseBehaviour):
+class FearAndGreedOracleBaseBehaviour(BaseBehaviour, ABC):
     """Base behaviour for the common apps' skill."""
 
     @property

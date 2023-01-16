@@ -3,11 +3,8 @@ alphabet_in:
 - CHECK_HISTORY
 - CHECK_LATE_ARRIVING_MESSAGE
 - CHECK_TIMEOUT
-- DEPLOY_TIMEOUT
 - DONE
 - ERROR
-- FAILED
-- FAST_FORWARD
 - FINALIZATION_FAILED
 - FINALIZE_TIMEOUT
 - INCORRECT_SERIALIZATION
@@ -34,25 +31,21 @@ states:
 - CheckTransactionHistoryRound
 - CollectSignatureRound
 - DecisionMakingRound
-- DeploySafeRound
 - EstimationRound
 - FinalizationRound
 - ObservationRound
 - OutlierDetectionRound
 - PostTransactionSettlementRound
-- RandomnessSafeRound
 - RandomnessTransactionSubmissionRound
 - RegistrationRound
 - RegistrationStartupRound
 - ResetAndPauseRound
 - ResetRound
-- SelectKeeperSafeRound
 - SelectKeeperTransactionSubmissionRoundA
 - SelectKeeperTransactionSubmissionRoundB
 - SelectKeeperTransactionSubmissionRoundBAfterTimeout
 - SynchronizeLateMessagesRound
 - UpdatePoolTxRound
-- ValidateSafeRound
 - ValidateTransactionRound
 transition_func:
     (AllowListUpdateRound, DONE): RandomnessTransactionSubmissionRound
@@ -79,9 +72,6 @@ transition_func:
     (DecisionMakingRound, NO_ACTION): ResetAndPauseRound
     (DecisionMakingRound, NO_MAJORITY): DecisionMakingRound
     (DecisionMakingRound, ROUND_TIMEOUT): DecisionMakingRound
-    (DeploySafeRound, DEPLOY_TIMEOUT): SelectKeeperSafeRound
-    (DeploySafeRound, DONE): ValidateSafeRound
-    (DeploySafeRound, FAILED): SelectKeeperSafeRound
     (EstimationRound, DONE): OutlierDetectionRound
     (EstimationRound, NO_ACTION): ObservationRound
     (EstimationRound, NO_MAJORITY): ObservationRound
@@ -101,25 +91,18 @@ transition_func:
     (OutlierDetectionRound, NO_MAJORITY): ObservationRound
     (PostTransactionSettlementRound, ALLOWLIST_UPDATE_DONE): ObservationRound
     (PostTransactionSettlementRound, WEIGHT_UPDATE_DONE): ResetAndPauseRound
-    (RandomnessSafeRound, DONE): SelectKeeperSafeRound
-    (RandomnessSafeRound, NO_MAJORITY): RandomnessSafeRound
-    (RandomnessSafeRound, ROUND_TIMEOUT): RandomnessSafeRound
     (RandomnessTransactionSubmissionRound, DONE): SelectKeeperTransactionSubmissionRoundA
     (RandomnessTransactionSubmissionRound, NO_MAJORITY): RandomnessTransactionSubmissionRound
     (RandomnessTransactionSubmissionRound, ROUND_TIMEOUT): RandomnessTransactionSubmissionRound
-    (RegistrationRound, DONE): AllowListUpdateRound
+    (RegistrationRound, DONE): ObservationRound
     (RegistrationRound, NO_MAJORITY): RegistrationRound
-    (RegistrationStartupRound, DONE): RandomnessSafeRound
-    (RegistrationStartupRound, FAST_FORWARD): AllowListUpdateRound
+    (RegistrationStartupRound, DONE): ObservationRound
     (ResetAndPauseRound, DONE): ObservationRound
     (ResetAndPauseRound, NO_MAJORITY): RegistrationRound
     (ResetAndPauseRound, RESET_AND_PAUSE_TIMEOUT): RegistrationRound
     (ResetRound, DONE): RandomnessTransactionSubmissionRound
     (ResetRound, NO_MAJORITY): AllowListUpdateRound
     (ResetRound, RESET_TIMEOUT): AllowListUpdateRound
-    (SelectKeeperSafeRound, DONE): DeploySafeRound
-    (SelectKeeperSafeRound, NO_MAJORITY): RandomnessSafeRound
-    (SelectKeeperSafeRound, ROUND_TIMEOUT): RandomnessSafeRound
     (SelectKeeperTransactionSubmissionRoundA, DONE): CollectSignatureRound
     (SelectKeeperTransactionSubmissionRoundA, INCORRECT_SERIALIZATION): AllowListUpdateRound
     (SelectKeeperTransactionSubmissionRoundA, NO_MAJORITY): ResetRound
@@ -143,11 +126,6 @@ transition_func:
     (UpdatePoolTxRound, NO_ACTION): UpdatePoolTxRound
     (UpdatePoolTxRound, NO_MAJORITY): UpdatePoolTxRound
     (UpdatePoolTxRound, ROUND_TIMEOUT): UpdatePoolTxRound
-    (ValidateSafeRound, DONE): AllowListUpdateRound
-    (ValidateSafeRound, NEGATIVE): RandomnessSafeRound
-    (ValidateSafeRound, NONE): RandomnessSafeRound
-    (ValidateSafeRound, NO_MAJORITY): RandomnessSafeRound
-    (ValidateSafeRound, VALIDATE_TIMEOUT): RandomnessSafeRound
     (ValidateTransactionRound, DONE): PostTransactionSettlementRound
     (ValidateTransactionRound, NEGATIVE): CheckTransactionHistoryRound
     (ValidateTransactionRound, NONE): SelectKeeperTransactionSubmissionRoundB

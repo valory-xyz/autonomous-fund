@@ -45,7 +45,6 @@ from packages.valory.skills.abstract_round_abci.models import (
     SharedState as BaseSharedState,
 )
 from packages.valory.skills.reset_pause_abci.rounds import Event as ResetPauseEvent
-from packages.valory.skills.safe_deployment_abci.rounds import Event as SafeEvent
 from packages.valory.skills.termination_abci.models import TerminationParams
 from packages.valory.skills.transaction_settlement_abci.models import (
     RandomnessApi as TransactionSettlementRandomness,
@@ -77,9 +76,6 @@ class SharedState(BaseSharedState):
             PoolManagerEvent.ROUND_TIMEOUT
         ] = self.context.params.round_timeout_seconds
         AutonomousFundAbciApp.event_to_timeout[
-            SafeEvent.ROUND_TIMEOUT
-        ] = self.context.params.round_timeout_seconds
-        AutonomousFundAbciApp.event_to_timeout[
             FearAndGreedOracleEvent.ROUND_TIMEOUT
         ] = self.context.params.round_timeout_seconds
         AutonomousFundAbciApp.event_to_timeout[
@@ -94,9 +90,6 @@ class SharedState(BaseSharedState):
         AutonomousFundAbciApp.event_to_timeout[
             ResetPauseEvent.RESET_AND_PAUSE_TIMEOUT
         ] = (self.context.params.observation_interval + MARGIN)
-        AutonomousFundAbciApp.event_to_timeout[
-            SafeEvent.VALIDATE_TIMEOUT
-        ] = self.context.params.validate_timeout
         AutonomousFundAbciApp.event_to_timeout[
             TSEvent.VALIDATE_TIMEOUT
         ] = self.context.params.validate_timeout

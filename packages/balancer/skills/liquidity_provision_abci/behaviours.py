@@ -18,7 +18,7 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of LiquidityProvisionAbciApp."""
-
+from abc import ABC
 from typing import Any, Dict, Generator, List, Optional, Set, Type, cast
 
 from hexbytes import HexBytes
@@ -59,7 +59,7 @@ SAFE_GAS = 0
 ETHER_VALUE = 0
 
 
-class LiquidityProvisionBaseBehaviour(BaseBehaviour):
+class LiquidityProvisionBaseBehaviour(BaseBehaviour, ABC):
     """Base behaviour for the common apps' skill."""
 
     @property

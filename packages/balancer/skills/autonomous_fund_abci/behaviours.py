@@ -18,6 +18,7 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of AutonomousFundAbciApp."""
+from abc import ABC
 from typing import Generator, Set, Type, cast
 
 from packages.balancer.skills.autonomous_fund_abci.composition import (
@@ -48,9 +49,6 @@ from packages.valory.skills.registration_abci.behaviours import (
 from packages.valory.skills.reset_pause_abci.behaviours import (
     ResetPauseABCIConsensusBehaviour,
 )
-from packages.valory.skills.safe_deployment_abci.behaviours import (
-    SafeDeploymentRoundBehaviour,
-)
 from packages.valory.skills.termination_abci.behaviours import (
     BackgroundBehaviour,
     TerminationAbciBehaviours,
@@ -60,7 +58,7 @@ from packages.valory.skills.transaction_settlement_abci.behaviours import (
 )
 
 
-class PostTransactionSettlementBehaviour(BaseBehaviour):
+class PostTransactionSettlementBehaviour(BaseBehaviour, ABC):
     """
     The post transaction settlement behaviour.
 
@@ -103,7 +101,6 @@ class AutonomousFundConsensusBehaviour(AbstractRoundBehaviour):
         *FearAndGreedOracleRoundBehaviour.behaviours,
         *PoolManagerRoundBehaviour.behaviours,
         *AgentRegistrationRoundBehaviour.behaviours,
-        *SafeDeploymentRoundBehaviour.behaviours,
         *TransactionSettlementRoundBehaviour.behaviours,
         *ResetPauseABCIConsensusBehaviour.behaviours,
         *TerminationAbciBehaviours.behaviours,

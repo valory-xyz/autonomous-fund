@@ -38,7 +38,6 @@ from packages.valory.skills.abstract_round_abci.test_tools.base import (
 class TestPostTransactionSettlementBehaviour(FSMBehaviourBaseCase):
     """Tests PostTransactionSettlementBehaviour."""
 
-    behaviour: PostTransactionSettlementFullBehaviour  # type: ignore
     path_to_skill = Path(__file__).parent.parent
 
     def test_run(self, caplog: LogCaptureFixture) -> None:

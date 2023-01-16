@@ -348,7 +348,7 @@ class TestOutlierDetectionBehaviour(BaseFearAndGreedOracleTest):
                 initial_data=dict(most_voted_estimates=json.dumps(_normal_estimates)),
                 event=Event.DONE,
                 next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                    FinishedDataCollectionRound.auto_round_id()
+                    FinishedDataCollectionRound
                 ),  # noqa
             ),
             BehaviourTestCase(

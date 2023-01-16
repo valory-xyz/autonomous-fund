@@ -19,6 +19,7 @@
 
 """This package contains round behaviours of PoolManagerAbciApp."""
 import json
+from abc import ABC
 from typing import Any, Dict, Generator, List, Optional, Set, Tuple, Type, cast
 
 from packages.balancer.contracts.managed_pool.contract import ManagedPoolContract
@@ -51,7 +52,7 @@ from packages.valory.skills.transaction_settlement_abci.payload_tools import (
 SAFE_GAS = 0
 
 
-class PoolManagerBaseBehaviour(BaseBehaviour):
+class PoolManagerBaseBehaviour(BaseBehaviour, ABC):
     """Base behaviour for the common apps' skill."""
 
     @property

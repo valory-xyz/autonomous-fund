@@ -115,7 +115,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
 
     behaviour_class: Type[BaseBehaviour] = AllowListUpdateBehaviour  # type: ignore
     next_behaviour_class: Type[BaseBehaviour] = make_degenerate_behaviour(  # type: ignore
-        FinishedAllowlistTxPreparationRound.auto_round_id()
+        FinishedAllowlistTxPreparationRound
     )
 
     _MOCK_TX_RESPONSE = b"0xIrrelevantForTests".hex()
