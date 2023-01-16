@@ -17,7 +17,7 @@ fingerprint:
   tests/test_agents/test_autonomous_fund.py: bafybeif3q2xhuxi3xsvbvcl45znclrjxvyrwwifutq4uc7gyg2q5hrvuai
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua
-  tests/test_contracts/test_managed_pool/test_contract.py: bafybeignxg3n4es7yiozttnk7hp744qdaezokk3bi3tozquzaafeigh5ay
+  tests/test_contracts/test_managed_pool/test_contract.py: bafybeidpicr2wskkl65w43p5vowxn2kjnvhjziqdlr4pypqtuczhp3vmse
 fingerprint_ignore_patterns: []
 connections:
 - valory/abci:0.1.0:bafybeifln72jkbha5xtkafjj4swrwrktck4ziwk6j7plmzecskhlyamgu4
@@ -29,10 +29,10 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeihgwrowgtegpe4ixe3iy5jx65u7pxebl5btrkywzmx7g52gjtbnpi
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeih46edk7npfcevjqtg3i5prx3t7fbi2dfyijvo4nvazmyt2jpf7ee
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihsppz4y3zjegjolulilci5ppwxbwomjfwopiakc3h6zx5ai4e4rq
-- balancer/liquidity_provision_abci:0.1.0:bafybeigbqatgq2qmacq7rdcwq2a3v6oufbe3g4rpjb7fspgxui7daa7nd4
-- balancer/pool_manager_abci:0.1.0:bafybeiglopi64j6uxgrjc46ovtcbko4lf3doulfzhzvrdsk6ob34wpag3q
+- balancer/autonomous_fund_abci:0.1.0:bafybeigjuapypqfdruatwoltwknr7fius67l6sj7omktyjtom56carf3tm
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicfkpw2hgcjq5ktqvvbw4rgdgjgjwvoua7pluo3qbueogdcfyshqy
+- balancer/liquidity_provision_abci:0.1.0:bafybeigtjbzey63xy3w4de2ie43hew47xjqe33nbk472dyplb667d6sqgi
+- balancer/pool_manager_abci:0.1.0:bafybeia4c7fvq3tkjxffquhhjyngzxxqkzfadatml5xsqsrbwu4mgu7coq
 - valory/abstract_abci:0.1.0:bafybeieeqbasxxghxaj7xffnto7ybegom2kl4y544cskysowmjcjd3szhe
 - valory/abstract_round_abci:0.1.0:bafybeibfemo6nqd5itfd2damllya56qi4jrtythwcsb7wyt55qtxtsuu3u
 - valory/registration_abci:0.1.0:bafybeih6tbs4mt6x7g642kwhthxxs3qxpzsh4cy7uavrk4att3mqul6hhu
