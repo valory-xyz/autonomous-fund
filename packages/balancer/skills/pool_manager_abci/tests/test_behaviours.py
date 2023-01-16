@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -194,7 +194,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedWithoutTxRound.auto_round_id()
+                        FinishedWithoutTxRound
                     ),  # noqa
                 ),
                 {
@@ -213,7 +213,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedWithoutTxRound.auto_round_id()
+                        FinishedWithoutTxRound
                     ),  # noqa
                 ),
                 {
@@ -232,7 +232,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedWithoutTxRound.auto_round_id()
+                        FinishedWithoutTxRound
                     ),  # noqa
                 ),
                 {
@@ -279,7 +279,7 @@ class TestDecisionMakingBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.NO_ACTION,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedWithoutTxRound.auto_round_id()
+                        FinishedWithoutTxRound
                     ),
                 ),
                 {
@@ -383,7 +383,7 @@ class TestUpdatePoolTxBehaviour(BasePoolManagerTest):
                     ),
                     event=Event.DONE,
                     next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                        FinishedTxPreparationRound.auto_round_id()
+                        FinishedTxPreparationRound
                     ),  # noqa
                 ),
                 {

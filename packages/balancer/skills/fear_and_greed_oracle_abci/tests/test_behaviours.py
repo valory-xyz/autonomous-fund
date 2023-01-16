@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -348,7 +348,7 @@ class TestOutlierDetectionBehaviour(BaseFearAndGreedOracleTest):
                 initial_data=dict(most_voted_estimates=json.dumps(_normal_estimates)),
                 event=Event.DONE,
                 next_behaviour_class=make_degenerate_behaviour(  # type: ignore
-                    FinishedDataCollectionRound.auto_round_id()
+                    FinishedDataCollectionRound
                 ),  # noqa
             ),
             BehaviourTestCase(

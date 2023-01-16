@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -54,13 +54,15 @@ class BaseManagedPoolContractContractTest(
     private_key_path: str
     USE_SAFE_CONTRACTS = False
 
-    def setup_class(self) -> None:
+    @classmethod
+    def setup_class(cls) -> None:
         """Setup the test."""
+        super().setup_class()
         _, pk = ACCOUNTS[0]
         fd, path = tempfile.mkstemp()
         with os.fdopen(fd, "w") as tmp:
             tmp.write(pk)
-        self.private_key_path = path
+        cls.private_key_path = path
 
     @classmethod
     def finish_contract_deployment(cls) -> str:

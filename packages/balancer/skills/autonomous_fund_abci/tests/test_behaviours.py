@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ from packages.valory.skills.abstract_round_abci.test_tools.base import (
 class TestPostTransactionSettlementBehaviour(FSMBehaviourBaseCase):
     """Tests PostTransactionSettlementBehaviour."""
 
-    behaviour: PostTransactionSettlementFullBehaviour  # type: ignore
     path_to_skill = Path(__file__).parent.parent
 
     def test_run(self, caplog: LogCaptureFixture) -> None:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 # ------------------------------------------------------------------------------
 
 """This package contains round behaviours of LiquidityProvisionAbciApp."""
-
+from abc import ABC
 from typing import Any, Dict, Generator, List, Optional, Set, Type, cast
 
 from hexbytes import HexBytes
@@ -59,7 +59,7 @@ SAFE_GAS = 0
 ETHER_VALUE = 0
 
 
-class LiquidityProvisionBaseBehaviour(BaseBehaviour):
+class LiquidityProvisionBaseBehaviour(BaseBehaviour, ABC):
     """Base behaviour for the common apps' skill."""
 
     @property

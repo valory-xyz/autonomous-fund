@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -24,15 +24,10 @@ import packages.balancer.skills.liquidity_provision_abci.rounds as LiqudityProvi
 import packages.balancer.skills.pool_manager_abci.rounds as PoolManagerAbci
 import packages.valory.skills.registration_abci.rounds as RegistrationAbci
 import packages.valory.skills.reset_pause_abci.rounds as ResetAndPauseAbci
-import packages.valory.skills.safe_deployment_abci.rounds as SafeDeploymentAbci
 import packages.valory.skills.transaction_settlement_abci.rounds as TransactionSubmissionAbci
 from packages.valory.skills.abstract_round_abci.abci_app_chain import (
     AbciAppTransitionMapping,
     chain,
-)
-from packages.valory.skills.abstract_round_abci.base import get_name
-from packages.valory.skills.safe_deployment_abci.rounds import (
-    SynchronizedData as SDSynchronizedData,
 )
 from packages.valory.skills.termination_abci.rounds import BackgroundRound
 from packages.valory.skills.termination_abci.rounds import Event as TerminationEvent
@@ -42,9 +37,7 @@ from packages.valory.skills.termination_abci.rounds import TerminationAbciApp
 # here we define how the transition between the FSMs should happen
 # more information here: https://docs.autonolas.network/fsm_app_introduction/#composition-of-fsm-apps
 abci_app_transition_mapping: AbciAppTransitionMapping = {
-    RegistrationAbci.FinishedRegistrationRound: SafeDeploymentAbci.RandomnessSafeRound,
-    RegistrationAbci.FinishedRegistrationFFWRound: LiqudityProvisionAbci.AllowListUpdateRound,
-    SafeDeploymentAbci.FinishedSafeRound: LiqudityProvisionAbci.AllowListUpdateRound,
+    RegistrationAbci.FinishedRegistrationRound: LiqudityProvisionAbci.AllowListUpdateRound,
     FearAndGreedAbci.FinishedDataCollectionRound: PoolManagerAbci.DecisionMakingRound,
     PoolManagerAbci.FinishedTxPreparationRound: TransactionSubmissionAbci.RandomnessTransactionSubmissionRound,
     PoolManagerAbci.FinishedWithoutTxRound: ResetAndPauseAbci.ResetAndPauseRound,
@@ -59,19 +52,9 @@ abci_app_transition_mapping: AbciAppTransitionMapping = {
 }
 
 
-RegistrationAbci.AgentRegistrationAbciApp.db_post_conditions[
-    RegistrationAbci.FinishedRegistrationFFWRound
-].extend(
-    [
-        get_name(SDSynchronizedData.safe_contract_address),
-    ]
-)
-
-
 AutonomousFundAbciApp = chain(
     (
         RegistrationAbci.AgentRegistrationAbciApp,
-        SafeDeploymentAbci.SafeDeploymentAbciApp,
         FearAndGreedAbci.FearAndGreedOracleAbciApp,
         PoolManagerAbci.PoolManagerAbciApp,
         TxMultiplexingAbci.TransactionSettlementAbciMultiplexer,
