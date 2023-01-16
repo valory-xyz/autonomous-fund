@@ -27,7 +27,7 @@ protocols: []
 skills:
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicfkpw2hgcjq5ktqvvbw4rgdgjgjwvoua7pluo3qbueogdcfyshqy
 - balancer/liquidity_provision_abci:0.1.0:bafybeigtjbzey63xy3w4de2ie43hew47xjqe33nbk472dyplb667d6sqgi
-- balancer/pool_manager_abci:0.1.0:bafybeia4c7fvq3tkjxffquhhjyngzxxqkzfadatml5xsqsrbwu4mgu7coq
+- balancer/pool_manager_abci:0.1.0:bafybeic5th3pkla3dyun745rl35amqtrxbxtrfrqikoegmdg4ltzkytyk4
 - valory/abstract_round_abci:0.1.0:bafybeibfemo6nqd5itfd2damllya56qi4jrtythwcsb7wyt55qtxtsuu3u
 - valory/registration_abci:0.1.0:bafybeih6tbs4mt6x7g642kwhthxxs3qxpzsh4cy7uavrk4att3mqul6hhu
 - valory/reset_pause_abci:0.1.0:bafybeihjsv2mkwrf55wtmawn7kjylm75thg7jjp7y4bfnezrkr3hu7jytu

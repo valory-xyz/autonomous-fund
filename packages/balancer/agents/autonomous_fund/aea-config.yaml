@@ -29,10 +29,10 @@ contracts:
 protocols:
 - open_aea/signing:1.0.0:bafybeihgwrowgtegpe4ixe3iy5jx65u7pxebl5btrkywzmx7g52gjtbnpi
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeigjuapypqfdruatwoltwknr7fius67l6sj7omktyjtom56carf3tm
+- balancer/autonomous_fund_abci:0.1.0:bafybeidu5w2zvxjlkbvq6khkxwc67uad2dmxiggo3eijieivrpkp6qavrq
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicfkpw2hgcjq5ktqvvbw4rgdgjgjwvoua7pluo3qbueogdcfyshqy
 - balancer/liquidity_provision_abci:0.1.0:bafybeigtjbzey63xy3w4de2ie43hew47xjqe33nbk472dyplb667d6sqgi
-- balancer/pool_manager_abci:0.1.0:bafybeia4c7fvq3tkjxffquhhjyngzxxqkzfadatml5xsqsrbwu4mgu7coq
+- balancer/pool_manager_abci:0.1.0:bafybeic5th3pkla3dyun745rl35amqtrxbxtrfrqikoegmdg4ltzkytyk4
 - valory/abstract_abci:0.1.0:bafybeieeqbasxxghxaj7xffnto7ybegom2kl4y544cskysowmjcjd3szhe
 - valory/abstract_round_abci:0.1.0:bafybeibfemo6nqd5itfd2damllya56qi4jrtythwcsb7wyt55qtxtsuu3u
 - valory/registration_abci:0.1.0:bafybeih6tbs4mt6x7g642kwhthxxs3qxpzsh4cy7uavrk4att3mqul6hhu
