@@ -1,6 +1,6 @@
-site_name: product/smart-managed-pools #Required format to work with monorepo including a specific route in the address.
-site_url: https://docs.autonolas.network/product/smart-managed-pools/
-site_description: Developer documentation of Autonolas Smart Managed Pools.
+site_name: product/smpkit #Required format to work with monorepo including a specific route in the address.
+site_url: https://docs.autonolas.network/product/smpkit/
+site_description: Autonolas SMPKit developer documentation
 repo_url: https://github.com/valory-xyz/autonomous-fund
 site_author: developer@valory.xyz
 edit_uri: ""
@@ -29,7 +29,7 @@ extra_css:
  
 
 nav:
-  - Smart Managed Pools: 'index.md' 
+  - SMPKit: 'index.md' 
 
   
 plugins:
