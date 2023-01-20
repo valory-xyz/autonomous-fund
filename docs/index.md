@@ -9,8 +9,7 @@ The SMPKit helps you build services that execute investment strategies on liquid
 
 !!! warning "Important"
 
-	This section is currently being reviewed. You might encounter some difficulty when executing some steps in the tutorial.
-	We are working to update it soon.
+	This section is under active development - please report issues in the [Autonolas Discord](https://discord.com/invite/z2PT65jKqQ).
 
 Once you have {{set_up_system}} to work with the Open Autonomy framework, you can run a local demo based on the SMPKit as follows:
 
