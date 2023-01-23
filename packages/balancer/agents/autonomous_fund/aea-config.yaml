@@ -14,7 +14,7 @@ fingerprint:
   tests/helpers/fixtures.py: bafybeiczpplahcqw7zxi76gnefs5jhnhdpxy4box53evmu6j75tw6assny
   tests/test_agents/__init__.py: bafybeicmv3jjcqcdnmubfmrgdgeyic3nkm77z4mutsyuo34hpddwupofre
   tests/test_agents/base.py: bafybeiavpsnf5xop2vsykezimb7xb7dlblwil3doenylch6yg4cgmywpdm
-  tests/test_agents/test_autonomous_fund.py: bafybeidodonp6zubxka5xskyfujndgziqgqu6ovsqebvu3zvwxqbbe7hie
+  tests/test_agents/test_autonomous_fund.py: bafybeicelrosnwkddqnxe57gz34y4wsr3z65w5jruhd7ltek6awi2wduim
   tests/test_contracts/__init__.py: bafybeiel4den34ewkgjdlze2gdw5veayz3xtnnii4tfznjltpq33nsssda
   tests/test_contracts/test_managed_pool/__init__.py: bafybeifhiypqvnv2bzljfl6yog7ccuctvaesooat5qszpjctmk67tw4dua
   tests/test_contracts/test_managed_pool/test_contract.py: bafybeidpicr2wskkl65w43p5vowxn2kjnvhjziqdlr4pypqtuczhp3vmse
@@ -31,10 +31,10 @@ protocols:
 - open_aea/signing:1.0.0:bafybeiclsbgrviyxbmi2vex5ze3dhr7ywohrqedebx26jozayxvroqtegq
 - valory/ipfs:0.1.0:bafybeigknxxwh2xts7ijbacils4a4cgq7jhcdvwahshbw22zw5hnncsfla
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeid3ifhpinp4ahvehyb7sauyvkryfpal3ozzyykawj4a3ukpnm4cxa
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeifj7qkn2ptoj4o5r2q2beujnlcurcursajzg6eg64tgx4cdegjsse
-- balancer/liquidity_provision_abci:0.1.0:bafybeicr6r7xilj5pgsn4fgz2c2xatyu7vrmttii7vpjgnzct2hkakpq4i
-- balancer/pool_manager_abci:0.1.0:bafybeigkwnoulw5trit5pp6ezzm6uwvltcubw6euu7eq5wigtesiq32rku
+- balancer/autonomous_fund_abci:0.1.0:bafybeihdq2coczqvizfqscrt7cttfxgy6fnn2goxhzav3kwywefo7tmwzi
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeige5hovjcrpkmemnm5ivn3c6szq2gduf5w2dsf7nfkmrjkibmtzpa
+- balancer/liquidity_provision_abci:0.1.0:bafybeibvvcu4oxmx7qmnf2gu6jvnrc2jpkkw3nam7wae5lld3rzwofgp7i
+- balancer/pool_manager_abci:0.1.0:bafybeifkvc22akqqrzdgyhrmvtikcfkpersahcoq7qn6u3icfakehjvm5u
 - valory/abstract_abci:0.1.0:bafybeidwizzka3qjotu35zzstoqunp3hjhkx6oojqnlwqsvd3qnjjpmusq
 - valory/abstract_round_abci:0.1.0:bafybeicvbxixjsu3bgjk5frqz5mq2kmv44grwd6324viz4tehw3yejfhji
 - valory/registration_abci:0.1.0:bafybeihai2otcmnb2w7k64bnwf5qagfexg5gqow74xhj3wynikgdxre3ka

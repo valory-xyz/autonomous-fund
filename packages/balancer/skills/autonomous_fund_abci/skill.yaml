@@ -9,25 +9,25 @@ fingerprint:
   __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
   behaviours.py: bafybeibmt2g4n2wj6g4psox56cl4pzpqn7upzrjbftrni6favx5xarghny
   composition.py: bafybeiel35h4qptnm6mqxc2vh2hjkhfqhbtcjg65ofa6qvjw3mb4mthxyq
-  dialogues.py: bafybeiafevxza7s53g7habumv4azpkn2zzcdsm2d442ssgjnzjva2gzphq
+  dialogues.py: bafybeiffd2prpsv5uk4xxr2qixgpbgy2flonh2etz2fdtnojj2mrey4qty
   fsm_specification.yaml: bafybeigkd3uubeonwoqw2hxirdri3gx7guxtuwbxtnlzfta2q4stf6y63q
-  handlers.py: bafybeigamxr7uezx2yultnn6ysntqqss7tbp7r2y2xtzdxligx4rm2bzki
+  handlers.py: bafybeiaoly6idnbtzohmd4f3krxnk3owu3hsuvyxznio3rutegi553p2ba
   models.py: bafybeiamzkqyndhezvy7w4ubf5ejsw7czig3w4rac7dzwjgkv5sxa2ofiu
-  multiplexer.py: bafybeihwohm7dit6ng2nfojrise7oosbykbt57yrs7ezf2be6rmqzsft5e
+  multiplexer.py: bafybeicowfay3roxfu4lub7tb4v44vp4gmzti4sr22rtu5flkrynr7klje
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
   tests/test_behaviours.py: bafybeiarfju5yyl32jgz5v3oznjupvwwqrqr4cuiilu2bszdd76du5t5uy
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
   tests/test_handlers.py: bafybeieuhhzq67glblqzeos634w3c3rqgl2tqy3clctpwzvr7cedlzu7tq
-  tests/test_models.py: bafybeiguojcdrzthltvypnuwa7cbd7u3j2icdzffdgwiipljykfjht5nhi
+  tests/test_models.py: bafybeicrunh3ninsmis7eejbxauvqfxr4dlnu6zlyof462qjefjx37apvm
   tests/test_multiplexer.py: bafybeibfcjzaf6roh7d5whkeg7tqgeysvcj2pty4ifyqzlj2bb5qkxbq3a
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeifj7qkn2ptoj4o5r2q2beujnlcurcursajzg6eg64tgx4cdegjsse
-- balancer/liquidity_provision_abci:0.1.0:bafybeicr6r7xilj5pgsn4fgz2c2xatyu7vrmttii7vpjgnzct2hkakpq4i
-- balancer/pool_manager_abci:0.1.0:bafybeigkwnoulw5trit5pp6ezzm6uwvltcubw6euu7eq5wigtesiq32rku
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeige5hovjcrpkmemnm5ivn3c6szq2gduf5w2dsf7nfkmrjkibmtzpa
+- balancer/liquidity_provision_abci:0.1.0:bafybeibvvcu4oxmx7qmnf2gu6jvnrc2jpkkw3nam7wae5lld3rzwofgp7i
+- balancer/pool_manager_abci:0.1.0:bafybeifkvc22akqqrzdgyhrmvtikcfkpersahcoq7qn6u3icfakehjvm5u
 - valory/abstract_round_abci:0.1.0:bafybeicvbxixjsu3bgjk5frqz5mq2kmv44grwd6324viz4tehw3yejfhji
 - valory/registration_abci:0.1.0:bafybeihai2otcmnb2w7k64bnwf5qagfexg5gqow74xhj3wynikgdxre3ka
 - valory/reset_pause_abci:0.1.0:bafybeifs6zpg5nbvuapmxafzo6fdhoz5ebpiujetvk243apo3iwl2rn45i

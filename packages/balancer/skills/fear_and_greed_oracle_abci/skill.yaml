@@ -8,19 +8,19 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeibbvllj3mw4xbmnpbhat6hngbmdijpbxe464ekrg5kkhzbyoa4exe
   behaviours.py: bafybeifmtv2meees5gjscw3j675jueyvrz2khl4nyrbuyg4tmepjiitzve
-  dialogues.py: bafybeiafevxza7s53g7habumv4azpkn2zzcdsm2d442ssgjnzjva2gzphq
+  dialogues.py: bafybeiffd2prpsv5uk4xxr2qixgpbgy2flonh2etz2fdtnojj2mrey4qty
   fsm_specification.yaml: bafybeie4a2veb7scm7upgydyq2xroie3uj7ikbkiagc56y2eilmoiwqohm
-  handlers.py: bafybeibfnd3c7uaeizghkdcisi2aio274aibd2d4vkz7qghckac4blv56q
-  models.py: bafybeigrs2k54hn7fn6wkibkhsbvc75ylucu6crntb3ksd5rmdtantxmx4
+  handlers.py: bafybeia3xdhc2ffeqlk6n2krffvxvb6x2kq2eb2xzdazyqwamyzcluwrxa
+  models.py: bafybeidrnegnyxcooxqlbi4g5yly35z65ymify7obuse4k4rtlv2qtf2z4
   my_model.py: bafybeiaqfta55w3ygvyrk7g2wmb3xvlpmpvmq5wbsyqav3pwk46cgfp34u
-  payloads.py: bafybeiegdhug6zofur2t7rclp3wncqpd4o3l6mbxgb5lpcl36l4qrelnuu
-  rounds.py: bafybeicirzs7f4uxh4kjkgkgjol2frvxloqfkookhtlygmlqziiwkw562e
+  payloads.py: bafybeihxbhluzghfaub245lcwo4lqtnbuqat2md7ewkujaptedredhiz2i
+  rounds.py: bafybeihmtfc7xiiyku7bdqmtpvl3kzgzmmtiwxh52sfyir3bs5m6bpfgpq
   tests/__init__.py: bafybeibox6bth5oqs3d2vpk3i5pxjbtqyiig764x74n6gh5valxouhk4ia
   tests/test_behaviours.py: bafybeidedlh5guarksz4lmp3dlpnvnk37jfo5vs3m636p4mmuh673qajhe
   tests/test_dialogues.py: bafybeigodg2pya2k7qloexrryvfwnmwqbb7if2y7q5evk7slhzxf62byvy
   tests/test_handlers.py: bafybeidjm4oko5gv4rzrfp2mztiwa6jagqqyz7wltttx43tv6lulthwz24
-  tests/test_models.py: bafybeidnnrfc36hfyjsn32h5zf2dq3ykzh5gtxh4b2ofga7o24fb6irxze
-  tests/test_payloads.py: bafybeiddrdifjryeo33qnocnbemblzcijcqn2t5bv4sozihu7qlzqnvqfe
+  tests/test_models.py: bafybeihapz44ildjxq36dy2zktz4j6nqgea32fpech2nkvygmovxvxqhvq
+  tests/test_payloads.py: bafybeibwufnhyzsyhaya5ceoqsziascn4jbdwapssuj6gvhjsqzvftqzbu
   tests/test_rounds.py: bafybeihnro7dq6bpxwug37wcp2be42dwtggerlyj4qv6qfbu2rnta2mjke
 fingerprint_ignore_patterns: []
 connections: []

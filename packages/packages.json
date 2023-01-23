@@ -1,13 +1,13 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeidbrovltbji3t5efxkl7hxwwjtln66tvlq7bbj3zeecwocghoisiu",
-        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeid3ifhpinp4ahvehyb7sauyvkryfpal3ozzyykawj4a3ukpnm4cxa",
-        "skill/balancer/pool_manager_abci/0.1.0": "bafybeigkwnoulw5trit5pp6ezzm6uwvltcubw6euu7eq5wigtesiq32rku",
-        "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeifj7qkn2ptoj4o5r2q2beujnlcurcursajzg6eg64tgx4cdegjsse",
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeiaq6453bqemn2idlbo6bzs24exrbp7v2rzui45s3clgmihy6smdua",
+        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeihdq2coczqvizfqscrt7cttfxgy6fnn2goxhzav3kwywefo7tmwzi",
+        "skill/balancer/pool_manager_abci/0.1.0": "bafybeifkvc22akqqrzdgyhrmvtikcfkpersahcoq7qn6u3icfakehjvm5u",
+        "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeige5hovjcrpkmemnm5ivn3c6szq2gduf5w2dsf7nfkmrjkibmtzpa",
         "contract/balancer/managed_pool/0.1.0": "bafybeidz23utix2frqzmhk6g7ekglcjeh2u3b3espuwfz3tkoaqzidqiyu",
-        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeihda3chr5onuz5m5qv52bheulz4sabfed57ttzsdseffgr6rnqdqe",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeib4ee2gs66wrmx5jpdi37sguhj6o3dip4qv66vmxaow7k7q2hqen4",
-        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeicr6r7xilj5pgsn4fgz2c2xatyu7vrmttii7vpjgnzct2hkakpq4i"
+        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeie57dxsfb224d6e2vghz3j4ylm3luvtafn52ua2kh5vyf74qwernu",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeicumgrxyakr3swsznayq6jdzx33gkn3kochnwxvjolgfgfwiqj45e",
+        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeibvvcu4oxmx7qmnf2gu6jvnrc2jpkkw3nam7wae5lld3rzwofgp7i"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeihkgako44fzgurcv4hgbems4ptdtosae4lopnnr75eczb6kx3x2lm",
