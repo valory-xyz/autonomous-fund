@@ -26,3 +26,7 @@ e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/reset_pause_abci
 e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/safe_deployment_abci/skill.yaml:generic-api-key:72
 e866e922b187552bde94a7363b0e8c6fb691771e:packages/valory/skills/transaction_settlement_abci/skill.yaml:generic-api-key:77
 38b240e544bae94e33e2f018e6e3dae373ad2c8d:packages/balancer/skills/liquidity_provision_abci/skill.yaml:generic-api-key:76
+ebc87b4a224c785164dcb48c05bcf10cfe9cb61a:docs/index.md:generic-api-key:40
+ebc87b4a224c785164dcb48c05bcf10cfe9cb61a:docs/index.md:generic-api-key:44
+ebc87b4a224c785164dcb48c05bcf10cfe9cb61a:docs/index.md:generic-api-key:48
+ebc87b4a224c785164dcb48c05bcf10cfe9cb61a:docs/index.md:generic-api-key:52
