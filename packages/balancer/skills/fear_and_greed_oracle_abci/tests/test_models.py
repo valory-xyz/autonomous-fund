@@ -30,4 +30,4 @@ class TestSharedState:  # pylint: disable=too-few-public-methods
         self,
     ) -> None:
         """Test initialization."""
-        SharedState(name="", skill_context=DummyContext())
+        SharedState(name="", skill_context=DummyContext())  # type: ignore

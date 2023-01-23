@@ -62,7 +62,7 @@ class SynchronizedData(BaseSynchronizedData):
 class PostTransactionSettlementRound(CollectSameUntilThresholdRound):
     """A round that will be called after tx settlement is done."""
 
-    allowed_tx_type = _NO_TX_ROUND
+    payload_class = _NO_TX_ROUND  # type: ignore
     payload_attribute = _NO_TX_ROUND
     synchronized_data_class = SynchronizedData
 

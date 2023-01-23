@@ -8,29 +8,29 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeib7tq4xbys4lmfpz4kp7qs6vcw5lifiq6zb2a4strssd256g7rici
   behaviours.py: bafybeidqtjwmxn7gm7a5uh67rdhx2uqqon3cl4q74ztfp5jzlj6wr6udli
-  dialogues.py: bafybeic2grmbb2eepv745wuv6gbyx6xwahipduw6bzqbt5vcj3h6cpln7q
+  dialogues.py: bafybeicphv64rpohtsg6ka6k4z4t22djrvj3akri6ht3yyos2twsz46upm
   fsm_specification.yaml: bafybeify5zvsgb6acwgcekmltgb4rlpeovls4plcqmcuoyr7tgjlwp72pi
-  handlers.py: bafybeiczztxmybnfcgggaw2dixwg6z6ql3rkicb5fstoo3iywliygpcw3u
-  models.py: bafybeif367ps5465jqpaamgektite75dp2m55istx7tbel5phpvtakwjhi
-  payloads.py: bafybeihzuwv3amtvpvu2qged5ifwy746focexq4wtp75rvgbkoxp57jyrm
-  rounds.py: bafybeihfouxvxx2peyb6y4sskbbz3eg2yd7ekpp77axgyetuwytaepamey
+  handlers.py: bafybeidbkknrued22x22obxvizfnpfntvjp5wg34lqvwvllitfhqi475gy
+  models.py: bafybeia7voyu7akkeo6icx2qeyxoy74finytlcb6fehrczcnumyfywsezy
+  payloads.py: bafybeieo2kd6ars54nj6il2hxiwuce4xly3rfsfgalvks5mehfxn4tnwsy
+  rounds.py: bafybeiew2kmebihmm5p3ipvb5nmodypuvhydmk5tkaw5praocv62256auq
   tests/__init__.py: bafybeiedv5h6wd6jjxzsu5d7foz3jyvgwtyotgtx2awmp2gqfysgtyziu4
   tests/test_behaviours.py: bafybeieplaso5mf3bza4or4sfto6rhc4m3wsynxzs6w5fnxqxyjd3g4aqi
   tests/test_dialogues.py: bafybeigv2j6zxox7pk4gfpgvsdbugofglut4gmlpf3uq4hlbx64hscv7n4
   tests/test_handlers.py: bafybeiesvxlswqsmyufa52nuxbxet7oqbtbajb6xwsdmfdrf5x6wcwe47y
-  tests/test_models.py: bafybeibpe2vuczqdfiyuctptoj5mi2fc5h64wmhazk4he5ln6ylcumtmoa
-  tests/test_payloads.py: bafybeib3nuyb4rxwhixtwimremlqwk623p5lp75faezhwrqcgc7uluupyy
+  tests/test_models.py: bafybeicom26qoowrjm5yh3q7ts3fkgdjfdva4u3otgtchbvdudw4oqgriu
+  tests/test_payloads.py: bafybeifwqgl6neccaswahmpjen5bh5m7zhqm6n74a4ugntc6oq2o4coo4a
   tests/test_rounds.py: bafybeihcdvyixxpurdifbk3pigk4aj3dkeupkf2phcatrf5e4orphlvzba
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
-- balancer/managed_pool:0.1.0:bafybeibo64vli32nhlu5rkaw5xp5oyyxpxckktsjv52bnorfmwnasfl46q
-- valory/gnosis_safe:0.1.0:bafybeiamw5sluyueflxsvzukmayctl3ijc76fx5twstwnc7ons6lw2goa4
+- balancer/managed_pool:0.1.0:bafybeidz23utix2frqzmhk6g7ekglcjeh2u3b3espuwfz3tkoaqzidqiyu
+- valory/gnosis_safe:0.1.0:bafybeiefwo2ddyhjxcpy2rlchcubv6bj35e5x4kstxwfyvyvdvcpvcoe5q
 protocols:
 - valory/contract_api:1.0.0:bafybeif32nchkgn6yet7e5gt4auhf7lsahxnj4t36kxbw55p3gi7qpeuxq
 skills:
-- valory/abstract_round_abci:0.1.0:bafybeibfemo6nqd5itfd2damllya56qi4jrtythwcsb7wyt55qtxtsuu3u
-- valory/transaction_settlement_abci:0.1.0:bafybeidy4dsrzpn5pg7ikq5te4ayufjmktzv5sp7ten5g62hidcdqgfsme
+- valory/abstract_round_abci:0.1.0:bafybeicvbxixjsu3bgjk5frqz5mq2kmv44grwd6324viz4tehw3yejfhji
+- valory/transaction_settlement_abci:0.1.0:bafybeib3dkmogar5q5ggfbgi3bfrjqb74nd7tc7zxl6rpt2qucdv6i3bpy
 behaviours:
   main:
     args: {}
@@ -45,6 +45,9 @@ handlers:
   http:
     args: {}
     class_name: HttpHandler
+  ipfs:
+    args: {}
+    class_name: IpfsHandler
   ledger_api:
     args: {}
     class_name: LedgerApiHandler
@@ -68,6 +71,9 @@ models:
   http_dialogues:
     args: {}
     class_name: HttpDialogues
+  ipfs_dialogues:
+    args: {}
+    class_name: IpfsDialogues
   ledger_api_dialogues:
     args: {}
     class_name: LedgerApiDialogues
@@ -97,6 +103,7 @@ models:
         voting_power: '10'
       keeper_timeout: 30.0
       managed_pool_address: '0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1'
+      max_attempts: 10
       max_healthcheck: 120
       observation_aggregator_function: median
       observation_interval: 10
@@ -118,17 +125,27 @@ models:
         - 10
         - 30
         - 60
+      request_retry_delay: 1.0
+      request_timeout: 10.0
       reset_tendermint_after: 2
       retry_attempts: 400
       retry_timeout: 3
       round_timeout_seconds: 30.0
       service_id: pool_manager
       service_registry_address: null
+      setup:
+        all_participants:
+        - - '0x0000000000000000000000000000000000000000'
+        safe_contract_address:
+        - '0x0000000000000000000000000000000000000000'
+      share_tm_config_on_startup: false
       sleep_time: 1
       tendermint_check_sleep_delay: 3
       tendermint_com_url: http://localhost:8080
       tendermint_max_retries: 5
+      tendermint_p2p_url: localhost:26656
       tendermint_url: http://localhost:26657
+      tx_timeout: 10.0
       weight_tolerance: 0.1
       weight_update_timespan: 72000
     class_name: Params

@@ -37,9 +37,7 @@ from packages.valory.skills.abstract_round_abci.models import (
 class SharedState(BaseSharedState):
     """Keep the current shared state of the skill."""
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        """Initialize the state."""
-        super().__init__(*args, abci_app_cls=FearAndGreedOracleAbciApp, **kwargs)
+    abci_app_cls = FearAndGreedOracleAbciApp
 
 
 class Params(BaseParams):
@@ -47,19 +45,25 @@ class Params(BaseParams):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Initialize the parameters object."""
-        self.fear_and_greed_num_points = self._ensure(
-            "fear_and_greed_num_points", kwargs
+        self.fear_and_greed_num_points: int = self._ensure(
+            "fear_and_greed_num_points", kwargs, type_=int
         )
-        fear_and_greed_base_endpoint = self._ensure("fear_and_greed_endpoint", kwargs)
-        self.fear_and_greed_endpoint = (
+        fear_and_greed_base_endpoint: str = self._ensure(
+            "fear_and_greed_endpoint", kwargs, type_=str
+        )
+        self.fear_and_greed_endpoint: str = (
             f"{fear_and_greed_base_endpoint}&limit={self.fear_and_greed_num_points}"
         )
         self.observation_aggregator_function = self._ensure(
-            "observation_aggregator_function", kwargs
+            "observation_aggregator_function",
+            kwargs,
+            type_=str,
         )
-        self.min_index_value = self._ensure("min_index_value", kwargs)
-        self.max_index_value = self._ensure("max_index_value", kwargs)
-        self.max_index_change = self._ensure("max_index_change", kwargs)
+        self.min_index_value: int = self._ensure("min_index_value", kwargs, type_=int)
+        self.max_index_value: int = self._ensure("max_index_value", kwargs, type_=int)
+        self.max_index_change: float = self._ensure(
+            "max_index_change", kwargs, type_=float
+        )
         super().__init__(*args, **kwargs)
 
 

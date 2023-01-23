@@ -28,4 +28,4 @@ class TestSharedState:
 
     def test_initialization(self) -> None:
         """Test initialization."""
-        SharedState(name="", skill_context=DummyContext())
+        SharedState(name="", skill_context=DummyContext())  # type: ignore

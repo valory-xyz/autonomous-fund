@@ -9,30 +9,30 @@ fingerprint:
   __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
   behaviours.py: bafybeibmt2g4n2wj6g4psox56cl4pzpqn7upzrjbftrni6favx5xarghny
   composition.py: bafybeiel35h4qptnm6mqxc2vh2hjkhfqhbtcjg65ofa6qvjw3mb4mthxyq
-  dialogues.py: bafybeidlaxto7h652uthpw6ycewqmd44jckh2dztgr464bywieinuha7cm
+  dialogues.py: bafybeiafevxza7s53g7habumv4azpkn2zzcdsm2d442ssgjnzjva2gzphq
   fsm_specification.yaml: bafybeigkd3uubeonwoqw2hxirdri3gx7guxtuwbxtnlzfta2q4stf6y63q
-  handlers.py: bafybeibeeb3oafle3fc6no5oklimj36uwnuk7pp6hxzpjwrty2jglsgy4u
-  models.py: bafybeifbb3vyfuw2wqhtnfd7xa5aint4lh7ifmm3ibp2ipshqci3f7a4zy
-  multiplexer.py: bafybeie2scbpddzzs3opvz5mlgq4ifx5crrozxwpr5urhl43upc6pz22n4
+  handlers.py: bafybeigamxr7uezx2yultnn6ysntqqss7tbp7r2y2xtzdxligx4rm2bzki
+  models.py: bafybeiamzkqyndhezvy7w4ubf5ejsw7czig3w4rac7dzwjgkv5sxa2ofiu
+  multiplexer.py: bafybeihwohm7dit6ng2nfojrise7oosbykbt57yrs7ezf2be6rmqzsft5e
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
   tests/test_behaviours.py: bafybeiarfju5yyl32jgz5v3oznjupvwwqrqr4cuiilu2bszdd76du5t5uy
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
   tests/test_handlers.py: bafybeieuhhzq67glblqzeos634w3c3rqgl2tqy3clctpwzvr7cedlzu7tq
-  tests/test_models.py: bafybeignzrzmljbyqofuiphrkufx4inb6i4j3zr2tekqebyew32hmxusbi
+  tests/test_models.py: bafybeiguojcdrzthltvypnuwa7cbd7u3j2icdzffdgwiipljykfjht5nhi
   tests/test_multiplexer.py: bafybeibfcjzaf6roh7d5whkeg7tqgeysvcj2pty4ifyqzlj2bb5qkxbq3a
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicfkpw2hgcjq5ktqvvbw4rgdgjgjwvoua7pluo3qbueogdcfyshqy
-- balancer/liquidity_provision_abci:0.1.0:bafybeigtjbzey63xy3w4de2ie43hew47xjqe33nbk472dyplb667d6sqgi
-- balancer/pool_manager_abci:0.1.0:bafybeic5th3pkla3dyun745rl35amqtrxbxtrfrqikoegmdg4ltzkytyk4
-- valory/abstract_round_abci:0.1.0:bafybeibfemo6nqd5itfd2damllya56qi4jrtythwcsb7wyt55qtxtsuu3u
-- valory/registration_abci:0.1.0:bafybeih6tbs4mt6x7g642kwhthxxs3qxpzsh4cy7uavrk4att3mqul6hhu
-- valory/reset_pause_abci:0.1.0:bafybeihjsv2mkwrf55wtmawn7kjylm75thg7jjp7y4bfnezrkr3hu7jytu
-- valory/termination_abci:0.1.0:bafybeid3hyrw2tujhjvs7wrzzxe7copgzaf3vnmvvul4gfobrqca3e6a4m
-- valory/transaction_settlement_abci:0.1.0:bafybeidy4dsrzpn5pg7ikq5te4ayufjmktzv5sp7ten5g62hidcdqgfsme
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeifj7qkn2ptoj4o5r2q2beujnlcurcursajzg6eg64tgx4cdegjsse
+- balancer/liquidity_provision_abci:0.1.0:bafybeicr6r7xilj5pgsn4fgz2c2xatyu7vrmttii7vpjgnzct2hkakpq4i
+- balancer/pool_manager_abci:0.1.0:bafybeigkwnoulw5trit5pp6ezzm6uwvltcubw6euu7eq5wigtesiq32rku
+- valory/abstract_round_abci:0.1.0:bafybeicvbxixjsu3bgjk5frqz5mq2kmv44grwd6324viz4tehw3yejfhji
+- valory/registration_abci:0.1.0:bafybeihai2otcmnb2w7k64bnwf5qagfexg5gqow74xhj3wynikgdxre3ka
+- valory/reset_pause_abci:0.1.0:bafybeifs6zpg5nbvuapmxafzo6fdhoz5ebpiujetvk243apo3iwl2rn45i
+- valory/termination_abci:0.1.0:bafybeib3pxsbvjwqqedfdujs42mzwe7asjepsdx5n3bomsp4zz56cfycnu
+- valory/transaction_settlement_abci:0.1.0:bafybeib3dkmogar5q5ggfbgi3bfrjqb74nd7tc7zxl6rpt2qucdv6i3bpy
 behaviours:
   main:
     args: {}
@@ -47,6 +47,9 @@ handlers:
   http:
     args: {}
     class_name: HttpHandler
+  ipfs:
+    args: {}
+    class_name: IpfsHandler
   ledger_api:
     args: {}
     class_name: LedgerApiHandler
@@ -70,6 +73,9 @@ models:
   http_dialogues:
     args: {}
     class_name: HttpDialogues
+  ipfs_dialogues:
+    args: {}
+    class_name: IpfsDialogues
   ledger_api_dialogues:
     args: {}
     class_name: LedgerApiDialogues
@@ -107,9 +113,11 @@ models:
           version: {}
         voting_power: '10'
       history_check_timeout: 1205
+      init_fallback_gas: 0
       keeper_allowed_retries: 3
       keeper_timeout: 30.0
       managed_pool_address: '0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1'
+      max_attempts: 10
       max_healthcheck: 120
       max_index_change: 0.00040509259
       max_index_value: 100
@@ -135,6 +143,8 @@ models:
         - 10
         - 30
         - 60
+      request_retry_delay: 1.0
+      request_timeout: 10.0
       reset_tendermint_after: 2
       retry_attempts: 400
       retry_timeout: 3
@@ -151,8 +161,10 @@ models:
       tendermint_check_sleep_delay: 3
       tendermint_com_url: http://localhost:8080
       tendermint_max_retries: 5
+      tendermint_p2p_url: localhost:26656
       tendermint_url: http://localhost:26657
       termination_sleep: 900
+      tx_timeout: 10.0
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000

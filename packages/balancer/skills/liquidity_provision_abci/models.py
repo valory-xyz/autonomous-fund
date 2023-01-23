@@ -39,9 +39,7 @@ from packages.valory.skills.abstract_round_abci.models import (
 class SharedState(BaseSharedState):
     """Keep the current shared state of the skill."""
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        """Initialize the state."""
-        super().__init__(*args, abci_app_cls=LiquidityProvisionAbciApp, **kwargs)
+    abci_app_cls = LiquidityProvisionAbciApp
 
 
 Requests = BaseRequests
@@ -53,9 +51,11 @@ class Params(BaseParams):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         """Initialize the parameters object."""
-        self.enforce_allowlist: bool = self._ensure("enforce_allowlist", kwargs)
+        self.enforce_allowlist: bool = self._ensure(
+            "enforce_allowlist", kwargs, type_=bool
+        )
         self.allowed_lp_addresses: List[str] = self._ensure(
-            "allowed_lp_addresses", kwargs
+            "allowed_lp_addresses", kwargs, type_=List[str]
         )
         self.managed_pool_address: str = self._ensure_managed_pool_address(kwargs)
         self.multisend_address: str = self._ensure_multisend_address(kwargs)

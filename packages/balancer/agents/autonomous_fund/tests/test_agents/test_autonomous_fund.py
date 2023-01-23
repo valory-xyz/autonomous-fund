@@ -22,7 +22,6 @@
 
 """End-to-End tests for the balancer/autonomous_fund agent."""
 import json
-from pathlib import Path
 
 import pytest
 from aea.configurations.data_types import PublicId
@@ -30,6 +29,8 @@ from aea_test_autonomy.fixture_helpers import (  # noqa: F401
     abci_host,
     abci_port,
     flask_tendermint,
+    ipfs_daemon,
+    ipfs_domain,
     tendermint_port,
 )
 
