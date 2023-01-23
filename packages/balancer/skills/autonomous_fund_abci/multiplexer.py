@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ class SynchronizedData(BaseSynchronizedData):
 class PostTransactionSettlementRound(CollectSameUntilThresholdRound):
     """A round that will be called after tx settlement is done."""
 
-    allowed_tx_type = _NO_TX_ROUND
+    payload_class = _NO_TX_ROUND  # type: ignore
     payload_attribute = _NO_TX_ROUND
     synchronized_data_class = SynchronizedData
 

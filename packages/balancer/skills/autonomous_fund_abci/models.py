@@ -19,8 +19,6 @@
 
 """This module contains the shared state for the abci skill of AutonomousFundAbciApp."""
 
-from typing import Any
-
 from packages.balancer.skills.autonomous_fund_abci.composition import (
     AutonomousFundAbciApp,
 )
@@ -65,9 +63,7 @@ RandomnessApi = TransactionSettlementRandomness
 class SharedState(BaseSharedState):
     """Keep the current shared state of the skill."""
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        """Initialize the state."""
-        super().__init__(*args, abci_app_cls=AutonomousFundAbciApp, **kwargs)
+    abci_app_cls = AutonomousFundAbciApp
 
     def setup(self) -> None:
         """Set up."""

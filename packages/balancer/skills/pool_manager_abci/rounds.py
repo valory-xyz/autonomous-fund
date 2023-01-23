@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -93,8 +93,8 @@ class SynchronizedData(BaseSynchronizedData):
 class DecisionMakingRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents decide whether to update the weights or not."""
 
-    allowed_tx_type = DecisionMakingPayload.transaction_type
-    payload_attribute: str = get_name(DecisionMakingPayload.decision_making)
+    payload_class = DecisionMakingPayload
+    payload_attribute = "decision_making"
     synchronized_data_class = SynchronizedData
 
     # used for cases when we don't need to update
@@ -126,8 +126,8 @@ class DecisionMakingRound(CollectSameUntilThresholdRound):
 class UpdatePoolTxRound(CollectSameUntilThresholdRound):
     """This class defines the round in which the agents prepare a tx to update the pool."""
 
-    allowed_tx_type = UpdatePoolTxPayload.transaction_type
-    payload_attribute: str = get_name(UpdatePoolTxPayload.update_pool_tx)
+    payload_class = UpdatePoolTxPayload
+    payload_attribute = "update_pool_tx"
     synchronized_data_class = SynchronizedData
 
     ERROR_PAYLOAD = "{}"

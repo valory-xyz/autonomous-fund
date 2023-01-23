@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -28,4 +28,4 @@ class TestSharedState:
 
     def test_initialization(self) -> None:
         """Test initialization."""
-        SharedState(name="", skill_context=DummyContext())
+        SharedState(name="", skill_context=DummyContext())  # type: ignore
