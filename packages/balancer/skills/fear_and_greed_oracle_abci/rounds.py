@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -79,8 +79,8 @@ class SynchronizedData(BaseSynchronizedData):
 class ObservationRound(CollectSameUntilThresholdRound):
     """A round in which agents collect observations"""
 
-    allowed_tx_type = ObservationRoundPayload.transaction_type
-    payload_attribute = get_name(ObservationRoundPayload.observation_data)
+    payload_class = ObservationRoundPayload
+    payload_attribute = "observation_data"
     synchronized_data_class = SynchronizedData
 
     def end_block(self) -> Optional[Tuple[BaseSynchronizedData, Event]]:
@@ -111,8 +111,8 @@ class ObservationRound(CollectSameUntilThresholdRound):
 class EstimationRound(CollectSameUntilThresholdRound):
     """A round that in which the data processing logic is done."""
 
-    allowed_tx_type = EstimationRoundPayload.transaction_type
-    payload_attribute: str = get_name(EstimationRoundPayload.estimation_data)
+    payload_class = EstimationRoundPayload
+    payload_attribute = "estimation_data"
     synchronized_data_class = SynchronizedData
     done_event = Event.DONE
     none_event = Event.NO_ACTION
@@ -124,10 +124,8 @@ class EstimationRound(CollectSameUntilThresholdRound):
 class OutlierDetectionRound(CollectSameUntilThresholdRound):
     """A round in which outlier detection is done."""
 
-    allowed_tx_type = OutlierDetectionRoundPayload.transaction_type
-    payload_attribute: str = get_name(
-        OutlierDetectionRoundPayload.outlier_detection_data
-    )
+    payload_class = OutlierDetectionRoundPayload
+    payload_attribute = "outlier_detection_data"
     synchronized_data_class = SynchronizedData
 
     class OutlierStatus(Enum):

@@ -583,6 +583,7 @@ class TestAllowListUpdateBehaviour(BaseLiquidityProvisionTest):
 
     def mock_params(self, test_case: BehaviourTestCase) -> None:
         """Update skill params."""
+        self.skill.skill_context.params.__dict__.update({"_frozen": False})
         self.skill.skill_context.params.allowed_lp_addresses = list(
             test_case.allowed_lp_addresses
         )

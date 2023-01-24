@@ -78,8 +78,8 @@ class SynchronizedData(BaseSynchronizedData):
 class AllowListUpdateRound(CollectSameUntilThresholdRound):
     """A round in which the LP related parameters are updated."""
 
-    allowed_tx_type = AllowListUpdatePayload.transaction_type
-    payload_attribute: str = get_name(AllowListUpdatePayload.allow_list_update)
+    payload_class = AllowListUpdatePayload
+    payload_attribute = "allow_list_update"
     synchronized_data_class = SynchronizedData
 
     class NoUpdatePayloads(Enum):
