@@ -16,7 +16,7 @@ Once you have {{set_up_system}} to work with the Open Autonomy framework, you ca
 1. Fetch the Smart Managed Pools service.
 
 	```bash
-	autonomy fetch valory/autonomous_fund_goerli:0.1.0:bafybeidqb33vw4zllbwdf4rc3dr2yfnobx7orpoowastfvs425ix4aufpm --service
+	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeidihvahbd3ppiubdgvseyzv2h5xauk3xi6f576w4wg2af573eimtm --service
 	```
 
 2. Build the Docker image of the service agents
