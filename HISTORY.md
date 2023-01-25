@@ -1,6 +1,6 @@
 # Release History - `Autonomous Fund`
 
-## v0.8.0 (2023-01-25)
+## v0.3.0 (2023-01-25)
 - Adds release workflow.
 - Adds documentation.
 - Bump to `open-autonomy@v0.8.0`.
