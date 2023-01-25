@@ -60,6 +60,7 @@ jobs:
               echo VERSION=$TAG> env.sh
               echo AUTHOR=$(grep 'service' packages/packages.json | awk -F/ '{print $2}' | head -1) >> env.sh
               echo SERVICE=$(grep 'service' packages/packages.json | awk -F/ '{print $3}' | head -1) >> env.sh
+              echo AGENT=$(grep 'agent' packages/packages.json | awk -F/ '{print $3}' | head -1) >> env.sh
               echo DEFAULT_IMAGE_TAG=$(cat packages/packages.json | grep agent | awk -F: '{print $2}' | tr -d '", ') >> env.sh
               cat env.sh
 
@@ -86,8 +87,8 @@ jobs:
       - name: Docker Push
         run: |
           source env.sh
-          echo "Pushing $DOCKER_USER/$SERVICE:$VERSION"
-          echo "Pushing $DOCKER_USER/$SERVICE:$DEFAULT_IMAGE_TAG"
-          docker push $DOCKER_USER/oar-$SERVICE:$VERSION
-          docker push $DOCKER_USER/oar-$SERVICE:$DEFAULT_IMAGE_TAG
+          echo "Pushing $DOCKER_USER/oar-$AGENT:$VERSION"
+          echo "Pushing $DOCKER_USER/oar-$AGENT:$DEFAULT_IMAGE_TAG"
+          docker push $DOCKER_USER/oar-$AGENT:$VERSION
+          docker push $DOCKER_USER/oar-$AGENT:$DEFAULT_IMAGE_TAG
 
