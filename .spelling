@@ -6,6 +6,7 @@
 SMPKit
 SMP
 SMPs
+v0.3.0
 v0.1.0
 v0.2.0
 v0.1.0.post3
@@ -17,6 +18,7 @@ packages_balancer_audit_1.md
 README_audit_1.md
 packages_balancer.md
 WeightedPool
+goerli
 AEAs
 Tendermint
 mempool
