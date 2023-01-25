@@ -1,4 +1,10 @@
 # Release History - `Autonomous Fund`
+
+## v0.8.0 (2023-01-25)
+- Adds release workflow.
+- Adds documentation.
+- Bump to `open-autonomy@v0.8.0`.
+
 ## v0.2.0 (2023-01-20)
 - Adds missing Tendermint Dialogues.
 - Adds validate and finalize timeouts.
