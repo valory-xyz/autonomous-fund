@@ -1,4 +1,4 @@
-![SMPKit](images/smart-managed-pools-logo.png){ align=left width="150" }
+![SMPKit](images/smpkit.svg){ align=left }
 The SMPKit helps you build services that execute investment strategies on liquidity pools. This functionality can be fed, for example, from the output produced by an APY Prediction service, or from external indicators such as the [Crypto Fear & Greed Index](https://cfgi.io/) (the demo below is based on the latter). Pool management services are in charge of building and submitting the appropriate transactions according to the investment strategy and execute these orders. Such services can take a number of actions depending on the input strategy. For example, at a given time point, the service could:
 
 * Do nothing, because the funds are currently distributed according to the optimal investment strategy published.
