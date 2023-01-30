@@ -8,7 +8,7 @@ fingerprint:
   README.md: bafybeibfahh3htjez7vf7lwx2s7tth26cwxgtalgn5hj7yg7akhk67f4ny
 fingerprint_ignore_patterns: []
 agent: balancer/autonomous_fund:0.1.0:bafybeiaq6453bqemn2idlbo6bzs24exrbp7v2rzui45s3clgmihy6smdua
-number_of_agents: 1
+number_of_agents: 4
 ---
 public_id: balancer/autonomous_fund_abci:0.1.0
 type: skill
@@ -26,7 +26,7 @@ models:
       on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:2}
       share_tm_config_on_startup: ${USE_ACN:bool:false}
       consensus:
-        max_participants: 1
+        max_participants: 4
 ---
 public_id: valory/ledger:0.19.0
 type: connection
@@ -35,4 +35,22 @@ type: connection
     ledger_apis:
       ethereum:
         address: ${SERVICE_AUTONOMOUS_FUND_RPC_0:str:http://127.0.0.1:8545}
+        chain_id: 1
+1:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_1:str:http://127.0.0.1:8545}
+        chain_id: 1
+2:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_2:str:http://127.0.0.1:8545}
+        chain_id: 1
+3:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_3:str:http://127.0.0.1:8545}
         chain_id: 1
