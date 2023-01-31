@@ -50,6 +50,7 @@ jobs:
               echo "Setting Tag Images"
               cd /work
               apt-get update && apt-get install git -y || exit 1
+              git config --global --add safe.directory /work
               export TAG=$(git describe --exact-match --tags $(git rev-parse HEAD)) || exit 1
               if [ $? -eq 0 ]; then
                   export TAG=`echo $TAG | sed 's/^v//'`
@@ -83,7 +84,7 @@ jobs:
 
       - name: Docker login
         run: |
-            echo  $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin 
+            echo  $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
       - name: Docker Push
         run: |
           source env.sh
