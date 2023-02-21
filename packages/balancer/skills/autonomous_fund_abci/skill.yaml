@@ -10,29 +10,29 @@ fingerprint:
   behaviours.py: bafybeibmt2g4n2wj6g4psox56cl4pzpqn7upzrjbftrni6favx5xarghny
   composition.py: bafybeiel35h4qptnm6mqxc2vh2hjkhfqhbtcjg65ofa6qvjw3mb4mthxyq
   dialogues.py: bafybeiffd2prpsv5uk4xxr2qixgpbgy2flonh2etz2fdtnojj2mrey4qty
-  fsm_specification.yaml: bafybeigkd3uubeonwoqw2hxirdri3gx7guxtuwbxtnlzfta2q4stf6y63q
+  fsm_specification.yaml: bafybeihdtg6a7pcfk3fhmrhtjb64tarmzihlrh22yhgcndxlf7gepnmzc4
   handlers.py: bafybeiaoly6idnbtzohmd4f3krxnk3owu3hsuvyxznio3rutegi553p2ba
   models.py: bafybeiamzkqyndhezvy7w4ubf5ejsw7czig3w4rac7dzwjgkv5sxa2ofiu
-  multiplexer.py: bafybeicowfay3roxfu4lub7tb4v44vp4gmzti4sr22rtu5flkrynr7klje
+  multiplexer.py: bafybeigojtg2jbwnpqja6dseftwwf3udacdpaoz6jxv7gv4kx6bbzaueiq
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
-  tests/test_behaviours.py: bafybeiarfju5yyl32jgz5v3oznjupvwwqrqr4cuiilu2bszdd76du5t5uy
+  tests/test_behaviours.py: bafybeidmci22hdaloodaaobuuvlq2uuvtteu4aigpjzq556hhn42e7yiaa
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
   tests/test_handlers.py: bafybeieuhhzq67glblqzeos634w3c3rqgl2tqy3clctpwzvr7cedlzu7tq
   tests/test_models.py: bafybeicrunh3ninsmis7eejbxauvqfxr4dlnu6zlyof462qjefjx37apvm
-  tests/test_multiplexer.py: bafybeibfcjzaf6roh7d5whkeg7tqgeysvcj2pty4ifyqzlj2bb5qkxbq3a
+  tests/test_multiplexer.py: bafybeic3sbhy7jp2dwiiersncdqtlmgqf5bkvkbqlf6y52v5kf43tse5wu
 fingerprint_ignore_patterns: []
 connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeige5hovjcrpkmemnm5ivn3c6szq2gduf5w2dsf7nfkmrjkibmtzpa
-- balancer/liquidity_provision_abci:0.1.0:bafybeibvvcu4oxmx7qmnf2gu6jvnrc2jpkkw3nam7wae5lld3rzwofgp7i
-- balancer/pool_manager_abci:0.1.0:bafybeifkvc22akqqrzdgyhrmvtikcfkpersahcoq7qn6u3icfakehjvm5u
-- valory/abstract_round_abci:0.1.0:bafybeicvbxixjsu3bgjk5frqz5mq2kmv44grwd6324viz4tehw3yejfhji
-- valory/registration_abci:0.1.0:bafybeihai2otcmnb2w7k64bnwf5qagfexg5gqow74xhj3wynikgdxre3ka
-- valory/reset_pause_abci:0.1.0:bafybeifs6zpg5nbvuapmxafzo6fdhoz5ebpiujetvk243apo3iwl2rn45i
-- valory/termination_abci:0.1.0:bafybeib3pxsbvjwqqedfdujs42mzwe7asjepsdx5n3bomsp4zz56cfycnu
-- valory/transaction_settlement_abci:0.1.0:bafybeib3dkmogar5q5ggfbgi3bfrjqb74nd7tc7zxl6rpt2qucdv6i3bpy
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicmnhsno642lqt4ejjsix45b3iubynnsahmaqkl2drkhubg3ztxnm
+- balancer/liquidity_provision_abci:0.1.0:bafybeiflzeudqm7osxebo5p3tg7em6vzktvbiu4spqr4bnjjdekmbfzn54
+- balancer/pool_manager_abci:0.1.0:bafybeidfgdqqvhaeqldbbpgk3to7ni62c5dx72zn6jwciamuakeoew6fly
+- valory/abstract_round_abci:0.1.0:bafybeiami2y2uwvtmjf76hl3jvfahujdir5docjby6erdyjl66ekoblesi
+- valory/registration_abci:0.1.0:bafybeieaggf6mc43tses5k7fg3pyxca43wsmfvnnzszzucohp5ebg3umwq
+- valory/reset_pause_abci:0.1.0:bafybeic6ayed23np6ngkawsf2you6nnfuvbq4smcepdvvcrw5wxn5jaevy
+- valory/termination_abci:0.1.0:bafybeigg4eyjaeidojnvxdenztaywb7ijtjdtjirpc6pvhglscfqdhfupe
+- valory/transaction_settlement_abci:0.1.0:bafybeiajvxzaeeeamvb3guxtihlrj7xoyrmfeuo5chp4f3pdd2sgiecayq
 behaviours:
   main:
     args: {}
@@ -155,7 +155,9 @@ models:
         safe_contract_address:
         - '0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1'
         all_participants:
-        - {}
+        - - '0x0000000000000000000000000000000000000000'
+        consensus_threshold:
+        - null
       share_tm_config_on_startup: false
       sleep_time: 1
       tendermint_check_sleep_delay: 3
@@ -172,9 +174,9 @@ models:
   randomness_api:
     args:
       api_id: cloudflare
-      headers: []
+      headers: {}
       method: GET
-      parameters: []
+      parameters: {}
       response_key: null
       response_type: dict
       retries: 5

@@ -13,25 +13,25 @@ fingerprint:
   handlers.py: bafybeiauztkbcbhyykxe43al6vzlc7wgzjoaluprnggm43e5gwr2vcowta
   models.py: bafybeih6dy3lasa5ypkpvalho3jv7jhezf5n4rgjq56igqcybbxuxsmo6u
   payloads.py: bafybeig7nmk2f6gu5jehequitp2srf3buevzxsstrjgxwb7jilcgao4k3y
-  rounds.py: bafybeifjx4s4dzm332mi6lbqimr3c7gkdqbzqui3oo4vznhuxhz23ebtwe
+  rounds.py: bafybeigf44dgnywpt5gfh2dbcliimla3rlva37l3t7buii7lihzxmjop4a
   tests/__init__.py: bafybeigyyqbkzhinzvwsbkilbbdpholgsp73dxhauudb36zrzmg3vnvjky
   tests/test_behaviours.py: bafybeicdrvjeay6evy576tbzrbypsoufzb4j67xwxszjx2dqqcvhnxwzgy
   tests/test_dialogues.py: bafybeifxxdhqax3jdmaln4hkygy5jtdewj43dr5kmjb7qeijwt5sjnvkpu
   tests/test_handlers.py: bafybeihmwy54qjsryayo7n77w4hd676dywzclefgzaigg2meffilkz23w4
   tests/test_models.py: bafybeiblqeexxuyig3n6tz45e4tbym4w4l4zsom2pjh5xaupfqwqhgdnjm
   tests/test_payloads.py: bafybeify5sp4slkg2mutww26dvoksgrxwje3iivrml2zyrvlcejgou45ym
-  tests/test_rounds.py: bafybeifty3yxlb3rpqgttl6i5v76g5b2oaysjhey2blhnj5xufjrfovmw4
+  tests/test_rounds.py: bafybeie4o4xnmabw6tp2x4ww23kznqrlpiox3xugba24vfx64hw6yjd4uy
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
-- balancer/managed_pool:0.1.0:bafybeidz23utix2frqzmhk6g7ekglcjeh2u3b3espuwfz3tkoaqzidqiyu
-- valory/gnosis_safe:0.1.0:bafybeiefwo2ddyhjxcpy2rlchcubv6bj35e5x4kstxwfyvyvdvcpvcoe5q
+- balancer/managed_pool:0.1.0:bafybeibvq7szzruprq4v565fhcjinqttqt6dqsiiyukvwdu3chopre7hxm
+- valory/gnosis_safe:0.1.0:bafybeihwwv5aodluykglsbuhhrwusvjof6vvnr37rznwvlutmfwtvoju34
 - valory/multisend:0.1.0:bafybeigjywkl7hydjsrkogob3xebj2ifhqwmfhhxoeyrndzhhxi5u6amey
 protocols:
-- valory/contract_api:1.0.0:bafybeif32nchkgn6yet7e5gt4auhf7lsahxnj4t36kxbw55p3gi7qpeuxq
+- valory/contract_api:1.0.0:bafybeidv6wxpjyb2sdyibnmmum45et4zcla6tl63bnol6ztyoqvpl4spmy
 skills:
-- valory/abstract_round_abci:0.1.0:bafybeicvbxixjsu3bgjk5frqz5mq2kmv44grwd6324viz4tehw3yejfhji
-- valory/transaction_settlement_abci:0.1.0:bafybeib3dkmogar5q5ggfbgi3bfrjqb74nd7tc7zxl6rpt2qucdv6i3bpy
+- valory/abstract_round_abci:0.1.0:bafybeiami2y2uwvtmjf76hl3jvfahujdir5docjby6erdyjl66ekoblesi
+- valory/transaction_settlement_abci:0.1.0:bafybeiajvxzaeeeamvb3guxtihlrj7xoyrmfeuo5chp4f3pdd2sgiecayq
 behaviours:
   main:
     args: {}
@@ -127,6 +127,8 @@ models:
         - - '0x0000000000000000000000000000000000000000'
         safe_contract_address:
         - '0x0000000000000000000000000000000000000000'
+        consensus_threshold:
+        - null
       share_tm_config_on_startup: false
       sleep_time: 1
       tendermint_check_sleep_delay: 3

@@ -20,27 +20,27 @@ fingerprint:
   tests/test_contracts/test_managed_pool/test_contract.py: bafybeidpicr2wskkl65w43p5vowxn2kjnvhjziqdlr4pypqtuczhp3vmse
 fingerprint_ignore_patterns: []
 connections:
-- valory/abci:0.1.0:bafybeib56ojddzexxbapowofypmpk6zeznqaumwgj7ftneb5ua6sk5k5vm
-- valory/http_client:0.23.0:bafybeigggahci7hq6tr3tyueatgkvgn73y4b3av2vk7vtr7jkeuwsqcteq
-- valory/ipfs:0.1.0:bafybeihtvkn5uv3ibumme7zzmrxx7iehc6lnjhil726h2jidpdzzjnd5ay
-- valory/ledger:0.19.0:bafybeicpxyoxez7lperltamvikxu6vzk2lhqakbivce4nzywyzoqbxoogm
-- valory/p2p_libp2p_client:0.1.0:bafybeiayoofxmj6z3pasn2akqj3udgq2ta2ar6mv6zoehstul2btvv3gqa
+- valory/abci:0.1.0:bafybeihhidrulgjlrlvmk2c2ax7qmb47ywzjnjqv5gwp7fzzbcgplgaz5a
+- valory/http_client:0.23.0:bafybeidykl4elwbcjkqn32wt5h4h7tlpeqovrcq3c5bcplt6nhpznhgczi
+- valory/ipfs:0.1.0:bafybeia7kzgw4tmkl6k2vjbnss4egvhcf4fmt7cnmpjjjbjogz2bu2j3fu
+- valory/ledger:0.19.0:bafybeiavzloea5rtoxfdqjuexkqzpgbq73n4sl6af2vwa4bv2wd22qigyi
+- valory/p2p_libp2p_client:0.1.0:bafybeidwcobzb7ut3efegoedad7jfckvt2n6prcmd4g7xnkm6hp6aafrva
 contracts:
-- balancer/managed_pool:0.1.0:bafybeidz23utix2frqzmhk6g7ekglcjeh2u3b3espuwfz3tkoaqzidqiyu
+- balancer/managed_pool:0.1.0:bafybeibvq7szzruprq4v565fhcjinqttqt6dqsiiyukvwdu3chopre7hxm
 protocols:
-- open_aea/signing:1.0.0:bafybeiclsbgrviyxbmi2vex5ze3dhr7ywohrqedebx26jozayxvroqtegq
-- valory/ipfs:0.1.0:bafybeigknxxwh2xts7ijbacils4a4cgq7jhcdvwahshbw22zw5hnncsfla
+- open_aea/signing:1.0.0:bafybeibqlfmikg5hk4phzak6gqzhpkt6akckx7xppbp53mvwt6r73h7tk4
+- valory/ipfs:0.1.0:bafybeihlgai5pbmkb6mjhvgy4gkql5uvpwvxbpdowczgz4ovxat6vajrq4
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeihdq2coczqvizfqscrt7cttfxgy6fnn2goxhzav3kwywefo7tmwzi
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeige5hovjcrpkmemnm5ivn3c6szq2gduf5w2dsf7nfkmrjkibmtzpa
-- balancer/liquidity_provision_abci:0.1.0:bafybeibvvcu4oxmx7qmnf2gu6jvnrc2jpkkw3nam7wae5lld3rzwofgp7i
-- balancer/pool_manager_abci:0.1.0:bafybeifkvc22akqqrzdgyhrmvtikcfkpersahcoq7qn6u3icfakehjvm5u
-- valory/abstract_abci:0.1.0:bafybeidwizzka3qjotu35zzstoqunp3hjhkx6oojqnlwqsvd3qnjjpmusq
-- valory/abstract_round_abci:0.1.0:bafybeicvbxixjsu3bgjk5frqz5mq2kmv44grwd6324viz4tehw3yejfhji
-- valory/registration_abci:0.1.0:bafybeihai2otcmnb2w7k64bnwf5qagfexg5gqow74xhj3wynikgdxre3ka
-- valory/reset_pause_abci:0.1.0:bafybeifs6zpg5nbvuapmxafzo6fdhoz5ebpiujetvk243apo3iwl2rn45i
-- valory/termination_abci:0.1.0:bafybeib3pxsbvjwqqedfdujs42mzwe7asjepsdx5n3bomsp4zz56cfycnu
-- valory/transaction_settlement_abci:0.1.0:bafybeib3dkmogar5q5ggfbgi3bfrjqb74nd7tc7zxl6rpt2qucdv6i3bpy
+- balancer/autonomous_fund_abci:0.1.0:bafybeih7x5psz3mdz6rvqszrfrgci73b6d6umjytaqgejai3td7ntzxlaa
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeicmnhsno642lqt4ejjsix45b3iubynnsahmaqkl2drkhubg3ztxnm
+- balancer/liquidity_provision_abci:0.1.0:bafybeiflzeudqm7osxebo5p3tg7em6vzktvbiu4spqr4bnjjdekmbfzn54
+- balancer/pool_manager_abci:0.1.0:bafybeidfgdqqvhaeqldbbpgk3to7ni62c5dx72zn6jwciamuakeoew6fly
+- valory/abstract_abci:0.1.0:bafybeiheudaobfaj5lcrqvgwmdysq3za5yjrjtpdiuwhmw5c7lmbgglxti
+- valory/abstract_round_abci:0.1.0:bafybeiami2y2uwvtmjf76hl3jvfahujdir5docjby6erdyjl66ekoblesi
+- valory/registration_abci:0.1.0:bafybeieaggf6mc43tses5k7fg3pyxca43wsmfvnnzszzucohp5ebg3umwq
+- valory/reset_pause_abci:0.1.0:bafybeic6ayed23np6ngkawsf2you6nnfuvbq4smcepdvvcrw5wxn5jaevy
+- valory/termination_abci:0.1.0:bafybeigg4eyjaeidojnvxdenztaywb7ijtjdtjirpc6pvhglscfqdhfupe
+- valory/transaction_settlement_abci:0.1.0:bafybeiajvxzaeeeamvb3guxtihlrj7xoyrmfeuo5chp4f3pdd2sgiecayq
 default_ledger: ethereum
 required_ledgers:
 - ethereum
@@ -174,6 +174,8 @@ models:
       service_registry_address: ${str:0x48b6af7B12C71f09e2fC8aF4855De4Ff54e775cA}
       setup:
         safe_contract_address: ${list:["0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1"]}
+        all_participants: ${list:[["0x0000000000000000000000000000000000000000"]]}
+        consensus_threshold: ${list:[null]}
       share_tm_config_on_startup: ${bool:false}
       sleep_time: 1
       tendermint_check_sleep_delay: 3

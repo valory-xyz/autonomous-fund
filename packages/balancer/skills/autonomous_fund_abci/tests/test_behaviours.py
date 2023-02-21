@@ -42,7 +42,12 @@ class TestPostTransactionSettlementBehaviour(FSMBehaviourBaseCase):
 
     def test_run(self, caplog: LogCaptureFixture) -> None:
         """The behaviour should log when a tx is settled."""
-        data = {get_name(SynchronizedData.tx_submitter): "test"}
+        data = {
+            get_name(SynchronizedData.tx_submitter): "test",
+            get_name(SynchronizedData.consensus_threshold): None,
+            get_name(SynchronizedData.participants): ["0x0"],
+            get_name(SynchronizedData.all_participants): ["0x0"],
+        }
         self.fast_forward_to_behaviour(
             self.behaviour,
             PostTransactionSettlementBehaviour.auto_behaviour_id(),

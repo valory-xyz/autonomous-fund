@@ -20,7 +20,7 @@
 """This package contains the rounds of LiquidityProvisionAbciApp."""
 
 from enum import Enum
-from typing import Dict, List, Optional, Set, Tuple, cast
+from typing import Dict, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.liquidity_provision_abci.payloads import (
     AllowListUpdatePayload,
@@ -105,7 +105,9 @@ class AllowListUpdateRound(CollectSameUntilThresholdRound):
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
                 **{
-                    get_name(SynchronizedData.participant_to_tx_hash): self.collection,
+                    get_name(
+                        SynchronizedData.participant_to_tx_hash
+                    ): self.serialize_collection(self.collection),
                     get_name(
                         SynchronizedData.most_voted_tx_hash
                     ): self.most_voted_payload,
@@ -130,7 +132,27 @@ class FinishedWithoutAllowlistTxRound(DegenerateRound):
 
 
 class LiquidityProvisionAbciApp(AbciApp[Event]):
-    """LiquidityProvisionAbciApp"""
+    """LiquidityProvisionAbciApp
+
+    Initial round: AllowListUpdateRound
+
+    Initial states: {AllowListUpdateRound}
+
+    Transition states:
+        0. AllowListUpdateRound
+            - done: 2.
+            - no action: 1.
+            - no majority: 0.
+            - round timeout: 0.
+            - error: 0.
+        1. FinishedWithoutAllowlistTxRound
+        2. FinishedAllowlistTxPreparationRound
+
+    Final states: {FinishedAllowlistTxPreparationRound, FinishedWithoutAllowlistTxRound}
+
+    Timeouts:
+        round timeout: 30.0
+    """
 
     initial_round_cls: AppState = AllowListUpdateRound
     initial_states: Set[AppState] = {AllowListUpdateRound}
@@ -152,14 +174,14 @@ class LiquidityProvisionAbciApp(AbciApp[Event]):
     event_to_timeout: EventToTimeout = {
         Event.ROUND_TIMEOUT: 30.0,
     }
-    cross_period_persisted_keys: List[str] = []
-    db_pre_conditions: Dict[AppState, List[str]] = {
-        AllowListUpdateRound: [],
+    cross_period_persisted_keys: Set[str] = set()
+    db_pre_conditions: Dict[AppState, Set[str]] = {
+        AllowListUpdateRound: set(),
     }
-    db_post_conditions: Dict[AppState, List[str]] = {
-        FinishedWithoutAllowlistTxRound: [],
-        FinishedAllowlistTxPreparationRound: [
+    db_post_conditions: Dict[AppState, Set[str]] = {
+        FinishedWithoutAllowlistTxRound: set(),
+        FinishedAllowlistTxPreparationRound: {
             get_name(SynchronizedData.most_voted_tx_hash),
             get_name(SynchronizedData.tx_submitter),
-        ],
+        },
     }

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -70,7 +70,6 @@ class BaseFearAndGreedOracleRoundTestClass(BaseRoundTestClass):
 
         test_round = self.round_class(  # type: ignore # pylint: disable=no-member
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         self._complete_run(
@@ -96,7 +95,6 @@ class TestObservationRound(BaseFearAndGreedOracleRoundTestClass):
         """Tests the happy path for ObservationRound."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload = dict(test_observation=123)
@@ -125,8 +123,10 @@ class TestObservationRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_observations=test_round.collection,
-                most_voted_observation=payload,
+                participant_to_observations=self.round_class.serialize_collection(
+                    test_round.collection
+                ),
+                most_voted_observation=cast(ObservationRoundPayload, payload).json,
             ),
         )
 
@@ -158,7 +158,6 @@ class TestObservationRound(BaseFearAndGreedOracleRoundTestClass):
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload: Dict = dict()  # an empty dict is the error payload
@@ -205,7 +204,6 @@ class TestEstimationRound(BaseFearAndGreedOracleRoundTestClass):
         """Run tests."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload = dict(test_estimation=123)
@@ -234,8 +232,10 @@ class TestEstimationRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_observations=test_round.collection,
-                most_voted_observation=payload,
+                participant_to_observations=self.round_class.serialize_collection(
+                    test_round.collection
+                ),
+                most_voted_observation=cast(EstimationRoundPayload, payload).json,
             ),
         )
 
@@ -273,7 +273,6 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
         """Test case for when an outlier was detected."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload = dict(
@@ -304,8 +303,12 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_outlier_status=test_round.collection,
-                most_voted_outlier_status=payload,
+                participant_to_outlier_status=self.round_class.serialize_collection(
+                    test_round.collection
+                ),
+                most_voted_outlier_status=cast(
+                    OutlierDetectionRoundPayload, payload
+                ).json,
             ),
         )
 
@@ -340,7 +343,6 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
         """Test case for when an outlier was not detected."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload = dict(
@@ -371,8 +373,12 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_outlier_status=test_round.collection,
-                most_voted_outlier_status=payload,
+                participant_to_outlier_status=self.round_class.serialize_collection(
+                    test_round.collection
+                ),
+                most_voted_outlier_status=cast(
+                    OutlierDetectionRoundPayload, payload
+                ).json,
             ),
         )
 
@@ -407,7 +413,6 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload: Dict = dict()  # empty dict used for bad payload

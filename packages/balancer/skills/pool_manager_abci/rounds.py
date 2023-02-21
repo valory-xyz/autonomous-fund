@@ -20,7 +20,7 @@
 """This package contains the rounds of PoolManagerAbciApp."""
 import json
 from enum import Enum
-from typing import Dict, List, Optional, Set, Tuple, cast
+from typing import Dict, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.pool_manager_abci.payloads import (
     DecisionMakingPayload,
@@ -111,7 +111,7 @@ class DecisionMakingRound(CollectSameUntilThresholdRound):
             payload = json.loads(self.most_voted_payload)
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_decision=self.collection,
+                participant_to_decision=self.serialize_collection(self.collection),
                 most_voted_weights=payload.get("weights"),
             )
             return state, Event.DONE
@@ -141,7 +141,9 @@ class UpdatePoolTxRound(CollectSameUntilThresholdRound):
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
                 **{
-                    get_name(SynchronizedData.participant_to_tx): self.collection,
+                    get_name(
+                        SynchronizedData.participant_to_tx
+                    ): self.serialize_collection(self.collection),
                     get_name(
                         SynchronizedData.most_voted_tx_hash
                     ): self.most_voted_payload,
@@ -166,7 +168,31 @@ class FinishedTxPreparationRound(DegenerateRound):
 
 
 class PoolManagerAbciApp(AbciApp[Event]):
-    """PoolManagerAbciApp"""
+    """PoolManagerAbciApp
+
+    Initial round: DecisionMakingRound
+
+    Initial states: {DecisionMakingRound}
+
+    Transition states:
+        0. DecisionMakingRound
+            - done: 1.
+            - round timeout: 0.
+            - no majority: 0.
+            - no action: 2.
+        1. UpdatePoolTxRound
+            - done: 3.
+            - round timeout: 1.
+            - no majority: 1.
+            - no action: 1.
+        2. FinishedWithoutTxRound
+        3. FinishedTxPreparationRound
+
+    Final states: {FinishedTxPreparationRound, FinishedWithoutTxRound}
+
+    Timeouts:
+        round timeout: 30.0
+    """
 
     initial_round_cls: AppState = DecisionMakingRound
     initial_states: Set[AppState] = {DecisionMakingRound}
@@ -190,16 +216,16 @@ class PoolManagerAbciApp(AbciApp[Event]):
     event_to_timeout: EventToTimeout = {
         Event.ROUND_TIMEOUT: 30.0,
     }
-    cross_period_persisted_keys: List[str] = []
-    db_pre_conditions: Dict[AppState, List[str]] = {
-        DecisionMakingRound: [
+    cross_period_persisted_keys: Set[str] = set()
+    db_pre_conditions: Dict[AppState, Set[str]] = {
+        DecisionMakingRound: {
             get_name(SynchronizedData.most_voted_estimates),
-        ],
+        },
     }
-    db_post_conditions: Dict[AppState, List[str]] = {
-        FinishedTxPreparationRound: [
+    db_post_conditions: Dict[AppState, Set[str]] = {
+        FinishedTxPreparationRound: {
             get_name(SynchronizedData.most_voted_tx_hash),
             get_name(SynchronizedData.tx_submitter),
-        ],
-        FinishedWithoutTxRound: [],
+        },
+        FinishedWithoutTxRound: set(),
     }

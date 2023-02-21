@@ -20,7 +20,7 @@
 """This package contains the rounds of FearAndGreedOracleAbciApp."""
 import json
 from enum import Enum
-from typing import Dict, List, Optional, Set, Tuple, cast
+from typing import Dict, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
     EstimationRoundPayload,
@@ -95,7 +95,7 @@ class ObservationRound(CollectSameUntilThresholdRound):
                 **{
                     get_name(
                         SynchronizedData.participant_to_observations
-                    ): self.collection,
+                    ): self.serialize_collection(self.collection),
                     get_name(SynchronizedData.most_voted_observation): payload,
                 },
             )
@@ -147,7 +147,9 @@ class OutlierDetectionRound(CollectSameUntilThresholdRound):
             status = payload.get("status", self.OutlierStatus.INVALID_STATE.value)
             state = self.synchronized_data.update(
                 synchronized_data_class=self.synchronized_data_class,
-                participant_to_outlier_status=self.collection,
+                participant_to_outlier_status=self.serialize_collection(
+                    self.collection
+                ),
                 most_voted_outlier_status=payload,
             )
             if status == self.OutlierStatus.OUTLIER_NOT_DETECTED.value:
@@ -167,7 +169,34 @@ class FinishedDataCollectionRound(DegenerateRound):
 
 
 class FearAndGreedOracleAbciApp(AbciApp[Event]):
-    """A class that defines the transition between rounds in this abci app."""
+    """FearAndGreedOracleAbciApp
+
+    Initial round: ObservationRound
+
+    Initial states: {ObservationRound}
+
+    Transition states:
+        0. ObservationRound
+            - done: 1.
+            - round timeout: 0.
+            - no majority: 0.
+            - no action: 0.
+        1. EstimationRound
+            - done: 2.
+            - no action: 0.
+            - no majority: 0.
+            - round timeout: 0.
+        2. OutlierDetectionRound
+            - done: 3.
+            - no action: 0.
+            - no majority: 0.
+        3. FinishedDataCollectionRound
+
+    Final states: {FinishedDataCollectionRound}
+
+    Timeouts:
+        round timeout: 30.0
+    """
 
     initial_round_cls: AppState = ObservationRound
     initial_states: Set[AppState] = {ObservationRound}
@@ -195,15 +224,15 @@ class FearAndGreedOracleAbciApp(AbciApp[Event]):
     event_to_timeout: EventToTimeout = {
         Event.ROUND_TIMEOUT: 30.0,
     }
-    db_pre_conditions: Dict[AppState, List[str]] = {
-        ObservationRound: [],
+    db_pre_conditions: Dict[AppState, Set[str]] = {
+        ObservationRound: set(),
     }
-    db_post_conditions: Dict[AppState, List[str]] = {
-        FinishedDataCollectionRound: [
+    db_post_conditions: Dict[AppState, Set[str]] = {
+        FinishedDataCollectionRound: {
             get_name(SynchronizedData.participant_to_observations),
             get_name(SynchronizedData.most_voted_observation),
             get_name(SynchronizedData.participant_to_estimates),
             get_name(SynchronizedData.most_voted_estimates),
-        ]
+        }
     }
-    cross_period_persisted_keys: List[str] = []
+    cross_period_persisted_keys: Set[str] = set()

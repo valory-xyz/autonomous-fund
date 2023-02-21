@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2022 Valory AG
+#   Copyright 2022-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -61,7 +61,6 @@ class TestPostTransactionSettlementRound(BaseRoundTestClass):
         )
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
         res = test_round.end_block()
         assert res is not None
