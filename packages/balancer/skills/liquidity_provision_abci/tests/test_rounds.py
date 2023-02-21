@@ -62,7 +62,6 @@ class TestAllowListUpdateRound(BaseRoundTestClass):
         """Run round tests."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
         first_payload, *payloads = [
             AllowListUpdatePayload(sender=participant, allow_list_update=payload_data)
@@ -86,7 +85,9 @@ class TestAllowListUpdateRound(BaseRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_tx=test_round.collection,
+                participant_to_tx=self.round_class.serialize_collection(
+                    test_round.collection
+                ),
                 most_voted_tx=payload_data,
             ),
         )

@@ -21,7 +21,7 @@
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Hashable, List, Optional, Type
+from typing import Any, Dict, List, Optional, Type
 from unittest import mock
 
 import pytest
@@ -40,7 +40,7 @@ from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import (
     FinishedDataCollectionRound,
     SynchronizedData,
 )
-from packages.valory.skills.abstract_round_abci.base import AbciAppDB
+from packages.valory.skills.abstract_round_abci.base import AbciAppDB, CollectionRound
 from packages.valory.skills.abstract_round_abci.behaviours import (
     BaseBehaviour,
     make_degenerate_behaviour,
@@ -61,7 +61,7 @@ class BehaviourTestCase:
     """BehaviourTestCase"""
 
     name: str
-    initial_data: Dict[str, Hashable]
+    initial_data: Dict[str, Any]
     event: Event
     next_behaviour_class: Optional[Type[FearAndGreedOracleBaseBehaviour]] = None
 
@@ -268,20 +268,22 @@ class TestEstimationBehaviour(BaseFearAndGreedOracleTest):
             BehaviourTestCase(
                 "the happy path",
                 initial_data={  # type: ignore
-                    "participant_to_observations": {  # type: ignore
-                        "agent_a": ObservationRoundPayload(
-                            "agent_a", json.dumps(_observation)
-                        ),
-                        "agent_b": ObservationRoundPayload(
-                            "agent_b", json.dumps(_observation)
-                        ),
-                        "agent_c": ObservationRoundPayload(
-                            "agent_c", json.dumps(_observation)
-                        ),
-                        "agent_d": ObservationRoundPayload(
-                            "agent_d", json.dumps(_bad_observation)
-                        ),
-                    }
+                    "participant_to_observations": CollectionRound.serialize_collection(
+                        {
+                            "agent_a": ObservationRoundPayload(
+                                "agent_a", json.dumps(_observation)
+                            ),
+                            "agent_b": ObservationRoundPayload(
+                                "agent_b", json.dumps(_observation)
+                            ),
+                            "agent_c": ObservationRoundPayload(
+                                "agent_c", json.dumps(_observation)
+                            ),
+                            "agent_d": ObservationRoundPayload(
+                                "agent_d", json.dumps(_bad_observation)
+                            ),
+                        }
+                    )
                 },
                 event=Event.DONE,
                 next_behaviour_class=OutlierDetectionBehaviour,

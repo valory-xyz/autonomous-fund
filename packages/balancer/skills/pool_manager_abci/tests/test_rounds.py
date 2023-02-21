@@ -73,7 +73,6 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
         """Tests the happy path for DecisionMakingRound."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
         dummy_weights = [123, 123, 123]
         payload_data = json.dumps(dict(weights=dummy_weights))
@@ -99,7 +98,9 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_decision=test_round.collection,
+                participant_to_decision=self.round_class.serialize_collection(
+                    test_round.collection
+                ),
                 most_voted_weights=dummy_weights,
             ),
         )
@@ -132,7 +133,6 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload_data = DecisionMakingRound.NO_UPDATE_PAYLOAD
@@ -176,7 +176,6 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         """Tests the happy path for UpdatePoolTxRound."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
         payload_data = "0x-test-123"
         first_payload, *payloads = [
@@ -201,7 +200,9 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         expected_next_state = cast(
             SynchronizedData,
             self.synchronized_data.update(
-                participant_to_tx=test_round.collection,
+                participant_to_tx=self.round_class.serialize_collection(
+                    test_round.collection
+                ),
                 most_voted_tx=payload_data,
             ),
         )
@@ -234,7 +235,6 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
 
         payload_data = UpdatePoolTxRound.ERROR_PAYLOAD

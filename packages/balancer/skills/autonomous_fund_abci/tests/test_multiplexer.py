@@ -61,7 +61,6 @@ class TestPostTransactionSettlementRound(BaseRoundTestClass):
         )
         test_round = self.round_class(
             synchronized_data=self.synchronized_data,
-            consensus_params=self.consensus_params,
         )
         res = test_round.end_block()
         assert res is not None
