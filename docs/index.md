@@ -11,22 +11,32 @@ The SMPKit helps you build services that execute investment strategies on liquid
 
 	This section is under active development - please report issues in the [Autonolas Discord](https://discord.com/invite/z2PT65jKqQ).
 
-Once you have {{set_up_system}} to work with the Open Autonomy framework, you can run a local demo based on the SMPKit as follows:
+In order to run a local demo based on the SMPKit:
 
-1. Fetch the Smart Managed Pools service.
+1. [Set up your system](https://docs.autonolas.network/open-autonomy/guides/set_up/) to work with the Open Autonomy framework. We recommend that you use these commands:
+
+    ```bash
+    mkdir your_workspace && cd your_workspace
+    touch Pipfile && pipenv --python 3.10 && pipenv shell
+
+    pipenv install open-autonomy[all]==0.9.0
+    autonomy init --remote --ipfs --reset --author=your_name
+    ```
+
+2. Fetch the Smart Managed Pools service.
 
 	```bash
 	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeifqstcuchuetwzpctrx7kb6wdu3sswsjoxkfq3qf7oobtai2ydjdq --service
 	```
 
-2. Build the Docker image of the service agents
+3. Build the Docker image of the service agents
 
 	```bash
 	cd autonomous_fund_goerli
 	autonomy build-image
 	```
 
-3. Prepare the `keys.json` file containing the wallet address and the private key for each of the agents.
+4. Prepare the `keys.json` file containing the wallet address and the private key for each of the agents.
 
     ??? example "Example of a `keys.json` file"
 
@@ -53,13 +63,13 @@ Once you have {{set_up_system}} to work with the Open Autonomy framework, you ca
         ]
         ```
 
-4. Build the service deployment.
+5. Build the service deployment.
 
     ```bash
     autonomy deploy build keys.json --aev -ltm
     ```
 
-5. Run the service.
+6. Run the service.
 
 	```bash
 	cd abci_build
