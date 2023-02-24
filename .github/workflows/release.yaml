@@ -76,6 +76,7 @@ jobs:
               cd /work
               source env.sh || exit 1
               echo "Building images for $AUTHOR for service $SERVICE"
+              autonomy init --reset --author $AUTHOR --ipfs --remote
               autonomy fetch $AUTHOR/$SERVICE --service --local || exit 1
               cd $SERVICE || exit 1
               autonomy build-image || exit 1
