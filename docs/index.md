@@ -26,7 +26,7 @@ In order to run a local demo based on the SMPKit:
 2. Fetch the Smart Managed Pools service.
 
 	```bash
-	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeicvkbqtf5wix3ncvnznpazuqvyd7pryyga7cx4n3wd3uz5sghbbjm --service
+	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeiecesqg3xavm7egv3znjilzdhrk6ljaa7im66g2shy3slf5ve5ama --service
 	```
 
 3. Build the Docker image of the service agents
@@ -62,14 +62,29 @@ In order to run a local demo based on the SMPKit:
           }
         ]
         ```
+5. Export the necessary environment variables.
 
-5. Build the service deployment.
+    ```bash
+    # set the Goerli RPC endpoint for all the agents in the service
+    export SERVICE_AUTONOMOUS_FUND_RPC_0=YOUR_RPC_ENDPOINT
+    export SERVICE_AUTONOMOUS_FUND_RPC_1=YOUR_RPC_ENDPOINT
+    export SERVICE_AUTONOMOUS_FUND_RPC_2=YOUR_RPC_ENDPOINT
+    export SERVICE_AUTONOMOUS_FUND_RPC_3=YOUR_RPC_ENDPOINT
+    
+   # set all participants
+   export ALL_PARTICIPANTS='[["0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","0x976EA74026E726554dB657fA54763abd0C3a0aa9","0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"]]'
+   
+   # set the on chain id for the service 
+   export ON_CHAIN_SERVICE_ID=1 
+   ```
+
+6. Build the service deployment.
 
     ```bash
     autonomy deploy build keys.json --aev -ltm
     ```
 
-6. Run the service.
+7. Run the service.
 
 	```bash
 	cd abci_build
@@ -77,6 +92,9 @@ In order to run a local demo based on the SMPKit:
 	```
 
 	You can cancel the local execution at any time by pressing ++ctrl+c++.
+
+Note:
+The safe contract on Goerli associated with the autonomous-fund is configured to run with a specific set of keys (not the ones provided above). Running the service without those keys will result in failed on-chain transactions.
 
 ## Build
 
