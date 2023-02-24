@@ -78,6 +78,10 @@ In order to run a local demo based on the SMPKit:
    export ON_CHAIN_SERVICE_ID=1 
    ```
 
+	!!! warning "Important" 
+	
+		The keys provided in this example are for testing purposes. You must ensure to use your own keys in the `keys.json` file, and ensure that the environment variable `ALL_PARTICIPANTS` matches their addresses.
+
 6. Build the service deployment.
 
     ```bash
