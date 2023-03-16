@@ -71,16 +71,16 @@ In order to run a local demo based on the SMPKit:
     export SERVICE_AUTONOMOUS_FUND_RPC_2=YOUR_RPC_ENDPOINT
     export SERVICE_AUTONOMOUS_FUND_RPC_3=YOUR_RPC_ENDPOINT
     
-   # set all participants
-   export ALL_PARTICIPANTS='[["0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","0x976EA74026E726554dB657fA54763abd0C3a0aa9","0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"]]'
+	# set all participants
+	export ALL_PARTICIPANTS='[["0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","0x976EA74026E726554dB657fA54763abd0C3a0aa9","0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"]]'
    
-   # set the on chain id for the service 
-   export ON_CHAIN_SERVICE_ID=1 
-   ```
+	# set the on chain id for the service 
+	export ON_CHAIN_SERVICE_ID=1 
+	```
 
 	!!! warning "Important" 
 	
-		The keys provided in this example are for testing purposes. You must ensure to use your own keys in the `keys.json` file, and ensure that the environment variable `ALL_PARTICIPANTS` matches their addresses.
+	The keys provided in this example are for testing purposes. You must ensure to use your own keys in the `keys.json` file, and ensure that the environment variable `ALL_PARTICIPANTS` matches their addresses.
 
 6. Build the service deployment.
 
