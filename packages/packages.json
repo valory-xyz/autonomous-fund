@@ -6,7 +6,7 @@
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeibvjhdgxutdgcowqdgpznlzhet4h2bsjh4ia5eryxxdgx6aknz5gm",
         "contract/balancer/managed_pool/0.1.0": "bafybeibvq7szzruprq4v565fhcjinqttqt6dqsiiyukvwdu3chopre7hxm",
         "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeiecesqg3xavm7egv3znjilzdhrk6ljaa7im66g2shy3slf5ve5ama",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeibgzkdh2hbetqsj3qprralnlqdw3atsejnrzdp5fd4a7oskg45qbq",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeihpsvk5ymtl5sm6gsllogmmm5rkupdn72tagf2wpr3q34zqrcsfvy",
         "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeiho6v3qrtfndcunrquao7daxnia25em5e65wq36pfbboiz75gwcda"
     },
     "third_party": {
