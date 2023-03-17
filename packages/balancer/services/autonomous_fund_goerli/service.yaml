@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeie36flrik7sho37ynqzv7vc4thd5daw7h3af6fvi4o467fddbwgte
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeiaq6453bqemn2idlbo6bzs24exrbp7v2rzui45s3clgmihy6smdua
+agent: balancer/autonomous_fund:0.1.0:bafybeiaybahej2ul7jizfia25qbf3bdlwuojeqxwycvj7p4yuip6hmvh4q
 number_of_agents: 4
 ---
 public_id: balancer/autonomous_fund_abci:0.1.0
@@ -17,9 +17,12 @@ models:
     args:
       setup:
         safe_contract_address: ${SAFE_CONTRACT_ADDRESS:list:["0xD1A2679e3455a018d9e0D11edb873e7C5B5d831e"]}
+        all_participants: ${ALL_PARTICIPANTS:list:[["0x0000000000000000000000000000000000000000"]]}
       pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
       managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
+      on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
       share_tm_config_on_startup: ${USE_ACN:bool:false}
+      service_registry_address: '0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a'
       consensus:
         max_participants: 4
 ---

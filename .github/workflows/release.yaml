@@ -50,6 +50,7 @@ jobs:
               echo "Setting Tag Images"
               cd /work
               apt-get update && apt-get install git -y || exit 1
+              git config --global --add safe.directory /work
               export TAG=$(git describe --exact-match --tags $(git rev-parse HEAD)) || exit 1
               if [ $? -eq 0 ]; then
                   export TAG=`echo $TAG | sed 's/^v//'`
@@ -75,6 +76,7 @@ jobs:
               cd /work
               source env.sh || exit 1
               echo "Building images for $AUTHOR for service $SERVICE"
+              autonomy init --reset --author $AUTHOR --ipfs --remote
               autonomy fetch $AUTHOR/$SERVICE --service --local || exit 1
               cd $SERVICE || exit 1
               autonomy build-image || exit 1
@@ -83,7 +85,7 @@ jobs:
 
       - name: Docker login
         run: |
-            echo  $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin 
+            echo  $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
       - name: Docker Push
         run: |
           source env.sh

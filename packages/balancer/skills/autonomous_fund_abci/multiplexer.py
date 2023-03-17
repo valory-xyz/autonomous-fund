@@ -19,7 +19,7 @@
 """This package contains the rounds of TransactionSettlementAbciMultiplexer."""
 
 from enum import Enum
-from typing import Dict, List, Optional, Set, Tuple, cast
+from typing import Dict, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.liquidity_provision_abci.rounds import (
     AllowListUpdateRound,
@@ -109,10 +109,10 @@ class TransactionSettlementAbciMultiplexer(AbciApp[Event]):
         FinishedWeightUpdateRound,
         FinishedAllowlistUpdateRound,
     }
-    db_pre_conditions: Dict[AppState, List[str]] = {
-        PostTransactionSettlementRound: [get_name(SynchronizedData.tx_submitter)]
+    db_pre_conditions: Dict[AppState, Set[str]] = {
+        PostTransactionSettlementRound: {get_name(SynchronizedData.tx_submitter)}
     }
-    db_post_conditions: Dict[AppState, List[str]] = {
-        FinishedAllowlistUpdateRound: [],
-        FinishedWeightUpdateRound: [],
+    db_post_conditions: Dict[AppState, Set[str]] = {
+        FinishedAllowlistUpdateRound: set(),
+        FinishedWeightUpdateRound: set(),
     }
