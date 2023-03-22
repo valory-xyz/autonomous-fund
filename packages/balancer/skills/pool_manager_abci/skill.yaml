@@ -13,7 +13,7 @@ fingerprint:
   handlers.py: bafybeib7pt3oksdzoh73ivk3ufhjkdwripop6rjxlztvz3mfhxwbu2pbni
   models.py: bafybeia2yctd25s42aqsj5akmm5eqhunb2mft6lihhjxeuxloqquzrqkca
   payloads.py: bafybeiggrkwqcyf2w6npvjpck2mdjdyokoqqnxl42mvzl2vrox3cffxnzu
-  rounds.py: bafybeigctofvvvuzfia45w2p4n2fumihseygds7g2g24bsmfpcwhy25smm
+  rounds.py: bafybeibxgstqtdgrt72uplo6tpf5moydls5vu433v633yjzxx3uay7ivqq
   tests/__init__.py: bafybeiedv5h6wd6jjxzsu5d7foz3jyvgwtyotgtx2awmp2gqfysgtyziu4
   tests/test_behaviours.py: bafybeieplaso5mf3bza4or4sfto6rhc4m3wsynxzs6w5fnxqxyjd3g4aqi
   tests/test_dialogues.py: bafybeigv2j6zxox7pk4gfpgvsdbugofglut4gmlpf3uq4hlbx64hscv7n4
@@ -24,13 +24,13 @@ fingerprint:
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
-- balancer/managed_pool:0.1.0:bafybeibvq7szzruprq4v565fhcjinqttqt6dqsiiyukvwdu3chopre7hxm
-- valory/gnosis_safe:0.1.0:bafybeibzfhpib5fw3wady6dhq5bfgo37o437bi4s3hthbvvit7byvbalg4
+- balancer/managed_pool:0.1.0:bafybeigv662dmcqm6ssoqzf2aay3fyimha6mipqlfjtiv5vpaxbb5avm6a
+- valory/gnosis_safe:0.1.0:bafybeifkcq6lridzokhucgn7zf4hijs5z6inkiylgk2ewnq5ns44lezuqu
 protocols:
 - valory/contract_api:1.0.0:bafybeidv6wxpjyb2sdyibnmmum45et4zcla6tl63bnol6ztyoqvpl4spmy
 skills:
-- valory/abstract_round_abci:0.1.0:bafybeib2jw7hjccou42wis35orckwycb2dgjk7yw46anuqysf2h7su3fi4
-- valory/transaction_settlement_abci:0.1.0:bafybeiftbgfzp36bknbwus3fx2equmhgmboy4qd5myex76xfc4ze6o7b54
+- valory/abstract_round_abci:0.1.0:bafybeiacsn3k7q5ytxg52enceluqgp3xbzb4raks5vlkvmeikqje4fkes4
+- valory/transaction_settlement_abci:0.1.0:bafybeifsahbovtbghzhoz4fxei4hsqrumdu2siacfse7ewhpsc6saejnae
 behaviours:
   main:
     args: {}
@@ -106,7 +106,6 @@ models:
       max_attempts: 10
       max_healthcheck: 120
       observation_aggregator_function: median
-      observation_interval: 10
       on_chain_service_id: null
       pool_tokens:
       - '0x3A78BF1783a0187c1C8000e41C2a008897D0a35f'
@@ -127,6 +126,7 @@ models:
         - 60
       request_retry_delay: 1.0
       request_timeout: 10.0
+      reset_pause_duration: 10
       reset_tendermint_after: 2
       retry_attempts: 400
       retry_timeout: 3
@@ -135,11 +135,9 @@ models:
       service_registry_address: null
       setup:
         all_participants:
-        - - '0x0000000000000000000000000000000000000000'
-        safe_contract_address:
         - '0x0000000000000000000000000000000000000000'
-        consensus_threshold:
-        - null
+        safe_contract_address: '0x0000000000000000000000000000000000000000'
+        consensus_threshold: null
       share_tm_config_on_startup: false
       sleep_time: 1
       tendermint_check_sleep_delay: 3
@@ -148,6 +146,7 @@ models:
       tendermint_p2p_url: localhost:26656
       tendermint_url: http://localhost:26657
       tx_timeout: 10.0
+      use_termination: false
       weight_tolerance: 0.1
       weight_update_timespan: 72000
     class_name: Params

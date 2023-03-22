@@ -20,7 +20,7 @@
 """This package contains the rounds of FearAndGreedOracleAbciApp."""
 import json
 from enum import Enum
-from typing import Dict, Optional, Set, Tuple, cast
+from typing import Dict, FrozenSet, Optional, Set, Tuple, cast
 
 from packages.balancer.skills.fear_and_greed_oracle_abci.payloads import (
     EstimationRoundPayload,
@@ -235,4 +235,4 @@ class FearAndGreedOracleAbciApp(AbciApp[Event]):
             get_name(SynchronizedData.most_voted_estimates),
         }
     }
-    cross_period_persisted_keys: Set[str] = set()
+    cross_period_persisted_keys: FrozenSet[str] = frozenset()

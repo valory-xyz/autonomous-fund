@@ -21,13 +21,13 @@ pytest = "==7.2.1"
 pytest-asyncio = "==0.20.3"
 pytest-cov = "==4.0.0"
 pytest-randomly = "==3.12.0"
-open-aea = "==1.29.0"
-open-aea-ledger-ethereum = "==1.29.0"
-open-aea-ledger-cosmos = "==1.29.0"
-open-aea-cli-ipfs = "==1.29.0"
-open-aea-test-autonomy = "==0.9.1"
-open-autonomy = {version = "==0.9.1", extras = ["all"]}
-tomte = {version = "==0.2.2", extras = ["tox", "tests"]}
+open-aea = "==1.31.0"
+open-aea-ledger-ethereum = "==1.31.0"
+open-aea-ledger-cosmos = "==1.31.0"
+open-aea-cli-ipfs = "==1.31.0"
+open-aea-test-autonomy = "==0.10.0"
+open-autonomy = {version = "==0.10.0", extras = ["all"]}
+tomte = {version = "==0.2.4", extras = ["tox", "tests"]}
 
 [requires]
 python_version = "3.10"

@@ -10,9 +10,9 @@ fingerprint:
   behaviours.py: bafybeibmt2g4n2wj6g4psox56cl4pzpqn7upzrjbftrni6favx5xarghny
   composition.py: bafybeiel35h4qptnm6mqxc2vh2hjkhfqhbtcjg65ofa6qvjw3mb4mthxyq
   dialogues.py: bafybeiffd2prpsv5uk4xxr2qixgpbgy2flonh2etz2fdtnojj2mrey4qty
-  fsm_specification.yaml: bafybeihdtg6a7pcfk3fhmrhtjb64tarmzihlrh22yhgcndxlf7gepnmzc4
+  fsm_specification.yaml: bafybeibx2rfxxwyq6zixbtvbghu4mgxo2igt5vffu5tfmlkrmg7cm2677i
   handlers.py: bafybeiaoly6idnbtzohmd4f3krxnk3owu3hsuvyxznio3rutegi553p2ba
-  models.py: bafybeiamzkqyndhezvy7w4ubf5ejsw7czig3w4rac7dzwjgkv5sxa2ofiu
+  models.py: bafybeidjbf67nnjjwjrrk5rvt624nhabfl5c6iessgvywvxkvjmmgm4uny
   multiplexer.py: bafybeigojtg2jbwnpqja6dseftwwf3udacdpaoz6jxv7gv4kx6bbzaueiq
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
   tests/test_behaviours.py: bafybeidmci22hdaloodaaobuuvlq2uuvtteu4aigpjzq556hhn42e7yiaa
@@ -25,14 +25,14 @@ connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeibvjhdgxutdgcowqdgpznlzhet4h2bsjh4ia5eryxxdgx6aknz5gm
-- balancer/liquidity_provision_abci:0.1.0:bafybeiho6v3qrtfndcunrquao7daxnia25em5e65wq36pfbboiz75gwcda
-- balancer/pool_manager_abci:0.1.0:bafybeigaixp7wlsguqcpmjpwgzihl2okxzgneitgx2nibrkurb55ngkira
-- valory/abstract_round_abci:0.1.0:bafybeib2jw7hjccou42wis35orckwycb2dgjk7yw46anuqysf2h7su3fi4
-- valory/registration_abci:0.1.0:bafybeidgoqi7fa2gb56hdfsf74bbunfii63zgeo4qhggb66ofver2n2gya
-- valory/reset_pause_abci:0.1.0:bafybeievxhu6u5r5wlpjfzcwuowlbanhfbi25saf25qit53jauv4kq6gne
-- valory/termination_abci:0.1.0:bafybeihpp4li6jw3co4c4jferrtzobq2ydoc3dcn67esqrg5ebvyoac66e
-- valory/transaction_settlement_abci:0.1.0:bafybeiftbgfzp36bknbwus3fx2equmhgmboy4qd5myex76xfc4ze6o7b54
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeifanlhcouvkw6iwlobi4txn7u5krcay55ijsqyaj2gwbqoqsovtcq
+- balancer/liquidity_provision_abci:0.1.0:bafybeidlntplthnsa7kb4toufdmsqu3db5pmxysd6ollejebmzunjduo5i
+- balancer/pool_manager_abci:0.1.0:bafybeigbnkdpb7ykaskxsdthxmevwu3wzhr473ko7mrfgq2l6ytp4nrwry
+- valory/abstract_round_abci:0.1.0:bafybeiacsn3k7q5ytxg52enceluqgp3xbzb4raks5vlkvmeikqje4fkes4
+- valory/registration_abci:0.1.0:bafybeicu26bx4er4z7d5ca6pxkagqu6u2zxajyzlknigde6sep4mblhq7q
+- valory/reset_pause_abci:0.1.0:bafybeigorzha2vv47yooay4tscn7qdu57e6lgudbacyiktnobmaw34j2pe
+- valory/termination_abci:0.1.0:bafybeib7nju37lyctflxi2sibff2va5owtkqtgoydfflzky2pfwj6v3jcy
+- valory/transaction_settlement_abci:0.1.0:bafybeifsahbovtbghzhoz4fxei4hsqrumdu2siacfse7ewhpsc6saejnae
 behaviours:
   main:
     args: {}
@@ -124,7 +124,6 @@ models:
       min_index_value: 0
       multisend_address: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761'
       observation_aggregator_function: median
-      observation_interval: 10
       on_chain_service_id: null
       pool_tokens:
       - '0x3A78BF1783a0187c1C8000e41C2a008897D0a35f'
@@ -145,6 +144,7 @@ models:
         - 60
       request_retry_delay: 1.0
       request_timeout: 10.0
+      reset_pause_duration: 10
       reset_tendermint_after: 2
       retry_attempts: 400
       retry_timeout: 3
@@ -152,12 +152,10 @@ models:
       service_id: pool_manager
       service_registry_address: null
       setup:
-        safe_contract_address:
-        - '0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1'
+        safe_contract_address: '0x8001bdCf80F8Fb61CdcDA48419A30b430B385ca1'
         all_participants:
-        - - '0x0000000000000000000000000000000000000000'
-        consensus_threshold:
-        - null
+        - '0x0000000000000000000000000000000000000000'
+        consensus_threshold: null
       share_tm_config_on_startup: false
       sleep_time: 1
       tendermint_check_sleep_delay: 3
@@ -167,6 +165,7 @@ models:
       tendermint_url: http://localhost:26657
       termination_sleep: 900
       tx_timeout: 10.0
+      use_termination: false
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000

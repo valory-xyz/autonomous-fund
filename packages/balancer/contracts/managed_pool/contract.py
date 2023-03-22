@@ -35,7 +35,7 @@ _logger = logging.getLogger(
     f"aea.packages.{PUBLIC_ID.author}.contracts.{PUBLIC_ID.name}.contract"
 )
 
-SCALING_FACTOR = 10 ** 16
+SCALING_FACTOR = 10**16
 
 
 class ManagedPoolContract(Contract):

@@ -8,7 +8,7 @@ aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeifuqjdhsrydlwgdmuzlwvxsidbvxqrz3ulec4usczuquaj3g6jn4u
   build/IManagedPool.json: bafybeidmc2exztkruyzk3ohwzfclsemhcnfalt6kezwmgnmtj2efcprk4q
-  contract.py: bafybeiggtipykohgwx75mds2ve3y6qvqfgd43hdpi7dvvp3k3gwaixrdxu
+  contract.py: bafybeiflng4hzcfhcpi2cc3fjemvknnxfsymqv5yagrqdwiv5w4jxs35pq
 fingerprint_ignore_patterns: []
 contracts: []
 class_name: ManagedPoolContract
@@ -16,6 +16,6 @@ contract_interface_paths:
   ethereum: build/IManagedPool.json
 dependencies:
   open-aea-ledger-ethereum:
-    version: ==1.29.0
+    version: ==1.31.0
   web3:
     version: ==5.25.0
