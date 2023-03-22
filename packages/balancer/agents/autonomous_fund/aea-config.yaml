@@ -26,7 +26,7 @@ connections:
 - valory/ledger:0.19.0:bafybeighon6i2qfl2xrg7t3lbdzlkyo4v2a7ayvwso7m5w7pf2hvjfs2ma
 - valory/p2p_libp2p_client:0.1.0:bafybeidwcobzb7ut3efegoedad7jfckvt2n6prcmd4g7xnkm6hp6aafrva
 contracts:
-- balancer/managed_pool:0.1.0:bafybeigv662dmcqm6ssoqzf2aay3fyimha6mipqlfjtiv5vpaxbb5avm6a
+- balancer/managed_pool:0.1.0:bafybeickijgsctdrtrc5iwws7te7letkl2a2vinpo33akhacpkvdo4mq3m
 protocols:
 - open_aea/signing:1.0.0:bafybeibqlfmikg5hk4phzak6gqzhpkt6akckx7xppbp53mvwt6r73h7tk4
 - valory/abci:0.1.0:bafybeig3dj5jhsowlvg3t73kgobf6xn4nka7rkttakdb2gwsg5bp7rt7q4
@@ -37,10 +37,10 @@ protocols:
 - valory/ledger_api:1.0.0:bafybeidluywxchkacc7cz65nktqjg3y2vzzp43sw5hdhnvvonozogrmfie
 - valory/tendermint:0.1.0:bafybeicusvezoqlmyt6iqomcbwaz3xkhk2qf3d56q5zprmj3xdxfy64k54
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeigyf6b5fnvf7ccjctlqv6qsscefsk2i3j2swvswamcceu5c5qfdmy
+- balancer/autonomous_fund_abci:0.1.0:bafybeif7rjl3voosvmil5bxd7u5j6qunyelipe63ojrx6hppxkntpgksai
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeifanlhcouvkw6iwlobi4txn7u5krcay55ijsqyaj2gwbqoqsovtcq
-- balancer/liquidity_provision_abci:0.1.0:bafybeidlntplthnsa7kb4toufdmsqu3db5pmxysd6ollejebmzunjduo5i
-- balancer/pool_manager_abci:0.1.0:bafybeigbnkdpb7ykaskxsdthxmevwu3wzhr473ko7mrfgq2l6ytp4nrwry
+- balancer/liquidity_provision_abci:0.1.0:bafybeighwwvrivlyithajqsnfafggw4hbpfanw4dribywsbhgkn6a6meui
+- balancer/pool_manager_abci:0.1.0:bafybeia7rvma7amgbsxoey5a42cnt5vgumcdisok6f46tlke5eatsodbkm
 - valory/abstract_abci:0.1.0:bafybeiebo5lfk7htzdarpfixqt4zedf7t6a57k6rejw7xqletcxbclmf4y
 - valory/abstract_round_abci:0.1.0:bafybeiacsn3k7q5ytxg52enceluqgp3xbzb4raks5vlkvmeikqje4fkes4
 - valory/registration_abci:0.1.0:bafybeicu26bx4er4z7d5ca6pxkagqu6u2zxajyzlknigde6sep4mblhq7q

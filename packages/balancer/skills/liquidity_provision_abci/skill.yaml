@@ -24,7 +24,7 @@ fingerprint:
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
-- balancer/managed_pool:0.1.0:bafybeigv662dmcqm6ssoqzf2aay3fyimha6mipqlfjtiv5vpaxbb5avm6a
+- balancer/managed_pool:0.1.0:bafybeickijgsctdrtrc5iwws7te7letkl2a2vinpo33akhacpkvdo4mq3m
 - valory/gnosis_safe:0.1.0:bafybeifkcq6lridzokhucgn7zf4hijs5z6inkiylgk2ewnq5ns44lezuqu
 - valory/multisend:0.1.0:bafybeigjywkl7hydjsrkogob3xebj2ifhqwmfhhxoeyrndzhhxi5u6amey
 protocols:
