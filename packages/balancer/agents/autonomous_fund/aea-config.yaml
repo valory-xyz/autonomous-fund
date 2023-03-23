@@ -29,13 +29,7 @@ contracts:
 - balancer/managed_pool:0.1.0:bafybeickijgsctdrtrc5iwws7te7letkl2a2vinpo33akhacpkvdo4mq3m
 protocols:
 - open_aea/signing:1.0.0:bafybeibqlfmikg5hk4phzak6gqzhpkt6akckx7xppbp53mvwt6r73h7tk4
-- valory/abci:0.1.0:bafybeig3dj5jhsowlvg3t73kgobf6xn4nka7rkttakdb2gwsg5bp7rt7q4
-- valory/acn:1.1.0:bafybeignmc5uh3vgpuckljcj2tgg7hdqyytkm6m5b6v6mxtazdcvubibva
-- valory/contract_api:1.0.0:bafybeidv6wxpjyb2sdyibnmmum45et4zcla6tl63bnol6ztyoqvpl4spmy
-- valory/http:1.0.0:bafybeifyoio7nlh5zzyn5yz7krkou56l22to3cwg7gw5v5o3vxwklibhty
 - valory/ipfs:0.1.0:bafybeihlgai5pbmkb6mjhvgy4gkql5uvpwvxbpdowczgz4ovxat6vajrq4
-- valory/ledger_api:1.0.0:bafybeidluywxchkacc7cz65nktqjg3y2vzzp43sw5hdhnvvonozogrmfie
-- valory/tendermint:0.1.0:bafybeicusvezoqlmyt6iqomcbwaz3xkhk2qf3d56q5zprmj3xdxfy64k54
 skills:
 - balancer/autonomous_fund_abci:0.1.0:bafybeif7rjl3voosvmil5bxd7u5j6qunyelipe63ojrx6hppxkntpgksai
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeifanlhcouvkw6iwlobi4txn7u5krcay55ijsqyaj2gwbqoqsovtcq
@@ -50,8 +44,6 @@ skills:
 default_ledger: ethereum
 required_ledgers:
 - ethereum
-- cosmos
-- ethereum_hwi
 default_routing: {}
 connection_private_key_paths: {}
 private_key_paths: {}
@@ -79,10 +71,7 @@ logging_config:
       propagate: true
 skill_exception_policy: stop_and_exit
 dependencies:
-  open-aea-ledger-cosmos:
-    version: ==1.31.0
-  open-aea-ledger-ethereum:
-    version: ==1.31.0
+  open-aea-ledger-ethereum: {}
 default_connection: null
 ---
 public_id: valory/abci:0.1.0
