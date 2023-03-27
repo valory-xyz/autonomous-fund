@@ -85,7 +85,7 @@ class SharedState(BaseSharedState):
         )
         AutonomousFundAbciApp.event_to_timeout[
             ResetPauseEvent.RESET_AND_PAUSE_TIMEOUT
-        ] = (self.context.params.observation_interval + MARGIN)
+        ] = (self.context.params.reset_pause_duration + MARGIN)
         AutonomousFundAbciApp.event_to_timeout[
             TSEvent.VALIDATE_TIMEOUT
         ] = self.context.params.validate_timeout

@@ -19,14 +19,14 @@ In order to run a local demo based on the SMPKit:
     mkdir your_workspace && cd your_workspace
     touch Pipfile && pipenv --python 3.10 && pipenv shell
 
-    pipenv install open-autonomy[all]==0.9.1
+    pipenv install open-autonomy[all]==0.10.0.post1
     autonomy init --remote --ipfs --reset --author=your_name
     ```
 
 2. Fetch the Smart Managed Pools service.
 
 	```bash
-	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeiecesqg3xavm7egv3znjilzdhrk6ljaa7im66g2shy3slf5ve5ama --service
+	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeiax6pyqfvtxnzzecvntwc5e7rpqre5k52mn5thi2x566swveb3p6q --service
 	```
 
 3. Build the Docker image of the service agents
@@ -72,7 +72,7 @@ In order to run a local demo based on the SMPKit:
     export SERVICE_AUTONOMOUS_FUND_RPC_3=YOUR_RPC_ENDPOINT
     
 	# set all participants
-	export ALL_PARTICIPANTS='[["0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","0x976EA74026E726554dB657fA54763abd0C3a0aa9","0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"]]'
+	export ALL_PARTICIPANTS='["0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","0x976EA74026E726554dB657fA54763abd0C3a0aa9","0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"]'
    
 	# set the on chain id for the service 
 	export ON_CHAIN_SERVICE_ID=1 

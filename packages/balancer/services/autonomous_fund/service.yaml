@@ -7,8 +7,9 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeibfahh3htjez7vf7lwx2s7tth26cwxgtalgn5hj7yg7akhk67f4ny
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeiaybahej2ul7jizfia25qbf3bdlwuojeqxwycvj7p4yuip6hmvh4q
-number_of_agents: 1
+agent: balancer/autonomous_fund:0.1.0:bafybeignhpe7z6eclob7umc3lecwrt77q2wp6pbwdwl4tkd67gv6ggysn4
+number_of_agents: 4
+deployment: {}
 ---
 public_id: balancer/autonomous_fund_abci:0.1.0
 type: skill
@@ -16,17 +17,18 @@ models:
   params:
     args:
       setup:
-        safe_contract_address: ${SAFE_CONTRACT_ADDRESS:list:["0x0000000000000000000000000000000000000000"]}
+        all_participants: ${ALL_PARTICIPANTS:list:["0x0000000000000000000000000000000000000000"]}
+        safe_contract_address: ${SAFE_CONTRACT_ADDRESS:str:0x0000000000000000000000000000000000000000}
       pool_tokens: ${POOL_TOKENS:list:["0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2","0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599","0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"]}
       managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0x0000000000000000000000000000000000000000}
       allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x87cc0d34f6111c8A7A4Bdf758a9a715A3675f941"]}
       enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
-      observation_interval: ${OBSERVATION_INTERVAL:int:600}
+      reset_pause_duration: ${RESET_PAUSE_DURATION:int:600}
       service_registry_address: '0x48b6af7B12C71f09e2fC8aF4855De4Ff54e775cA'
       on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:2}
       share_tm_config_on_startup: ${USE_ACN:bool:false}
       consensus:
-        max_participants: 1
+        max_participants: 4
 ---
 public_id: valory/ledger:0.19.0
 type: connection
@@ -35,4 +37,22 @@ type: connection
     ledger_apis:
       ethereum:
         address: ${SERVICE_AUTONOMOUS_FUND_RPC_0:str:http://127.0.0.1:8545}
+        chain_id: 1
+1:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_1:str:http://127.0.0.1:8545}
+        chain_id: 1
+2:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_2:str:http://127.0.0.1:8545}
+        chain_id: 1
+3:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_3:str:http://127.0.0.1:8545}
         chain_id: 1

@@ -240,7 +240,7 @@ class PackageHashManager:
 
 
 def check_ipfs_hashes(  # pylint: disable=too-many-locals,too-many-statements
-    paths: List[Path] = None, fix: bool = False
+    paths: Optional[List[Path]] = None, fix: bool = False
 ) -> None:
     """Fix ipfs hashes in the docs"""
 
