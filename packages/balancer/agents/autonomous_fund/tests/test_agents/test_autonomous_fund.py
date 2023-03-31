@@ -244,4 +244,8 @@ class TestAutonomousFundFourAgentsWithAllowlist(
             "value": json.dumps(allowed_lp_addresses),
             "type_": "list",
         },
+        {
+            "dotted_path": f"vendor.valory.connections.p2p_libp2p_client.is_abstract",
+            "value": True,
+        },
     ]

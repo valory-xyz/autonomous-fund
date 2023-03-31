@@ -98,6 +98,10 @@ class BaseTestAutonomousFundEnd2End(
             "dotted_path": f"{__args_prefix}.fear_and_greed_endpoint",
             "value": f"{MOCK_API_ADDRESS}:{MOCK_API_PORT}{MOCK_API_PATH}",
         },
+        {
+            "dotted_path": "vendor.valory.connections.p2p_libp2p_client.is_abstract",
+            "value": True,
+        },
     ]
 
     def test_run(self, nb_nodes: int) -> None:
