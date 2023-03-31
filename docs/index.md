@@ -19,14 +19,14 @@ In order to run a local demo based on the SMPKit:
     mkdir your_workspace && cd your_workspace
     touch Pipfile && pipenv --python 3.10 && pipenv shell
 
-    pipenv install open-autonomy[all]==0.10.0.post1
+    pipenv install open-autonomy[all]==0.10.0.post2
     autonomy init --remote --ipfs --reset --author=your_name
     ```
 
 2. Fetch the Smart Managed Pools service.
 
 	```bash
-	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeiax6pyqfvtxnzzecvntwc5e7rpqre5k52mn5thi2x566swveb3p6q --service
+	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeihb2qcxqpqmeljwdbmymbn6myfyevspudweqfcq53phnozkvftuo4 --service
 	```
 
 3. Build the Docker image of the service agents

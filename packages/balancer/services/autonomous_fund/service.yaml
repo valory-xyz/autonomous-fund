@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeibfahh3htjez7vf7lwx2s7tth26cwxgtalgn5hj7yg7akhk67f4ny
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeignhpe7z6eclob7umc3lecwrt77q2wp6pbwdwl4tkd67gv6ggysn4
+agent: balancer/autonomous_fund:0.1.0:bafybeiat772j7eprbsof57ddjmwbxdzyyw7ljcez4qt7yfkt2wtxym6zka
 number_of_agents: 4
 deployment: {}
 ---
@@ -24,9 +24,9 @@ models:
       allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x87cc0d34f6111c8A7A4Bdf758a9a715A3675f941"]}
       enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
       reset_pause_duration: ${RESET_PAUSE_DURATION:int:600}
-      service_registry_address: '0x48b6af7B12C71f09e2fC8aF4855De4Ff54e775cA'
+      service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x48b6af7B12C71f09e2fC8aF4855De4Ff54e775cA}
+      share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
       on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:2}
-      share_tm_config_on_startup: ${USE_ACN:bool:false}
       consensus:
         max_participants: 4
 ---
