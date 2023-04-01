@@ -1,5 +1,12 @@
 # Release History - `Autonomous Fund`
 
+## v0.5.0.post1 (2023-02-27)
+- Bumps to open-autonomy `v0.10.0.post2`
+  
+## v0.5.0 (2023-02-27)
+- Bumps to open-autonomy `v0.10.0.post1`
+- Adds 4 agent service
+
 ## v0.4.0 (2023-02-24)
 - Bump to `open-autonomy@v0.9.1`.
 

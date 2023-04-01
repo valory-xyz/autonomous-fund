@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2021-2022 Valory AG
+#   Copyright 2021-2023 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -97,6 +97,10 @@ class BaseTestAutonomousFundEnd2End(
         {
             "dotted_path": f"{__args_prefix}.fear_and_greed_endpoint",
             "value": f"{MOCK_API_ADDRESS}:{MOCK_API_PORT}{MOCK_API_PATH}",
+        },
+        {
+            "dotted_path": "vendor.valory.connections.p2p_libp2p_client.is_abstract",
+            "value": True,
         },
     ]
 

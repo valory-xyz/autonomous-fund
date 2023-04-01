@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeie36flrik7sho37ynqzv7vc4thd5daw7h3af6fvi4o467fddbwgte
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeignhpe7z6eclob7umc3lecwrt77q2wp6pbwdwl4tkd67gv6ggysn4
+agent: balancer/autonomous_fund:0.1.0:bafybeig4sjfzuhxurreaell4eaka6zbgp2wfpcdpgap4to22bv42iqe2mi
 number_of_agents: 4
 deployment: {}
 ---
@@ -22,8 +22,8 @@ extra:
       pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
       managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
       on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-      share_tm_config_on_startup: ${USE_ACN:bool:false}
-      service_registry_address: '0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a'
+      share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+      service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a}
       consensus: &id002
         max_participants: 4
 0:
@@ -34,8 +34,8 @@ extra:
         pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
         managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        share_tm_config_on_startup: ${USE_ACN:bool:false}
-        service_registry_address: '0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a'
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a}
         consensus: *id002
         tendermint_p2p_url: ${TENDERMINT_P2P_URL_0:str:node0:26656}
 1:
@@ -46,8 +46,8 @@ extra:
         pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
         managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        share_tm_config_on_startup: ${USE_ACN:bool:false}
-        service_registry_address: '0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a'
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a}
         consensus: *id002
         tendermint_p2p_url: ${TENDERMINT_P2P_URL_1:str:node1:26656}
 2:
@@ -58,8 +58,8 @@ extra:
         pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
         managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        share_tm_config_on_startup: ${USE_ACN:bool:false}
-        service_registry_address: '0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a'
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a}
         consensus: *id002
         tendermint_p2p_url: ${TENDERMINT_P2P_URL_2:str:node2:26656}
 3:
@@ -70,8 +70,8 @@ extra:
         pool_tokens: ${POOL_TOKENS:list:["0x2f3A40A3db8a7e3D09B0adfEfbCe4f6F81927557","0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6","0xC04B0d3107736C32e19F1c62b2aF67BE61d63a05"]}
         managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0xEe1a504F8BAdc2c0215119cb729B8B6a0ecB13a1}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        share_tm_config_on_startup: ${USE_ACN:bool:false}
-        service_registry_address: '0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a'
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x1cEe30D08943EB58EFF84DD1AB44a6ee6FEff63a}
         consensus: *id002
         tendermint_p2p_url: ${TENDERMINT_P2P_URL_3:str:node3:26656}
 ---
