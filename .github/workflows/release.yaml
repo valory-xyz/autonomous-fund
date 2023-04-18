@@ -58,7 +58,7 @@ jobs:
                   echo "You are not on a tagged branch"
                   exit 1
               fi
-              echo VERSION=$TAG> env.sh
+              echo VERSION=$TAG > env.sh
               echo AUTHOR=$(grep 'service' packages/packages.json | awk -F/ '{print $2}' | head -1) >> env.sh
               echo SERVICE=$(grep 'service' packages/packages.json | awk -F/ '{print $3}' | head -1) >> env.sh
               echo AGENT=$(grep 'agent' packages/packages.json | awk -F/ '{print $3}' | head -1) >> env.sh
@@ -66,31 +66,33 @@ jobs:
               cat env.sh
 
       - uses: addnab/docker-run-action@v3
-        name: Build Images
+        name: Build Agent Image
         with:
             image: valory/open-autonomy-user:latest
             options: -v ${{ github.workspace }}:/work
             shell: bash
             run: |
-              echo "Building Docker Images"
+              echo "Building Docker Agent Image"
               cd /work
               source env.sh || exit 1
-              echo "Building images for $AUTHOR for service $SERVICE"
+              echo "Building image for $AUTHOR for service $SERVICE"
               autonomy init --reset --author $AUTHOR --ipfs --remote
               autonomy fetch $AUTHOR/$SERVICE --service --local || exit 1
               cd $SERVICE || exit 1
-              autonomy build-image || exit 1
-              autonomy build-image --version $VERSION || exit 1
-
+              autonomy build-image --image-author valory || exit 1
 
       - name: Docker login
         run: |
             echo  $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
-      - name: Docker Push
+
+      - name: Docker Tag and Push
         run: |
           source env.sh
-          echo "Pushing $DOCKER_USER/oar-$AGENT:$VERSION"
-          echo "Pushing $DOCKER_USER/oar-$AGENT:$DEFAULT_IMAGE_TAG"
-          docker push $DOCKER_USER/oar-$AGENT:$VERSION
-          docker push $DOCKER_USER/oar-$AGENT:$DEFAULT_IMAGE_TAG
-
+          docker tag $DOCKER_USER/oar-$AGENT:$DEFAULT_IMAGE_TAG $DOCKER_USER/oar-$AGENT:latest || exit 1
+          docker tag $DOCKER_USER/oar-$AGENT:$DEFAULT_IMAGE_TAG $DOCKER_USER/oar-$AGENT:$VERSION || exit 1
+          for TAG in $VERSION $DEFAULT_IMAGE_TAG latest
+          do
+              IMAGE_NAME="$DOCKER_USER/oar-$AGENT:$TAG"
+              echo "Pushing $IMAGE_NAME"
+              docker push $IMAGE_NAME
+          done
