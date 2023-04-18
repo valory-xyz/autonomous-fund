@@ -8,7 +8,7 @@ The following table shows which versions of `autonomous-fund` are currently bein
 
 | Version   | Supported          |
 | --------- | ------------------ |
-| `v0.1.0`  | ✔️                  |
+| `v0.6.0`  | ✔️                  |
 
 ## Reporting a Vulnerability
 
