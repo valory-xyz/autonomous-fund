@@ -9,7 +9,7 @@ The SMPKit helps you build services that execute investment strategies on liquid
 
 !!! warning "Important"
 
-	This section is under active development - please report issues in the [Autonolas Discord](https://discord.com/invite/z2PT65jKqQ).
+    This section is under active development - please report issues in the [Autonolas Discord](https://discord.com/invite/z2PT65jKqQ).
 
 In order to run a local demo based on the SMPKit:
 
@@ -25,16 +25,16 @@ In order to run a local demo based on the SMPKit:
 
 2. Fetch the Smart Managed Pools service.
 
-	```bash
-	autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeidscoxydlfogtbghqgoziuck4wxwyerxgpyad4k6g3jw2xrdi2qcm --service
-	```
+    ```bash
+    autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeidscoxydlfogtbghqgoziuck4wxwyerxgpyad4k6g3jw2xrdi2qcm --service
+    ```
 
 3. Build the Docker image of the service agents
 
-	```bash
-	cd autonomous_fund_goerli
-	autonomy build-image
-	```
+    ```bash
+    cd autonomous_fund_goerli
+    autonomy build-image
+    ```
 
 4. Prepare the `keys.json` file containing the wallet address and the private key for each of the agents.
 
@@ -62,6 +62,7 @@ In order to run a local demo based on the SMPKit:
           }
         ]
         ```
+
 5. Export the necessary environment variables.
 
     ```bash
@@ -71,16 +72,16 @@ In order to run a local demo based on the SMPKit:
     export SERVICE_AUTONOMOUS_FUND_RPC_2=YOUR_RPC_ENDPOINT
     export SERVICE_AUTONOMOUS_FUND_RPC_3=YOUR_RPC_ENDPOINT
     
-	# set all participants
-	export ALL_PARTICIPANTS='["0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","0x976EA74026E726554dB657fA54763abd0C3a0aa9","0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"]'
+    # set all participants
+    export ALL_PARTICIPANTS='["0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65","0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc","0x976EA74026E726554dB657fA54763abd0C3a0aa9","0x14dC79964da2C08b23698B3D3cc7Ca32193d9955"]'
    
-	# set the on chain id for the service 
-	export ON_CHAIN_SERVICE_ID=1 
-	```
+    # set the on chain id for the service 
+    export ON_CHAIN_SERVICE_ID=1 
+    ```
 
-	!!! warning "Important" 
-	
-	The keys provided in this example are for testing purposes. You must ensure to use your own keys in the `keys.json` file, and ensure that the environment variable `ALL_PARTICIPANTS` matches their addresses.
+    !!! warning "Important"
+
+        The keys provided in this example are for testing purposes. You must ensure to use your own keys in the `keys.json` file, and ensure that the environment variable `ALL_PARTICIPANTS` matches their addresses.
 
 6. Build the service deployment.
 
@@ -90,12 +91,12 @@ In order to run a local demo based on the SMPKit:
 
 7. Run the service.
 
-	```bash
-	cd abci_build
-	autonomy deploy run
-	```
+    ```bash
+    cd abci_build
+    autonomy deploy run
+    ```
 
-	You can cancel the local execution at any time by pressing ++ctrl+c++.
+    You can cancel the local execution at any time by pressing ++ctrl+c++.
 
 Note:
 The safe contract on Goerli associated with the autonomous-fund is configured to run with a specific set of keys (not the ones provided above). Running the service without those keys will result in failed on-chain transactions.
