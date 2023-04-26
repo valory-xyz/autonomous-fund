@@ -1,5 +1,8 @@
 # Release History - `Autonomous Fund`
 
+## v0.6.1 (2023-04-26)
+- Bumps to open-autonomy `v0.10.2` #101
+
 ## v0.6.0 (2023-04-18)
 - Bumps to open-autonomy `v0.10.1` #100
 
