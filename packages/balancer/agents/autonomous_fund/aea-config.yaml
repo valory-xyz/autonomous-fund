@@ -20,27 +20,27 @@ fingerprint:
   tests/test_contracts/test_managed_pool/test_contract.py: bafybeidpicr2wskkl65w43p5vowxn2kjnvhjziqdlr4pypqtuczhp3vmse
 fingerprint_ignore_patterns: []
 connections:
-- valory/abci:0.1.0:bafybeih2l6ssf5ebkvgbag3hx2pd22shytszqavveib2e2s6rv4va5khv4
+- valory/abci:0.1.0:bafybeieogrpktpxfq74leeeeylfx33sob2hovhpl5coxlswae6xblzbezy
 - valory/http_client:0.23.0:bafybeidykl4elwbcjkqn32wt5h4h7tlpeqovrcq3c5bcplt6nhpznhgczi
-- valory/ipfs:0.1.0:bafybeihubpyw2t3bwncz3l7jt4gf5xvfydwmob463vvgf3ikkhlwxakm3m
+- valory/ipfs:0.1.0:bafybeifkzgdzuoxqovcjswsnzsehjh7bjwbska26ufmcrk7hbufk4c4dae
 - valory/ledger:0.19.0:bafybeicgfupeudtmvehbwziqfxiz6ztsxr5rxzvalzvsdsspzz73o5fzfi
 - valory/p2p_libp2p_client:0.1.0:bafybeidwcobzb7ut3efegoedad7jfckvt2n6prcmd4g7xnkm6hp6aafrva
 contracts:
-- balancer/managed_pool:0.1.0:bafybeidnfch5pfiyde6z3fv3q23yfuh2lmfxr3cuv7n5ahrfakqvv4haqe
+- balancer/managed_pool:0.1.0:bafybeiarjaqst3uxnxhs7qe2qrf364fjqaho5corfsdwkhfgbcbanrwsn4
 protocols:
 - open_aea/signing:1.0.0:bafybeibqlfmikg5hk4phzak6gqzhpkt6akckx7xppbp53mvwt6r73h7tk4
 - valory/ipfs:0.1.0:bafybeic72ncgqbzoz2guj4p4yjqulid7mv6yroeh65hxznloamoveeg7hq
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeie74mrwmj6otkeijgrnb5xtqohpeajjwa2wkbemafljpapiinzwyi
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihu7j4cbypizlxbreqdm23o3bagwvziae26e36grlqhmlw4qs5eli
-- balancer/liquidity_provision_abci:0.1.0:bafybeidei4ffu6wupykhdpz2v2yyoqezxdvc66k6piddi3thbaz2mwtpi4
-- balancer/pool_manager_abci:0.1.0:bafybeibma5zkj444e3xce3zcyqj535lybxykwp7yugb6mmsaemu5hpttuq
-- valory/abstract_abci:0.1.0:bafybeifuclb6cikagtg2zn7dkjnnv3f7re2tfgzk6c4h3scgyzaaqeg55m
-- valory/abstract_round_abci:0.1.0:bafybeigiolzp3i6b3wwuau3yv2h5udqape3i7of73mlm2d6ud22irlkbme
-- valory/registration_abci:0.1.0:bafybeigjzfdhhu6ody2qo5v2xjobafujnodklia4zw6bkkhahxtjfo3wby
-- valory/reset_pause_abci:0.1.0:bafybeieeux3rdlcwgjbdfrluvkhqv26qdparre6pabatietw7juklljil4
-- valory/termination_abci:0.1.0:bafybeifkl4ab6dnvtsaefe56dbzshmp5mozn7exwcaj2a3wjeq7u3hpezm
-- valory/transaction_settlement_abci:0.1.0:bafybeifsz2ll7gmy6vmx34t6q5bdv6zzwp5zrehr6di6v3thcpc3sztkta
+- balancer/autonomous_fund_abci:0.1.0:bafybeia4zm6pnnpqsxvvlrlsjsfnkwnnc6hmdsyebjigco6nxsstv43g54
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihdhbpdve373kk3gpcrasggwvjlf6zqdsvjvbeunfn5x3stfdauje
+- balancer/liquidity_provision_abci:0.1.0:bafybeieno3c5b6ntie66zsw2gmi2pgxxihgljmr255r566mfncdxh6jqba
+- balancer/pool_manager_abci:0.1.0:bafybeiej576nvqwrrhi7go5fhbfigqjjrrv22lozhilu7safqwufu7wlgy
+- valory/abstract_abci:0.1.0:bafybeihgerjeq4u4apuue7zzhpb3wmntuju34dbdijbbvl4wclww2gy7di
+- valory/abstract_round_abci:0.1.0:bafybeicensk7a2vpqj52iyhf6yhc6z2iwulb2txbym546qvwgsxm3skvcm
+- valory/registration_abci:0.1.0:bafybeicsqhakfliwauyqow62yopcjhejknmfcjzh7ilbjt32ozydbhxleq
+- valory/reset_pause_abci:0.1.0:bafybeigwsp2crzvqan7xnap6dh4f4lxdut5il6naj7r4jwaslopstufgl4
+- valory/termination_abci:0.1.0:bafybeiglkntthppslj5p64n35aoqer4fcalezhqvpndo6eb2vaoynm6qxe
+- valory/transaction_settlement_abci:0.1.0:bafybeibor5qxitvgvgm47vzor4u7p53tcpw3fzez7hbd6qv4rglxladxye
 default_ledger: ethereum
 required_ledgers:
 - ethereum
