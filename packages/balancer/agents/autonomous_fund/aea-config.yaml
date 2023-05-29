@@ -71,7 +71,10 @@ logging_config:
       propagate: true
 skill_exception_policy: stop_and_exit
 dependencies:
-  open-aea-ledger-ethereum: {}
+  open-aea-ledger-cosmos:
+    version: <2.0.0,>=1.34.0
+  open-aea-ledger-ethereum:
+    version: <2.0.0,>=1.34.0
 default_connection: null
 ---
 public_id: valory/abci:0.1.0
