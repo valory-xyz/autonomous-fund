@@ -329,8 +329,8 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
         if not status:
             self.context.logger.warning(
                 f"The estimated values are outside of the allowed limits. "
-                f'min allowed value is "{self.params.min_index_value}", '
-                f'max allowed value is "{self.params.max_index_value}", '
+                f"min allowed value is {self.params.min_index_value!r}, "
+                f"max allowed value is {self.params.max_index_value!r}, "
                 f"the last two values are: {[values[0], values[1]]}."
             )
         return status
@@ -349,8 +349,8 @@ class OutlierDetectionBehaviour(FearAndGreedOracleBaseBehaviour):
         status = change <= self.params.max_index_change
         if not status:
             self.context.logger.warning(
-                f'The change is too aggressive. The max allowed change is "{self.params.max_index_change}", '
-                f'the current change is "{change}".'
+                f"The change is too aggressive. The max allowed change is {self.params.max_index_change!r}, "
+                f"the current change is {change!r}."
             )
         return status
 
