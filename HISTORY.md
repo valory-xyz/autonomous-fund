@@ -1,5 +1,8 @@
 # Release History - `Autonomous Fund`
 
+## 0.6.3 (2023-05-29)
+- Bumps `open-aea` and `open-autonomy` frameworks to `v1.34.0` and `v0.10.5.post1` correspondingly #106
+
 ## v0.6.2 (2023-05-08)
 - Bumps to open-autonomy `v0.10.3` #105
 
