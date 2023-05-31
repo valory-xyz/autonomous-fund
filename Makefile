@@ -42,8 +42,7 @@ clean-test:
 # black: format files according to the pep standards
 .PHONY: formatters
 formatters:
-	tox -e isort
-	tox -e black
+	tomte format-code
 
 # black-check: check code style
 # isort-check: check for import order
@@ -53,13 +52,14 @@ formatters:
 # darglint: docstring linter
 .PHONY: code-checks
 code-checks:
-	tox -p -e black-check -e isort-check -e flake8 -e mypy -e pylint -e darglint
+	tomte check-code
 
 # safety: checks dependencies for known security vulnerabilities
 # bandit: security linter
 .PHONY: security
 security:
-	tox -p -e safety -e bandit
+	tomte check-security
+	gitleaks detect --report-format json --report-path leak_report
 
 # generate latest abci docstrings
 # generate latest hashes for updated packages
@@ -67,13 +67,15 @@ security:
 .PHONY: generators
 generators:
 	tox -e abci-docstrings
-	tox -e fix-copyright
+	tomte format-copyright --author balancer
 	autonomy hash all
 	autonomy packages lock
 
 .PHONY: common-checks-1
 common-checks-1:
-	tox -p -e check-copyright -e check-hash -e check-packages
+	tomte check-copyright --author balancer
+	tomte check-doc-links
+	tox -p -e check-hash -e check-packages -e check-doc-hashes
 
 .PHONY: test
 test:

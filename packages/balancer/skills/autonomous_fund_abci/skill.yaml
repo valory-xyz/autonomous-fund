@@ -25,7 +25,7 @@ connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeiao62xpueyq3bw4ftnyfol7ck3hucfmxkqlc5rng72tdvgqwrrtbe
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeidfvohetnouyglawqodc7tho5ibw7nkqcg2723mzwhl5ul34geu6y
 - balancer/liquidity_provision_abci:0.1.0:bafybeigqec62rvlcpel4t63nxf6ilbukdnz257qzcyuwnf62253hsllydq
 - balancer/pool_manager_abci:0.1.0:bafybeico4qp7yb27kgmnv4yqxhkt7lq7zimuqojglheyrgzgg36zhrqijq
 - valory/abstract_round_abci:0.1.0:bafybeigsbglflua5vdwmwmo2rjsogp4anxtpqjbtrcwfivuxjiv6xczpba

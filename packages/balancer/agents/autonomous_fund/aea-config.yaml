@@ -31,8 +31,8 @@ protocols:
 - open_aea/signing:1.0.0:bafybeibqlfmikg5hk4phzak6gqzhpkt6akckx7xppbp53mvwt6r73h7tk4
 - valory/ipfs:0.1.0:bafybeic72ncgqbzoz2guj4p4yjqulid7mv6yroeh65hxznloamoveeg7hq
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeicbx53zdczmnio3hyrjnaytyacczimxx3oopqnhkxx3ywfbe3b3k4
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeiao62xpueyq3bw4ftnyfol7ck3hucfmxkqlc5rng72tdvgqwrrtbe
+- balancer/autonomous_fund_abci:0.1.0:bafybeihcfyfkquwq7fenkzecsv7alv6wmpxn4ix3t4rvzszh5xfolpiety
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeidfvohetnouyglawqodc7tho5ibw7nkqcg2723mzwhl5ul34geu6y
 - balancer/liquidity_provision_abci:0.1.0:bafybeigqec62rvlcpel4t63nxf6ilbukdnz257qzcyuwnf62253hsllydq
 - balancer/pool_manager_abci:0.1.0:bafybeico4qp7yb27kgmnv4yqxhkt7lq7zimuqojglheyrgzgg36zhrqijq
 - valory/abstract_abci:0.1.0:bafybeigte2l4en4otdp2maaoc3uesqdga5z4sqozrybsmcdp26bgfbcy54
