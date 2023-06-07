@@ -6,9 +6,9 @@ This document outlines security procedures and general policies for the `autonom
 
 The following table shows which versions of `autonomous-fund` are currently being supported with security updates.
 
-| Version   | Supported          |
-| --------- | ------------------ |
-| `v0.6.0`  | ✔️                  |
+| Version  | Supported |
+|----------|-----------|
+| `v0.6.4` | ✔️        |
 
 ## Reporting a Vulnerability
 
