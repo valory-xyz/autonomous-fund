@@ -25,14 +25,14 @@ connections: []
 contracts: []
 protocols: []
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeif6sh62u6dokcip3pwdv7is3pbuudcwcrc6qkdbandrjocy6jjrva
-- balancer/liquidity_provision_abci:0.1.0:bafybeidqge4fibbvkk7r7dxmwpfw23at2dw3sa4sxmx2jzfdfidzwbkgka
-- balancer/pool_manager_abci:0.1.0:bafybeihzbfv3gba57tsynergci72ywakmjjmmojejw3w44mml3nqnz2rm4
-- valory/abstract_round_abci:0.1.0:bafybeibdljcw2wchyderkonobpdpyb36yioagqcaoqldydw5bi6vvempma
-- valory/registration_abci:0.1.0:bafybeidqcszsitlmsofegmbprny22hqlent2o6luxng5a46gplytexrtbq
-- valory/reset_pause_abci:0.1.0:bafybeidprdrxzbloz5imufkbpvetvkhywdvq3fopbhdzztfnud4onsdsce
-- valory/termination_abci:0.1.0:bafybeif33wyu6w7yrrhyacpt627i5g6nec2kiepsm5xx2b44zq657dch3a
-- valory/transaction_settlement_abci:0.1.0:bafybeiaeu47qmeeqipn6jnz4ymbxwqb66axvx3ddzocnni4zehbhiupc54
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeibzd23mbeiba73k6ogwtjbj6thsyuc3x73riedxffbulh2eltchvq
+- balancer/liquidity_provision_abci:0.1.0:bafybeiabdba7rkyfyct6mfpnwwfhxon7of3d7p3of6e6mjuus6wasiqb64
+- balancer/pool_manager_abci:0.1.0:bafybeihviaqmgjdpnqxv5raffkdfoxf4svbbta5kg2mtekmogptg7y4mqu
+- valory/abstract_round_abci:0.1.0:bafybeiarzpxsy7ulitk5obs4zajhll2m77motjn5st7mi6qvjtkoirfikq
+- valory/registration_abci:0.1.0:bafybeie4suynydmpq2myqkdzhiqoro2hr4zexd5a2o4rvch7yefw65kjvq
+- valory/reset_pause_abci:0.1.0:bafybeiaickab63rqbu3kywnwyrfaa4362ai7rbvhghehxnvqk54eiaaegm
+- valory/termination_abci:0.1.0:bafybeieqpy3nu7qoy6ztfxetgiuevmgcpylufou3ngh5nw2vsgsvghid54
+- valory/transaction_settlement_abci:0.1.0:bafybeihuzoxkhnpep4zcekdq463hopohj3i7rkxvbc2ywmmcyppi3knbxy
 behaviours:
   main:
     args: {}
