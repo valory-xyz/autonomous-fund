@@ -1,5 +1,8 @@
 # Release History - `Autonomous Fund`
 
+## v0.6.5 (2023-06-19)
+- Bumps `open-autonomy` framework to `v0.10.6` #109
+
 ## v0.6.4 (2023-06-07)
 - Bumps `open-autonomy` framework to `v0.10.5.post2` #108
 - Bumps to `tomte@v0.2.12` and cleans up the repo #107
