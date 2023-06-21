@@ -10,3 +10,6 @@ token_id-"agent_id"
 ---
 token_id-"service_id"
 2-"service/balancer/autonomous_fund/0.1.0"
+---
+token_id-"service_id" (Gnosis Chain)
+4-"service/balancer/autonomous_fund/0.1.0"

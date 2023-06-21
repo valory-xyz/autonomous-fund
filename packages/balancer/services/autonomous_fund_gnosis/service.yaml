@@ -1,0 +1,118 @@
+name: autonomous_fund_gnosis
+author: balancer
+version: 0.1.0
+description: A set of agents implementing the Autonomous Fund on Gnosis.
+aea_version: '>=1.0.0, <2.0.0'
+license: Apache-2.0
+fingerprint:
+  README.md: bafybeieehvmcyig6zmiwoueqihxgnwvwfsqhadxbgwk7olus3jfdw4cn3q
+fingerprint_ignore_patterns: []
+agent: balancer/autonomous_fund:0.1.0:bafybeicdhfo3vegvl5mxagaydeuuxrovqcnnsu5dqtcqmn4nufzse7i6rq
+number_of_agents: 4
+deployment: {}
+---
+public_id: balancer/autonomous_fund_abci:0.1.0
+type: skill
+extra:
+  params_args:
+    args:
+      setup: &id001
+        all_participants: ${ALL_PARTICIPANTS:list:["0x0000000000000000000000000000000000000000"]}
+        safe_contract_address: ${SAFE_CONTRACT_ADDRESS:str:0x0000000000000000000000000000000000000000}
+      pool_tokens: ${POOL_TOKENS:list:["0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1","0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252","0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"]}
+      managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0x0000000000000000000000000000000000000000}
+      allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x35d448178c938ee1a2DD0C3C9DA3185d433E79AA","0xee95333D0E1be393EB5d8bA09eE0b5cF71e34453","0xC523433AC1Cc396fA58698739b3B0531Fe6C4268"]}
+      enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
+      reset_pause_duration: ${RESET_PAUSE_DURATION:int:600}
+      service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x9338b5153AE39BB89f50468E608eD9d764B755fD}
+      share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+      on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+      consensus: &id002
+        max_participants: 4
+0:
+  models:
+    params:
+      args:
+        setup: *id001
+        pool_tokens: ${POOL_TOKENS:list:["0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1","0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252","0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"]}
+        managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0x0000000000000000000000000000000000000000}
+        allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x35d448178c938ee1a2DD0C3C9DA3185d433E79AA","0xee95333D0E1be393EB5d8bA09eE0b5cF71e34453","0xC523433AC1Cc396fA58698739b3B0531Fe6C4268"]}
+        enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
+        reset_pause_duration: ${RESET_PAUSE_DURATION:int:600}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x9338b5153AE39BB89f50468E608eD9d764B755fD}
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        consensus: *id002
+        tendermint_p2p_url: ${TENDERMINT_P2P_URL_0:str:node0:26656}
+1:
+  models:
+    params:
+      args:
+        setup: *id001
+        pool_tokens: ${POOL_TOKENS:list:["0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1","0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252","0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"]}
+        managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0x0000000000000000000000000000000000000000}
+        allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x35d448178c938ee1a2DD0C3C9DA3185d433E79AA","0xee95333D0E1be393EB5d8bA09eE0b5cF71e34453","0xC523433AC1Cc396fA58698739b3B0531Fe6C4268"]}
+        enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
+        reset_pause_duration: ${RESET_PAUSE_DURATION:int:600}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x9338b5153AE39BB89f50468E608eD9d764B755fD}
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        consensus: *id002
+        tendermint_p2p_url: ${TENDERMINT_P2P_URL_1:str:node1:26656}
+2:
+  models:
+    params:
+      args:
+        setup: *id001
+        pool_tokens: ${POOL_TOKENS:list:["0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1","0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252","0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"]}
+        managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0x0000000000000000000000000000000000000000}
+        allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x35d448178c938ee1a2DD0C3C9DA3185d433E79AA","0xee95333D0E1be393EB5d8bA09eE0b5cF71e34453","0xC523433AC1Cc396fA58698739b3B0531Fe6C4268"]}
+        enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
+        reset_pause_duration: ${RESET_PAUSE_DURATION:int:600}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x9338b5153AE39BB89f50468E608eD9d764B755fD}
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        consensus: *id002
+        tendermint_p2p_url: ${TENDERMINT_P2P_URL_2:str:node2:26656}
+3:
+  models:
+    params:
+      args:
+        setup: *id001
+        pool_tokens: ${POOL_TOKENS:list:["0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1","0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252","0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83"]}
+        managed_pool_address: ${MANAGED_POOL_ADDRESS:str:0x0000000000000000000000000000000000000000}
+        allowed_lp_addresses: ${ALLOWED_LP_ADDRESSES:list:["0x35d448178c938ee1a2DD0C3C9DA3185d433E79AA","0xee95333D0E1be393EB5d8bA09eE0b5cF71e34453","0xC523433AC1Cc396fA58698739b3B0531Fe6C4268"]}
+        enforce_allowlist: ${ENFORCE_ALLOWLIST:bool:true}
+        reset_pause_duration: ${RESET_PAUSE_DURATION:int:600}
+        service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x9338b5153AE39BB89f50468E608eD9d764B755fD}
+        share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:true}
+        on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        consensus: *id002
+        tendermint_p2p_url: ${TENDERMINT_P2P_URL_3:str:node3:26656}
+---
+public_id: valory/ledger:0.19.0
+type: connection
+0:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_0:str:http://127.0.0.1:8545}
+        chain_id: 100
+1:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_1:str:http://127.0.0.1:8545}
+        chain_id: 100
+2:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_2:str:http://127.0.0.1:8545}
+        chain_id: 100
+3:
+  config:
+    ledger_apis:
+      ethereum:
+        address: ${SERVICE_AUTONOMOUS_FUND_RPC_3:str:http://127.0.0.1:8545}
+        chain_id: 100
