@@ -1,7 +1,11 @@
 # Release History - `Autonomous Fund`
 
+## v0.6.7 (2023-06-26)
+- Bumps `open-aea` and `open-autonomy` frameworks to `v1.35.0` and `v0.10.7` correspondingly #112
+- Fixes olas links #111
+
 ## v0.6.6 (2023-06-21)
-- Adds autonomous fund service config and metadata for Gnosis
+- Adds autonomous fund service config and metadata for Gnosis #110
 
 ## v0.6.5 (2023-06-19)
 - Bumps `open-autonomy` framework to `v0.10.6` #109
