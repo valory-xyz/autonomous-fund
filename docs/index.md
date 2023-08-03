@@ -26,7 +26,7 @@ In order to run a local demo based on the SMPKit:
 2. Fetch the Smart Managed Pools service.
 
     ```bash
-    autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeiexj2duk2wfkpuhg7fxzeh5ijtscqixj4o5b4mvpvyrjfqyfk2wcy --service
+    autonomy fetch balancer/autonomous_fund_goerli:0.1.0:bafybeigrylk3nbsblvmhu56m56v3jcsa4qnzmhjkbwhsboke6pujxplree --service
     ```
 
 3. Build the Docker image of the service agents
