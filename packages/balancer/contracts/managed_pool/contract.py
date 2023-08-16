@@ -217,7 +217,7 @@ class ManagedPoolContract(Contract):
         if nonce is None:
             raise ValueError("No nonce returned.")  # pragma: nocover
 
-        raw_tx = contract.functions.addAllowedAddress(member).buildTransaction(
+        raw_tx = contract.functions.addAllowedAddress(member).build_transaction(
             tx_parameters
         )
 
@@ -313,7 +313,7 @@ class ManagedPoolContract(Contract):
         if nonce is None:
             raise ValueError("No nonce returned.")  # pragma: nocover
 
-        raw_tx = contract.functions.removeAllowedAddress(member).buildTransaction(
+        raw_tx = contract.functions.removeAllowedAddress(member).build_transaction(
             tx_parameters
         )
 
@@ -425,7 +425,7 @@ class ManagedPoolContract(Contract):
 
         raw_tx = contract.functions.setMustAllowlistLPs(
             must_allowlist_lps
-        ).buildTransaction(tx_parameters)
+        ).build_transaction(tx_parameters)
 
         return raw_tx
 
@@ -503,7 +503,7 @@ class ManagedPoolContract(Contract):
             end_datetime,
             tokens,
             scaled_weights,
-        ).buildTransaction(tx_parameters)
+        ).build_transaction(tx_parameters)
 
         return raw_tx
 
