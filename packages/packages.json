@@ -1,14 +1,14 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeic4kah4n2yizklkbfncnbln33mbpv62bi7y42bi3qb4ofxkeqcv6a",
-        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeifyjtv2auxkeqyrac6v2svpmbdvtfninqhgieoj34hlnubwsjnyey",
-        "skill/balancer/pool_manager_abci/0.1.0": "bafybeieym3issn23a7n6tlk7y45lwuv72wf5zeemgwrxc2lrsd6zjsmz34",
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeicup6cvy5oryxsdnt6p4tobival4r6wqmgsbrbtg7kzjxuhtiil2m",
+        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeigju5bfqiz4wgjqmymlglk7mx6zedyakev5jqet3tbhn6zqf34h5i",
+        "skill/balancer/pool_manager_abci/0.1.0": "bafybeibxqqlyzdgdxjoetz5afm35axjtkwna45nbmchqcl72ay4ndgb734",
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeigzpu35otnigtcyajzhtwvofrhrjclslf2dup7lx2mknbmusexigm",
-        "contract/balancer/managed_pool/0.1.0": "bafybeid72gh3chhlw5vxbm7rx45fpa64z4xrciudwl4gzmftzgma36p5gy",
-        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeihhqnpnaenuehbb6rlqk7h7cfvti5kklox6u32236ompey7ytreu4",
-        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeihhvghoq2cqcptuabpxlx2c4mrmuunxbhonb2i4d4eyzz3y6e2sti",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeiajmivdek2v7k4cnx2vo3cbatuntkouiuuhivv7a7mneqiufzcjdu",
-        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeidcynk4khjbpngj6pdkjvrqetp5jyksv75rowhhmqw4ydf54jki54"
+        "contract/balancer/managed_pool/0.1.0": "bafybeigmhefgzzdfmcaehntsl656b7knlksuykrepobxlshjypq64v2zxu",
+        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeifcyr7l6drrt23zcdxhck2hfbfjh4p7qpfeqzzflw36zjnl64s6g4",
+        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeia2jhq7b4chkepbobmg5if3iispxkiuo2fwo5s4jkxzuoq3jkvfra",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeic4owgj7vt2qm5oc7d7ac64l4qbw5hgj4yporepvwlhnvpcvisdim",
+        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeiaqkdh23yw4antznp2e7ndkrodlrwp7wbqcasr4t2bbnrmxahfwcm"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeigootsvqpk6th5xpdtzanxum3earifrrezfyhylfrit7yvqdrtgpe",
