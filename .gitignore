@@ -16,3 +16,4 @@ packages/valory
 packages/open_aea
 Pipfile.lock
 .env
+__pycache__

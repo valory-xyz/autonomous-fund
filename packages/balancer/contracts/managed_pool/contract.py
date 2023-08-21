@@ -217,7 +217,7 @@ class ManagedPoolContract(Contract):
         if nonce is None:
             raise ValueError("No nonce returned.")  # pragma: nocover
 
-        raw_tx = contract.functions.addAllowedAddress(member).buildTransaction(
+        raw_tx = contract.functions.addAllowedAddress(member).build_transaction(
             tx_parameters
         )
 
@@ -313,7 +313,7 @@ class ManagedPoolContract(Contract):
         if nonce is None:
             raise ValueError("No nonce returned.")  # pragma: nocover
 
-        raw_tx = contract.functions.removeAllowedAddress(member).buildTransaction(
+        raw_tx = contract.functions.removeAllowedAddress(member).build_transaction(
             tx_parameters
         )
 
@@ -425,7 +425,7 @@ class ManagedPoolContract(Contract):
 
         raw_tx = contract.functions.setMustAllowlistLPs(
             must_allowlist_lps
-        ).buildTransaction(tx_parameters)
+        ).build_transaction(tx_parameters)
 
         return raw_tx
 
@@ -503,7 +503,7 @@ class ManagedPoolContract(Contract):
             end_datetime,
             tokens,
             scaled_weights,
-        ).buildTransaction(tx_parameters)
+        ).build_transaction(tx_parameters)
 
         return raw_tx
 
@@ -555,11 +555,11 @@ class ManagedPoolContract(Contract):
     ) -> Dict[str, List[str]]:
         """Returns the current allowlist of the pool."""
         contract_instance = cls.get_instance(ledger_api, contract_address)
-        add_entries = contract_instance.events.AllowlistAddressAdded.createFilter(
+        add_entries = contract_instance.events.AllowlistAddressAdded.create_filter(
             fromBlock=from_block,
             toBlock=to_block,
         ).get_all_entries()
-        remove_entries = contract_instance.events.AllowlistAddressRemoved.createFilter(
+        remove_entries = contract_instance.events.AllowlistAddressRemoved.create_filter(
             fromBlock=from_block,
             toBlock=to_block,
         ).get_all_entries()
