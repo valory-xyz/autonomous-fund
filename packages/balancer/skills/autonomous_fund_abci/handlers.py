@@ -137,6 +137,7 @@ class HttpHandler(BaseHttpHandler):
             http://pfp.staging.autonolas.tech/120
 
         :param url: the url to check
+        :param method: the http method
         :returns: the handling method if the message is intended to be handled by this handler, None otherwise, and the regex captures
         """
         # Check base url
@@ -151,7 +152,7 @@ class HttpHandler(BaseHttpHandler):
             if method not in methods:
                 continue
 
-            for route in routes:
+            for route in routes:  # type: ignore
                 # Routes are tuples like (route_regex, handle_method)
                 m = re.match(route[0], url)
                 if m:
