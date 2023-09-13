@@ -105,18 +105,20 @@ class HttpHandler(BaseHttpHandler):
 
         # Route regexes
         hostname_regex = rf".*({service_endpoint_base}|{propel_uri_base_hostname}|localhost|127.0.0.1|0.0.0.0)(:\d+)?"
-        self.handler_url_regex = rf"{hostname_regex}\/.*"
+        self.handler_url_regex = (  # pylint: disable=attribute-defined-outside-init
+            rf"{hostname_regex}\/.*"
+        )
         health_url_regex = rf"{hostname_regex}\/healthcheck"
 
         # Routes
-        self.routes = {
+        self.routes = {  # pylint: disable=attribute-defined-outside-init
             (HttpMethod.POST.value,): [],
             (HttpMethod.GET.value, HttpMethod.HEAD.value): [
                 (health_url_regex, self._handle_get_health),
             ],
         }
 
-        self.json_content_header = "Content-Type: application/json\n"
+        self.json_content_header = "Content-Type: application/json\n"  # pylint: disable=attribute-defined-outside-init
 
     @property
     def synchronized_data(self) -> SynchronizedData:
@@ -287,14 +289,16 @@ class HttpHandler(BaseHttpHandler):
 
         round_sequence = cast(SharedState, self.context.state).round_sequence
 
-        if round_sequence._last_round_transition_timestamp:
+        if (
+            round_sequence._last_round_transition_timestamp  # pylint: disable=protected-access
+        ):
             is_tm_unhealthy = cast(
                 SharedState, self.context.state
             ).round_sequence.block_stall_deadline_expired
 
             current_time = datetime.now().timestamp()
             seconds_since_last_transition = current_time - datetime.timestamp(
-                round_sequence._last_round_transition_timestamp
+                round_sequence._last_round_transition_timestamp  # pylint: disable=protected-access
             )
 
             is_transitioning_fast = (
@@ -303,10 +307,15 @@ class HttpHandler(BaseHttpHandler):
                 < 2 * self.context.params.reset_pause_duration
             )
 
-        if round_sequence._abci_app:
-            current_round = round_sequence._abci_app.current_round.round_id
+        if round_sequence._abci_app:  # pylint: disable=protected-access
+            current_round = (
+                round_sequence._abci_app.current_round.round_id  # pylint: disable=protected-access
+            )
             previous_rounds = [
-                r.round_id for r in round_sequence._abci_app._previous_rounds[-10:]
+                r.round_id
+                for r in round_sequence._abci_app._previous_rounds[  # pylint: disable=protected-access
+                    -10:
+                ]
             ]
 
         data = {
