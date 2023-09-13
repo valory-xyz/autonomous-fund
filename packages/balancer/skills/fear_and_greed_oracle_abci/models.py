@@ -64,6 +64,7 @@ class Params(BaseParams):
         self.max_index_change: float = self._ensure(
             "max_index_change", kwargs, type_=float
         )
+        self.service_endpoint_base = self._ensure("service_endpoint_base", kwargs, str)
         super().__init__(*args, **kwargs)
 
 

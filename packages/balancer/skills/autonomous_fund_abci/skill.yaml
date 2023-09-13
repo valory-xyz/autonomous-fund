@@ -169,6 +169,7 @@ models:
       validate_timeout: 1205
       weight_tolerance: 0.1
       weight_update_timespan: 72000
+      service_endpoint_base: https://dummy_service.autonolas.tech/
     class_name: Params
   randomness_api:
     args:

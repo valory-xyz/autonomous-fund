@@ -27,6 +27,7 @@ models:
       service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:0x48b6af7B12C71f09e2fC8aF4855De4Ff54e775cA}
       share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
       on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:2}
+      service_endpoint_base: ${SERVICE_ENDPOINT_BASE:str:https://dummy_service.autonolas.tech/}
       consensus:
         max_participants: 4
 ---

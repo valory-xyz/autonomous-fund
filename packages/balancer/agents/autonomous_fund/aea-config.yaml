@@ -25,6 +25,7 @@ connections:
 - valory/ipfs:0.1.0:bafybeiau32pzy55ta6ugl2bebevlxudal6pnlfomhplfm5mph6reaw3krq
 - valory/ledger:0.19.0:bafybeigfoz7d7si7s4jehvloq2zmiiocpbxcaathl3bxkyarxoerxq7g3a
 - valory/p2p_libp2p_client:0.1.0:bafybeihdnfdth3qgltefgrem7xyi4b3ejzaz67xglm2hbma2rfvpl2annq
+- fetchai/http_server:0.22.0:bafybeihp5umafxzx45aad5pj7s3343se2wjkgnbirt4pybrape22swm6de
 contracts:
 - balancer/managed_pool:0.1.0:bafybeigmhefgzzdfmcaehntsl656b7knlksuykrepobxlshjypq64v2zxu
 protocols:
@@ -188,3 +189,10 @@ models:
       use_termination: ${bool:false}
       weight_update_timespan: 72000
       managed_pool_address: ${str:0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1}
+      service_endpoint_base: ${str:https://dummy_service.autonolas.tech/}
+---
+public_id: fetchai/http_server:0.22.0:bafybeicblltx7ha3ulthg7bzfccuqqyjmihhrvfeztlgrlcoxhr7kf6nbq
+type: connection
+config:
+  host: 0.0.0.0
+  target_skill_id: balancer/autonomous_fund_abci:0.1.0
