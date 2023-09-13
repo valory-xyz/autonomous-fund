@@ -20,20 +20,20 @@ fingerprint:
   tests/test_contracts/test_managed_pool/test_contract.py: bafybeidpicr2wskkl65w43p5vowxn2kjnvhjziqdlr4pypqtuczhp3vmse
 fingerprint_ignore_patterns: []
 connections:
+- fetchai/http_server:0.22.0:bafybeihp5umafxzx45aad5pj7s3343se2wjkgnbirt4pybrape22swm6de
 - valory/abci:0.1.0:bafybeicasheudousm2unmh5qmy5n3qdq5hmkg2j42fxfm2crxmgq3nzjkq
 - valory/http_client:0.23.0:bafybeieoeuy4brzimtnubmokwirhrx27ezls6cdnl5qik4rkykfle3nn2y
 - valory/ipfs:0.1.0:bafybeiau32pzy55ta6ugl2bebevlxudal6pnlfomhplfm5mph6reaw3krq
 - valory/ledger:0.19.0:bafybeigfoz7d7si7s4jehvloq2zmiiocpbxcaathl3bxkyarxoerxq7g3a
 - valory/p2p_libp2p_client:0.1.0:bafybeihdnfdth3qgltefgrem7xyi4b3ejzaz67xglm2hbma2rfvpl2annq
-- fetchai/http_server:0.22.0:bafybeihp5umafxzx45aad5pj7s3343se2wjkgnbirt4pybrape22swm6de
 contracts:
 - balancer/managed_pool:0.1.0:bafybeigmhefgzzdfmcaehntsl656b7knlksuykrepobxlshjypq64v2zxu
 protocols:
 - open_aea/signing:1.0.0:bafybeifuxs7gdg2okbn7uofymenjlmnih2wxwkym44lsgwmklgwuckxm2m
 - valory/ipfs:0.1.0:bafybeibjzhsengtxfofqpxy6syamplevp35obemwfp4c5lhag3v2bvgysa
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeibd6stteoi46mfm673zekanzt4zgtaek34swwpc5ghy2f5xzbqk6a
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeic4gke4x2fnqsi75rsgatzobzcalbxgsfnlrci7w2vaqictjcas2u
+- balancer/autonomous_fund_abci:0.1.0:bafybeib5drluoy35vskjkqeqdiqohd54ggmshrvylzr4tsyujvyn5vu4dy
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeieinym5mocbwas7kwudsnywtxaclkfhcec5pgpxhxk4t5bw4oziwi
 - balancer/liquidity_provision_abci:0.1.0:bafybeiaa6jtc7vka3gpktzc4jjq5f6znxj6o5qekbkxb4dq3tmtukqa3zq
 - balancer/pool_manager_abci:0.1.0:bafybeibmm2kg4fzfvz776oezqisc44mqzkma6lhmrgbsqli6zi72amwzeq
 - valory/abstract_abci:0.1.0:bafybeicg7dv7cff34nv2k2z47c4yp4kddsxp3wozonzow6tnvfvwndz3cy
