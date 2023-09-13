@@ -21,9 +21,11 @@ fingerprint:
   tests/test_models.py: bafybeicrunh3ninsmis7eejbxauvqfxr4dlnu6zlyof462qjefjx37apvm
   tests/test_multiplexer.py: bafybeic3sbhy7jp2dwiiersncdqtlmgqf5bkvkbqlf6y52v5kf43tse5wu
 fingerprint_ignore_patterns: []
-connections: []
+connections:
+- fetchai/http_server:0.22.0:bafybeihp5umafxzx45aad5pj7s3343se2wjkgnbirt4pybrape22swm6de
 contracts: []
-protocols: []
+protocols:
+- valory/http:1.0.0:bafybeia5bxdua2i6chw6pg47bvoljzcpuqxzy4rdrorbdmcbnwmnfdobtu
 skills:
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeieinym5mocbwas7kwudsnywtxaclkfhcec5pgpxhxk4t5bw4oziwi
 - balancer/liquidity_provision_abci:0.1.0:bafybeiaa6jtc7vka3gpktzc4jjq5f6znxj6o5qekbkxb4dq3tmtukqa3zq

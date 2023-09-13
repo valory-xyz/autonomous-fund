@@ -32,7 +32,7 @@ protocols:
 - open_aea/signing:1.0.0:bafybeifuxs7gdg2okbn7uofymenjlmnih2wxwkym44lsgwmklgwuckxm2m
 - valory/ipfs:0.1.0:bafybeibjzhsengtxfofqpxy6syamplevp35obemwfp4c5lhag3v2bvgysa
 skills:
-- balancer/autonomous_fund_abci:0.1.0:bafybeihkmf2ch45yvhbd3542qqa4puftedfskx56smlun4qqs56pufsaty
+- balancer/autonomous_fund_abci:0.1.0:bafybeidyf5npr7vu4jbgdjwewdni7p2jwmdxh2t7ukmukmkcblosy7nl3a
 - balancer/fear_and_greed_oracle_abci:0.1.0:bafybeieinym5mocbwas7kwudsnywtxaclkfhcec5pgpxhxk4t5bw4oziwi
 - balancer/liquidity_provision_abci:0.1.0:bafybeiaa6jtc7vka3gpktzc4jjq5f6znxj6o5qekbkxb4dq3tmtukqa3zq
 - balancer/pool_manager_abci:0.1.0:bafybeibmm2kg4fzfvz776oezqisc44mqzkma6lhmrgbsqli6zi72amwzeq
