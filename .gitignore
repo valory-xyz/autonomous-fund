@@ -17,3 +17,4 @@ packages/open_aea
 Pipfile.lock
 .env
 __pycache__
+packages/fetchai/

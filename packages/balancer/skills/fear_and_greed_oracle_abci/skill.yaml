@@ -11,7 +11,7 @@ fingerprint:
   dialogues.py: bafybeiffd2prpsv5uk4xxr2qixgpbgy2flonh2etz2fdtnojj2mrey4qty
   fsm_specification.yaml: bafybeie4a2veb7scm7upgydyq2xroie3uj7ikbkiagc56y2eilmoiwqohm
   handlers.py: bafybeia3xdhc2ffeqlk6n2krffvxvb6x2kq2eb2xzdazyqwamyzcluwrxa
-  models.py: bafybeidrnegnyxcooxqlbi4g5yly35z65ymify7obuse4k4rtlv2qtf2z4
+  models.py: bafybeidghgbe3yvs56py4bfl5ghhinwd35hdsh4yjhcwy2wcuf7afxms2e
   my_model.py: bafybeiaqfta55w3ygvyrk7g2wmb3xvlpmpvmq5wbsyqav3pwk46cgfp34u
   payloads.py: bafybeihxbhluzghfaub245lcwo4lqtnbuqat2md7ewkujaptedredhiz2i
   rounds.py: bafybeiclqxz6uqt2pdj3brfevanzgzgrkhhhbnsn25rsai7rvzpfkqhhpq
@@ -115,6 +115,7 @@ models:
       retry_attempts: 400
       retry_timeout: 3
       round_timeout_seconds: 30.0
+      service_endpoint_base: https://dummy_service.autonolas.tech/
       service_id: fear_and_greed_oracle
       service_registry_address: null
       setup:
