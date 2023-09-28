@@ -20,6 +20,7 @@
 """This package contains the tests for rounds of LiquidityProvision."""
 
 from typing import Dict, cast
+from unittest import mock
 
 import pytest
 
@@ -61,7 +62,7 @@ class TestAllowListUpdateRound(BaseRoundTestClass):
     def test_run(self, payload_data: str, expected_event: Event) -> None:
         """Run round tests."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
         first_payload, *payloads = [
             AllowListUpdatePayload(sender=participant, allow_list_update=payload_data)

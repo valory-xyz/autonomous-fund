@@ -20,17 +20,17 @@ fingerprint:
   tests/test_handlers.py: bafybeiesvxlswqsmyufa52nuxbxet7oqbtbajb6xwsdmfdrf5x6wcwe47y
   tests/test_models.py: bafybeidhzjglorclxu47syllpklbnjvcb63qxmfnkcwqbxphfqdgaxznh4
   tests/test_payloads.py: bafybeicbp3wft6zo7ewjqw5qu5c3rczcjzk4l4yo62zb5be2ohhmoyt3xi
-  tests/test_rounds.py: bafybeig6glbtutkm3zglmtwshkg3fshv6kas7bfzmeujweznqfshcvswri
+  tests/test_rounds.py: bafybeib2dnzidwjpd6mvkcooooymknhgy4bw3mxjuy6sukwgdqnysamfci
 fingerprint_ignore_patterns: []
 connections: []
 contracts:
-- balancer/managed_pool:0.1.0:bafybeigmhefgzzdfmcaehntsl656b7knlksuykrepobxlshjypq64v2zxu
-- valory/gnosis_safe:0.1.0:bafybeigvqg4lapdaa23dpc3pv67rdptdhey6e435mxqsw2gb2u74yw4yei
+- balancer/managed_pool:0.1.0:bafybeia3g5lbnlx6vy43c7cwqvsikvztqxbzfmhcj2pe2qwob7yhb6y2me
+- valory/gnosis_safe:0.1.0:bafybeih6d3vxz3jlgodxm5b2qcwsmansqj4xobuyd6hjnhzremuvd65yrm
 protocols:
 - valory/contract_api:1.0.0:bafybeiasywsvax45qmugus5kxogejj66c5taen27h4voriodz7rgushtqa
 skills:
-- valory/abstract_round_abci:0.1.0:bafybeigxjcci53vwytymzlhr37436yvenh7jup4astrn7dgyixo24aq2pq
-- valory/transaction_settlement_abci:0.1.0:bafybeidpsnguxizkpihtkqzojr3em7yy7c6qc7gxpbh5vglmwws5wke7bi
+- valory/abstract_round_abci:0.1.0:bafybeih2fyfb6kkf7r45pvdk7pyyebr5xloia4xiqxtb3qsrasnstqmepq
+- valory/transaction_settlement_abci:0.1.0:bafybeia7rzsbea3ch4gcafyp3z6uvqh4npws2xpdwbkkdbrqqpjops7nui
 behaviours:
   main:
     args: {}
@@ -149,6 +149,11 @@ models:
       use_termination: false
       weight_tolerance: 0.1
       weight_update_timespan: 72000
+      use_slashing: false
+      slash_cooldown_hours: 3
+      slash_threshold_amount: 10000000000000000
+      light_slash_unit_amount: 5000000000000000
+      serious_slash_unit_amount: 8000000000000000
     class_name: Params
   requests:
     args: {}

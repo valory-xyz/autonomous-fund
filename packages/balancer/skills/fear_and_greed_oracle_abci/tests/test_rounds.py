@@ -21,6 +21,7 @@
 import json
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, Hashable, List, cast
+from unittest import mock
 
 import pytest
 
@@ -69,7 +70,7 @@ class BaseFearAndGreedOracleRoundTestClass(BaseRoundTestClass):
         self.synchronized_data.update(**test_case.initial_data)  # type: ignore
 
         test_round = self.round_class(  # type: ignore # pylint: disable=no-member
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         self._complete_run(
@@ -94,7 +95,7 @@ class TestObservationRound(BaseFearAndGreedOracleRoundTestClass):
     def test_run(self) -> None:
         """Tests the happy path for ObservationRound."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload = dict(test_observation=123)
@@ -157,7 +158,7 @@ class TestObservationRound(BaseFearAndGreedOracleRoundTestClass):
     def test_err_payload(self) -> None:
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload: Dict = dict()  # an empty dict is the error payload
@@ -203,7 +204,7 @@ class TestEstimationRound(BaseFearAndGreedOracleRoundTestClass):
     def test_run(self) -> None:
         """Run tests."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload = dict(test_estimation=123)
@@ -272,7 +273,7 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
     def test_outlier_detected(self) -> None:
         """Test case for when an outlier was detected."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload = dict(
@@ -342,7 +343,7 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
     def test_outlier_not_detected(self) -> None:
         """Test case for when an outlier was not detected."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload = dict(
@@ -412,7 +413,7 @@ class TestOutlierDetectionRound(BaseFearAndGreedOracleRoundTestClass):
     def test_err_payload(self) -> None:
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload: Dict = dict()  # empty dict used for bad payload
