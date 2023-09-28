@@ -19,7 +19,7 @@ fingerprint:
   tests/test_dialogues.py: bafybeidqjnbjc6qs4pwxaljuzmn2edgiynzt5nubgwk3fabnjhpyqu4ibe
   tests/test_handlers.py: bafybeieuhhzq67glblqzeos634w3c3rqgl2tqy3clctpwzvr7cedlzu7tq
   tests/test_models.py: bafybeicrunh3ninsmis7eejbxauvqfxr4dlnu6zlyof462qjefjx37apvm
-  tests/test_multiplexer.py: bafybeic3sbhy7jp2dwiiersncdqtlmgqf5bkvkbqlf6y52v5kf43tse5wu
+  tests/test_multiplexer.py: bafybeidqskxfcqsxbjbfus2qcpsqtuo5ynh7quyyyoiz4vj5ckcqmql33y
 fingerprint_ignore_patterns: []
 connections:
 - fetchai/http_server:0.22.0:bafybeihp5umafxzx45aad5pj7s3343se2wjkgnbirt4pybrape22swm6de
