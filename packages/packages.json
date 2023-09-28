@@ -1,14 +1,14 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeiascrcf6wa6u276dkx2rjawbbpebfolsnghigcnjibsyxdvo6qtvm",
-        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeidyf5npr7vu4jbgdjwewdni7p2jwmdxh2t7ukmukmkcblosy7nl3a",
-        "skill/balancer/pool_manager_abci/0.1.0": "bafybeibmm2kg4fzfvz776oezqisc44mqzkma6lhmrgbsqli6zi72amwzeq",
-        "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeieinym5mocbwas7kwudsnywtxaclkfhcec5pgpxhxk4t5bw4oziwi",
-        "contract/balancer/managed_pool/0.1.0": "bafybeigmhefgzzdfmcaehntsl656b7knlksuykrepobxlshjypq64v2zxu",
-        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeicgnbrquplax7onxjochhpzluwyc4gihpvgyif4bxmwkyqnu2gnwu",
-        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeieekrvrgqk6h3d36nizi7y23rw3b372uv4sh2nyb4f3bvgexpuvey",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeih523k4zbhcsykv77gz6fagnbga5ixpjnty5yqcbywfzm63t4vb6m",
-        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeiaa6jtc7vka3gpktzc4jjq5f6znxj6o5qekbkxb4dq3tmtukqa3zq"
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeig6yf5p2nnlfucmqo4gxpltfprdptsm4sdbk5zmlq4hazp3m23ytu",
+        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeieq6sdtxuqnt6qfuixm3kqssh4ffhqc4ww7lmfkxrtnm6qdxeknja",
+        "skill/balancer/pool_manager_abci/0.1.0": "bafybeif44z57l7u4qbbhgriazsfg4oxaopgner464nl4u565byjv5uaqdy",
+        "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeigzkolsejdeccnrexkwm672se5vvzp46lgnu4g7kugommbarj6rdm",
+        "contract/balancer/managed_pool/0.1.0": "bafybeia3g5lbnlx6vy43c7cwqvsikvztqxbzfmhcj2pe2qwob7yhb6y2me",
+        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeierfwnka3c5jexrlibhboelpcqznq2zfy3htpehxgydd5vlhugeje",
+        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeihyri4qb4kvegocr74qel5ob2v6x65l6jkxxh4wyydpw2gbejgq6u",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeih4gegybxnjpcjb3phzdezwn2k7o5njpy24oh3faaony75toanp5q",
+        "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeicqkovocno2zulkjqml67epmaj2c2xpex5hq2r3sulgwowxbtmj7a"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeigootsvqpk6th5xpdtzanxum3earifrrezfyhylfrit7yvqdrtgpe",

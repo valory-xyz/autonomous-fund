@@ -7,10 +7,10 @@ license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
   __init__.py: bafybeifx6ihh7vz7pp3swpfbxgp4fmspjshmu2ksua3w5yo5jdcleq2yhm
-  behaviours.py: bafybeibmt2g4n2wj6g4psox56cl4pzpqn7upzrjbftrni6favx5xarghny
-  composition.py: bafybeiel35h4qptnm6mqxc2vh2hjkhfqhbtcjg65ofa6qvjw3mb4mthxyq
+  behaviours.py: bafybeigvoeqdydrpmc4rmpar5p6iimdcqucsy77pvtvrz3zq6z64k73cxy
+  composition.py: bafybeibutsu26t5ut7l6ubeiv52jezvn4alg435fsbsxwgavembgv4qgbi
   dialogues.py: bafybeiffd2prpsv5uk4xxr2qixgpbgy2flonh2etz2fdtnojj2mrey4qty
-  fsm_specification.yaml: bafybeibx2rfxxwyq6zixbtvbghu4mgxo2igt5vffu5tfmlkrmg7cm2677i
+  fsm_specification.yaml: bafybeidko26po77yapfol625vkpkxdeecib2m3iounzbn6q36ztveg4z4y
   handlers.py: bafybeigozvyjknr3x4zknssh7p2aqigkq22vefc7uqs76knzmluhzbzsie
   models.py: bafybeidjbf67nnjjwjrrk5rvt624nhabfl5c6iessgvywvxkvjmmgm4uny
   multiplexer.py: bafybeigojtg2jbwnpqja6dseftwwf3udacdpaoz6jxv7gv4kx6bbzaueiq
@@ -27,14 +27,14 @@ contracts: []
 protocols:
 - valory/http:1.0.0:bafybeia5bxdua2i6chw6pg47bvoljzcpuqxzy4rdrorbdmcbnwmnfdobtu
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeieinym5mocbwas7kwudsnywtxaclkfhcec5pgpxhxk4t5bw4oziwi
-- balancer/liquidity_provision_abci:0.1.0:bafybeiaa6jtc7vka3gpktzc4jjq5f6znxj6o5qekbkxb4dq3tmtukqa3zq
-- balancer/pool_manager_abci:0.1.0:bafybeibmm2kg4fzfvz776oezqisc44mqzkma6lhmrgbsqli6zi72amwzeq
-- valory/abstract_round_abci:0.1.0:bafybeigxjcci53vwytymzlhr37436yvenh7jup4astrn7dgyixo24aq2pq
-- valory/registration_abci:0.1.0:bafybeibc4kczqbh23sc6tufrzn3axmhp3vjav7fa3u6cnpvolrbbc2fd7i
-- valory/reset_pause_abci:0.1.0:bafybeid445uy6wwvugf3byzl7r73c7teu6xr5ezxb4h7cxbenghg3copvy
-- valory/termination_abci:0.1.0:bafybeiguy7pkrcptg6c754ioig4mlkr7truccym3fpv6jwpjx2tmpdbzhi
-- valory/transaction_settlement_abci:0.1.0:bafybeidpsnguxizkpihtkqzojr3em7yy7c6qc7gxpbh5vglmwws5wke7bi
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigzkolsejdeccnrexkwm672se5vvzp46lgnu4g7kugommbarj6rdm
+- balancer/liquidity_provision_abci:0.1.0:bafybeicqkovocno2zulkjqml67epmaj2c2xpex5hq2r3sulgwowxbtmj7a
+- balancer/pool_manager_abci:0.1.0:bafybeif44z57l7u4qbbhgriazsfg4oxaopgner464nl4u565byjv5uaqdy
+- valory/abstract_round_abci:0.1.0:bafybeih2fyfb6kkf7r45pvdk7pyyebr5xloia4xiqxtb3qsrasnstqmepq
+- valory/registration_abci:0.1.0:bafybeibndt6vxiwc2edgtaxpjbhwto3eyu33ujz3zmvtygvo2qz7xme5li
+- valory/reset_pause_abci:0.1.0:bafybeigeoc363gv3wp2rrmk6p2fdxney33nxd3owtpfugzapgruwe4klyu
+- valory/termination_abci:0.1.0:bafybeigqpij2sgrpnilqjljfciixop4fldq5qceixc7534q6af4potdmdm
+- valory/transaction_settlement_abci:0.1.0:bafybeia7rzsbea3ch4gcafyp3z6uvqh4npws2xpdwbkkdbrqqpjops7nui
 behaviours:
   main:
     args: {}
