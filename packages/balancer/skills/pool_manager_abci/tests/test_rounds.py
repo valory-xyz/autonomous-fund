@@ -21,6 +21,7 @@
 import json
 from dataclasses import dataclass, field
 from typing import Callable, Dict, Hashable, List, cast
+from unittest import mock
 
 import pytest
 
@@ -72,7 +73,7 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
     def test_run(self) -> None:
         """Tests the happy path for DecisionMakingRound."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
         dummy_weights = [123, 123, 123]
         payload_data = json.dumps(dict(weights=dummy_weights))
@@ -132,7 +133,7 @@ class TestDecisionMakingRound(BasePoolManagerRoundTestClass):
     def test_err_payload(self) -> None:
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload_data = DecisionMakingRound.NO_UPDATE_PAYLOAD
@@ -175,7 +176,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
     def test_run(self) -> None:
         """Tests the happy path for UpdatePoolTxRound."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
         payload_data = "0x-test-123"
         first_payload, *payloads = [
@@ -234,7 +235,7 @@ class TestUpdatePoolTxRound(BasePoolManagerRoundTestClass):
     def test_err_payload(self) -> None:
         """Test case for when a bad payload is sent."""
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
 
         payload_data = UpdatePoolTxRound.ERROR_PAYLOAD

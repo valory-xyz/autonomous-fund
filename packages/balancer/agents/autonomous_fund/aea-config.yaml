@@ -190,6 +190,11 @@ models:
       weight_update_timespan: 72000
       managed_pool_address: ${str:0xb5f3FC2579b134D836271AC872de2DA83Fe6e6a1}
       service_endpoint_base: ${str:https://dummy_service.autonolas.tech/}
+      use_slashing: ${bool:false}
+      slash_cooldown_hours: ${int:3}
+      slash_threshold_amount: ${int:10000000000000000}
+      light_slash_unit_amount: ${int:5000000000000000}
+      serious_slash_unit_amount: ${int:8000000000000000}
 ---
 public_id: fetchai/http_server:0.22.0:bafybeicblltx7ha3ulthg7bzfccuqqyjmihhrvfeztlgrlcoxhr7kf6nbq
 type: connection
