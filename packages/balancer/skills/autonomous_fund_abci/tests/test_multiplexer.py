@@ -19,6 +19,8 @@
 
 """This package contains the tests for TxMultiplexing."""
 
+from unittest import mock
+
 import pytest
 
 from packages.balancer.skills.autonomous_fund_abci.multiplexer import (
@@ -60,7 +62,7 @@ class TestPostTransactionSettlementRound(BaseRoundTestClass):
             **{get_name(SynchronizedData.tx_submitter): tx_submitter}  # type: ignore
         )
         test_round = self.round_class(
-            synchronized_data=self.synchronized_data,
+            synchronized_data=self.synchronized_data, context=mock.MagicMock()
         )
         res = test_round.end_block()
         assert res is not None
