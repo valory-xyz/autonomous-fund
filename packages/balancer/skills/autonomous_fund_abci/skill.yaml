@@ -22,19 +22,19 @@ fingerprint:
   tests/test_multiplexer.py: bafybeidqskxfcqsxbjbfus2qcpsqtuo5ynh7quyyyoiz4vj5ckcqmql33y
 fingerprint_ignore_patterns: []
 connections:
-- fetchai/http_server:0.22.0:bafybeihp5umafxzx45aad5pj7s3343se2wjkgnbirt4pybrape22swm6de
+- fetchai/http_server:0.22.0:bafybeihvscddpxjbtqsetngmxo3kiht2wqhosmwiyuh3f6zjti3x3byu5u
 contracts: []
 protocols:
-- valory/http:1.0.0:bafybeia5bxdua2i6chw6pg47bvoljzcpuqxzy4rdrorbdmcbnwmnfdobtu
+- valory/http:1.0.0:bafybeiejoqgv7finfxo3rcvvovrlj5ccrbgxodjq43uo26ylpowsa3llfe
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeigzkolsejdeccnrexkwm672se5vvzp46lgnu4g7kugommbarj6rdm
-- balancer/liquidity_provision_abci:0.1.0:bafybeicqkovocno2zulkjqml67epmaj2c2xpex5hq2r3sulgwowxbtmj7a
-- balancer/pool_manager_abci:0.1.0:bafybeif44z57l7u4qbbhgriazsfg4oxaopgner464nl4u565byjv5uaqdy
-- valory/abstract_round_abci:0.1.0:bafybeih2fyfb6kkf7r45pvdk7pyyebr5xloia4xiqxtb3qsrasnstqmepq
-- valory/registration_abci:0.1.0:bafybeibndt6vxiwc2edgtaxpjbhwto3eyu33ujz3zmvtygvo2qz7xme5li
-- valory/reset_pause_abci:0.1.0:bafybeigeoc363gv3wp2rrmk6p2fdxney33nxd3owtpfugzapgruwe4klyu
-- valory/termination_abci:0.1.0:bafybeigqpij2sgrpnilqjljfciixop4fldq5qceixc7534q6af4potdmdm
-- valory/transaction_settlement_abci:0.1.0:bafybeia7rzsbea3ch4gcafyp3z6uvqh4npws2xpdwbkkdbrqqpjops7nui
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeiah4v53noh6teayc4iikhan43fan6naoidz5j4us5siqqyqewguge
+- balancer/liquidity_provision_abci:0.1.0:bafybeibl4lq3hk5nerasie7qawj6zm2umyierykkufstsabhggo62bs7xm
+- balancer/pool_manager_abci:0.1.0:bafybeiaogzp7szekhealdmiypgutxg2fwvhlyeuutrouilbz2gwja7zbw4
+- valory/abstract_round_abci:0.1.0:bafybeid7neqpxxe4ualp23gxgrtpf6r5u3myr2mmc4uvwameyqshfdoydq
+- valory/registration_abci:0.1.0:bafybeidbirkdjus6wbpynmyv6ffb6uevsi3zeuhokiqokuw42o7ar5j7hm
+- valory/reset_pause_abci:0.1.0:bafybeicpxn2khtaesuf4cq6ypwdmdmonlqroj2q2i6cxvpizc2y4cw66pe
+- valory/termination_abci:0.1.0:bafybeieqm46zuccaagnko3qlw6p3nvoohdrfgvpmw467r5lyil2dqrzjsy
+- valory/transaction_settlement_abci:0.1.0:bafybeia6cdxdlqrcwk2maw25fo7dafzd2p3rs7syropvufophk2pitzbwy
 behaviours:
   main:
     args: {}
@@ -203,5 +203,5 @@ models:
     class_name: TendermintDialogues
 dependencies:
   open-aea-cli-ipfs:
-    version: <2.0.0,>=1.39.0.post1
+    version: <2.0.0,>=1.41.0
 is_abstract: false
