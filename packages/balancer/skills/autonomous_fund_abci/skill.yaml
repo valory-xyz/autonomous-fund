@@ -27,14 +27,14 @@ contracts: []
 protocols:
 - valory/http:1.0.0:bafybeiejoqgv7finfxo3rcvvovrlj5ccrbgxodjq43uo26ylpowsa3llfe
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeibjfgccenh2lbixjaa2g7qfq55fimjtb6wrlfw5thmizq53mn7dii
-- balancer/liquidity_provision_abci:0.1.0:bafybeierdqqeqk6tjbus7jyymkrj3676l24nvszhxu3owndrqu3spdrn4m
-- balancer/pool_manager_abci:0.1.0:bafybeielxfvqfjfooxbl3bfogxikrm3fzdvc7f66burtze5a4malosqhbm
-- valory/abstract_round_abci:0.1.0:bafybeigafcnpou65s44g2ccdcgtrjttip6josgabilecyrddrvx43sk46u
-- valory/registration_abci:0.1.0:bafybeicttpxr2qj5w4btl3vvld5o6z7myp62yjt54dsqif62zg4afvtomq
-- valory/reset_pause_abci:0.1.0:bafybeihhwrx44clc34fnm4y6zzjgi6pk4oixwlqwqza3ip6ivgejz46tci
-- valory/termination_abci:0.1.0:bafybeigaoktjihggwxforhj6r3u6dycdzsfwwet7kmxkdpvtmenu7pjmsa
-- valory/transaction_settlement_abci:0.1.0:bafybeicuac4iapwxxpshh22dra3z3kfxxv7idb55hmtaoegoh3irufbode
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihynfeuhthc4oufmdqkdvbwhzbrrrnpy57sk5ejvbzebqhtesdp5u
+- balancer/liquidity_provision_abci:0.1.0:bafybeiafxpihq6cl7mrxyk7l2my2fgob24n24ry6gcuwbj7irpb6tjz5pq
+- balancer/pool_manager_abci:0.1.0:bafybeif67bjpbmmyk5vjl5q2qer5v7bujo64e6m7ffqmqryzuqw4ases3y
+- valory/abstract_round_abci:0.1.0:bafybeigrqhygo2hl2owisj5rqyh3acdvee773ajije64snlzalcgtaac7q
+- valory/registration_abci:0.1.0:bafybeib2whqixp5265d53sa6szkz7woet4awuqr4dekb2hokpgps5codme
+- valory/reset_pause_abci:0.1.0:bafybeiflxcl2dtzayyzzddc4f2astzxunyp66meutornanrgeemicdea5q
+- valory/termination_abci:0.1.0:bafybeifazwrksp756h7z42qqfcgi6lya6wmhbx46l7ghlaooe45gqnju7q
+- valory/transaction_settlement_abci:0.1.0:bafybeigxkdujugzvve2dszkwr5kgfx4uhz2epofo4lorbcnthmzfjegwzi
 behaviours:
   main:
     args: {}

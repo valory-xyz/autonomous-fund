@@ -26,11 +26,12 @@ open-aea = "==1.41.0.post1"
 open-aea-ledger-ethereum = "==1.41.0.post1"
 open-aea-ledger-cosmos = "==1.41.0.post1"
 open-aea-cli-ipfs = "==1.41.0.post1"
-open-aea-test-autonomy = "==0.13.2"
-open-autonomy = {version = "==0.13.2", extras = ["all"]}
+open-aea-test-autonomy = "==0.13.4"
+open-autonomy = {version = "==0.13.4", extras = ["all"]}
 tomte = {version = "==0.2.12", extras = ["cli", "tests"]}
-openapi-core = "==0.13.2"
+openapi-core = "==0.13.4"
 openapi-spec-validator = "==0.2.8"
+protobuf = "<4.25.0,>=4.21.6"
 
 [requires]
 python_version = "3.10"
