@@ -11,7 +11,7 @@ fingerprint:
   composition.py: bafybeibutsu26t5ut7l6ubeiv52jezvn4alg435fsbsxwgavembgv4qgbi
   dialogues.py: bafybeiffd2prpsv5uk4xxr2qixgpbgy2flonh2etz2fdtnojj2mrey4qty
   fsm_specification.yaml: bafybeidko26po77yapfol625vkpkxdeecib2m3iounzbn6q36ztveg4z4y
-  handlers.py: bafybeigozvyjknr3x4zknssh7p2aqigkq22vefc7uqs76knzmluhzbzsie
+  handlers.py: bafybeidcnplrkk2vpda46cmh2rtmhxp24tcjjh5ordyvln454qmgb4vdty
   models.py: bafybeidjbf67nnjjwjrrk5rvt624nhabfl5c6iessgvywvxkvjmmgm4uny
   multiplexer.py: bafybeigojtg2jbwnpqja6dseftwwf3udacdpaoz6jxv7gv4kx6bbzaueiq
   tests/__init__.py: bafybeifmqejm4fafrtnbvkjabydi66lxkccimykioqakigduke4cy32i24
@@ -22,7 +22,7 @@ fingerprint:
   tests/test_multiplexer.py: bafybeidqskxfcqsxbjbfus2qcpsqtuo5ynh7quyyyoiz4vj5ckcqmql33y
 fingerprint_ignore_patterns: []
 connections:
-- fetchai/http_server:0.22.0:bafybeihvscddpxjbtqsetngmxo3kiht2wqhosmwiyuh3f6zjti3x3byu5u
+- valory/http_server:0.22.0:bafybeiesafy2af2wakqvsal4hz6ldycb73j5w62szhwy25iyhlf2wgyg44
 contracts: []
 protocols:
 - valory/http:1.0.0:bafybeiejoqgv7finfxo3rcvvovrlj5ccrbgxodjq43uo26ylpowsa3llfe

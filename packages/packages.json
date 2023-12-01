@@ -1,13 +1,13 @@
 {
     "dev": {
-        "agent/balancer/autonomous_fund/0.1.0": "bafybeige454oac4vyhins3wtrvbap2x6c7e2wtraz6zb3x6kz7owwn2eja",
-        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeibyho5acrumhka7esjateqiwd4n2rcpkusdqqs5mgpzbnmv7jkhru",
+        "agent/balancer/autonomous_fund/0.1.0": "bafybeieg4inxzntqs2gy67rjqm4pxz4filfv5fvvj5ks2jdhjayocap3hm",
+        "skill/balancer/autonomous_fund_abci/0.1.0": "bafybeih446sc6iypcl2vthbu2tfq2yoznbf3abcbmf6stywpt3yzapk3lq",
         "skill/balancer/pool_manager_abci/0.1.0": "bafybeiciyf2n5t6jee4eiz6pbn756rszqrs4b2aoqjxehqkolxkwxjkuby",
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeidyo5olysqg3gb6t3wvt4okd2licwwonpc42ui5h5yoahlowz6bly",
         "contract/balancer/managed_pool/0.1.0": "bafybeib2gq3tzy7delqs7bv34zr5cknajuzjuudhh3fu6ljxyvtsx5swju",
-        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeidiyejmjug4yiiywpy6jg623cuk7z22unu2i2cbp2s7dxjj7gzcsm",
-        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeib7pdyjqu5ajuc33je7cjce3s5uhc3vaaikbtirhbjtakbncnylza",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeiazykmke3yswu7oqou6cvborgzunuhmd5dsk47o6kejskqdz6wyly",
+        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeiaenbaptjwjtzqajjol7blk66cri6sz2agrqnsnggytns5t5ia77m",
+        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeiev5tw4sivr5wpuxzjp3p6k3qxute7d6bht6z2arolqmf6suv27py",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeiaf7ltrydplckhgpbdswz67har74h7p2wruadfgbvjous7twgywmq",
         "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeiazku5mtwakg2retim2anquikzuxxtmx26qndjcwbhcwzhsvs4pce"
     },
     "third_party": {
@@ -34,6 +34,6 @@
         "skill/valory/termination_abci/0.1.0": "bafybeie4zvjfxvdu7qrulmur3chpjz3kpj5m4bjsxvpk4gvj5zbyyayfaa",
         "protocol/valory/ipfs/0.1.0": "bafybeiedxeismnx3k5ty4mvvhlqideixlhqmi5mtcki4lxqfa7uqh7p33u",
         "connection/valory/ipfs/0.1.0": "bafybeihx7wb5hngjobw2salzqqryrhxvmxfuw7o2npjyqd2talmh2flqeq",
-        "connection/fetchai/http_server/0.22.0": "bafybeihvscddpxjbtqsetngmxo3kiht2wqhosmwiyuh3f6zjti3x3byu5u"
+        "connection/valory/http_server/0.22.0": "bafybeiesafy2af2wakqvsal4hz6ldycb73j5w62szhwy25iyhlf2wgyg44"
     }
 }

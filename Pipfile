@@ -9,7 +9,7 @@ name = "pypi"
 
 [dev-packages]
 # we fix exact versions as it's sufficient to have at least one set of compatible dependencies for development
-aiohttp = "==3.7.4.post0"
+aiohttp = "<4.0.0,>=3.8.5"
 asn1crypto = "==1.5.1"
 certifi = "==2021.10.8"
 grpcio = "==1.53.0"
@@ -29,8 +29,8 @@ open-aea-cli-ipfs = "==1.42.0"
 open-aea-test-autonomy = "==0.13.8"
 open-autonomy = {version = "==0.13.8", extras = ["all"]}
 tomte = {version = "==0.2.15", extras = ["cli", "tests"]}
-openapi-core = "==0.13.4"
-openapi-spec-validator = "==0.2.8"
+openapi-core = "==0.15.0"
+openapi-spec-validator = "<0.5.0,>=0.4.0"
 protobuf = "<4.25.0,>=4.21.6"
 
 [requires]
