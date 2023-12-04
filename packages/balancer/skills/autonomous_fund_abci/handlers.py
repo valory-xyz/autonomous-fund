@@ -34,7 +34,7 @@ from packages.balancer.skills.autonomous_fund_abci.dialogues import (
 )
 from packages.balancer.skills.autonomous_fund_abci.models import SharedState
 from packages.balancer.skills.fear_and_greed_oracle_abci.rounds import SynchronizedData
-from packages.fetchai.connections.http_server.connection import (
+from packages.valory.connections.http_server.connection import (
     PUBLIC_ID as HTTP_SERVER_PUBLIC_ID,
 )
 from packages.valory.protocols.http.message import HttpMessage
