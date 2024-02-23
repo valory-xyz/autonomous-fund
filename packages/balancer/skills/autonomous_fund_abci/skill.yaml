@@ -27,14 +27,14 @@ contracts: []
 protocols:
 - valory/http:1.0.0:bafybeifugzl63kfdmwrxwphrnrhj7bn6iruxieme3a4ntzejf6kmtuwmae
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeihy75mqgqzvrh4xlyplhclws24coqs4ohof3osq5upigg54afv4t4
-- balancer/liquidity_provision_abci:0.1.0:bafybeibl2snfdfyn27owknkmsux3jonubzcxjfpdz2ac6froz4ier73gw4
-- balancer/pool_manager_abci:0.1.0:bafybeicvfutynf5lagci36hinij3bkoawwczfofauipjjezz67wwiypfbq
-- valory/abstract_round_abci:0.1.0:bafybeib3te5ami7gi7vh6v2rvq7mjmatyqdzqwkqpn7qh6mzfmpc4ikq4q
-- valory/registration_abci:0.1.0:bafybeigeferybxvqw4fl2cu2mcmfhfpxdruw3jtsswlmvhag3pav47ia5e
-- valory/reset_pause_abci:0.1.0:bafybeig2fb6i66uq5g3kzcd32rmv4z4xqjsslteqpz44adwxjd6op54uxq
-- valory/termination_abci:0.1.0:bafybeihn5gc2uf7gnnjwwpgbgvbcivhac7hgzq54zlr4mj3vmsblhl2fna
-- valory/transaction_settlement_abci:0.1.0:bafybeib4qqbpcdbfba23jm4c3ki7imo4wn5wtsja3tqrsrdlulh3lnixby
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeiggrik46ypxiepot4tafch3ujsnkawacvmm2pjauoq7p75jsw4puq
+- balancer/liquidity_provision_abci:0.1.0:bafybeicki5skefycmvzjy2l2aggcti3x2y2stev7k6avyf2gra7fb4buyu
+- balancer/pool_manager_abci:0.1.0:bafybeigosmk5tcl6s5oyzqd2bhxcjlggiqsapwwb5tdkeahzstkrmcuigm
+- valory/abstract_round_abci:0.1.0:bafybeigjrepaqpb3m7zunmt4hryos4vto4yyj3u6iyofdb2fotwho3bqvm
+- valory/registration_abci:0.1.0:bafybeif3ln6eg53ebrfe6uicjew4uqp2ynyrcxkw5wi4jm3ixqv3ykte4a
+- valory/reset_pause_abci:0.1.0:bafybeicm7onl72rfnn33pbvzwjpkl5gafeieyobfcnyresxz7kunjwmqea
+- valory/termination_abci:0.1.0:bafybeie6h7j4hyhgj2wte64n3xyudxq4pgqcqjmslxi5tff4mb6vce2tay
+- valory/transaction_settlement_abci:0.1.0:bafybeid57tozt5f3kgzmu22nbr3c3oy4p7bi2bu66rqsgnlylq6xgh2ixe
 behaviours:
   main:
     args: {}
@@ -204,5 +204,5 @@ models:
     class_name: TendermintDialogues
 dependencies:
   open-aea-cli-ipfs:
-    version: ==1.47.0
+    version: ==1.48.0
 is_abstract: false
