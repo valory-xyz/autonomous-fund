@@ -6,9 +6,9 @@
         "skill/balancer/fear_and_greed_oracle_abci/0.1.0": "bafybeiggrik46ypxiepot4tafch3ujsnkawacvmm2pjauoq7p75jsw4puq",
         "skill/balancer/liquidity_provision_abci/0.1.0": "bafybeicki5skefycmvzjy2l2aggcti3x2y2stev7k6avyf2gra7fb4buyu",
         "agent/balancer/autonomous_fund/0.1.0": "bafybeigirzsyw7m47icyl4jd6oxid6xm5rkea3eena6vqxdlji4i47zv4a",
-        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeihrtykccceqfvfjyxqvug42wjxfjn3hflrqueemjuaqfqs6vcviwq",
-        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeidxz5rhampklwltg34pgadbbneckui4mcv43j3iyafmbzgvilpbbm",
-        "service/balancer/autonomous_fund/0.1.0": "bafybeigvozfsg66hs5jltcy3xypityta2af3qyvvsnn2reegt6htbqe7ta"
+        "service/balancer/autonomous_fund_gnosis/0.1.0": "bafybeigvb4c65r2imymulqnrif2niv7xlldxv72dyru62lgwcbzyf2vzvu",
+        "service/balancer/autonomous_fund_goerli/0.1.0": "bafybeicauzskauyp2st557z4atidp7ctaant3wsc2kfsih3mmdllbedv74",
+        "service/balancer/autonomous_fund/0.1.0": "bafybeieina6fyq7762otrkriebwlhtmufkxkd42uzs7reqxgfl6o2pejgy"
     },
     "third_party": {
         "protocol/valory/abci/0.1.0": "bafybeiaqmp7kocbfdboksayeqhkbrynvlfzsx4uy4x6nohywnmaig4an7u",
