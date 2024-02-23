@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeibfahh3htjez7vf7lwx2s7tth26cwxgtalgn5hj7yg7akhk67f4ny
 fingerprint_ignore_patterns: []
-agent: balancer/autonomous_fund:0.1.0:bafybeieg4inxzntqs2gy67rjqm4pxz4filfv5fvvj5ks2jdhjayocap3hm
+agent: balancer/autonomous_fund:0.1.0:bafybeigirzsyw7m47icyl4jd6oxid6xm5rkea3eena6vqxdlji4i47zv4a
 number_of_agents: 4
 deployment: {}
 ---
@@ -35,6 +35,7 @@ models:
       slash_threshold_amount: ${SLASH_THRESHOLD_AMOUNT:int:10000000000000000}
       light_slash_unit_amount: ${LIGHT_SLASH_UNIT_AMOUNT:int:5000000000000000}
       serious_slash_unit_amount: ${SERIOUS_SLASH_UNIT_AMOUNT:int:8000000000000000}
+      termination_from_block: ${TERMINATION_FROM_BLOCK:int:0}
 ---
 public_id: valory/ledger:0.19.0
 type: connection

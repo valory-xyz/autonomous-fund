@@ -22,19 +22,19 @@ fingerprint:
   tests/test_multiplexer.py: bafybeidqskxfcqsxbjbfus2qcpsqtuo5ynh7quyyyoiz4vj5ckcqmql33y
 fingerprint_ignore_patterns: []
 connections:
-- valory/http_server:0.22.0:bafybeiesafy2af2wakqvsal4hz6ldycb73j5w62szhwy25iyhlf2wgyg44
+- valory/http_server:0.22.0:bafybeihpgu56ovmq4npazdbh6y6ru5i7zuv6wvdglpxavsckyih56smu7m
 contracts: []
 protocols:
-- valory/http:1.0.0:bafybeiejoqgv7finfxo3rcvvovrlj5ccrbgxodjq43uo26ylpowsa3llfe
+- valory/http:1.0.0:bafybeifugzl63kfdmwrxwphrnrhj7bn6iruxieme3a4ntzejf6kmtuwmae
 skills:
-- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeidyo5olysqg3gb6t3wvt4okd2licwwonpc42ui5h5yoahlowz6bly
-- balancer/liquidity_provision_abci:0.1.0:bafybeiazku5mtwakg2retim2anquikzuxxtmx26qndjcwbhcwzhsvs4pce
-- balancer/pool_manager_abci:0.1.0:bafybeiciyf2n5t6jee4eiz6pbn756rszqrs4b2aoqjxehqkolxkwxjkuby
-- valory/abstract_round_abci:0.1.0:bafybeiaqcl7h2famylusiffigwem7tevkcsyocdu5xd42jkmgq6kvowzgq
-- valory/registration_abci:0.1.0:bafybeic2ynseiak7jpta7jfwuqwyp453b4p7lolr4wihxmpn633uekv5am
-- valory/reset_pause_abci:0.1.0:bafybeidzajbe3erygeh2xbd6lrjv7nsptznjuzrt24ykgvhgotdeyhfnba
-- valory/termination_abci:0.1.0:bafybeie4zvjfxvdu7qrulmur3chpjz3kpj5m4bjsxvpk4gvj5zbyyayfaa
-- valory/transaction_settlement_abci:0.1.0:bafybeiaefgqbs7zsn5xe5kdwrujj7ivygkn3ujpw6crnvi3knvxw75qmja
+- balancer/fear_and_greed_oracle_abci:0.1.0:bafybeiggrik46ypxiepot4tafch3ujsnkawacvmm2pjauoq7p75jsw4puq
+- balancer/liquidity_provision_abci:0.1.0:bafybeicki5skefycmvzjy2l2aggcti3x2y2stev7k6avyf2gra7fb4buyu
+- balancer/pool_manager_abci:0.1.0:bafybeigosmk5tcl6s5oyzqd2bhxcjlggiqsapwwb5tdkeahzstkrmcuigm
+- valory/abstract_round_abci:0.1.0:bafybeigjrepaqpb3m7zunmt4hryos4vto4yyj3u6iyofdb2fotwho3bqvm
+- valory/registration_abci:0.1.0:bafybeif3ln6eg53ebrfe6uicjew4uqp2ynyrcxkw5wi4jm3ixqv3ykte4a
+- valory/reset_pause_abci:0.1.0:bafybeicm7onl72rfnn33pbvzwjpkl5gafeieyobfcnyresxz7kunjwmqea
+- valory/termination_abci:0.1.0:bafybeie6h7j4hyhgj2wte64n3xyudxq4pgqcqjmslxi5tff4mb6vce2tay
+- valory/transaction_settlement_abci:0.1.0:bafybeid57tozt5f3kgzmu22nbr3c3oy4p7bi2bu66rqsgnlylq6xgh2ixe
 behaviours:
   main:
     args: {}
@@ -177,6 +177,7 @@ models:
       slash_threshold_amount: 10000000000000000
       light_slash_unit_amount: 5000000000000000
       serious_slash_unit_amount: 8000000000000000
+      termination_from_block: 0
     class_name: Params
   randomness_api:
     args:
@@ -203,5 +204,5 @@ models:
     class_name: TendermintDialogues
 dependencies:
   open-aea-cli-ipfs:
-    version: ==1.42.0
+    version: ==1.48.0
 is_abstract: false
